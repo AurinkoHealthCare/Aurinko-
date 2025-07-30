@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { productTypes } from "../../Data/data.jsx";
+import { productTypes } from "../Data/data.jsx";
 
 const Block3 = () => {
   const [activeIndex, setActiveIndex] = useState(null);

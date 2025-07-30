@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
+// Render stars as ★★★☆☆
+const renderStars = (rating) => {
+  return "★".repeat(Number(rating)) + "☆".repeat(5 - Number(rating));
+};
+
 const Productimage = () => {
   const [products, setProducts] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -10,6 +15,7 @@ const Productimage = () => {
     details: "",
     image: null,
     preview: "",
+    rating: 0, // added rating to formData
   });
 
   useEffect(() => {
@@ -43,21 +49,22 @@ const Productimage = () => {
       details: product.details,
       image: null,
       preview: product.image,
+      rating: product.rating || 0, // get rating or default 0
     });
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       image: file,
       preview: URL.createObjectURL(file),
-    });
+    }));
   };
 
   const handleUpdate = async (e) => {
@@ -67,6 +74,7 @@ const Productimage = () => {
       data.append("name", formData.name);
       data.append("category", formData.category);
       data.append("details", formData.details);
+      data.append("rating", formData.rating); // append rating
       if (formData.image) data.append("image", formData.image);
 
       const res = await axios.put(`/products/update/${editingId}`, data, {
@@ -75,7 +83,14 @@ const Productimage = () => {
 
       setProducts(products.map((p) => (p._id === editingId ? res.data : p)));
       setEditingId(null);
-      setFormData({ name: "", category: "", details: "", image: null, preview: "" });
+      setFormData({
+        name: "",
+        category: "",
+        details: "",
+        image: null,
+        preview: "",
+        rating: 0,
+      });
     } catch (err) {
       console.error("❌ Error updating product:", err);
     }
@@ -87,7 +102,7 @@ const Productimage = () => {
         📦 Product Management Dashboard
       </h1>
 
-      {/* ✅ Edit Form */}
+      {/* Edit Form */}
       {editingId && (
         <form
           onSubmit={handleUpdate}
@@ -144,6 +159,23 @@ const Productimage = () => {
             required
           />
 
+          {/* Rating dropdown */}
+          <label className="block mb-2 font-semibold text-gray-700">Rating:</label>
+          <select
+            name="rating"
+            value={formData.rating}
+            onChange={handleChange}
+            className="w-full border p-3 rounded-lg mb-6 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+            required
+          >
+            <option value={0}>0 Stars</option>
+            <option value={1}>1 Star</option>
+            <option value={2}>2 Stars</option>
+            <option value={3}>3 Stars</option>
+            <option value={4}>4 Stars</option>
+            <option value={5}>5 Stars</option>
+          </select>
+
           <div className="flex gap-4">
             <button
               type="submit"
@@ -162,7 +194,7 @@ const Productimage = () => {
         </form>
       )}
 
-      {/* ✅ Products Grid */}
+      {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product) => (
           <div
@@ -174,13 +206,17 @@ const Productimage = () => {
               alt={product.name}
               className="w-full h-48 object-cover rounded-xl mb-4"
             />
-            <h3 className="text-xl font-bold text-gray-800 mb-2">
-              {product.name}
-            </h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-2">{product.name}</h3>
             <p className="text-sm text-gray-600 mb-1">
               <span className="font-semibold">Category:</span> {product.category}
             </p>
-            <p className="text-sm text-gray-700 mb-4">{product.details}</p>
+            <p className="text-sm text-gray-700 mb-2">{product.details}</p>
+
+            {/* Show stars */}
+            <p className="text-yellow-500 text-lg font-semibold mb-4">
+              {renderStars(product.rating)}{" "}
+              <span className="text-gray-500 text-sm">({product.rating} Stars)</span>
+            </p>
 
             <div className="flex justify-between">
               <button

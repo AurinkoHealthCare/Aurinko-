@@ -5,7 +5,7 @@ const path = require("path");
 // ➕ Add Product (limit: 5 per category)
 exports.addProduct = async (req, res) => {
   try {
-    const { name, category, details } = req.body;
+    const { name, category, details, rating } = req.body;
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
     const count = await Product.countDocuments({ category });
@@ -14,10 +14,15 @@ exports.addProduct = async (req, res) => {
       return res.status(400).json({ message: `Category '${category}' already has 5 products` });
     }
 
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({ message: "Rating must be between 1 and 5" });
+    }
+
     const product = new Product({
       name,
       category,
       details,
+      rating,
       image: req.file ? `${baseUrl}/uploads/${req.file.filename}` : null,
     });
 
@@ -27,6 +32,7 @@ exports.addProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // 📌 Get All Products (optional filter by category)
 exports.getProducts = async (req, res) => {
@@ -51,7 +57,7 @@ exports.updateProduct = async (req, res) => {
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     if (req.file) {
-      // delete old image
+      // Delete old image if exists
       if (product.image) {
         const oldPath = path.join(__dirname, "..", product.image.replace(baseUrl, "").replace(/^\//, ""));
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
@@ -63,12 +69,21 @@ exports.updateProduct = async (req, res) => {
     product.category = req.body.category || product.category;
     product.details = req.body.details || product.details;
 
+    if (req.body.rating !== undefined) {
+      const rating = parseInt(req.body.rating, 10);
+      if (isNaN(rating) || rating < 1 || rating > 5) {
+        return res.status(400).json({ message: "Rating must be a number between 1 and 5" });
+      }
+      product.rating = rating;
+    }
+
     const updated = await product.save();
     res.json(updated);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // ❌ Delete Product
 exports.deleteProduct = async (req, res) => {

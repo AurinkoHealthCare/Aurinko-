@@ -1,12 +1,20 @@
-let arr = [1, 2, 3, 4, 5, 6];
-let target = 10;
+// src/Counter.js
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement, reset } from './features/counter/counterSlice';
 
-for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-        for (let k = 0; k < arr.length; k++) {
-            if (arr[i] + arr[j] + arr[k] === target) {
-                console.log(`${arr[i]} + ${arr[j]} + ${arr[k]} = ${target}`);
-            }
-        }
-    }
-}
+const Counter = () => {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => dispatch(increment())}>➕ Increment</button>
+      <button onClick={() => dispatch(decrement())}>➖ Decrement</button>
+      <button onClick={() => dispatch(reset())}>🔁 Reset</button>
+    </div>
+  );
+};
+
+export default Counter;

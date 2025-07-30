@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { block2Data } from "../../Data/data";
+import { useEffect } from "react";
+import { block5Data } from "../Data/data";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-const Block2 = () => {
+const Block5 = () => {
   useEffect(() => {
-    block2Data.forEach((item) => {
+    block5Data.forEach((item) => {
       const img = new Image();
       img.src = item.hoverImage;
     });
@@ -33,8 +33,8 @@ const Block2 = () => {
     <div className="py-16 px-2 md:px-6 lg:px-8">
       {/* Heading */}
       <div className="flex flex-col items-center justify-center mb-12">
-        <h1 className="text-3xl md:text-4xl font-bold text-center text-red-800 mb-4">
-          GLOBAL PROVIDER OF HUMAN PROBIOTICS AND NUTRACEUTICALS
+        <h1 className="text-3xl md:text-4xl font-bold text-center text-red-700 mb-4">
+          GLOBAL PROVIDER OF PERSONAL CARE
         </h1>
         <div
           className="h-1 w-64 rounded-full"
@@ -46,7 +46,7 @@ const Block2 = () => {
 
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-        {block2Data.map((item) => (
+        {block5Data.map((item) => (
           <div key={item.id} className="flip-card w-full max-w-xs mx-auto">
             <div className="flip-card-inner">
               {/* Front */}
@@ -123,4 +123,4 @@ const Block2 = () => {
   );
 };
 
-export default Block2;
+export default Block5;

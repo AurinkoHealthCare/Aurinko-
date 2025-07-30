@@ -3,7 +3,7 @@ import axios from "../../../../../api/axios"; // ✅ custom axios instance
 
 const Block1 = () => {
   const [items, setItems] = useState([
-    { image: null, name: "", category: "", details: "", preview: "" },
+    { image: null, name: "", category: "", details: "", rating: 1, preview: "" },
   ]);
   const [modalImage, setModalImage] = useState(null); // ✅ for image preview modal
 
@@ -20,7 +20,7 @@ const Block1 = () => {
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const newItems = [...items];
-    newItems[index][name] = value;
+    newItems[index][name] = name === "rating" ? parseInt(value, 10) : value;
     setItems(newItems);
   };
 
@@ -32,7 +32,7 @@ const Block1 = () => {
     }
     setItems([
       ...items,
-      { image: null, name: "", category: "", details: "", preview: "" },
+      { image: null, name: "", category: "", details: "", rating: 1, preview: "" },
     ]);
   };
 
@@ -46,6 +46,7 @@ const Block1 = () => {
         formData.append("name", item.name);
         formData.append("category", item.category);
         formData.append("details", item.details);
+        formData.append("rating", item.rating);
         if (item.image) formData.append("image", item.image);
 
         const { data } = await axios.post("/products/add", formData, {
@@ -56,7 +57,7 @@ const Block1 = () => {
       }
 
       alert("✅ All products saved successfully!");
-      setItems([{ image: null, name: "", category: "", details: "", preview: "" }]);
+      setItems([{ image: null, name: "", category: "", details: "", rating: 1, preview: "" }]);
     } catch (err) {
       console.error("❌ Error saving products:", err);
       alert("❌ Failed to save products. Check console for details.");
@@ -65,12 +66,15 @@ const Block1 = () => {
 
   return (
     <div className="p-6 max-w-4xl mx-auto pt-0">
-       <h2 className="text-2xl font-bold mb-4 text-center text-green-800">
+      <h2 className="text-2xl font-bold mb-4 text-center text-green-800">
         For All Products Adding
       </h2>
       <form onSubmit={handleSubmit}>
         {items.map((item, index) => (
-          <div key={index} className="border rounded-lg p-4 mb-6 shadow-md bg-white">
+          <div
+            key={index}
+            className="border rounded-lg p-4 mb-6 shadow-md bg-white"
+          >
             <h3 className="font-semibold mb-2 text-lg text-gray-800">
               Product {index + 1}
             </h3>
@@ -117,10 +121,23 @@ const Block1 = () => {
               value={item.details}
               onChange={(e) => handleChange(e, index)}
               placeholder="Product Details"
-              className="w-full border p-2 rounded"
+              className="w-full border p-2 rounded mb-2"
               rows="3"
               required
             />
+
+           <select
+  name="rating"
+  value={item.rating}
+  onChange={(e) => handleChange(e, index)}
+  className="w-full border p-2 rounded mb-2"
+  required
+>
+  <option value="" disabled>Select Rating (1 to 5)</option>
+  {[1, 2, 3, 4, 5].map((num) => (
+    <option key={num} value={num}>{num}</option>
+  ))}
+</select>
           </div>
         ))}
 

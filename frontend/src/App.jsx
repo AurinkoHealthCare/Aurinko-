@@ -130,9 +130,9 @@ import Ingredient from './Admin/Pages/Pages/Ingredients/Ingredients';
 // Contact
 import Contact from './Admin/Pages/Pages/Contact Us/Contact us';
 import TrackVisitor from '../api/totalvisitors';
-import ProductsList from "../utils/products.jsx";
 
 function App() {
+  TrackVisitor();
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
@@ -341,7 +341,6 @@ function App() {
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/login" element={<ProductsList />} />
       </Routes>
     </div>
   );
