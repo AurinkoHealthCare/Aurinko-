@@ -15,7 +15,9 @@ const authRoutes = require("./router/adminroutes/adminrouter");
 const imageRoutes = require('./router/imagesliderrouter/imagesliderrouter');
 const visitorRouter = require("./router/totalvisitors/visitorsrouter");
 const contact = require('./router/contact/contact');
-const products=require('./router/products/productsrouter')
+const products = require('./router/products/productsrouter')
+const Products2 = require('./router/products2router/products2')
+
 
 // Connect to MongoDB
 MongoDB();
@@ -50,7 +52,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/images", imageRoutes);
 app.use("/api/visitors", visitorRouter);
 app.use('/api/submit', contact);
-app.use('/api/products',products)
+app.use('/api/products', products)
+app.use('/api/products2', Products2)
 
 // Error Handler
 app.use((err, req, res, next) => {
