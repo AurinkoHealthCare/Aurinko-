@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { block2Data } from "../../Data/data";
+import { block5Data } from "../Data/data";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-const Block2 = () => {
+const Block5 = () => {
   useEffect(() => {
-    block2Data.forEach((item) => {
+    block5Data.forEach((item) => {
       const img = new Image();
       img.src = item.hoverImage;
     });
@@ -34,30 +34,29 @@ const Block2 = () => {
       {/* Heading */}
       <div className="flex flex-col items-center justify-center mb-12">
         <h1 className="text-3xl md:text-4xl font-bold text-center text-green-800 mb-4">
-          GLOBAL PROVIDER OF HUMAN NUTRACEUTICALS
+          GLOBAL PROVIDER OF PERSONAL CARE
         </h1>
         <div
           className="h-1 w-64 rounded-full"
           style={{
-            background: "linear-gradient(to right, #4ade80, #15803d)", // light green to deep green
+            background: "linear-gradient(to right, #ea580c, #15803d)",
           }}
         ></div>
-
       </div>
 
       {/* Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-        {block2Data.map((item) => (
+        {block5Data.map((item, index) => (
           <div key={item.id} className="flip-card w-full max-w-xs mx-auto">
             <div className="flip-card-inner">
               {/* Front */}
-              <div className="flip-card-front bg-white shadow-lg rounded-xl relative group overflow-hidden border border-green-100 hover:border-green-500 transition duration-300">
+              <div className="flip-card-front bg-white shadow-lg rounded-xl relative group overflow-hidden w-full max-w-xs mx-auto">
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-72 object-cover"
                 />
-                <div className="flex flex-col justify-center items-center text-center p-3">
+                <div className="flex flex-col justify-center items-center text-center">
                   <h3 className="text-lg font-semibold text-gray-800">
                     {item.title}
                   </h3>
@@ -71,7 +70,7 @@ const Block2 = () => {
               </div>
 
               {/* Back */}
-              <div className="flip-card-back bg-white rounded-xl p-4 shadow-xl flex flex-col justify-center items-center text-center border border-green-200">
+              <div className="flip-card-back bg-white rounded-xl p-4 shadow-xl flex flex-col justify-center items-center text-center">
                 <h3 className="text-lg font-semibold text-gray-800">
                   {item.title}
                 </h3>
@@ -86,42 +85,42 @@ const Block2 = () => {
 
       {/* Flip Card Styling */}
       <style>{`
-        .flip-card {
-          perspective: 1000px;
-          height: 420px;
-        }
+  .flip-card {
+    perspective: 1000px;
+    height: 420px; 
+  }
 
-        .flip-card-inner {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          transition: transform 0.8s;
-          transform-style: preserve-3d;
-        }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
 
-        .flip-card:hover .flip-card-inner {
-          transform: rotateY(180deg);
-        }
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 
-        .flip-card-front,
-        .flip-card-back {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          backface-visibility: hidden;
-          border-radius: 0.75rem;
-        }
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 0.75rem;
+  }
 
-        .flip-card-front {
-          z-index: 2;
-        }
+  .flip-card-front {
+    z-index: 2;
+  }
 
-        .flip-card-back {
-          transform: rotateY(180deg);
-        }
-      `}</style>
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+`}</style>
     </div>
   );
 };
 
-export default Block2;
+export default Block5;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Admin from './Admin/admin';
@@ -133,26 +133,6 @@ import TrackVisitor from '../api/totalvisitors';
 
 function App() {
   TrackVisitor();
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (showSplash) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-white">
-        <img
-          src="/Assets/AurinkoLogo.png"
-          alt="Logo"
-          className="w-52 h-auto logo-zoom"
-        />
-      </div>
-    );
-  }
 
   return (
     <div>
