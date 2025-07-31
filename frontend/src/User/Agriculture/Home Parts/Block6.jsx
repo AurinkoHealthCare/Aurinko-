@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { reviews } from "../../Data/data";
+import { reviews } from "../Data/data";
 import { Link } from "react-router-dom";
 
 const Block6 = () => {

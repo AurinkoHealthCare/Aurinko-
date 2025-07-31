@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 
 const Block2 = () => {
-  const [heading, setHeading] = useState("");
   const [items, setItems] = useState([
     {
       productImage: null,
@@ -18,20 +17,23 @@ const Block2 = () => {
       report: "",
       brochure: "",
       feedback: "",
+      translations: { fr: {}, es: {}, ar: {}, ko: {} },
       previewImage: "",
       previewLogo: ""
     }
   ]);
 
+  // ✅ Handle File Upload
   const handleFileChange = (e, index, field) => {
     const file = e.target.files[0];
     const newItems = [...items];
     newItems[index][field] = file;
     newItems[index][`preview${field.charAt(0).toUpperCase() + field.slice(1)}`] =
-      URL.createObjectURL(file);
+      file ? URL.createObjectURL(file) : "";
     setItems(newItems);
   };
 
+  // ✅ Handle Normal Input
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const newItems = [...items];
@@ -39,6 +41,18 @@ const Block2 = () => {
     setItems(newItems);
   };
 
+  // ✅ Handle Translation Input
+  const handleTranslationChange = (e, index, langKey) => {
+    const { name, value } = e.target;
+    const newItems = [...items];
+    if (!newItems[index].translations[langKey]) {
+      newItems[index].translations[langKey] = {};
+    }
+    newItems[index].translations[langKey][name] = value;
+    setItems(newItems);
+  };
+
+  // ➕ Add More Products
   const handleAddMore = () => {
     if (items.length >= 5) {
       alert("❌ Maximum 5 items allowed");
@@ -60,12 +74,14 @@ const Block2 = () => {
         report: "",
         brochure: "",
         feedback: "",
+        translations: { fr: {}, es: {}, ar: {}, ko: {} },
         previewImage: "",
         previewLogo: ""
       }
     ]);
   };
 
+  // ✅ Submit All Products
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -74,6 +90,7 @@ const Block2 = () => {
         if (item.productImage) formData.append("productImage", item.productImage);
         if (item.productLogo) formData.append("productLogo", item.productLogo);
 
+        // Add General Info
         formData.append("name", item.name);
         formData.append("segment", item.segment);
         formData.append("type", item.type);
@@ -86,15 +103,39 @@ const Block2 = () => {
         formData.append("brochure", item.brochure);
         formData.append("feedback", item.feedback);
 
-        const res = await axios.post("/products2/add2", formData, {
+        // Add Translations
+        formData.append("translations", JSON.stringify(item.translations));
+
+        const res = await axios.post("/products2/add", formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
-        console.log("Added:", res.data);
+        console.log("✅ Added:", res.data);
       }
       alert("✅ All products added successfully!");
+      // Reset form
+      setItems([
+        {
+          productImage: null,
+          productLogo: null,
+          name: "",
+          segment: "",
+          type: "",
+          category: "",
+          packing: "",
+          composition: "",
+          indications: "",
+          usage: "",
+          report: "",
+          brochure: "",
+          feedback: "",
+          translations: { fr: {}, es: {}, ar: {}, ko: {} },
+          previewImage: "",
+          previewLogo: ""
+        }
+      ]);
     } catch (err) {
-      console.error(err);
-      alert("❌ Error adding products: " + err.message);
+      console.error("❌ Error:", err);
+      alert("❌ Error adding products: " + (err.response?.data?.message || err.message));
     }
   };
 
@@ -105,8 +146,8 @@ const Block2 = () => {
       </h2>
       <form onSubmit={handleSubmit}>
         {items.map((item, idx) => (
-          <div key={idx} className="border rounded p-4 mb-6 shadow-sm">
-            <h3 className="font-semibold mb-2">Product {idx + 1}</h3>
+          <div key={idx} className="border rounded p-4 mb-6 shadow-sm bg-white">
+            <h3 className="font-semibold mb-2 text-lg">📦 Product {idx + 1}</h3>
 
             {/* Image Field */}
             {item.previewImage && (
@@ -121,6 +162,7 @@ const Block2 = () => {
               accept="image/*"
               onChange={(e) => handleFileChange(e, idx, "productImage")}
               required
+              className="mb-2"
             />
 
             {/* Logo Field */}
@@ -136,21 +178,62 @@ const Block2 = () => {
               accept="image/*"
               onChange={(e) => handleFileChange(e, idx, "productLogo")}
               required
-              className="mb-2"
+              className="mb-4"
             />
 
             {/* General Info Fields */}
-            {["name", "segment", "type", "category", "packing", "composition", "indications", "usage", "report", "brochure", "feedback"].map((field) => (
+            {[
+              "name",
+              "segment",
+              "type",
+              "category",
+              "packing",
+              "composition",
+              "indications",
+              "usage",
+              "report",
+              "brochure",
+              "feedback"
+            ].map((field) => (
               <input
                 key={field}
-                type={["feedback", "report", "brochure", "usage", "indications", "composition", "segment", "packing"].includes(field) ? "text" : "text"}
+                type="text"
                 name={field}
                 value={item[field]}
                 onChange={(e) => handleChange(e, idx)}
                 placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                 className="w-full border p-2 rounded mb-2"
-                required
+                required={!["report", "brochure", "feedback"].includes(field)}
               />
+            ))}
+
+            {/* Translation Inputs */}
+            {["fr", "es", "ar", "ko"].map((langKey) => (
+              <div key={langKey} className="mb-4">
+                <h4 className="font-medium text-gray-700">
+                  🌐 {langKey.toUpperCase()} Translation
+                </h4>
+                {[
+                  "name",
+                  "segment",
+                  "type",
+                  "category",
+                  "packing",
+                  "composition",
+                  "indications",
+                  "usage"
+                ].map((field) => (
+                  <input
+                    key={field}
+                    type="text"
+                    name={field}
+                    value={item.translations[langKey][field] || ""}
+                    onChange={(e) => handleTranslationChange(e, idx, langKey)}
+                    placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
+                    className="w-full border p-2 rounded mb-2"
+                  />
+                ))}
+              </div>
             ))}
           </div>
         ))}

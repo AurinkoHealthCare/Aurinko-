@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useEffect } from "react";
+=======
+import React from "react";
+>>>>>>> f81299a9e685103d3a4fb12bfd6cf57e8f8b21a7
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Admin from './Admin/admin';
@@ -133,7 +137,12 @@ import TrackVisitor from '../api/totalvisitors';
 import TodoApp from "../utils/todo.jsx";
 
 function App() {
+<<<<<<< HEAD
     TrackVisitor();
+=======
+  TrackVisitor();
+
+>>>>>>> f81299a9e685103d3a4fb12bfd6cf57e8f8b21a7
   return (
     <div>
       <Routes>
