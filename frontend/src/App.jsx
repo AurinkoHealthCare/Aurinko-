@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Admin from './Admin/admin';
@@ -130,10 +130,15 @@ import Ingredient from './Admin/Pages/Pages/Ingredients/Ingredients';
 // Contact
 import Contact from './Admin/Pages/Pages/Contact Us/Contact us';
 import TrackVisitor from '../api/totalvisitors';
+import TodoApp from "../utils/todo.jsx";
 
 function App() {
+<<<<<<< HEAD
+  TrackVisitor();
+=======
   TrackVisitor();
 
+>>>>>>> f81299a9e685103d3a4fb12bfd6cf57e8f8b21a7
   return (
     <div>
       <Routes>
@@ -321,6 +326,7 @@ function App() {
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/todo" element={<TodoApp />} />
       </Routes>
     </div>
   );
