@@ -36,7 +36,7 @@ const Home = () => {
     Arabic: "ar",
     French: "fr",
     Korean: "ko",
-    Spanish: "sp",
+    Spanish: "es",
   };
 
   const langNameMap = {
@@ -44,7 +44,7 @@ const Home = () => {
     ar: "Arabic",
     fr: "French",
     ko: "Korean",
-    sp: "Spanish",
+    es: "Spanish",
   };
 
   const handleLangChange = (lang) => {

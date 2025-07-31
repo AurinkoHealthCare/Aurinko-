@@ -6,7 +6,7 @@ import enHome from "./locales/en/home.json";
 import arHome from "./locales/ar/home.json";
 import frHome from "./locales/fr/home.json";
 import koHome from "./locales/ko/home.json";
-import spHome from "./locales/sp/home.json";
+import esHome from "./locales/es/home.json";
 
 i18n
   .use(LanguageDetector)
@@ -29,8 +29,8 @@ i18n
       ko: {
         home: koHome,
       },
-      sp: {
-        home: spHome,
+      es: {
+        home: esHome,
       },
     },
   });

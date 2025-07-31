@@ -11,7 +11,7 @@ const Block2 = () => {
           GLOBAL PROVIDER OF HUMAN PROBIOTICS AND NUTRACEUTICALS
         </h1>
       </div>
-      <ProductsList category="Health Supplements" theme="Health Supplements" showHeading={false} />
+      <ProductsList category="English" theme="Health Supplements" showHeading={false} />
     </div>
   );
 };
