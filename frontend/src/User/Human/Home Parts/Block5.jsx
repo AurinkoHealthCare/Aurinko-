@@ -10,12 +10,6 @@ const Block5 = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-center text-red-700 mb-4">
           GLOBAL PROVIDER OF PERSONAL CARE
         </h1>
-        <div
-          className="h-1 w-64 rounded-full"
-          style={{
-            background: "linear-gradient(to right, #dc2626, #7f1d1d)",
-          }}
-        ></div>
       </div>
 
       {/* Cards */}

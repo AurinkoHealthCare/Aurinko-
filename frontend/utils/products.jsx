@@ -25,8 +25,10 @@ const ProductsList = ({ category, limit, theme, showHeading = true }) => {
   const themeClasses = {
     "Health Supplements": "text-red-800 border-red-300",
     "Personal care": "text-red-800 border-red-300",
-    veterinary: "bg-green-50 text-green-800 border-green-300",
-    poultry: "bg-yellow-50 text-yellow-800 border-yellow-300",
+    Veterinary: "text-blue-800 border-blue-300",
+    Pet: "text-blue-800 border-blue-300",
+    Agriculture: "text-green-800 border-green-300",
+    Agri: "text-green-800 border-green-300",
   };
 
   const appliedTheme = themeClasses[theme] || "bg-white text-gray-800 border-gray-200";
