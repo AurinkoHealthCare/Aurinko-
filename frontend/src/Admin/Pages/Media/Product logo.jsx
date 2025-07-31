@@ -4,73 +4,12 @@ import axios from "../../../../api/axios";
 const ProductManager = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editProduct, setEditProduct] = useState(null); // product being edited
+  const [editProduct, setEditProduct] = useState(null);
 
-  // Form state for editing only
-  const [formData, setFormData] = useState({
-    name: "",
-    segment: "",
-    type: "",
-    category: "",
-    packing: "",
-    composition: "",
-    indications: "",
-    usage: "",
-    report: "",
-    brochure: "",
-    feedback: "",
-    productImage: null,
-    productLogo: null,
-  });
+  const [formData, setFormData] = useState(initialFormData());
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const res = await axios.get("/products2/get2");
-      setProducts(res.data);
-    } catch (error) {
-      alert("Error fetching products");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFileChange = (e) => {
-    const { name } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: e.target.files[0] }));
-  };
-
-  // Start editing a product: populate form with product data
-  const startEdit = (product) => {
-    setEditProduct(product);
-    setFormData({
-      name: product.generalInfo.name || "",
-      segment: product.generalInfo.segment || "",
-      type: product.generalInfo.type || "",
-      category: product.generalInfo.category || "",
-      packing: product.generalInfo.packing || "",
-      composition: product.composition || "",
-      indications: product.indications || "",
-      usage: product.usage || "",
-      report: product.report || "",
-      brochure: product.brochure || "",
-      feedback: product.feedback || "",
-      productImage: null, // no file pre-loaded
-      productLogo: null,
-    });
-  };
-
-  const cancelEdit = () => {
-    setEditProduct(null);
-    setFormData({
+  function initialFormData() {
+    return {
       name: "",
       segment: "",
       type: "",
@@ -84,7 +23,70 @@ const ProductManager = () => {
       feedback: "",
       productImage: null,
       productLogo: null,
+      translations: { fr: {}, es: {}, ar: {}, ko: {} },
+    };
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/products2/all");
+      setProducts(res.data);
+    } catch (error) {
+      alert("❌ Error fetching products");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleTranslationChange = (e, langKey) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      translations: {
+        ...prev.translations,
+        [langKey]: { ...prev.translations[langKey], [name]: value },
+      },
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: files[0] }));
+  };
+
+  const startEdit = (product) => {
+    setEditProduct(product);
+    setFormData({
+      name: product.generalInfo?.name || "",
+      segment: product.generalInfo?.segment || "",
+      type: product.generalInfo?.type || "",
+      category: product.generalInfo?.category || "",
+      packing: product.generalInfo?.packing || "",
+      composition: product.composition || "",
+      indications: product.indications || "",
+      usage: product.usage || "",
+      report: product.report || "",
+      brochure: product.brochure || "",
+      feedback: product.feedback || "",
+      productImage: null,
+      productLogo: null,
+      translations: product.translations || { fr: {}, es: {}, ar: {}, ko: {} },
     });
+  };
+
+  const cancelEdit = () => {
+    setEditProduct(null);
+    setFormData(initialFormData());
   };
 
   const handleUpdateProduct = async (e) => {
@@ -92,146 +94,153 @@ const ProductManager = () => {
     try {
       const fd = new FormData();
       Object.entries(formData).forEach(([key, val]) => {
-        if (val) fd.append(key, val);
+        if (key === "translations") {
+          fd.append("translations", JSON.stringify(val));
+        } else if (val) {
+          fd.append(key, val);
+        }
       });
-      await axios.put(`/products2/update2/${editProduct._id}`, fd, {
+
+      await axios.put(`/products2/update/${editProduct._id}`, fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      alert("Product updated successfully!");
+
+      alert("✅ Product updated successfully!");
       cancelEdit();
       fetchProducts();
     } catch (err) {
-      alert(err.response?.data?.message || "Error updating product");
+      alert("❌ " + (err.response?.data?.message || "Error updating product"));
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (productId) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
-      await axios.delete(`/products2/delete2/${id}`);
-      alert("Product deleted!");
+      await axios.delete(`/products2/delete/${productId}`);
+      alert("✅ Product deleted!");
       fetchProducts();
     } catch (err) {
-      alert("Error deleting product");
+      alert("❌ Error deleting product");
     }
   };
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading) return <p className="text-center text-gray-600">Loading products...</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6 text-center text-green-800">Product Manager</h1>
+    <div className="max-w-5xl mx-auto p-6">
+      <h1 className="text-2xl font-bold mb-6 text-center text-green-800">
+        Product Manager
+      </h1>
 
-      {/* Edit form only visible when editing */}
       {editProduct && (
-        <form
-          onSubmit={handleUpdateProduct}
-          className="mb-8 border p-6 rounded shadow"
-        >
-          <h2 className="text-xl font-semibold mb-4">Edit Product</h2>
+        <form onSubmit={handleUpdateProduct} className="mb-8 border p-6 rounded shadow bg-white">
+          <h2 className="text-xl font-semibold mb-4">✏️ Edit Product</h2>
 
-          {/* Text Inputs */}
-          {[
-            { label: "Name", name: "name" },
-            { label: "Segment", name: "segment" },
-            { label: "Type", name: "type" },
-            { label: "Category", name: "category" },
-            { label: "Packing", name: "packing" },
-            { label: "Composition", name: "composition" },
-            { label: "Indications", name: "indications" },
-            { label: "Usage", name: "usage" },
-            { label: "Report", name: "report" },
-            { label: "Brochure", name: "brochure" },
-            { label: "Feedback", name: "feedback" },
-          ].map(({ label, name }) => (
-            <div key={name} className="mb-3">
-              <label className="block font-semibold mb-1">{label}</label>
+          {["name", "segment", "type", "category", "packing", "composition", "indications", "usage", "report", "brochure", "feedback"].map((field) => (
+            <div key={field} className="mb-3">
+              <label className="block font-semibold mb-1">
+                {field.charAt(0).toUpperCase() + field.slice(1)}
+              </label>
               <input
                 type="text"
-                name={name}
-                value={formData[name]}
+                name={field}
+                value={formData[field]}
                 onChange={handleInputChange}
                 className="border p-2 rounded w-full"
-                required={name === "name" || name === "category"}
+                required={["name", "category"].includes(field)}
               />
             </div>
           ))}
 
-          {/* File Inputs */}
           <div className="mb-3">
             <label className="block font-semibold mb-1">Product Image</label>
             <input type="file" name="productImage" onChange={handleFileChange} accept="image/*" />
           </div>
-
           <div className="mb-3">
             <label className="block font-semibold mb-1">Product Logo</label>
             <input type="file" name="productLogo" onChange={handleFileChange} accept="image/*" />
           </div>
 
-          <button
-            type="submit"
-            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-          >
-            Update Product
-          </button>
+          {["fr", "es", "ar", "ko"].map((langKey) => (
+            <div key={langKey} className="mb-4 border-t pt-3">
+              <h4 className="font-medium text-gray-700">
+                🌐 {langKey.toUpperCase()} Translation
+              </h4>
+              {["name", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
+                <input
+                  key={field}
+                  type="text"
+                  name={field}
+                  value={formData.translations[langKey]?.[field] || ""}
+                  onChange={(e) => handleTranslationChange(e, langKey)}
+                  placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
+                  className="w-full border p-2 rounded mb-2"
+                />
+              ))}
+            </div>
+          ))}
 
-          <button
-            type="button"
-            onClick={cancelEdit}
-            className="ml-4 bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700"
-          >
-            Cancel
-          </button>
+          <div className="mt-4 flex gap-4">
+            <button type="submit" className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
+              ✅ Update
+            </button>
+            <button type="button" onClick={cancelEdit} className="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">
+              ❌ Cancel
+            </button>
+          </div>
         </form>
       )}
 
-      {/* Products List */}
       <div>
-        <h2 className="text-xl font-semibold mb-4">All Products</h2>
+        <h2 className="text-xl font-semibold mb-4">📋 All Products</h2>
         {products.length === 0 ? (
-          <p>No products found.</p>
+          <p className="text-gray-600">No products found.</p>
         ) : (
-          <table className="w-full border-collapse border border-gray-300">
-            <thead>
-              <tr className="bg-gray-200">
-                <th className="border border-gray-300 p-2">Name</th>
-                <th className="border border-gray-300 p-2">Category</th>
-                <th className="border border-gray-300 p-2">Segment</th>
-                <th className="border border-gray-300 p-2">Image</th>
-                <th className="border border-gray-300 p-2">Logo</th>
-                <th className="border border-gray-300 p-2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p) => (
-                <tr key={p._id}>
-                  <td className="border border-gray-300 p-2">{p.generalInfo.name}</td>
-                  <td className="border border-gray-300 p-2">{p.generalInfo.category}</td>
-                  <td className="border border-gray-300 p-2">{p.generalInfo.segment}</td>
-                  <td className="border border-gray-300 p-2">
-                    {p.productImage && <img src={p.productImage} alt="Product" className="h-12" />}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    {p.productLogo && <img src={p.productLogo} alt="Logo" className="h-12" />}
-                  </td>
-                  <td className="border border-gray-300 p-2">
-                    <button
-                      onClick={() => startEdit(p)}
-                      className="mr-2 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(p._id)}
-                      className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700"
-                    >
-                      Delete
-                    </button>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300">
+              <thead>
+                <tr className="bg-gray-200 text-left">
+                  <th className="border p-2">ID</th>
+                  <th className="border p-2">Name</th>
+                  <th className="border p-2">Category</th>
+                  <th className="border p-2">Segment</th>
+                  <th className="border p-2">Image</th>
+                  <th className="border p-2">Logo</th>
+                  <th className="border p-2">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {products.map((p) => (
+                  <tr key={p._id}>
+                    <td className="border p-2">{p.productId}</td>
+                    <td className="border p-2">{p.generalInfo?.name || "-"}</td>
+                    <td className="border p-2">{p.generalInfo?.category || "-"}</td>
+                    <td className="border p-2">{p.generalInfo?.segment || "-"}</td>
+                    <td className="border p-2">
+                      {p.productImage && <img src={p.productImage} alt="Product" className="h-12" />}
+                    </td>
+                    <td className="border p-2">
+                      {p.productLogo && <img src={p.productLogo} alt="Logo" className="h-12" />}
+                    </td>
+                    <td className="border p-2">
+                      <button
+                        onClick={() => startEdit(p)}
+                        className="mr-2 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p._id)}
+                        className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

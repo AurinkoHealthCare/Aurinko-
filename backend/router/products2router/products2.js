@@ -1,31 +1,41 @@
-// routes/products/productsRoutes.js
 const express = require("express");
 const router = express.Router();
 const upload = require("../../middleware/imageslidermiddleware/imageUploader");
-
 const {
   addProduct,
   getProducts,
+  getProductById,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } = require("../../controller/products2controller/product2");
 
-// Upload fields: image + logo
-const uploadFields = upload.fields([
-  { name: "productImage", maxCount: 1 },
-  { name: "productLogo", maxCount: 1 }
-]);
+// Only accept productImage & productLogo, ignore unexpected fields
+const uploadFields = (req, res, next) => {
+  upload.fields([
+    { name: "productImage", maxCount: 1 },
+    { name: "productLogo", maxCount: 1 },
+  ])(req, res, function (err) {
+    if (err && err.code === "LIMIT_UNEXPECTED_FILE") {
+      console.error("🔥 Unexpected field:", err.field);
+      return res.status(400).json({ message: "Unexpected field: " + err.field });
+    }
+    next();
+  });
+};
 
-// ➕ Create
-router.post("/add2", uploadFields, addProduct);
+// ➕ Create Product
+router.post("/add", uploadFields, addProduct);
 
-// 📥 Get All / Filtered
-router.get("/get2", getProducts);
+// 📥 Get All Products (supports ?lang=fr)
+router.get("/all", getProducts);
 
-// ✏️ Update
-router.put("/update2/:id", uploadFields, updateProduct);
+// 📥 Get Single Product by productId
+router.get("/:id", getProductById);
 
-// ❌ Delete
-router.delete("/delete2/:id", deleteProduct);
+// ✏️ Update Product
+router.put("/update/:id", uploadFields, updateProduct);
+
+// ❌ Delete Product
+router.delete("/delete/:id", deleteProduct);
 
 module.exports = router;
