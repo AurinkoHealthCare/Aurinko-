@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Admin from './Admin/admin';
@@ -130,30 +130,10 @@ import Ingredient from './Admin/Pages/Pages/Ingredients/Ingredients';
 // Contact
 import Contact from './Admin/Pages/Pages/Contact Us/Contact us';
 import TrackVisitor from '../api/totalvisitors';
+import TodoApp from "../utils/todo.jsx";
 
 function App() {
-  TrackVisitor();
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (showSplash) {
-    return (
-      <div className="flex items-center justify-center h-screen bg-white">
-        <img
-          src="/Assets/AurinkoLogo.png"
-          alt="Logo"
-          className="w-52 h-auto logo-zoom"
-        />
-      </div>
-    );
-  }
-
+    TrackVisitor();
   return (
     <div>
       <Routes>
@@ -341,6 +321,7 @@ function App() {
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <Route path="/todo" element={<TodoApp />} />
       </Routes>
     </div>
   );

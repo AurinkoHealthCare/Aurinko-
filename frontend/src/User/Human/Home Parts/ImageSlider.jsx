@@ -24,21 +24,9 @@ export default function ImageSlider() {
     }
   };
 
-  // 🔍 Track visitor and show geo toast
-  const trackVisitor = async () => {
-    try {
-      const res = await axios.get("/visitors/track");
-      const { country, region, city } = res.data;
-      showWelcomeToast(country, region, city);
-    } catch (err) {
-      console.error("Visitor tracking failed:", err);
-    }
-  };
-
   // 🚀 First Load
   useEffect(() => {
     fetchImages();
-    trackVisitor();
   }, []);
 
   // ⏱️ Auto Slide Interval
