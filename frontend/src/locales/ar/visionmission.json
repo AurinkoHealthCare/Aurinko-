@@ -1,23 +1,23 @@
 {
-  "title": "Vision & Mission",
+  "title": "الرؤية والرسالة",
   "vision": {
-    "title": "Vision",
-    "description": "To be the most innovative, quality-oriented, and affordable healthcare & nutrition company providing scientific & research-based solutions to delight our customers globally."
+    "title": "الرؤية",
+    "description": "أن نكون الشركة الأكثر ابتكارًا والموجهة نحو الجودة والميسورة التكلفة في مجال الرعاية الصحية والتغذية، من خلال توفير حلول علمية قائمة على البحث لإسعاد عملائنا عالميًا."
   },
   "mission": {
-    "title": "Mission",
-    "description": "Work together as a team to provide our customers with extraordinary products and superior quality at competitive prices. Provide opportunities and support to each team member and business partner to lead in their area of business."
+    "title": "الرسالة",
+    "description": "العمل معًا كفريق واحد لتقديم منتجات استثنائية وعالية الجودة لعملائنا بأسعار تنافسية. توفير الفرص والدعم لكل عضو في الفريق ولكل شريك تجاري لقيادة مجال عمله."
   },
   "values": {
-    "title": "Values",
+    "title": "القيم",
     "items": [
-      "Integrity",
-      "Quality mindset",
-      "Innovation focus",
-      "Customer service",
-      "Entrepreneurial drive",
-      "Dedication & Commitment",
-      "Teamwork & Trust"
+      "النزاهة",
+      "عقلية الجودة",
+      "التركيز على الابتكار",
+      "خدمة العملاء",
+      "الدافع الريادي",
+      "التفاني والالتزام",
+      "العمل الجماعي والثقة"
     ]
   }
 }
