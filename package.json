@@ -6,8 +6,9 @@
     "concurrently": "^9.2.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm start",
-    "client": "cd frontend && npm run dev"
-  }
+  "start": "concurrently \"npm run server\" \"npm run client\"",
+  "server": "cd backend && npm start",
+  "client": "cd frontend && npm run dev",
+  "build": "cd frontend && npm run build"
+}
 }
