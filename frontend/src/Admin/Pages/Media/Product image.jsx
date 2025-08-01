@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
-// Render stars as ★★★☆☆
 const renderStars = (rating) => {
   return "★".repeat(Number(rating)) + "☆".repeat(5 - Number(rating));
 };
@@ -32,7 +31,6 @@ const Productimage = () => {
       const { data } = await axios.get(`/products/get?lang=${lang}`);
       setProducts(data);
     } catch (err) {
-      console.error("❌ Error fetching products:", err);
       alert("Failed to fetch products.");
     } finally {
       setLoading(false);
@@ -45,7 +43,7 @@ const Productimage = () => {
     try {
       setLoading(true);
       await axios.delete(`/products/delete/${productId}`);
-      setProducts(products.filter((p) => p.productId !== productId));
+      await fetchProducts(); // Refresh after delete
       alert("✅ Product deleted successfully!");
     } catch (err) {
       console.error("❌ Error deleting product:", err);
@@ -98,47 +96,41 @@ const Productimage = () => {
   };
 
   // ✅ Update Product
- // ✅ Update Product
-const handleUpdate = async (e) => {
-  e.preventDefault();
-  try {
-    setLoading(true);
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append("category", formData.category);
-    data.append("details", formData.details);
-    data.append("rating", formData.rating);
-    data.append("translations", JSON.stringify(formData.translations));
-    if (formData.image) data.append("image", formData.image);
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("category", formData.category);
+      data.append("details", formData.details);
+      data.append("rating", formData.rating);
+      data.append("translations", JSON.stringify(formData.translations));
+      if (formData.image) data.append("image", formData.image);
 
-    // 🐞 Debug log
-    console.log("📤 Sending Update:", [...data.entries()]);
+      await axios.put(`/products/update/${editingId}`, data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
 
-    const res = await axios.put(`/products/update/${editingId}`, data, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+      await fetchProducts(); // Refresh after update
 
-    setProducts(
-      products.map((p) => (p.productId === editingId ? res.data : p))
-    );
-    setEditingId(null);
-    setFormData({
-      name: "",
-      category: "",
-      details: "",
-      image: null,
-      preview: "",
-      rating: 0,
-      translations: { fr: {}, es: {}, ar: {}, ko: {} },
-    });
-    alert("✅ Product updated successfully!");
-  } catch (err) {
-    console.error("❌ Error updating product:", err.response || err);
-    alert("Update failed. Check console for details.");
-  } finally {
-    setLoading(false);
-  }
-};
+      setEditingId(null);
+      setFormData({
+        name: "",
+        category: "",
+        details: "",
+        image: null,
+        preview: "",
+        rating: 0,
+        translations: { fr: {}, es: {}, ar: {}, ko: {} },
+      });
+      alert("✅ Product updated successfully!");
+    } catch (err) {
+      alert("Update failed. Check console for details.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="p-6 max-w-6xl mx-auto">
@@ -289,8 +281,20 @@ const handleUpdate = async (e) => {
       {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product, index) => {
-          console.log("Rendering Product:", product);
           const productId = product.productId;
+
+          // ✅ Language based data
+          const displayData =
+            lang === "en"
+              ? product
+              : {
+                  ...product,
+                  name: product.translations[lang]?.name || product.name,
+                  category:
+                    product.translations[lang]?.category || product.category,
+                  details:
+                    product.translations[lang]?.details || product.details,
+                };
 
           return (
             <div
@@ -299,17 +303,17 @@ const handleUpdate = async (e) => {
             >
               <img
                 src={product.image}
-                alt={product.name}
+                alt={displayData.name}
                 className="w-full h-48 object-cover rounded-xl mb-4"
               />
               <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {product.name}
+                {displayData.name}
               </h3>
               <p className="text-sm text-gray-600 mb-1">
                 <span className="font-semibold">Category:</span>{" "}
-                {product.category}
+                {displayData.category}
               </p>
-              <p className="text-sm text-gray-700 mb-2">{product.details}</p>
+              <p className="text-sm text-gray-700 mb-2">{displayData.details}</p>
 
               <p className="text-yellow-500 text-lg font-semibold mb-4">
                 {renderStars(product.rating)}{" "}
