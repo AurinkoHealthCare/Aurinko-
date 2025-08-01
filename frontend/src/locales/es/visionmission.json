@@ -1,23 +1,23 @@
 {
-  "title": "Vision & Mission",
+  "title": "Visión y Misión",
   "vision": {
-    "title": "Vision",
-    "description": "To be the most innovative, quality-oriented, and affordable healthcare & nutrition company providing scientific & research-based solutions to delight our customers globally."
+    "title": "Visión",
+    "description": "Ser la empresa de salud y nutrición más innovadora, orientada a la calidad y asequible, que proporcione soluciones científicas y basadas en la investigación para satisfacer a nuestros clientes a nivel mundial."
   },
   "mission": {
-    "title": "Mission",
-    "description": "Work together as a team to provide our customers with extraordinary products and superior quality at competitive prices. Provide opportunities and support to each team member and business partner to lead in their area of business."
+    "title": "Misión",
+    "description": "Trabajar juntos como un equipo para ofrecer a nuestros clientes productos extraordinarios y de calidad superior a precios competitivos. Brindar oportunidades y apoyo a cada miembro del equipo y socio comercial para liderar en su área de negocio."
   },
   "values": {
-    "title": "Values",
+    "title": "Valores",
     "items": [
-      "Integrity",
-      "Quality mindset",
-      "Innovation focus",
-      "Customer service",
-      "Entrepreneurial drive",
-      "Dedication & Commitment",
-      "Teamwork & Trust"
+      "Integridad",
+      "Mentalidad de calidad",
+      "Enfoque en la innovación",
+      "Servicio al cliente",
+      "Impulso emprendedor",
+      "Dedicación y compromiso",
+      "Trabajo en equipo y confianza"
     ]
   }
 }

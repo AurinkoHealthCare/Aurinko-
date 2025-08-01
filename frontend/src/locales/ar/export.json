@@ -1,16 +1,16 @@
 {
-  "title": "Export",
-  "subtitle": "Global Presence",
-  "para1": "Aurinko One Health markets veterinary and human healthcare products across the globe, with primary focus in South and South-East Asia, SAARC, Gulf, Middle-East, and African regions. We have dedicated manufacturing units in India to develop products suited to meet the diverse needs and preferences of consumers in different markets.",
-  "para2": "If you are looking for Business Opportunities or Business Association.",
-  "emailTo": "Email to:",
+  "title": "التصدير",
+  "subtitle": "التواجد العالمي",
+  "para1": "تسوق أورينكو ون هيلث منتجات الرعاية الصحية البيطرية والبشرية في جميع أنحاء العالم، مع التركيز الأساسي في جنوب وجنوب شرق آسيا، رابطة دول جنوب آسيا للتعاون الإقليمي، الخليج، الشرق الأوسط والمناطق الأفريقية. لدينا وحدات تصنيع مخصصة في الهند لتطوير منتجات مناسبة لتلبية الاحتياجات والتفضيلات المتنوعة للمستهلكين في الأسواق المختلفة.",
+  "para2": "إذا كنت تبحث عن فرص عمل أو شراكة تجارية.",
+  "emailTo": "أرسل بريدًا إلى:",
   "locations": {
-    "India": "India",
-    "Zimbabwe": "Zimbabwe",
-    "Egypt": "Egypt",
-    "SouthKorea": "South Korea",
-    "Bangladesh": "Bangladesh",
-    "Nepal": "Nepal",
-    "SriLanka": "Sri Lanka"
+    "India": "الهند",
+    "Zimbabwe": "زيمبابوي",
+    "Egypt": "مصر",
+    "SouthKorea": "كوريا الجنوبية",
+    "Bangladesh": "بنغلاديش",
+    "Nepal": "نيبال",
+    "SriLanka": "سريلانكا"
   }
 }

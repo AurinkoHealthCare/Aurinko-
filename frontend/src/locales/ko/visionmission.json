@@ -1,23 +1,23 @@
 {
-  "title": "Vision & Mission",
+  "title": "비전 & 미션",
   "vision": {
-    "title": "Vision",
-    "description": "To be the most innovative, quality-oriented, and affordable healthcare & nutrition company providing scientific & research-based solutions to delight our customers globally."
+    "title": "비전",
+    "description": "가장 혁신적이고, 품질 중심적이며, 합리적인 가격의 헬스케어 및 영양 회사가 되어, 과학적이고 연구 기반의 솔루션을 통해 전 세계 고객들에게 만족을 제공하는 것을 목표로 합니다."
   },
   "mission": {
-    "title": "Mission",
-    "description": "Work together as a team to provide our customers with extraordinary products and superior quality at competitive prices. Provide opportunities and support to each team member and business partner to lead in their area of business."
+    "title": "미션",
+    "description": "팀으로 함께 협력하여 고객들에게 탁월한 제품과 우수한 품질을 경쟁력 있는 가격에 제공합니다. 각 팀원과 비즈니스 파트너가 자신의 분야에서 리더십을 발휘할 수 있도록 기회와 지원을 제공합니다."
   },
   "values": {
-    "title": "Values",
+    "title": "가치",
     "items": [
-      "Integrity",
-      "Quality mindset",
-      "Innovation focus",
-      "Customer service",
-      "Entrepreneurial drive",
-      "Dedication & Commitment",
-      "Teamwork & Trust"
+      "정직",
+      "품질 중심 사고",
+      "혁신 중점",
+      "고객 서비스",
+      "기업가 정신",
+      "헌신과 약속",
+      "팀워크와 신뢰"
     ]
   }
 }
