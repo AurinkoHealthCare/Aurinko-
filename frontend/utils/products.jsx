@@ -81,7 +81,7 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
               {/* Back */}
               <div className={`flip-card-back p-4 shadow-xl flex flex-col justify-center items-center text-center border ${appliedTheme}`}>
                 <h3 className="text-lg font-semibold">{product.name}</h3>
-                <p className="mt-3 text-sm max-h-60 overflow-y-auto">{product.details}</p>
+                <p className="mt-3 text-sm max-h-60 overflow-y-auto no-scrollbar">{product.details}</p>
               </div>
             </div>
           </div>
