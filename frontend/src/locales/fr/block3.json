@@ -1,0 +1,42 @@
+{
+  "heading": "TYPES DE PRODUITS",
+  "productTypes": [
+    {
+      "title": "POWDER / GRANULES",
+      "description": "Our powder and granule formulations are designed for efficient nutrient absorption in the human body...",
+      "image": "/Assets/block 5/Powder.jpg",
+      "alt": "Human Powder Granules"
+    },
+    {
+      "title": "TABLETS / CAPSULES",
+      "description": "Tablets, capsules, and boluses offer precise dosing and convenient administration for daily health support...",
+      "image": "/Assets/block 5/tablets.jpg",
+      "alt": "Human Tablets and Capsules"
+    },
+    {
+      "title": "LIQUIDS",
+      "description": "Liquid supplements are fast-absorbing and ideal for children, elderly, or those with swallowing difficulties...",
+      "image": "/Assets/block 5/Liquid.jpg",
+      "alt": "Human Liquid Products"
+    },
+    {
+      "title": "GELS",
+      "description": "Gels offer a unique delivery system for topical and oral use...",
+      "image": "/Assets/block 5/gel.jpg",
+      "alt": "Human Gel Formulation"
+    },
+    {
+      "title": "SPRAYS",
+      "description": "Sprays are convenient for on-the-go use and targeted application...",
+      "image": "/Assets/block 5/spray.jpg",
+      "alt": "Human Spray Bottle"
+    }
+  ],
+    "block4": {
+        "imageSrc": "/Assets/banner/aurinko banner.jpg",
+        "altText": "Aurinko Company Banner"
+    },
+    "block5": {
+        "heading": "GLOBAL PROVIDER OF PERSONAL CARE"
+    }
+}

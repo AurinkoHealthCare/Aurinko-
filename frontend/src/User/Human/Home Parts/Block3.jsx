@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { productTypes } from "../Data/data.jsx";
+import { useTranslation } from "react-i18next";
 
 const Block3 = () => {
+  const { t } = useTranslation("block3");
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleOverlay = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const heading = t("heading");
+  const productTypes = t("productTypes", { returnObjects: true });
+
   return (
     <div className="w-full min-h-screen py-12 px-4 md:px-8 lg:px-16 xl:px-24 font-poppins">
       {/* Heading */}
       <h1 className="text-3xl md:text-4xl font-bold text-center text-red-700 mb-6 tracking-wide">
-        PRODUCT TYPES
+        {heading}
       </h1>
       <div
         className="h-1 w-56 mx-auto rounded mb-10"
@@ -34,7 +38,6 @@ const Block3 = () => {
               className="w-full h-72 object-cover transition duration-300 ease-in-out"
             />
 
-            {/* Know More / Back Button */}
             <button
               onClick={() => toggleOverlay(index)}
               className="mx-auto mt-4 mb-4 bg-red-600 text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-red-700 z-10"
@@ -42,11 +45,9 @@ const Block3 = () => {
               {activeIndex === index ? "Back" : "Know More"}
             </button>
 
-            {/* Sliding Overlay */}
             <div
-              className={`absolute bottom-0 left-0 w-full h-full rounded-t-2xl bg-gradient-to-t from-white via-white/50 to-white/50 backdrop-blur-lg shadow-inner transition-transform duration-500 ease-in-out ${
-                activeIndex === index ? "translate-y-0" : "translate-y-full"
-              }`}
+              className={`absolute bottom-0 left-0 w-full h-full rounded-t-2xl bg-gradient-to-t from-white via-white/50 to-white/50 backdrop-blur-lg shadow-inner transition-transform duration-500 ease-in-out ${activeIndex === index ? "translate-y-0" : "translate-y-full"
+                }`}
             >
               <div className="p-5 h-72 overflow-y-auto no-scrollbar text-gray-800">
                 <h2 className="text-xl font-bold mb-2 text-red-700">
