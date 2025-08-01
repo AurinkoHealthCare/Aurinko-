@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const Block4 = () => {
-  const { t } = useTranslation("block3");
+  const { t } = useTranslation("Human_home");
 
   return (
     <div className="relative w-full mx-auto"> 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const Block6 = () => {
-  const { t } = useTranslation('block6');
+  const { t } = useTranslation('Human_home');
 
   const reloadPage = (e, url) => {
     e.preventDefault();

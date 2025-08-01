@@ -1,0 +1,65 @@
+{
+  "heading": "오린코 원 헬스에 오신 것을 환영합니다",
+  "paragraphs": [
+    "오린코 원 헬스는 2014년 11월 21일에 설립된 혁신적인 제약 및 나노바이오 기술 회사로, 이전에는 오린코 헬스케어 Pvt. Ltd.로 알려졌습니다. 인도 정부 산업 정책 및 진흥부로부터 스타트업 인증을 받았습니다. 오린코 원 헬스는 WHO-GMP, FSSAI, APEDA 및 HACCP 인증을 받았으며, 강력한 경영 시스템을 인정받아 ISO 9001-2015 및 ISO 22000-2018 인증을 획득했습니다.",
+    "이 조직의 설립자들은 제약 및 금융 분야에서 자격을 갖춘 전문가들로, 전략적 마케팅, 브랜드 구축, 혁신, 제형 개발 및 기업 금융 분야에서 30년 이상의 풍부한 경험을 가진 명망 있는 인물들입니다."
+  ],
+  "image": {
+    "src": "/Assets/AurinkoHome1.png",
+    "alt": "오린코 홈페이지"
+  },
+  "block2": {
+    "heading": "인간 프로바이오틱스 및 건강기능식품의 글로벌 공급업체"
+  },
+  "block3": {
+    "heading": "제품 유형",
+    "knowMore": "자세히 알아보기",
+    "back": "뒤로",
+    "productTypes": [
+      {
+        "title": "파우더 / 과립",
+        "description": "우리의 파우더 및 과립 제형은 인체 내에서 영양소의 효율적인 흡수를 위해 설계되었습니다...",
+        "image": "/Assets/block 5/Powder.jpg",
+        "alt": "인체용 파우더 및 과립"
+      },
+      {
+        "title": "정제 / 캡슐",
+        "description": "정제, 캡슐 및 볼루스는 정확한 용량과 편리한 복용을 제공하여 일상적인 건강 관리를 지원합니다...",
+        "image": "/Assets/block 5/tablets.jpg",
+        "alt": "인체용 정제 및 캡슐"
+      },
+      {
+        "title": "액상",
+        "description": "액상 보충제는 흡수가 빠르며 어린이, 노인 또는 삼키기 어려운 사람들에게 이상적입니다...",
+        "image": "/Assets/block 5/Liquid.jpg",
+        "alt": "인체용 액상 제품"
+      },
+      {
+        "title": "겔",
+        "description": "겔은 국소 및 경구 사용을 위한 독특한 전달 시스템을 제공합니다...",
+        "image": "/Assets/block 5/gel.jpg",
+        "alt": "인체용 겔 제형"
+      },
+      {
+        "title": "스프레이",
+        "description": "스프레이는 이동 중 사용과 표적 적용에 편리합니다...",
+        "image": "/Assets/block 5/spray.jpg",
+        "alt": "인체용 스프레이 병"
+      }
+    ]
+  },
+  "block4": {
+    "imageSrc": "/Assets/banner/aurinko banner.jpg",
+    "altText": "오린코 회사 배너"
+  },
+  "block5": {
+    "heading": "개인 관리의 글로벌 공급자"
+  },
+  "block6": {
+    "getInTouch": "문의하기",
+    "healthMessage": "여러분의 건강은 우리의 최우선 과제입니다. 우리는 신체적, 정신적, 사회적 웰빙을 향상시키기 위한 최고의 헬스케어 솔루션을 제공하기 위해 헌신하고 있습니다.",
+    "enrollNow": "지금 등록하기",
+    "reviewFeedback": "리뷰 및 피드백",
+    "goReview": "리뷰 보기"
+  }
+}

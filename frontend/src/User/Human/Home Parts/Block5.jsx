@@ -3,7 +3,7 @@ import ProductsList from "../../../../utils/products";
 import { useTranslation } from 'react-i18next';
 
 const Block5 = () => {
-  const { t } = useTranslation("block3");
+  const { t } = useTranslation("Human_home");
 
   return (
     <div className="py-16 px-2 md:px-6 lg:px-8">
