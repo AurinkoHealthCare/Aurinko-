@@ -12,6 +12,8 @@ import enAbout_us from './locales/en/about.json';
 import enExport from './locales/en/export.json';
 // Vision & Mission
 import enVisionMission from './locales/en/visionmission.json';
+// Manufacturing
+import enManufacturing from './locales/en/manufacturing.json';
 
 // Arabic
 import arHome from './locales/ar/home.json';
@@ -23,6 +25,8 @@ import arAbout_us from './locales/ar/about.json';
 import arExport from './locales/ar/export.json';
 // Vision & Mission
 import arVisionMission from './locales/ar/visionmission.json';
+// Manufacturing
+import arManufacturing from './locales/ar/manufacturing.json';
 
 // French
 import frHome from './locales/fr/home.json';
@@ -34,7 +38,8 @@ import frAbout_us from './locales/fr/about.json';
 import frExport from './locales/fr/export.json';
 // Vision & Mission
 import frVisionMission from './locales/fr/visionmission.json';
-
+// Manufacturing
+import frManufacturing from './locales/fr/manufacturing.json';
 
 // Korean
 import koHome from './locales/ko/home.json';
@@ -46,6 +51,8 @@ import koAbout_us from './locales/ko/about.json';
 import koExport from './locales/ko/export.json';
 // Vision & Mission
 import koVisionMission from './locales/ko/visionmission.json';
+// Manufacturing
+import koManufacturing from './locales/ko/manufacturing.json';
 
 // Spanish
 import esHome from './locales/es/home.json';
@@ -57,6 +64,8 @@ import esAbout_us from './locales/es/about.json';
 import esExport from './locales/es/export.json';
 // Vision & Mission
 import esVisionMission from './locales/es/visionmission.json';
+// Manufacturing
+import esManufacturing from './locales/es/manufacturing.json';
 
 i18n
   .use(LanguageDetector)
@@ -73,6 +82,7 @@ i18n
         about: enAbout_us,
         export: enExport,
         visionmission: enVisionMission,
+        manufacturing: enManufacturing,
       },
       ar: {
         home: arHome,
@@ -80,6 +90,7 @@ i18n
         about: arAbout_us,
         export: arExport,
         visionmission: arVisionMission,
+        manufacturing: arManufacturing,
       },
       fr: {
         home: frHome,
@@ -87,6 +98,7 @@ i18n
         about: frAbout_us,
         export: frExport,
         visionmission: frVisionMission,
+        manufacturing: frManufacturing,
       },
       ko: {
         home: koHome,
@@ -94,6 +106,7 @@ i18n
         about: koAbout_us,
         export: koExport,
         visionmission: koVisionMission,
+        manufacturing: koManufacturing,
       },
       es: {
         home: esHome,
@@ -101,6 +114,7 @@ i18n
         about: esAbout_us,
         export: esExport,
         visionmission: esVisionMission,
+        manufacturing: esManufacturing,
       }
     },
   });
