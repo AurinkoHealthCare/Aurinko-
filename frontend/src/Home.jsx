@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const cardData = [
   {
     title: "Human",
-    frontImage: "/Assets/Human.webp",
+    frontImage: "/Assets/Human.jpg",
     backImage: "/Assets/Humanflip.webp",
     route: "/human",
     color: "#FF4D4D",

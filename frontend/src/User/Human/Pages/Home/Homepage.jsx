@@ -13,7 +13,7 @@ const Human_Home = () => {
       <ImageSlider />
       <Block1 />
       <Block2 />
-      <Block3 />
+      {/* <Block3 /> */}
       <Block4 />
       <Block5 />
       <Block6 />
