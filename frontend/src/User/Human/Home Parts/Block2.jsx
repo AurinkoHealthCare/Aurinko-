@@ -17,7 +17,7 @@ const Block2 = () => {
       {/* ✅ Sirf ek ProductsList - UI flip-card wala hi */}
       <ProductsList
         apiUrl="/products/get"
-        category="English"
+        category="Health Supplements"
         limit={5}
         theme="Health Supplements"
         showHeading={false}
