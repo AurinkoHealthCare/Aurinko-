@@ -17,10 +17,12 @@ function PdfList() {
     try {
       setLoading(true);
       const res = await axios.get(`/pdf/${category}`);
-      setPdfs(res.data);
+      // ✅ Ensure array from backend response
+      setPdfs(res.data.data || []);
     } catch (err) {
       console.error("Error fetching PDFs:", err);
       toast.error("❌ Failed to fetch PDFs!");
+      setPdfs([]); // fallback
     } finally {
       setLoading(false);
     }
@@ -73,6 +75,15 @@ function PdfList() {
     }
   };
 
+  // PDF URL creator (to handle Windows path like C:\Users\...)
+  const getPdfUrl = (filePath) => {
+    if (!filePath) return "#";
+    // Backend serve कर रहा है uploads folder से
+    return `http://localhost:2026/${filePath
+      .replace(/\\/g, "/")
+      .split("backend/")[1]}`;
+  };
+
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
       <h3 className="text-xl font-bold mb-5 text-gray-800 text-center">
@@ -93,7 +104,7 @@ function PdfList() {
 
       {loading ? (
         <p className="text-center text-gray-600">⏳ Loading PDFs...</p>
-      ) : pdfs.length === 0 ? (
+      ) : !Array.isArray(pdfs) || pdfs.length === 0 ? (
         <p className="text-center text-gray-500">No PDFs found.</p>
       ) : (
         <ul className="space-y-3">
@@ -144,7 +155,7 @@ function PdfList() {
                   <p className="font-semibold">{pdf.title}</p>
                   <p className="text-sm text-gray-500">{pdf.category}</p>
                   <a
-                    href={pdf.url}
+                    href={getPdfUrl(pdf.filePath)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline text-sm"

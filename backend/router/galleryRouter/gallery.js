@@ -1,4 +1,3 @@
-// routes/uploadRoutes.js
 const express = require("express");
 const upload = require("../../middleware/imageuploadermiddleware/imageUploader");
 const {
@@ -6,7 +5,7 @@ const {
   updateImage,
   deleteImage,
   getAllImages,
-} = require("../../controller/galleryController/gallery");
+} = require("../../controller/galleryController/gallery"); // ✅ सही path
 
 const router = express.Router();
 

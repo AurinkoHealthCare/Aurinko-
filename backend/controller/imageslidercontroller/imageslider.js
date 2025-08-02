@@ -7,13 +7,16 @@ const deleteFileSafe = (filePath) => {
   try {
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
+      console.log("Deleted:", filePath);
+    } else {
+      console.warn("File not found on disk:", filePath);
     }
   } catch (err) {
     console.error("File Delete Error:", err.message);
   }
 };
 
-// ➕ Upload multiple images
+// ➕ Upload multiple files
 const uploadImages = async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
@@ -22,21 +25,24 @@ const uploadImages = async (req, res) => {
       const no = await ImageSlider.countDocuments() + index + 1;
       return {
         no,
-        url: `${baseUrl}/uploads/${file.filename}`,
-        public_id: file.filename,
+        url: `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`,
+        public_id: file.customFilename,
+        folder: file.customPath || "image", // ✅ fallback
+        type: file.mimetype.split("/")[0], // image | video | application
       };
     });
 
     const uploadedImages = await Promise.all(uploadPromises);
     const saved = await ImageSlider.insertMany(uploadedImages);
-    res.status(201).json({ message: "Images uploaded successfully", data: saved });
+
+    res.status(201).json({ message: "Files uploaded successfully", data: saved });
   } catch (error) {
     console.error("Upload Error:", error);
-    res.status(500).json({ message: "Failed to upload images", error: error.message });
+    res.status(500).json({ message: "Failed to upload files", error: error.message });
   }
 };
 
-// 🔍 Get all images
+// 🔍 Get all files
 const getAllImages = async (req, res) => {
   try {
     const images = await ImageSlider.find().sort({ no: 1 });
@@ -47,42 +53,45 @@ const getAllImages = async (req, res) => {
   }
 };
 
-// ❌ Delete image
+// ❌ Delete file
 const deleteImage = async (req, res) => {
   try {
     const image = await ImageSlider.findOne({ no: req.params.no });
-    if (!image) return res.status(404).json({ message: "Image not found" });
+    if (!image) return res.status(404).json({ message: "File not found" });
 
-    // Delete file safely
-    const filePath = path.join(__dirname, "../../uploads", image.public_id);
+    // ✅ fallback for old records
+    const folder = image.folder || "image";
+    const filePath = path.join(__dirname, "../../uploads", folder, image.public_id);
     deleteFileSafe(filePath);
 
-    // Delete from MongoDB
     await ImageSlider.deleteOne({ no: req.params.no });
 
-    res.json({ message: "Image deleted successfully" });
+    res.json({ message: "File deleted successfully" });
   } catch (error) {
     console.error("Delete Error:", error);
-    res.status(500).json({ message: "Failed to delete image", error: error.message });
+    res.status(500).json({ message: "Failed to delete file", error: error.message });
   }
 };
 
-// ✏️ Update image
+// ✏️ Update file
 const updateImage = async (req, res) => {
   try {
     const image = await ImageSlider.findOne({ no: req.params.no });
-    if (!image) return res.status(404).json({ message: "Image not found" });
+    if (!image) return res.status(404).json({ message: "File not found" });
 
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     let updatedData = {};
 
     if (req.file) {
-      // Delete old file safely
-      const oldFilePath = path.join(__dirname, "../../uploads", image.public_id);
+      // ✅ fallback for old records
+      const oldFolder = image.folder || "image";
+      const oldFilePath = path.join(__dirname, "../../uploads", oldFolder, image.public_id);
       deleteFileSafe(oldFilePath);
 
-      updatedData.url = `${baseUrl}/uploads/${req.file.filename}`;
-      updatedData.public_id = req.file.filename;
+      updatedData.url = `${baseUrl}/uploads/${req.file.customPath}/${req.file.customFilename}`;
+      updatedData.public_id = req.file.customFilename;
+      updatedData.folder = req.file.customPath || "image";
+      updatedData.type = req.file.mimetype.split("/")[0];
     }
 
     if (req.body.no) {
@@ -95,10 +104,10 @@ const updateImage = async (req, res) => {
       { new: true }
     );
 
-    res.json({ message: "Image updated successfully", data: updated });
+    res.json({ message: "File updated successfully", data: updated });
   } catch (error) {
     console.error("Update Error:", error);
-    res.status(500).json({ message: "Failed to update image", error: error.message });
+    res.status(500).json({ message: "Failed to update file", error: error.message });
   }
 };
 
