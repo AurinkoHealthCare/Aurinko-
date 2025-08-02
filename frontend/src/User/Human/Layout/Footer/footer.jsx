@@ -22,29 +22,29 @@ const Footer = () => {
             <ul className="space-y-2 text-base">
               <li>
                 <Link
-                  to="/"
-                  onClick={(e) => reloadPage(e, "/")}
+                  to="/human"
+                  onClick={(e) => reloadPage(e, "/human")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("home")}</Link>
               </li>
               <li>
                 <Link
-                  to="/about-us"
-                  onClick={(e) => reloadPage(e, "/about-us")}
+                  to="/human/about"
+                  onClick={(e) => reloadPage(e, "/human/about")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("about_us")}</Link>
               </li>
               <li>
                 <Link
-                  to="/ingredients"
-                  onClick={(e) => reloadPage(e, "/ingredients")}
+                  to="/human/ingredients"
+                  onClick={(e) => reloadPage(e, "/human/ingredients")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("ingredients")}</Link>
               </li>
               <li>
                 <Link
-                  to="/contact-us"
-                  onClick={(e) => reloadPage(e, "/contact-us")}
+                  to="/human/contact_us"
+                  onClick={(e) => reloadPage(e, "/human/contact_us")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("contact_us")}</Link>
               </li>
@@ -57,29 +57,29 @@ const Footer = () => {
             <ul className="space-y-2 text-base">
               <li>
                 <Link
-                  to="/health-supplements"
-                  onClick={(e) => reloadPage(e, "/health-supplements")}
+                  to="/human/Health_supplements"
+                  onClick={(e) => reloadPage(e, "/human/Health_supplements")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("health_supplements")}</Link>
               </li>
               <li>
                 <Link
-                  to="/personal-care"
-                  onClick={(e) => reloadPage(e, "/personal-care")}
+                  to="/human/Personal_Care"
+                  onClick={(e) => reloadPage(e, "/human/Personal_Care")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("personal_care")}</Link>
               </li>
               <li>
                 <Link
-                  to="/personal-care"
-                  onClick={(e) => reloadPage(e, "/personal-care")}
+                  to="/human/Yeppuen"
+                  onClick={(e) => reloadPage(e, "/human/Yeppuen")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("yeppuen")}</Link>
               </li>
               <li>
                 <Link
-                  to="/personal-care"
-                  onClick={(e) => reloadPage(e, "/personal-care")}
+                  to="/human/Wellness"
+                  onClick={(e) => reloadPage(e, "/human/Wellness")}
                   className="hover:text-red-300 transition duration-200"
                 >{t("wellness")}</Link>
               </li>
@@ -116,7 +116,7 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="text-center mt-10 text-sm text-white/80">
-          © {new Date().getFullYear()}{t("all_rights_reserved")}
+          © {new Date().getFullYear()} {t("all_rights_reserved")}
         </div>
 
       </div>
