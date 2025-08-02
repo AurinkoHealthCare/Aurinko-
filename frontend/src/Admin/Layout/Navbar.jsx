@@ -60,8 +60,8 @@ const Navbar = () => {
             onToggle={() => toggleDropdown("media")}
             links={[
               { to: "/dashboard/banner", label: "Banner" },
-              { to: "/dashboard/productimage", label: "Product Images" },
-              { to: "/dashboard/productlogo", label: "Product Logo" },
+              { to: "/dashboard/productimage", label: "Global page card" },
+              { to: "/dashboard/productlogo", label: "Multiple product" },
             ]}
           />
 

@@ -70,7 +70,7 @@ const Banner = () => {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <ToastContainer position="top-right" autoClose={2000} />
-      <h2 className="text-3xl font-bold mb-10 text-center text-blue-700">Image Manager</h2>
+      <h2 className="text-3xl font-bold mb-10 text-center text-blue-700">Home Banner List</h2>
 
       {images.length === 0 ? (
         <p className="text-center text-gray-500">No images found.</p>

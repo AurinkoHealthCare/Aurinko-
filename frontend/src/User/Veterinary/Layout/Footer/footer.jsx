@@ -18,23 +18,23 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-2 text-cyan-400">{t("information")}</h4>
             <ul className="space-y-1 text-base">
-              <li><Link to="/" onClick={(e) => reloadPage(e, "/")} className="hover:text-cyan-300 transition">{t("home")}</Link></li>
-              <li><Link to="/about-us" onClick={(e) => reloadPage(e, "/about-us")} className="hover:text-cyan-300 transition">{t("about_us")}</Link></li>
-              <li><Link to="/ingredients" onClick={(e) => reloadPage(e, "/ingredients")} className="hover:text-cyan-300 transition">{t("ingredients")}</Link></li>
-              <li><Link to="/contact-us" onClick={(e) => reloadPage(e, "/contact-us")} className="hover:text-cyan-300 transition">{t("contact_us")}</Link></li>
+              <li><Link to="/veterinary" onClick={(e) => reloadPage(e, "/veterinary")} className="hover:text-cyan-300 transition">{t("home")}</Link></li>
+              <li><Link to="/veterinary/about" onClick={(e) => reloadPage(e, "/veterinary/about")} className="hover:text-cyan-300 transition">{t("about_us")}</Link></li>
+              <li><Link to="/veterinary/ingredients" onClick={(e) => reloadPage(e, "/veterinary/ingredients")} className="hover:text-cyan-300 transition">{t("ingredients")}</Link></li>
+              <li><Link to="/veterinary/contact_us" onClick={(e) => reloadPage(e, "/veterinary/contact_us")} className="hover:text-cyan-300 transition">{t("contact_us")}</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="text-xl font-semibold mb-2 text-cyan-400">{t("products")}</h4>
             <ul className="space-y-1 text-base">
-              <li><Link to="/livestock" onClick={(e) => reloadPage(e, "/livestock")} className="hover:text-cyan-300 transition">{t("livestock")}</Link></li>
-              <li><Link to="/poultry" onClick={(e) => reloadPage(e, "/poultry")} className="hover:text-cyan-300 transition">{t("poultry")}</Link></li>
-              <li><Link to="/aqua" onClick={(e) => reloadPage(e, "/aqua")} className="hover:text-cyan-300 transition">{t("aqua")}</Link></li>
-              <li><Link to="/swine" onClick={(e) => reloadPage(e, "/swine")} className="hover:text-cyan-300 transition">{t("swine")}</Link></li>
-              <li><Link to="/pet" onClick={(e) => reloadPage(e, "/pet")} className="hover:text-cyan-300 transition">{t("equine")}</Link></li>
-              <li><Link to="/equine" onClick={(e) => reloadPage(e, "/equine")} className="hover:text-cyan-300 transition">{t("pet")}</Link></li>
-              <li><Link to="/feed-&-grain" onClick={(e) => reloadPage(e, "/feed-&-grain")} className="hover:text-cyan-300 transition">{t("feed_grain")}</Link></li>
+              <li><Link to="/veterinary/livestock" onClick={(e) => reloadPage(e, "/veterinary/livestock")} className="hover:text-cyan-300 transition">{t("livestock")}</Link></li>
+              <li><Link to="/veterinary/poultry" onClick={(e) => reloadPage(e, "/veterinary/poultry")} className="hover:text-cyan-300 transition">{t("poultry")}</Link></li>
+              <li><Link to="/veterinary/aqua" onClick={(e) => reloadPage(e, "/veterinary/aqua")} className="hover:text-cyan-300 transition">{t("aqua")}</Link></li>
+              <li><Link to="/veterinary/swine" onClick={(e) => reloadPage(e, "/veterinary/swine")} className="hover:text-cyan-300 transition">{t("swine")}</Link></li>
+              <li><Link to="/veterinary/pet" onClick={(e) => reloadPage(e, "/veterinary/pet")} className="hover:text-cyan-300 transition">{t("equine")}</Link></li>
+              <li><Link to="/veterinary/equine" onClick={(e) => reloadPage(e, "/veterinary/equine")} className="hover:text-cyan-300 transition">{t("pet")}</Link></li>
+              <li><Link to="/veterinary/feed_grain" onClick={(e) => reloadPage(e, "/veterinary/feed_grain")} className="hover:text-cyan-300 transition">{t("feed_grain")}</Link></li>
             </ul>
           </div>
         </div>
@@ -57,18 +57,18 @@ const Footer = () => {
             </div>
 
             <div>
-              <h5 className="font-semibold mb-2">Zimbabwe</h5>
+              <h5 className="font-semibold mb-2">{t("zimbabwe")}</h5>
               <p className="mb-2 font-semibold">
-                Aurinko One Health Zimbabwe Private Limited
+               {t("zimbabwe_aurinko_one_health")}
               </p>
               <p>
                 <i className="fas fa-map-marker-alt mr-2"></i>
                 <Link to="" target="_blank" className="hover:text-cyan-300 transition">
-                  Unit 10, 248 Williams Way, MASA, Harare, Zimbabwe
+                  {t("address_zimbabwe")}
                 </Link>
               </p>
-              <p><i className="fa fa-phone mr-2"></i> +263772235379 (Gorge Rundogo)</p>
-              <p><i className="fa fa-envelope mr-2"></i> Drabhay@aurinkohealthcare.com</p>
+              <p><i className="fa fa-phone mr-2"></i>{t("phone_zimbabwe")}</p>
+              <p><i className="fa fa-envelope mr-2"></i>{t("email_zimbabwe")}</p>
             </div>
 
             <div>

@@ -1,7 +1,7 @@
 // routes/imageslider.js
 const express = require('express');
 const router = express.Router();
-const upload = require('../../middleware/imageslidermiddleware/imageUploader');
+const upload = require('../../middleware/imageuploadermiddleware/imageUploader');
 const {
   uploadImages,
   getAllImages,

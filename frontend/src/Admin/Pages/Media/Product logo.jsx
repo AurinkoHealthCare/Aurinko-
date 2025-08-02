@@ -5,7 +5,6 @@ const ProductManager = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editProduct, setEditProduct] = useState(null);
-
   const [formData, setFormData] = useState(initialFormData());
 
   function initialFormData() {
@@ -36,7 +35,7 @@ const ProductManager = () => {
       setLoading(true);
       const res = await axios.get("/products2/all");
       setProducts(res.data);
-    } catch (error) {
+    } catch {
       alert("❌ Error fetching products");
     } finally {
       setLoading(false);
@@ -119,87 +118,99 @@ const ProductManager = () => {
       await axios.delete(`/products2/delete/${productId}`);
       alert("✅ Product deleted!");
       fetchProducts();
-    } catch (err) {
+    } catch {
       alert("❌ Error deleting product");
     }
   };
 
-  if (loading) return <p className="text-center text-gray-600">Loading products...</p>;
+  if (loading) return <p className="text-center text-gray-600 text-sm">Loading products...</p>;
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6 text-center text-green-800">
-        Product Manager
-      </h1>
+    <div className="max-w-6xl mx-auto px-3 py-6">
+      <h1 className="text-2xl font-bold text-center text-green-700 mb-6">Multiple product management</h1>
 
       {editProduct && (
-        <form onSubmit={handleUpdateProduct} className="mb-8 border p-6 rounded shadow bg-white">
-          <h2 className="text-xl font-semibold mb-4">✏️ Edit Product</h2>
-
-          {["name", "segment", "type", "category", "packing", "composition", "indications", "usage", "report", "brochure", "feedback"].map((field) => (
-            <div key={field} className="mb-3">
-              <label className="block font-semibold mb-1">
-                {field.charAt(0).toUpperCase() + field.slice(1)}
-              </label>
-              <input
-                type="text"
-                name={field}
-                value={formData[field]}
-                onChange={handleInputChange}
-                className="border p-2 rounded w-full"
-                required={["name", "category"].includes(field)}
-              />
+        <form
+          onSubmit={handleUpdateProduct}
+          className="mb-8 bg-white p-4 rounded-lg shadow-sm border border-gray-200"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+            <div>
+              <label className="block text-sm font-medium">Product Image</label>
+              <input type="file" name="productImage" onChange={handleFileChange} />
             </div>
-          ))}
-
-          <div className="mb-3">
-            <label className="block font-semibold mb-1">Product Image</label>
-            <input type="file" name="productImage" onChange={handleFileChange} accept="image/*" />
+            <div>
+              <label className="block text-sm font-medium">Product Logo</label>
+              <input type="file" name="productLogo" onChange={handleFileChange} />
+            </div>
           </div>
-          <div className="mb-3">
-            <label className="block font-semibold mb-1">Product Logo</label>
-            <input type="file" name="productLogo" onChange={handleFileChange} accept="image/*" />
+          <h2 className="text-lg font-semibold mb-3 text-green-800">Edit Product</h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+            {[
+              "name", "segment", "type", "category", "packing",
+              "composition", "indications", "usage", "report", "brochure", "feedback"
+            ].map((field) => (
+              <div key={field}>
+                <label className="text-sm font-medium capitalize">{field}</label>
+                <input
+                  type="text"
+                  name={field}
+                  value={formData[field]}
+                  onChange={handleInputChange}
+                  required={field === "name" || field === "category"}
+                  className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                />
+              </div>
+            ))}
           </div>
 
           {["fr", "es", "ar", "ko"].map((langKey) => (
             <div key={langKey} className="mb-4 border-t pt-3">
-              <h4 className="font-medium text-gray-700">
-                🌐 {langKey.toUpperCase()} Translation
-              </h4>
-              {["name", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
-                <input
-                  key={field}
-                  type="text"
-                  name={field}
-                  value={formData.translations[langKey]?.[field] || ""}
-                  onChange={(e) => handleTranslationChange(e, langKey)}
-                  placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
-                  className="w-full border p-2 rounded mb-2"
-                />
-              ))}
+              <h4 className="font-semibold text-sm mb-2">{langKey.toUpperCase()} Translation</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {["name", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
+                  <div key={field}>
+                    <label className="text-sm font-medium capitalize">{field}</label>
+                    <input
+                      key={field}
+                      type="text"
+                      name={field}
+                      value={formData.translations[langKey]?.[field] || ""}
+                      onChange={(e) => handleTranslationChange(e, langKey)}
+                      placeholder={`${field} (${langKey})`}
+                      className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
 
-          <div className="mt-4 flex gap-4">
-            <button type="submit" className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">
-              ✅ Update
+          <div className="flex gap-3 mt-4">
+            <button type="submit" className="bg-green-600 text-white px-4 py-1.5 text-sm rounded hover:bg-green-700">
+              Update
             </button>
-            <button type="button" onClick={cancelEdit} className="bg-gray-600 text-white py-2 px-4 rounded hover:bg-gray-700">
-              ❌ Cancel
+            <button
+              type="button"
+              onClick={cancelEdit}
+              className="bg-gray-500 text-white px-4 py-1.5 text-sm rounded hover:bg-gray-600"
+            >
+              Cancel
             </button>
           </div>
         </form>
       )}
 
-      <div>
-        <h2 className="text-xl font-semibold mb-4">📋 All Products</h2>
+      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+        <h2 className="text-lg font-semibold mb-3">All Products</h2>
         {products.length === 0 ? (
-          <p className="text-gray-600">No products found.</p>
+          <p className="text-gray-500 text-sm">No products available.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse border border-gray-300">
+            <table className="min-w-full text-sm border border-gray-300">
               <thead>
-                <tr className="bg-gray-200 text-left">
+                <tr className="bg-gray-100 text-gray-700">
                   <th className="border p-2">ID</th>
                   <th className="border p-2">Name</th>
                   <th className="border p-2">Category</th>
@@ -211,27 +222,39 @@ const ProductManager = () => {
               </thead>
               <tbody>
                 {products.map((p) => (
-                  <tr key={p._id}>
+                  <tr key={p._id} className="hover:bg-gray-50">
                     <td className="border p-2">{p.productId}</td>
                     <td className="border p-2">{p.generalInfo?.name || "-"}</td>
                     <td className="border p-2">{p.generalInfo?.category || "-"}</td>
                     <td className="border p-2">{p.generalInfo?.segment || "-"}</td>
                     <td className="border p-2">
-                      {p.productImage && <img src={p.productImage} alt="Product" className="h-12" />}
+                      {p.productImage && (
+                        <img
+                          src={p.productImage}
+                          alt="Product"
+                          className="h-10 w-10 object-cover rounded"
+                        />
+                      )}
                     </td>
                     <td className="border p-2">
-                      {p.productLogo && <img src={p.productLogo} alt="Logo" className="h-12" />}
+                      {p.productLogo && (
+                        <img
+                          src={p.productLogo}
+                          alt="Logo"
+                          className="h-10 w-10 object-contain"
+                        />
+                      )}
                     </td>
                     <td className="border p-2">
                       <button
                         onClick={() => startEdit(p)}
-                        className="mr-2 bg-blue-600 text-white py-1 px-3 rounded hover:bg-blue-700"
+                        className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 mr-2"
                       >
                         Edit
                       </button>
                       <button
                         onClick={() => handleDelete(p._id)}
-                        className="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700"
+                        className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
                       >
                         Delete
                       </button>
