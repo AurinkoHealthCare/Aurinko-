@@ -4,6 +4,10 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 // english
 import enHome from './locales/en/home.json';
+// Navbar
+import enNavbar from './locales/en/navbar.json';
+// footer
+import enFooter from './locales/en/footer.json';
 // Home
 import enHuman_home from './locales/en/human_home.json';
 // About us
@@ -17,6 +21,10 @@ import enManufacturing from './locales/en/manufacturing.json';
 
 // Arabic
 import arHome from './locales/ar/home.json';
+// Navbar
+import arNavbar from './locales/ar/navbar.json';
+// footer
+import arFooter from './locales/ar/footer.json';
 // Home
 import arHuman_home from './locales/ar/Human_home.json';
 // About us
@@ -30,6 +38,10 @@ import arManufacturing from './locales/ar/manufacturing.json';
 
 // French
 import frHome from './locales/fr/home.json';
+// Navbar
+import frNavbar from './locales/fr/navbar.json';
+// footer
+import frFooter from './locales/fr/footer.json';
 // Home
 import frHuman_home from './locales/fr/Human_home.json';
 // About us
@@ -43,6 +55,10 @@ import frManufacturing from './locales/fr/manufacturing.json';
 
 // Korean
 import koHome from './locales/ko/home.json';
+// Navbar
+import koNavbar from './locales/ko/navbar.json';
+// footer
+import koFooter from './locales/ko/footer.json';
 // Home
 import koHuman_home from './locales/ko/Human_home.json';
 // About us
@@ -56,6 +72,10 @@ import koManufacturing from './locales/ko/manufacturing.json';
 
 // Spanish
 import esHome from './locales/es/home.json';
+// Navbar
+import esNavbar from './locales/es/navbar.json';
+// footer
+import esFooter from './locales/es/footer.json';
 // Home
 import esHuman_home from './locales/es/Human_home.json';
 // About us
@@ -78,6 +98,8 @@ i18n
     resources: {
       en: {
         home: enHome,
+        navbar: enNavbar,
+        footer: enFooter,
         Human_home: enHuman_home,
         about: enAbout_us,
         export: enExport,
@@ -86,6 +108,8 @@ i18n
       },
       ar: {
         home: arHome,
+        navbar: arNavbar,
+        footer: arFooter,
         Human_home: arHuman_home,
         about: arAbout_us,
         export: arExport,
@@ -94,6 +118,8 @@ i18n
       },
       fr: {
         home: frHome,
+        navbar: frNavbar,
+        footer: frFooter,
         Human_home: frHuman_home,
         about: frAbout_us,
         export: frExport,
@@ -102,6 +128,8 @@ i18n
       },
       ko: {
         home: koHome,
+        navbar: koNavbar,
+        footer: koFooter,
         Human_home: koHuman_home,
         about: koAbout_us,
         export: koExport,
@@ -110,6 +138,8 @@ i18n
       },
       es: {
         home: esHome,
+        navbar: esNavbar,
+        footer: esFooter,
         Human_home: esHuman_home,
         about: esAbout_us,
         export: esExport,

@@ -30,17 +30,17 @@ const Block6 = () => {
       {/* LEFT */}
       <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-left">
         <h1 className="text-4xl font-extrabold text-red-700 uppercase">
-          {t("getInTouch")}
+          {t("block6.getInTouch")}
         </h1>
         <div className="h-1 w-40 bg-gradient-to-r from-red-600 to-red-900 rounded-full mx-auto lg:mx-0" />
 
         <p className="text-gray-700 text-base md:text-lg leading-relaxed">
-          {t("healthMessage")}
+          {t("block6.healthMessage")}
         </p>
 
         <Link to="/contact-us" onClick={(e) => reloadPage(e, "/contact-us")}>
           <button className="group inline-flex items-center gap-2 px-8 py-3 rounded-full bg-red-600 text-white font-semibold shadow-md hover:bg-red-700 transition-all duration-300 hover:scale-105">
-            {t("enrollNow")}
+            {t("block6.enrollNow")}
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
           </button>
         </Link>
@@ -49,7 +49,7 @@ const Block6 = () => {
       {/* RIGHT */}
       <div className="w-full lg:w-1/2 text-center space-y-6">
         <h1 className="text-4xl font-extrabold text-red-600">
-          {t("reviewFeedback")}
+          {t("block6.reviewFeedback")}
         </h1>
         <div className="h-1 w-48 bg-gradient-to-r from-red-600 to-red-900 rounded-full mx-auto" />
 
@@ -58,7 +58,7 @@ const Block6 = () => {
           target="_blank"
         >
           <button className="mt-2 px-6 py-3 bg-red-600 text-white text-base font-medium rounded-full shadow-lg hover:bg-red-700 transition duration-300 hover:scale-105">
-            {t("goReview")}
+            {t("block6.goReview")}
           </button>
         </Link>
 
@@ -80,10 +80,10 @@ const Block6 = () => {
                 transition={{ duration: 0.3 }}
               />
               <p className="italic text-gray-800 text-base leading-relaxed text-center px-2">
-                "{reviews[currentIndex].text}"
+                "{t(`block6.reviews.${currentIndex}.text`)}"
               </p>
               <h3 className="mt-4 text-lg font-semibold text-red-900">
-                {reviews[currentIndex].name}
+               {t(`block6.reviews.${currentIndex}.name`)}
               </h3>
             </motion.div>
           </AnimatePresence>
