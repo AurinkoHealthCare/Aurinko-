@@ -17,6 +17,8 @@ const visitorRouter = require("./router/totalvisitors/visitorsrouter");
 const contact = require('./router/contact/contact');
 const products = require('./router/products/productsrouter')
 const Products2 = require('./router/products2router/products2')
+const pdfRoutes = require("./router/pdf/pdfRouter");
+const galleryupload = require("./router/galleryRouter/gallery");
 
 
 // Connect to MongoDB
@@ -54,6 +56,8 @@ app.use("/api/visitors", visitorRouter);
 app.use('/api/submit', contact);
 app.use('/api/products', products)
 app.use('/api/products2', Products2)
+app.use("/api/pdf", pdfRoutes);
+app.use("/api/gallery", galleryupload);
 
 // Error Handler
 app.use((err, req, res, next) => {

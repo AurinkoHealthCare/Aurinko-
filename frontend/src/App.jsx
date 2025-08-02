@@ -131,6 +131,10 @@ import Ingredient from './Admin/Pages/Pages/Ingredients/Ingredients';
 import Contact from './Admin/Pages/Pages/Contact Us/Contact us';
 import TrackVisitor from '../api/totalvisitors';
 import TodoApp from "../utils/todo.jsx";
+import PdfUpload from "./Admin/Pages/Pages/Media/Reports";
+import PdfManager from "./Admin/Pages/Media/pdf.jsx";
+import ImageUpload from "./Admin/Pages/Pages/Media/Gallery";
+import ImageList from "./Admin/Pages/Media/gallery.jsx";
 
 function App() {
   TrackVisitor();
@@ -322,6 +326,11 @@ function App() {
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/todo" element={<TodoApp />} />
+        <Route path="/pdfuploaderadmin" element={<PdfUpload />} />
+        <Route path="/pdflistadmin" element={<PdfManager />} />
+        <Route path="/imageuploadadmin" element={<ImageUpload />} />
+        <Route path="/galleryflistadmin" element={<ImageList />} />
+        
       </Routes>
     </div>
   );
