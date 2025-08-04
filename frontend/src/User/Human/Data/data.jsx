@@ -86,46 +86,6 @@ export const block5Data = [
     }
 ];
 
-export const productTypes = [
-    {
-        title: "POWDER / GRANULES",
-        description:
-            "Our powder and granule formulations are designed for efficient nutrient absorption in the human body. These forms are easy to mix with water or food, making them ideal for supplements like protein, vitamins, minerals, and herbal blends. They offer quick dissolution, high bioavailability, and are suited for all age groups, especially in wellness and therapeutic segments.",
-        image: "/Assets/block 5/Powder.jpg",
-        alt: "Human Powder Granules",
-    },
-    {
-        title: "TABLETS / CAPSULES",
-        description:
-            "Tablets, capsules, and boluses offer precise dosing and convenient administration for daily health support. Whether it's multivitamins, probiotics, or specialized treatments, these solid forms ensure consistent delivery of active ingredients. Capsules are preferred for rapid absorption, tablets for extended release, and boluses for higher-dose, controlled treatments in clinical or OTC settings.",
-        image: "/Assets/block 5/tablets.jpg",
-        alt: "Human Tablets and Capsules",
-    },
-    {
-        title: "LIQUIDS",
-        description:
-            "Liquid supplements are fast-absorbing and ideal for children, elderly, or those with swallowing difficulties. Perfect for hydration, immunity boosters, vitamins, and herbal extracts, they offer flexibility in dosing and quick onset of action. Widely used in wellness tonics, syrups, and functional health drinks.",
-        image: "/Assets/block 5/Liquid.jpg",
-        alt: "Human Liquid Products",
-    },
-    {
-        title: "GELS",
-        description:
-            "Gels offer a unique delivery system for topical and oral use. In human healthcare, gels are commonly used for pain relief, skincare, and oral supplements that require immediate absorption. Their non-greasy, fast-acting nature makes them a preferred format in both pharmaceutical and cosmetic applications.",
-        image: "/Assets/block 5/gel.jpg",
-        alt: "Human Gel Formulation",
-    },
-    {
-        title: "SPRAYS",
-        description:
-            "Sprays are convenient for on-the-go use and targeted application. In human care, they are widely used for throat relief, nasal decongestion, wound healing, and vitamin delivery. This format ensures even distribution and rapid absorption, making it suitable for both therapeutic and cosmetic purposes.",
-        image: "/Assets/block 5/spray.jpg",
-        alt: "Human Spray Bottle",
-    },
-];
-
-
-
 export const reviews = [
     {
         id: 1,

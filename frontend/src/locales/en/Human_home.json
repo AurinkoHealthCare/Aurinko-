@@ -60,6 +60,28 @@
     "healthMessage": "Your health is our priority. We are dedicated to providing the best healthcare solutions to enhance your physical, mental, and social well-being.",
     "enrollNow": "Enroll Now",
     "reviewFeedback": "Review & Feedback",
-    "goReview": "Go Review"
+    "goReview": "Go Review",
+    "reviews": [
+      {
+        "name": "John Doe",
+        "text": "Excellent service! Highly recommended."
+      },
+      {
+        "name": "Jane Smith",
+        "text": "Great experience, very professional team!"
+      },
+      {
+        "name": "Alex Johnson",
+        "text": "Quick and reliable healthcare services."
+      },
+      {
+        "name": "Emma Brown",
+        "text": "Loved the friendly staff and fast service."
+      },
+      {
+        "name": "Michael Wilson",
+        "text": "Affordable and efficient medical solutions."
+      }
+    ]
   }
 }

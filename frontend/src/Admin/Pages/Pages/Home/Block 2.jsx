@@ -23,7 +23,6 @@ const Block2 = () => {
     }
   ]);
 
-  // ✅ Handle File Upload
   const handleFileChange = (e, index, field) => {
     const file = e.target.files[0];
     const newItems = [...items];
@@ -33,7 +32,6 @@ const Block2 = () => {
     setItems(newItems);
   };
 
-  // ✅ Handle Normal Input
   const handleChange = (e, index) => {
     const { name, value } = e.target;
     const newItems = [...items];
@@ -41,7 +39,6 @@ const Block2 = () => {
     setItems(newItems);
   };
 
-  // ✅ Handle Translation Input
   const handleTranslationChange = (e, index, langKey) => {
     const { name, value } = e.target;
     const newItems = [...items];
@@ -52,7 +49,6 @@ const Block2 = () => {
     setItems(newItems);
   };
 
-  // ➕ Add More Products
   const handleAddMore = () => {
     if (items.length >= 5) {
       alert("❌ Maximum 5 items allowed");
@@ -81,7 +77,6 @@ const Block2 = () => {
     ]);
   };
 
-  // ✅ Submit All Products
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -89,8 +84,6 @@ const Block2 = () => {
         const formData = new FormData();
         if (item.productImage) formData.append("productImage", item.productImage);
         if (item.productLogo) formData.append("productLogo", item.productLogo);
-
-        // Add General Info
         formData.append("name", item.name);
         formData.append("segment", item.segment);
         formData.append("type", item.type);
@@ -102,8 +95,6 @@ const Block2 = () => {
         formData.append("report", item.report);
         formData.append("brochure", item.brochure);
         formData.append("feedback", item.feedback);
-
-        // Add Translations
         formData.append("translations", JSON.stringify(item.translations));
 
         const res = await axios.post("/products2/add", formData, {
@@ -112,27 +103,7 @@ const Block2 = () => {
         console.log("✅ Added:", res.data);
       }
       alert("✅ All products added successfully!");
-      // Reset form
-      setItems([
-        {
-          productImage: null,
-          productLogo: null,
-          name: "",
-          segment: "",
-          type: "",
-          category: "",
-          packing: "",
-          composition: "",
-          indications: "",
-          usage: "",
-          report: "",
-          brochure: "",
-          feedback: "",
-          translations: { fr: {}, es: {}, ar: {}, ko: {} },
-          previewImage: "",
-          previewLogo: ""
-        }
-      ]);
+      setItems([items[0]]);
     } catch (err) {
       console.error("❌ Error:", err);
       alert("❌ Error adding products: " + (err.response?.data?.message || err.message));
@@ -140,114 +111,107 @@ const Block2 = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center text-green-800">
-        GLOBAL PROVIDER OF ANIMAL FEED SUPPLEMENTS
+    <div className="p-4 max-w-5xl mx-auto text-sm">
+      <h2 className="text-xl font-bold mb-3 text-center text-green-700 uppercase">
+        Global Provider of Animal Feed Supplements
       </h2>
+
       <form onSubmit={handleSubmit}>
         {items.map((item, idx) => (
-          <div key={idx} className="border rounded p-4 mb-6 shadow-sm bg-white">
-            <h3 className="font-semibold mb-2 text-lg">📦 Product {idx + 1}</h3>
+          <div key={idx} className="border rounded-md p-3 mb-5 bg-white shadow">
+            <h3 className="font-semibold mb-3 text-base text-blue-600">📦 Product {idx + 1}</h3>
 
-            {/* Image Field */}
-            {item.previewImage && (
-              <img
-                src={item.previewImage}
-                alt="Preview"
-                className="w-32 h-32 object-cover mb-2 rounded border"
-              />
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, idx, "productImage")}
-              required
-              className="mb-2"
-            />
+            <div className="flex flex-wrap gap-4 mb-3">
+              <div>
+                {item.previewImage && (
+                  <img src={item.previewImage} alt="Preview" className="w-20 h-20 object-cover rounded border" />
+                )}
+                <label className="text-sm font-medium capitalize">Product Image </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, idx, "productImage")}
+                  required
+                  className="mt-1 text-xs border border-gray-300 rounded p-2"
+                />
+              </div>
+              <div>
+                {item.previewLogo && (
+                  <img src={item.previewLogo} alt="Logo Preview" className="w-20 h-20 object-contain rounded border" />
+                )}
+                <label className="text-sm font-medium capitalize">Product Logo </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, idx, "productLogo")}
+                  required
+                  className="mt-1 text-xs border border-gray-300 rounded p-2"
+                />
+              </div>
+            </div>
 
-            {/* Logo Field */}
-            {item.previewLogo && (
-              <img
-                src={item.previewLogo}
-                alt="Logo Preview"
-                className="w-32 h-32 object-contain mb-2 rounded border"
-              />
-            )}
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, idx, "productLogo")}
-              required
-              className="mb-4"
-            />
-
-            {/* General Info Fields */}
-            {[
-              "name",
-              "segment",
-              "type",
-              "category",
-              "packing",
-              "composition",
-              "indications",
-              "usage",
-              "report",
-              "brochure",
-              "feedback"
-            ].map((field) => (
-              <input
-                key={field}
-                type="text"
-                name={field}
-                value={item[field]}
-                onChange={(e) => handleChange(e, idx)}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                className="w-full border p-2 rounded mb-2"
-                required={!["report", "brochure", "feedback"].includes(field)}
-              />
-            ))}
-
-            {/* Translation Inputs */}
-            {["fr", "es", "ar", "ko"].map((langKey) => (
-              <div key={langKey} className="mb-4">
-                <h4 className="font-medium text-gray-700">
-                  🌐 {langKey.toUpperCase()} Translation
-                </h4>
-                {[
-                  "name",
-                  "segment",
-                  "type",
-                  "category",
-                  "packing",
-                  "composition",
-                  "indications",
-                  "usage"
-                ].map((field) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                "name", "segment", "type", "category", "packing", "composition",
+                "indications", "usage", "report", "brochure", "feedback"
+              ].map((field) => (
+                <div key={field}>
+                  <label className="text-sm font-medium capitalize">{field}</label>
                   <input
                     key={field}
                     type="text"
                     name={field}
-                    value={item.translations[langKey][field] || ""}
-                    onChange={(e) => handleTranslationChange(e, idx, langKey)}
-                    placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
-                    className="w-full border p-2 rounded mb-2"
+                    value={item[field]}
+                    onChange={(e) => handleChange(e, idx)}
+                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                    required={!["report", "brochure", "feedback"].includes(field)}
+                    className="border p-1.5 rounded w-full"
                   />
-                ))}
-              </div>
-            ))}
+                </div>
+              ))}
+            </div>
+
+            {/* Translations */}
+            <div className="mt-4">
+              {["fr", "es", "ar", "ko"].map((langKey) => (
+                <div key={langKey} className="mb-3">
+                  <h4 className="text-gray-600 font-medium mb-1">{langKey.toUpperCase()} Translation</h4>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    {[
+                      "name", "segment", "type", "category", "packing",
+                      "composition", "indications", "usage"
+                    ].map((field) => (
+                      <div key={field}>
+                        <label className="text-sm font-medium capitalize">{field}</label>
+                        <input
+                          key={field}
+                          type="text"
+                          name={field}
+                          value={item.translations[langKey][field] || ""}
+                          onChange={(e) => handleTranslationChange(e, idx, langKey)}
+                          placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
+                          className="border p-1.5 rounded w-full"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
-        <div className="flex justify-between items-center">
+
+        <div className="flex justify-between mt-4">
           <button
             type="button"
             onClick={handleAddMore}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm"
           >
             ➕ Add More
           </button>
           <button
             type="submit"
-            className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
           >
             ✅ Save
           </button>

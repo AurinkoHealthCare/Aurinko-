@@ -24,7 +24,6 @@ const Productimage = () => {
     fetchProducts();
   }, [lang]);
 
-  // ✅ Fetch Products
   const fetchProducts = async () => {
     try {
       setLoading(true);
@@ -37,13 +36,12 @@ const Productimage = () => {
     }
   };
 
-  // ✅ Delete Product
   const handleDelete = async (productId) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
       setLoading(true);
       await axios.delete(`/products/delete/${productId}`);
-      await fetchProducts(); // Refresh after delete
+      await fetchProducts();
       alert("✅ Product deleted successfully!");
     } catch (err) {
       console.error("❌ Error deleting product:", err);
@@ -53,7 +51,6 @@ const Productimage = () => {
     }
   };
 
-  // ✅ Start Editing Product
   const handleEdit = (product) => {
     setEditingId(product.productId);
     setFormData({
@@ -67,13 +64,11 @@ const Productimage = () => {
     });
   };
 
-  // ✅ Handle Basic Input Change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // ✅ Handle Translations
   const handleTranslationChange = (e, langKey) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -85,7 +80,6 @@ const Productimage = () => {
     }));
   };
 
-  // ✅ Handle Image Upload
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setFormData((prev) => ({
@@ -95,7 +89,6 @@ const Productimage = () => {
     }));
   };
 
-  // ✅ Update Product
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
@@ -112,8 +105,7 @@ const Productimage = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      await fetchProducts(); // Refresh after update
-
+      await fetchProducts();
       setEditingId(null);
       setFormData({
         name: "",
@@ -135,10 +127,9 @@ const Productimage = () => {
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-3xl font-extrabold mb-8 text-center text-green-700">
-        📦 Product Management Dashboard
+        📦 GLOBAL PROVIDER LIST
       </h1>
 
-      {/* Language Selector */}
       <div className="mb-6 flex justify-center">
         <select
           value={lang}
@@ -153,10 +144,8 @@ const Productimage = () => {
         </select>
       </div>
 
-      {/* Loading Indicator */}
       {loading && <p className="text-center text-blue-600 mb-6">⏳ Loading...</p>}
 
-      {/* Edit Form */}
       {editingId && (
         <form
           onSubmit={handleUpdate}
@@ -278,60 +267,61 @@ const Productimage = () => {
         </form>
       )}
 
-      {/* Products Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {products.map((product, index) => {
           const productId = product.productId;
 
-          // ✅ Language based data
           const displayData =
             lang === "en"
               ? product
               : {
-                  ...product,
-                  name: product.translations[lang]?.name || product.name,
-                  category:
-                    product.translations[lang]?.category || product.category,
-                  details:
-                    product.translations[lang]?.details || product.details,
-                };
+                ...product,
+                name: product.translations[lang]?.name || product.name,
+                category: product.translations[lang]?.category || product.category,
+                details: product.translations[lang]?.details || product.details,
+              };
 
           return (
             <div
               key={productId || index}
-              className="border rounded-2xl shadow-lg p-5 bg-white hover:shadow-2xl transition"
+              className="border rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 p-4 flex flex-col"
             >
-              <img
-                src={product.image}
-                alt={displayData.name}
-                className="w-full h-48 object-cover rounded-xl mb-4"
-              />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">
-                {displayData.name}
-              </h3>
-              <p className="text-sm text-gray-600 mb-1">
-                <span className="font-semibold">Category:</span>{" "}
+              <div className="relative h-64 w-full mb-4 overflow-hidden rounded-xl">
+                <img
+                  src={product.image}
+                  alt={displayData.name}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+              </div>
+
+              <h3 className="text-lg font-bold text-gray-800 mb-1">{displayData.name}</h3>
+
+              <p className="text-sm text-gray-500 mb-1">
+                <span className="font-semibold text-gray-600">Category:</span>{" "}
                 {displayData.category}
               </p>
-              <p className="text-sm text-gray-700 mb-2">{displayData.details}</p>
 
-              <p className="text-yellow-500 text-lg font-semibold mb-4">
+              <div className="text-sm text-gray-700 mb-3 h-30 overflow-y-auto rounded-md p-2 no-scrollbar">
+                {displayData.details}
+              </div>
+
+              <p className="text-yellow-500 text-lg font-medium mb-4">
                 {renderStars(product.rating)}{" "}
-                <span className="text-gray-500 text-sm">
+                <span className="text-gray-500 text-sm ml-1">
                   ({product.rating} Stars)
                 </span>
               </p>
 
-              <div className="flex justify-between">
+              <div className="mt-auto flex justify-between gap-3">
                 <button
                   onClick={() => handleEdit(product)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                  className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
                 >
                   ✏️ Edit
                 </button>
                 <button
                   onClick={() => handleDelete(productId)}
-                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                  className="flex-1 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
                 >
                   🗑 Delete
                 </button>

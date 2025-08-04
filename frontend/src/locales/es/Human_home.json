@@ -60,6 +60,28 @@
     "healthMessage": "Tu salud es nuestra prioridad. Estamos dedicados a proporcionar las mejores soluciones de salud para mejorar tu bienestar físico, mental y social.",
     "enrollNow": "Inscribirse ahora",
     "reviewFeedback": "Reseñas y comentarios",
-    "goReview": "Ir a las reseñas"
+    "goReview": "Ir a las reseñas",
+    "reviews": [
+      {
+        "name": "Juan Pérez",
+        "text": "¡Servicio excelente! Muy recomendable."
+      },
+      {
+        "name": "Juana Gómez",
+        "text": "Gran experiencia, ¡equipo muy profesional!"
+      },
+      {
+        "name": "Alejandro Rodríguez",
+        "text": "Servicios de salud rápidos y confiables."
+      },
+      {
+        "name": "Emma Morales",
+        "text": "Me encantó el personal amable y el servicio rápido."
+      },
+      {
+        "name": "Miguel Fernández",
+        "text": "Soluciones médicas eficientes y asequibles."
+      }
+    ]
   }
 }

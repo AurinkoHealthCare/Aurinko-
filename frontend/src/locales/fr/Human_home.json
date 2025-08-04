@@ -60,6 +60,28 @@
     "healthMessage": "Votre santé est notre priorité. Nous nous engageons à fournir les meilleures solutions de santé pour améliorer votre bien-être physique, mental et social.",
     "enrollNow": "Inscrivez-vous maintenant",
     "reviewFeedback": "Avis et commentaires",
-    "goReview": "Voir les avis"
+    "goReview": "Voir les avis",
+    "reviews": [
+      {
+        "name": "Jean Dupont",
+        "text": "Service excellent ! Hautement recommandé."
+      },
+      {
+        "name": "Jeanne Martin",
+        "text": "Très bonne expérience, équipe très professionnelle !"
+      },
+      {
+        "name": "Alexandre Dubois",
+        "text": "Services de santé rapides et fiables."
+      },
+      {
+        "name": "Emma Bernard",
+        "text": "J'ai adoré le personnel amical et le service rapide."
+      },
+      {
+        "name": "Michel Lefèvre",
+        "text": "Solutions médicales efficaces et abordables."
+      }
+    ]
   }
 }

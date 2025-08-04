@@ -1,39 +1,51 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import axios from "../../../../api/axios";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import i18n from "../../../i18n"; // जहां आपका i18n config है वहां से import करें
 
 export default function ImageSlider() {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
-  const navigate = useNavigate();
 
-  // 📸 Fetch all images
-  const fetchImages = async () => {
+  // 📸 Fetch first 5 images by lang
+  const fetchImages = async (lang) => {
     try {
-      const res = await axios.get("/images/all");
+      const res = await axios.get(`/sliderimage/home/${lang}`);
       const validImages = Array.isArray(res.data.images) ? res.data.images : [];
-      setImages(validImages);
+      setImages(validImages.slice(0, 5)); // सिर्फ 5 images दिखानी हैं
     } catch (error) {
       console.error("Failed to fetch images:", error);
       setImages([]);
     }
   };
 
-  // 🚀 First Load
+  // 🚀 Run on language change
   useEffect(() => {
-    fetchImages();
+    const lang = i18n.language || "en";
+    fetchImages(lang);
+    setCurrentIndex(0);
+
+    // listener so slider auto-updates on lang change
+    const onLangChanged = (lng) => {
+      fetchImages(lng);
+      setCurrentIndex(0);
+    };
+
+    i18n.on("languageChanged", onLangChanged);
+
+    return () => {
+      i18n.off("languageChanged", onLangChanged);
+    };
   }, []);
 
-  // ⏱️ Auto Slide Interval
+  // ⏱️ Auto Slide
   useEffect(() => {
     if (images.length > 0) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+        setCurrentIndex((prev) =>
+          prev === images.length - 1 ? 0 : prev + 1
+        );
       }, 4000);
     }
     return () => clearInterval(intervalRef.current);
@@ -41,15 +53,18 @@ export default function ImageSlider() {
 
   // ⬅️ Prev Slide
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
   };
 
   // ➡️ Next Slide
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
   };
 
-  // 🔃 Loading state
   if (images.length === 0) {
     return (
       <div className="w-full h-[300px] flex justify-center items-center text-gray-500">
@@ -62,12 +77,11 @@ export default function ImageSlider() {
     <div className="relative w-full mx-auto">
       <div className="relative w-full h-full overflow-hidden">
         <img
-  src={images[currentIndex].url} 
-  alt={`Slide ${currentIndex + 1}`}
-  className="w-full h-full transition-transform duration-500 ease-in-out object-cover"
-  loading="eager"
-/>
-
+          src={images[currentIndex].url}
+          alt={`Slide ${currentIndex + 1}`}
+          className="w-full h-full transition-transform duration-500 ease-in-out object-cover"
+          loading="eager"
+        />
       </div>
 
       {/* Left Button */}
