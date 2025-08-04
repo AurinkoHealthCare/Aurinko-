@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import Admin from './Admin/admin';
@@ -97,7 +96,6 @@ import Video from './Admin/Pages/Pages/Media/Videos';
 import Feedback from './Admin/Pages/Feedback/Feedback';
 
 import TrackVisitor from '../api/totalvisitors';
-import TodoApp from "../utils/todo.jsx";
 import PdfUpload from "./Admin/Pages/Pages/Media/Reports";
 import PdfManager from "./Admin/Pages/Media/pdf.jsx";
 import ImageUpload from "./Admin/Pages/Pages/Media/Gallery";
@@ -258,7 +256,6 @@ function App() {
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/todo" element={<TodoApp />} />
         <Route path="/pdfuploaderadmin" element={<PdfUpload />} />
         <Route path="/pdflistadmin" element={<PdfManager />} />
         <Route path="/imageuploadadmin" element={<ImageUpload />} />
