@@ -1,119 +1,97 @@
-const ImageSlider = require('../../model/imageslider/imagesliderschema');
-const fs = require('fs');
-const path = require('path');
+const ImageSlider = require("../../model/imageslider/imagesliderschema");
+const fs = require("fs");
+const path = require("path");
 
-// 🔧 Helper: Safe File Delete
-const deleteFileSafe = (filePath) => {
+// Helper: safe delete
+const deleteFileSafe = async (filePath) => {
   try {
     if (fs.existsSync(filePath)) {
-      fs.unlinkSync(filePath);
-      console.log("Deleted:", filePath);
-    } else {
-      console.warn("File not found on disk:", filePath);
+      await fs.promises.unlink(filePath);
     }
   } catch (err) {
-    console.error("File Delete Error:", err.message);
+    console.warn("File delete skipped:", err.message);
   }
 };
 
-// ➕ Upload multiple files
-const uploadImages = async (req, res) => {
+// Upload Images
+exports.uploadImages = async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
+    const { category, lang } = req.body;
 
-    const uploadPromises = req.files.map(async (file, index) => {
-      const no = await ImageSlider.countDocuments() + index + 1;
-      return {
-        no,
-        url: `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`,
-        public_id: file.customFilename,
-        folder: file.customPath || "image", // ✅ fallback
-        type: file.mimetype.split("/")[0], // image | video | application
-      };
-    });
+    if (!category || !lang) {
+      return res.status(400).json({ message: "Category and language are required" });
+    }
 
-    const uploadedImages = await Promise.all(uploadPromises);
-    const saved = await ImageSlider.insertMany(uploadedImages);
+    const existingCount = await ImageSlider.countDocuments({ category, lang });
 
-    res.status(201).json({ message: "Files uploaded successfully", data: saved });
+    const uploadDocs = req.files.map((file, index) => ({
+      no: existingCount + index + 1,
+      url: `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`,
+      category,
+      lang,
+      imageName: file.originalname,
+      public_id: `${file.customPath}/${file.customFilename}`,
+    }));
+
+    const saved = await ImageSlider.insertMany(uploadDocs);
+
+    res.status(201).json({ message: "Images uploaded successfully", data: saved });
   } catch (error) {
     console.error("Upload Error:", error);
-    res.status(500).json({ message: "Failed to upload files", error: error.message });
+    res.status(500).json({ message: "Failed to upload images", error: error.message });
   }
 };
 
-// 🔍 Get all files
-const getAllImages = async (req, res) => {
+// Get Images
+exports.getImages = async (req, res) => {
   try {
-    const images = await ImageSlider.find().sort({ no: 1 });
-    res.json({ count: images.length, images });
+    const { category, lang } = req.params;
+    const images = await ImageSlider.find({ category, lang }).sort({ no: 1 });
+    res.json({ category, lang, images });
   } catch (error) {
-    console.error("Fetch Error:", error);
-    res.status(500).json({ message: "Failed to get images", error: error.message });
+    res.status(500).json({ message: "Failed to fetch images", error: error.message });
   }
 };
 
-// ❌ Delete file
-const deleteImage = async (req, res) => {
+// Update Image
+exports.updateImage = async (req, res) => {
   try {
-    const image = await ImageSlider.findOne({ no: req.params.no });
-    if (!image) return res.status(404).json({ message: "File not found" });
-
-    // ✅ fallback for old records
-    const folder = image.folder || "image";
-    const filePath = path.join(__dirname, "../../uploads", folder, image.public_id);
-    deleteFileSafe(filePath);
-
-    await ImageSlider.deleteOne({ no: req.params.no });
-
-    res.json({ message: "File deleted successfully" });
-  } catch (error) {
-    console.error("Delete Error:", error);
-    res.status(500).json({ message: "Failed to delete file", error: error.message });
-  }
-};
-
-// ✏️ Update file
-const updateImage = async (req, res) => {
-  try {
-    const image = await ImageSlider.findOne({ no: req.params.no });
-    if (!image) return res.status(404).json({ message: "File not found" });
-
+    const { id } = req.params;
     const baseUrl = `${req.protocol}://${req.get("host")}`;
-    let updatedData = {};
+    const imageDoc = await ImageSlider.findById(id);
 
-    if (req.file) {
-      // ✅ fallback for old records
-      const oldFolder = image.folder || "image";
-      const oldFilePath = path.join(__dirname, "../../uploads", oldFolder, image.public_id);
-      deleteFileSafe(oldFilePath);
+    if (!imageDoc) return res.status(404).json({ message: "Image not found" });
 
-      updatedData.url = `${baseUrl}/uploads/${req.file.customPath}/${req.file.customFilename}`;
-      updatedData.public_id = req.file.customFilename;
-      updatedData.folder = req.file.customPath || "image";
-      updatedData.type = req.file.mimetype.split("/")[0];
-    }
+    const oldPath = path.join(__dirname, "../../uploads", imageDoc.public_id);
+    await deleteFileSafe(oldPath);
 
-    if (req.body.no) {
-      updatedData.no = req.body.no;
-    }
+    const file = req.file;
+    imageDoc.url = `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`;
+    imageDoc.imageName = file.originalname;
+    imageDoc.public_id = `${file.customPath}/${file.customFilename}`;
+    await imageDoc.save();
 
-    const updated = await ImageSlider.findOneAndUpdate(
-      { no: req.params.no },
-      updatedData,
-      { new: true }
-    );
-
-    res.json({ message: "File updated successfully", data: updated });
+    res.json({ message: "Image updated successfully", data: imageDoc });
   } catch (error) {
-    console.error("Update Error:", error);
-    res.status(500).json({ message: "Failed to update file", error: error.message });
+    res.status(500).json({ message: "Failed to update image", error: error.message });
   }
 };
 
-module.exports = {
-  uploadImages,
-  getAllImages,
-  deleteImage,
-  updateImage,
+// Delete Image
+exports.deleteImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const imageDoc = await ImageSlider.findById(id);
+    if (!imageDoc) return res.status(404).json({ message: "Image not found" });
+
+    const filePath = path.join(__dirname, "../../uploads", imageDoc.public_id);
+    await deleteFileSafe(filePath);
+
+    await ImageSlider.findByIdAndDelete(id);
+
+    res.json({ message: "Image deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete image", error: error.message });
+  }
 };

@@ -132,7 +132,7 @@ app.use(
 
 // ✅ Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/images", imageRoutes);
+app.use("/api/sliderimage", imageRoutes);
 app.use("/api/visitors", visitorRouter);
 app.use('/api/submit', contact);
 app.use('/api/products', products);

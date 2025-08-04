@@ -1,10 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const imageSchema = new mongoose.Schema({
-  no: Number, // image number
-  url: String,
-  public_id: String,
-  uploadedAt: { type: Date, default: Date.now }
-});
+const ImageSliderSchema = new mongoose.Schema({
+  no: { type: Number, required: true },        
+  url: { type: String, required: true },       
+  category: { type: String, required: true },  
+  lang: { type: String, required: true },     
+  imageName: { type: String, required: true },
+  public_id: { type: String, required: true },
+}, { timestamps: true });
 
-module.exports = mongoose.model('Image', imageSchema);
+module.exports = mongoose.model("ImageSlider", ImageSliderSchema);
