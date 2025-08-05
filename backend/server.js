@@ -110,6 +110,8 @@ if (!fs.existsSync(uploadsPath)) {
 
 // ✅ Static file serving
 app.use("/uploads", express.static(uploadsPath));
+console.log("Uploads path:", uploadsPath);
+
 
 // ✅ Middleware
 app.use(

@@ -10,7 +10,8 @@ const {
 } = require("../../controller/otherimages/otherimagesController");
 
 // Upload multiple files
-router.post("/upload", upload.array("files", 10), uploadImages);
+router.post("/upload", upload.any(), uploadImages);
+
 
 // Get all files
 router.get("/", getImages);

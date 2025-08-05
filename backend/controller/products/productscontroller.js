@@ -2,6 +2,17 @@ const Product = require("../../model/products/productsSchema");
 const fs = require("fs");
 const path = require("path");
 
+// 🔧 Safe File Delete Helper
+const deleteFileSafe = (filePath) => {
+  try {
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  } catch (err) {
+    console.error("File Delete Error:", err.message);
+  }
+};
+
 // ➕ Add Product
 exports.addProduct = async (req, res) => {
   try {
@@ -12,23 +23,23 @@ exports.addProduct = async (req, res) => {
     if (req.body.translations) {
       try {
         translations = JSON.parse(req.body.translations);
-      } catch (err) {
+      } catch {
         return res.status(400).json({ message: "Invalid translations format" });
       }
     }
 
+    // ✅ Max 5 products per category
     const count = await Product.countDocuments({ category });
     if (count >= 5) {
-      if (req.file) fs.unlinkSync(req.file.path);
+      if (req.file) deleteFileSafe(req.file.path);
       return res
         .status(400)
         .json({ message: `Category '${category}' already has 5 products` });
     }
 
+    // ✅ Validate rating
     if (rating < 1 || rating > 5) {
-      return res
-        .status(400)
-        .json({ message: "Rating must be between 1 and 5" });
+      return res.status(400).json({ message: "Rating must be between 1 and 5" });
     }
 
     const product = new Product({
@@ -37,7 +48,9 @@ exports.addProduct = async (req, res) => {
       details,
       rating,
       translations,
-      image: req.file ? `${baseUrl}/uploads/${req.file.filename}` : null,
+      image: req.file
+        ? `${baseUrl}/uploads/${req.file.customPath}/${req.file.customFilename}`
+        : null,
     });
 
     const saved = await product.save();
@@ -61,10 +74,7 @@ exports.getProducts = async (req, res) => {
       productId: p.productId,
       image: p.image,
       rating: p.rating,
-      name:
-        lang && lang !== "en"
-          ? p.translations[lang]?.name || p.name
-          : p.name,
+      name: lang && lang !== "en" ? p.translations[lang]?.name || p.name : p.name,
       category:
         lang && lang !== "en"
           ? p.translations[lang]?.category || p.category
@@ -73,7 +83,7 @@ exports.getProducts = async (req, res) => {
         lang && lang !== "en"
           ? p.translations[lang]?.details || p.details
           : p.details,
-      translations: p.translations, // ✅ ताकि frontend edit में इस्तेमाल कर सके
+      translations: p.translations,
     }));
 
     res.json(result);
@@ -120,20 +130,19 @@ exports.updateProduct = async (req, res) => {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const product = await Product.findOne({ productId: req.params.id });
 
-    if (!product)
-      return res.status(404).json({ message: "Product not found" });
+    if (!product) return res.status(404).json({ message: "Product not found" });
 
-    // ✅ अगर नई image upload हुई
+    // ✅ Replace image if new uploaded
     if (req.file) {
       if (product.image) {
         const oldPath = path.join(
           __dirname,
-          "../../../",
+          "../../..",
           product.image.replace(baseUrl, "").replace(/^\//, "")
         );
-        if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+        deleteFileSafe(oldPath);
       }
-      product.image = `${baseUrl}/uploads/${req.file.filename}`;
+      product.image = `${baseUrl}/uploads/${req.file.customPath}/${req.file.customFilename}`;
     }
 
     product.name = req.body.name || product.name;
@@ -150,11 +159,10 @@ exports.updateProduct = async (req, res) => {
       product.rating = rating;
     }
 
-    // ✅ parse translations
     if (req.body.translations) {
       try {
         product.translations = JSON.parse(req.body.translations);
-      } catch (err) {
+      } catch {
         return res.status(400).json({ message: "Invalid translations format" });
       }
     }
@@ -177,10 +185,10 @@ exports.deleteProduct = async (req, res) => {
     if (product.image) {
       const filePath = path.join(
         __dirname,
-        "../../../",
+        "../../..",
         product.image.replace(baseUrl, "").replace(/^\//, "")
       );
-      if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+      deleteFileSafe(filePath);
     }
 
     await product.deleteOne();
