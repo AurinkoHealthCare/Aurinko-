@@ -1,5 +1,3 @@
-// 
-
 const Product = require("../../model/products2/products2");
 const fs = require("fs");
 const path = require("path");
@@ -24,15 +22,17 @@ exports.addProduct = async (req, res) => {
     const count = await Product.countDocuments({ "generalInfo.category": body.category });
     if (count >= 5) {
       deleteUploadedFiles(req.files);
-      return res.status(400).json({ message: `Category '${body.category}' already has 5 products` });
+      return res
+        .status(400)
+        .json({ message: `Category '${body.category}' already has 5 products` });
     }
 
     const product = new Product({
       productImage: req.files?.productImage?.[0]
-        ? `${baseUrl}/uploads/${req.files.productImage[0].filename}`
+        ? `${baseUrl}/uploads/${req.files.productImage[0].customPath}/${req.files.productImage[0].customFilename}`
         : null,
       productLogo: req.files?.productLogo?.[0]
-        ? `${baseUrl}/uploads/${req.files.productLogo[0].filename}`
+        ? `${baseUrl}/uploads/${req.files.productLogo[0].customPath}/${req.files.productLogo[0].customFilename}`
         : null,
       generalInfo: {
         name: body.name,
@@ -116,11 +116,11 @@ exports.updateProduct = async (req, res) => {
     // ✅ Handle images
     if (req.files?.productImage?.[0]) {
       deleteFileIfExists(product.productImage, baseUrl);
-      product.productImage = `${baseUrl}/uploads/${req.files.productImage[0].filename}`;
+      product.productImage = `${baseUrl}/uploads/${req.files.productImage[0].customPath}/${req.files.productImage[0].customFilename}`;
     }
     if (req.files?.productLogo?.[0]) {
       deleteFileIfExists(product.productLogo, baseUrl);
-      product.productLogo = `${baseUrl}/uploads/${req.files.productLogo[0].filename}`;
+      product.productLogo = `${baseUrl}/uploads/${req.files.productLogo[0].customPath}/${req.files.productLogo[0].customFilename}`;
     }
 
     // ✅ Update translations
@@ -136,7 +136,9 @@ exports.updateProduct = async (req, res) => {
     Object.keys(body).forEach((key) => {
       if (["name", "segment", "type", "category", "packing"].includes(key)) {
         product.generalInfo[key] = body[key];
-      } else if (["composition", "indications", "usage", "report", "brochure", "feedback"].includes(key)) {
+      } else if (
+        ["composition", "indications", "usage", "report", "brochure", "feedback"].includes(key)
+      ) {
         product[key] = body[key];
       }
     });
@@ -176,6 +178,6 @@ function deleteUploadedFiles(files) {
 function deleteFileIfExists(fileUrl, baseUrl) {
   if (!fileUrl) return;
   const relativePath = fileUrl.replace(baseUrl, "").replace(/^\//, "");
-  const filePath = path.resolve(__dirname, "..", "..", relativePath);
+  const filePath = path.resolve(__dirname, "../../..", relativePath);
   if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 }

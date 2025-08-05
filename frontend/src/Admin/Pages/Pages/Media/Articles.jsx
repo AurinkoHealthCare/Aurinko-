@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import axios from "../../../../../api/axios";
+import { toast } from "react-toastify";
 
 const FileUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
     if (!file || !name) {
-      return setMessage("Name and file are required");
+      return toast.error("Name and file are required ❌");
     }
 
     const formData = new FormData();
@@ -16,15 +17,28 @@ const FileUpload = ({ onUploadSuccess }) => {
     formData.append("name", name);
 
     try {
+      setLoading(true);
+
       const res = await axios.post("/otherimage/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+        validateStatus: () => true, // error handle manual
       });
-      setMessage("Uploaded successfully");
-      setFile(null);
-      setName("");
-      onUploadSuccess(); // refresh list
+
+      console.log("Upload Response:", res.data);
+
+      if (res.data?.success) {
+        toast.success(res.data.message || "Uploaded successfully ✅");
+        setFile(null);
+        setName("");
+        if (onUploadSuccess) onUploadSuccess();
+      } else {
+        toast.error(res.data?.message || "Upload failed ❌");
+      }
     } catch (err) {
-      setMessage(err.response?.data?.message || "Upload failed");
+      console.error("Axios Error:", err);
+      toast.error("Network error ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,11 +59,13 @@ const FileUpload = ({ onUploadSuccess }) => {
       />
       <button
         onClick={handleUpload}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        disabled={loading}
+        className={`px-4 py-2 rounded text-white ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+        }`}
       >
-        Upload
+        {loading ? "Uploading..." : "Upload"}
       </button>
-      {message && <p className="mt-3 text-sm text-gray-600">{message}</p>}
     </div>
   );
 };

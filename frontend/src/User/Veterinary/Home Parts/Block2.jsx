@@ -17,7 +17,7 @@ const Block2 = () => {
       {/* Cards */}
        <ProductsList
         apiUrl="/products/get"
-        category="Veterinary"
+        category="English"
         limit={5}
         theme="Veterinary"
         showHeading={false}

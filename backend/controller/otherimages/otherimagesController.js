@@ -16,27 +16,35 @@ const deleteFileSafe = async (filePath) => {
 // Upload Images
 exports.uploadImages = async (req, res) => {
   try {
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ message: "No files uploaded" });
+    let files = [];
+    if (req.files && req.files.length > 0) {
+      files = req.files;
+    } else if (req.file) {
+      files = [req.file];
+    }
+
+    if (files.length === 0) {
+      return res.status(400).json({ success: false, message: "No files uploaded" });
     }
 
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const existingCount = await ImageSlider.countDocuments();
 
-    const uploadDocs = req.files.map((file, index) => ({
-      name: file.originalname,
+    const uploadDocs = files.map((file, index) => ({
+      name: req.body.name || file.originalname,
       no: existingCount + index + 1,
-      url: `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`,
-      public_id: `${file.customPath}/${file.customFilename}`,
+      url: `${baseUrl}/uploads/${file.customPath || ""}${file.customPath ? "/" : ""}${file.customFilename || file.filename}`,
+      public_id: `${file.customPath || ""}${file.customPath ? "/" : ""}${file.customFilename || file.filename}`,
     }));
 
     const saved = await ImageSlider.insertMany(uploadDocs);
-    res.status(201).json({ message: "Files uploaded successfully", data: saved });
+    return res.status(201).json({ success: true, message: "Files uploaded successfully", data: saved });
   } catch (error) {
     console.error("Upload Error:", error);
-    res.status(500).json({ message: "Failed to upload files", error: error.message });
+    return res.status(500).json({ success: false, message: "Failed to upload files", error: error.message });
   }
 };
+
 
 // Get All Images
 exports.getImages = async (req, res) => {
