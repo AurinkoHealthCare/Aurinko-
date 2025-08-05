@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 const Block1 = () => {
-  const { t } = useTranslation('Human_home');
+  const { t } = useTranslation('home_parts');
 
   const heading = t('heading');
   const paragraphs = t('paragraphs', { returnObjects: true });

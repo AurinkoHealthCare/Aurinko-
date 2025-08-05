@@ -9,7 +9,7 @@ import enNavbar from './locales/en/navbar.json';
 // footer
 import enFooter from './locales/en/footer.json';
 // Home
-import enHuman_home from './locales/en/human_home.json';
+import enhome_parts from './locales/en/home_parts.json';
 // About us
 import enAbout_us from './locales/en/about.json';
 // Export
@@ -28,7 +28,7 @@ import arNavbar from './locales/ar/navbar.json';
 // footer
 import arFooter from './locales/ar/footer.json';
 // Home
-import arHuman_home from './locales/ar/Human_home.json';
+import arhome_parts from './locales/ar/home_parts.json';
 // About us
 import arAbout_us from './locales/ar/about.json';
 // Export
@@ -47,7 +47,7 @@ import frNavbar from './locales/fr/navbar.json';
 // footer
 import frFooter from './locales/fr/footer.json';
 // Home
-import frHuman_home from './locales/fr/Human_home.json';
+import frhome_parts from './locales/fr/home_parts.json';
 // About us
 import frAbout_us from './locales/fr/about.json';
 // Export
@@ -66,7 +66,7 @@ import koNavbar from './locales/ko/navbar.json';
 // footer
 import koFooter from './locales/ko/footer.json';
 // Home
-import koHuman_home from './locales/ko/Human_home.json';
+import kohome_parts from './locales/ko/home_parts.json';
 // About us
 import koAbout_us from './locales/ko/about.json';
 // Export
@@ -85,7 +85,7 @@ import esNavbar from './locales/es/navbar.json';
 // footer
 import esFooter from './locales/es/footer.json';
 // Home
-import esHuman_home from './locales/es/Human_home.json';
+import eshome_parts from './locales/es/home_parts.json';
 // About us
 import esAbout_us from './locales/es/about.json';
 // Export
@@ -110,7 +110,7 @@ i18n
         home: enHome,
         navbar: enNavbar,
         footer: enFooter,
-        Human_home: enHuman_home,
+        home_parts: enhome_parts,
         about: enAbout_us,
         export: enExport,
         visionmission: enVisionMission,
@@ -121,7 +121,7 @@ i18n
         home: arHome,
         navbar: arNavbar,
         footer: arFooter,
-        Human_home: arHuman_home,
+        home_parts: arhome_parts,
         about: arAbout_us,
         export: arExport,
         visionmission: arVisionMission,
@@ -132,7 +132,7 @@ i18n
         home: frHome,
         navbar: frNavbar,
         footer: frFooter,
-        Human_home: frHuman_home,
+        home_parts: frhome_parts,
         about: frAbout_us,
         export: frExport,
         visionmission: frVisionMission,
@@ -143,7 +143,7 @@ i18n
         home: koHome,
         navbar: koNavbar,
         footer: koFooter,
-        Human_home: koHuman_home,
+        home_parts: kohome_parts,
         about: koAbout_us,
         export: koExport,
         visionmission: koVisionMission,
@@ -154,7 +154,7 @@ i18n
         home: esHome,
         navbar: esNavbar,
         footer: esFooter,
-        Human_home: esHuman_home,
+        home_parts: eshome_parts,
         about: esAbout_us,
         export: esExport,
         visionmission: esVisionMission,
