@@ -76,9 +76,6 @@ import Banner from './Admin/Pages/Media/Banner';
 import Productimage from './Admin/Pages/Media/Product image';
 import ProductLogo from './Admin/Pages/Media/Product logo';
 
-// About Us
-import Overview from './Admin/Pages/Pages/About us/Overview';
-
 // Home
 import Block1 from './Admin/Pages/Pages/Home/Block 1';
 import Block2 from './Admin/Pages/Pages/Home/Block 2';
@@ -96,10 +93,9 @@ import Video from './Admin/Pages/Pages/Media/Videos';
 import Feedback from './Admin/Pages/Feedback/Feedback';
 
 import TrackVisitor from '../api/totalvisitors';
-import PdfUpload from "./Admin/Pages/Pages/Media/Reports";
-import PdfManager from "./Admin/Pages/Media/pdf.jsx";
-import ImageUpload from "./Admin/Pages/Pages/Media/Gallery";
-import ImageList from "./Admin/Pages/Media/gallery.jsx";
+import Report_view from "./Admin/Pages/Media/report_view";
+import Gallery_view from "./Admin/Pages/Media/gallery.jsx";
+import ProductCard from "../utils/ProductCard.jsx";
 
 function App() {
   TrackVisitor();
@@ -241,26 +237,22 @@ function App() {
           <Route path='/dashboard/block2' element={<Block2 />} />
           <Route path='/dashboard/block3' element={<Block3 />} />
 
-          {/* About us */}
-          <Route path='/dashboard/overview' element={<Overview />} />
-
           {/* Media */}
           <Route path='/dashboard/Reports' element={<Report />} />
+          <Route path="/dashboard/report_view" element={<Report_view />} />
           <Route path='/dashboard/Gallery' element={<Gallerys />} />
+          <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
           <Route path='/dashboard/Brochures' element={<Brochure />} />
           <Route path='/dashboard/Blogs' element={<Blogs />} />
           <Route path='/dashboard/Articles' element={<Article />} />
           <Route path='/dashboard/Videos' element={<Video />} />
-          
+
           {/* Feedback */}
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/pdfuploaderadmin" element={<PdfUpload />} />
-        <Route path="/pdflistadmin" element={<PdfManager />} />
-        <Route path="/imageuploadadmin" element={<ImageUpload />} />
-        <Route path="/galleryflistadmin" element={<ImageList />} />
-        
+        <Route path="/galleryflistadmin" element={<ProductCard />} />
+
       </Routes>
     </div>
   );

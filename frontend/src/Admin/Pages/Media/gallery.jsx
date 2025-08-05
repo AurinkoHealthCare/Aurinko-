@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
-export default function ImageList() {
+const Gallery_view = () => {
   const [images, setImages] = useState([]);
   const [newFile, setNewFile] = useState({});
 
@@ -10,7 +10,7 @@ export default function ImageList() {
     try {
       const { data } = await axios.get("/gallery/all");
       setImages(data.data);
-    } catch (err) { 
+    } catch (err) {
       console.error("Failed to fetch images:", err);
     }
   };
@@ -95,3 +95,5 @@ export default function ImageList() {
     </div>
   );
 }
+
+export default Gallery_view

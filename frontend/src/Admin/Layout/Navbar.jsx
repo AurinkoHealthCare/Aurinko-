@@ -42,9 +42,8 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 z-40 bg-gray-900 text-white w-64 pt-16 px-4 pb-5 h-full transform transition-transform duration-300 ease-in-out shadow-lg ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } md:translate-x-0 md:relative md:block`}
+        className={`fixed top-0 left-0 z-40 bg-gray-900 text-white w-64 pt-16 px-4 pb-5 h-full transform transition-transform duration-300 ease-in-out shadow-lg ${isOpen ? "translate-x-0" : "-translate-x-full"
+          } md:translate-x-0 md:relative md:block`}
       >
         {/* Branding */}
         <div className="mb-6 text-center md:text-left">
@@ -80,58 +79,12 @@ const Navbar = () => {
                 ],
               },
               {
-                label: "About Us",
-                items: [
-                  { to: "/dashboard/overview", label: "Overview" },
-                  { to: "/dashboard/Vision", label: "Vision & Mission" },
-                  { to: "/dashboard/manufacturing", label: "Manufacturing Facility" },
-                  { to: "/dashboard/research", label: "Research & Development" },
-                  { to: "/dashboard/exporte", label: "Export" },
-                  { to: "/dashboard/certificate", label: "Certificates" },
-                ],
-              },
-              {
-                label: "Human",
-                items: [
-                  { to: "/dashboard/nanophosphosomes", label: "Nanophosphosomes®" },
-                  { to: "/dashboard/neunamins", label: "Neuna®mins" },
-                  { to: "/dashboard/neunaparticle", label: "Neuna®particles" },
-                  { to: "/dashboard/health_Supplements", label: "Health Supplements" },
-                  { to: "/dashboard/personal_Care", label: "Personal Care" },
-                  { to: "/dashboard/yeppuen", label: "Yeppuen" },
-                ],
-              },
-              {
-                label: "Veterinary",
-                items: [
-                  { to: "/dashboard/DVNanophosphosome", label: "Nanophosphosomes®" },
-                  { to: "/dashboard/DVNeunamin", label: "Neuna®mins" },
-                  { to: "/dashboard/DVNeunaparticle", label: "Neuna®particles" },
-                  { to: "/dashboard/DVLivestock", label: "Livestock" },
-                  { to: "/dashboard/DVPoultry", label: "Poultry" },
-                  { to: "/dashboard/DVAqua", label: "Aqua" },
-                  { to: "/dashboard/DVSwine", label: "Swine" },
-                  { to: "/dashboard/DVEquine", label: "Equine" },
-                  { to: "/dashboard/DVPet", label: "Pet" },
-                  { to: "/dashboard/DVFeed_Grain", label: "Feed & Grain" },
-                ],
-              },
-              {
-                label: "Agriculture",
-                items: [
-                  { to: "/dashboard/nanofertilizer", label: "Nano Fertilizers" },
-                  { to: "/dashboard/soilmineral", label: "Soil Minerals" },
-                ],
-              },
-              {
-                label: "Ingredients",
-                items: [{ to: "/dashboard/ingredients", label: "Ingredients" }],
-              },
-              {
                 label: "Media",
                 items: [
                   { to: "/dashboard/Reports", label: "Reports" },
+                  { to: "/dashboard/report_view", label: "Report_view" },
                   { to: "/dashboard/Gallery", label: "Gallery" },
+                  { to: "/dashboard/Gallery_view", label: "Gallery_view" },
                   { to: "/dashboard/Brochures", label: "Brochures" },
                   { to: "/dashboard/Blogs", label: "Blogs" },
                   { to: "/dashboard/Articles", label: "Articles" },
