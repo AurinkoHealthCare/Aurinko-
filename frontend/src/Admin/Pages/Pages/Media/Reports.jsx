@@ -18,7 +18,7 @@ const handleAxiosError = (err) => {
   }
 };
 
-function PdfUpload({ onUpload }) {
+function Report({ onUpload }) {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const [category, setCategory] = useState("Reports");
@@ -67,41 +67,43 @@ function PdfUpload({ onUpload }) {
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden">
+    <div className="max-w-lg mx-auto mt-10 bg-white shadow-xl rounded-3xl overflow-hidden transition-all duration-500">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-blue-600 p-5 text-center">
-        <FileText className="w-10 h-10 text-white mx-auto mb-2" />
-        <h3 className="text-xl font-bold text-white">Upload a PDF</h3>
-        <p className="text-indigo-200 text-sm">Easily upload and manage your documents</p>
+      <div className="bg-gradient-to-br from-indigo-700 via-blue-600 to-blue-500 p-6 text-center rounded-b-3xl">
+        <FileText className="w-12 h-12 text-white mx-auto mb-3" />
+        <h3 className="text-2xl font-bold text-white">Upload a PDF</h3>
+        <p className="text-indigo-200 text-sm mt-1">
+          Effortlessly upload and manage your documents
+        </p>
       </div>
 
       {/* Form */}
-      <div className="p-6">
-        <form onSubmit={handleUpload} className="space-y-5">
+      <div className="p-7">
+        <form onSubmit={handleUpload} className="space-y-6">
           {/* Title input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Title
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              PDF Title
             </label>
             <input
               type="text"
-              placeholder="Enter PDF Title"
+              placeholder="Enter a title for the PDF"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm"
+              className="border border-gray-300 p-3 rounded-xl w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-inner bg-gray-50"
               disabled={loading}
             />
           </div>
 
           {/* Category dropdown */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
               Category
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="border border-gray-300 p-3 rounded-lg w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-sm"
+              className="border border-gray-300 p-3 rounded-xl w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-inner bg-gray-50"
               disabled={loading}
             >
               <option value="Reports">Reports</option>
@@ -111,21 +113,21 @@ function PdfUpload({ onUpload }) {
 
           {/* File input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Select PDF
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              PDF File
             </label>
             <div
-              className="border-2 border-dashed border-gray-300 rounded-xl p-5 text-center cursor-pointer hover:border-indigo-500 hover:bg-indigo-50 transition"
+              className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:border-indigo-600 hover:bg-indigo-50 transition-all"
               onClick={() => fileInputRef.current.click()}
             >
-              <Upload className="w-8 h-8 mx-auto text-indigo-500 mb-2" />
+              <Upload className="w-9 h-9 mx-auto text-indigo-500 mb-2" />
               <p className="text-sm text-gray-600">
                 {file ? (
                   <span className="font-medium text-gray-800">
                     📂 {file.name}
                   </span>
                 ) : (
-                  "Click to select a PDF file"
+                  "Click to browse and select a PDF"
                 )}
               </p>
             </div>
@@ -143,7 +145,7 @@ function PdfUpload({ onUpload }) {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 px-4 rounded-lg text-white font-semibold flex justify-center items-center gap-2 transition-all shadow-md ${
+            className={`w-full py-3 px-4 rounded-xl text-white font-semibold flex justify-center items-center gap-2 transition-all duration-300 shadow-md ${
               loading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
@@ -164,7 +166,7 @@ function PdfUpload({ onUpload }) {
         {/* Status message */}
         {statusMsg && (
           <p
-            className={`text-center mt-5 font-medium ${
+            className={`text-center mt-5 text-base font-semibold ${
               statusMsg.includes("✅")
                 ? "text-green-600"
                 : statusMsg.includes("⚠️")
@@ -182,4 +184,4 @@ function PdfUpload({ onUpload }) {
   );
 }
 
-export default PdfUpload;
+export default Report;

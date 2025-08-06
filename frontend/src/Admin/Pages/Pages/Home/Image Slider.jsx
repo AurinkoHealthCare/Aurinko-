@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ImageSlider = () => {
-  const [images, setImages] = useState(Array(6).fill(null)); // 6 images
+  const [images, setImages] = useState(Array(6).fill(null));
   const [previews, setPreviews] = useState(Array(6).fill(null));
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("home");

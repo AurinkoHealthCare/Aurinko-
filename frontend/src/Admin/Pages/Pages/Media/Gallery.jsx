@@ -1,4 +1,4 @@
-// src/components/ImageUpload.js
+// src/components/Gallerys.js
 import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 import {
@@ -8,7 +8,7 @@ import {
   XCircle,
 } from "lucide-react";
 
-export default function ImageUpload({ onUploadSuccess }) {
+const Gallerys = ({ onUploadSuccess }) => {
   const [files, setFiles] = useState(Array(6).fill(null));
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null);
@@ -69,9 +69,8 @@ export default function ImageUpload({ onUploadSuccess }) {
       {/* ✅ Toast */}
       {toast && (
         <div
-          className={`fixed top-6 right-6 px-5 py-3 rounded-lg shadow-lg text-white flex items-center gap-2 text-sm font-medium ${
-            toast.type === "success" ? "bg-green-600" : "bg-red-600"
-          }`}
+          className={`fixed top-6 right-6 px-5 py-3 rounded-lg shadow-lg text-white flex items-center gap-2 text-sm font-medium ${toast.type === "success" ? "bg-green-600" : "bg-red-600"
+            }`}
         >
           {toast.type === "success" ? (
             <CheckCircle2 className="w-5 h-5" />
@@ -121,11 +120,10 @@ export default function ImageUpload({ onUploadSuccess }) {
           <button
             type="submit"
             disabled={loading}
-            className={`px-8 py-3 rounded-xl font-semibold flex items-center gap-2 transition shadow-lg text-white ${
-              loading
+            className={`px-8 py-3 rounded-xl font-semibold flex items-center gap-2 transition shadow-lg text-white ${loading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
-            }`}
+              }`}
           >
             {loading ? (
               <>
@@ -142,3 +140,5 @@ export default function ImageUpload({ onUploadSuccess }) {
     </div>
   );
 }
+
+export default Gallerys;

@@ -3,7 +3,7 @@ import axios from "../../../../api/axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function PdfList() {
+function Report_view() {
   const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("Reports");
@@ -189,4 +189,4 @@ function PdfList() {
   );
 }
 
-export default PdfList;
+export default Report_view;

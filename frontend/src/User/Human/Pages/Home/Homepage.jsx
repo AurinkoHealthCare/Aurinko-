@@ -1,6 +1,6 @@
 import Block1 from "../../Home Parts/Block1";
 import Block2 from "../../Home Parts/Block2";
-import Block3 from "../../Home Parts/Block3";
+// import Block3 from "../../Home Parts/Block3";
 import Block4 from "../../Home Parts/Block4";
 import Block5 from "../../Home Parts/Block5";
 import Block6 from "../../Home Parts/Block6";
