@@ -88,7 +88,8 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
         ))}
       </div>
 
-      <style>{`
+      <style>
+        {`
         .flip-card {
           perspective: 1000px;
           height: 420px;
@@ -114,7 +115,8 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
         .flip-card-back {
           transform: rotateY(180deg);
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

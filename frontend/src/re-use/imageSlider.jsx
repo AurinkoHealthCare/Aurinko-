@@ -1,34 +1,33 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import axios from "../../../../api/axios";
-import i18n from "../../../i18n";
+import axios from "../../api/axios";
+import i18n from "../i18n";
 
-export default function ImageSlider() {
+export default function ImageSlideruse({ category = "home" }) {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  // 📸 Fetch first 5 images by lang
-  const fetchImages = async (lang) => {
+  // 📸 Fetch Images
+  const fetchImages = async (lang, category) => {
     try {
-      const res = await axios.get(`/sliderimage/agriculture/${lang}`);
+      const res = await axios.get(`/sliderimage/${category}/${lang}`);
       const validImages = Array.isArray(res.data.images) ? res.data.images : [];
-      setImages(validImages.slice(0, 5)); 
+      setImages(validImages.slice(0, 5));
     } catch (error) {
       console.error("Failed to fetch images:", error);
       setImages([]);
     }
   };
 
-  // 🚀 Run on language change
+  // 🚀 Run on language or category change
   useEffect(() => {
     const lang = i18n.language || "en";
-    fetchImages(lang);
+    fetchImages(lang, category);
     setCurrentIndex(0);
 
-    // listener so slider auto-updates on lang change
     const onLangChanged = (lng) => {
-      fetchImages(lng);
+      fetchImages(lng, category);
       setCurrentIndex(0);
     };
 
@@ -37,7 +36,7 @@ export default function ImageSlider() {
     return () => {
       i18n.off("languageChanged", onLangChanged);
     };
-  }, []);
+  }, [category]);
 
   // ⏱️ Auto Slide
   useEffect(() => {
@@ -51,14 +50,12 @@ export default function ImageSlider() {
     return () => clearInterval(intervalRef.current);
   }, [images]);
 
-  // ⬅️ Prev Slide
   const prevSlide = () => {
     setCurrentIndex((prev) =>
       prev === 0 ? images.length - 1 : prev - 1
     );
   };
 
-  // ➡️ Next Slide
   const nextSlide = () => {
     setCurrentIndex((prev) =>
       prev === images.length - 1 ? 0 : prev + 1
