@@ -70,10 +70,4 @@ const Page_banner = ({ onUploadSuccess }) => {
   );
 };
 
-<<<<<<< HEAD:frontend/src/Admin/Pages/Pages/Media/Articles.jsx
-export default FileUpload;
-||||||| beea8a3:frontend/src/Admin/Pages/Pages/Media/Articles.jsx
-export default FileUpload;
-=======
 export default Page_banner;
->>>>>>> f933dc2e67e9ed54aba6bf61c066c352be5a38bd:frontend/src/Admin/Pages/Pages/Media/page_banner.jsx
