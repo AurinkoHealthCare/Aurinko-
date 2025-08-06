@@ -7,7 +7,7 @@ const Banner = () => {
   const [images, setImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState({});
   const [loading, setLoading] = useState({});
-  const [category, setCategory] = useState("home");
+  const [category, setCategory] = useState("Human");
   const [lang, setLang] = useState("en");
   const [isFetching, setIsFetching] = useState(false);
 
