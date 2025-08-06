@@ -1,32 +1,77 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import axios from "../../../../api/axios";
+import i18n from "../../../i18n";
 
 export default function ImageSlider() {
-  const images = [
-    { url: "/Assets/banner/Nanophosphosom.webp" },
-    { url: "/Assets/banner/Neuna particle.webp" },
-    { url: "/Assets/banner/Nunamin.webp" },
-    { url: "/Assets/banner/Reintoni.webp" },
-  ];
-
+  const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-    }, 3000);
+  // 📸 Fetch first 5 images by lang
+  const fetchImages = async (lang) => {
+    try {
+      const res = await axios.get(`/sliderimage/veterinary/${lang}`);
+      const validImages = Array.isArray(res.data.images) ? res.data.images : [];
+      setImages(validImages.slice(0, 5)); 
+    } catch (error) {
+      console.error("Failed to fetch images:", error);
+      setImages([]);
+    }
+  };
 
-    return () => clearInterval(intervalRef.current);
+  // 🚀 Run on language change
+  useEffect(() => {
+    const lang = i18n.language || "en";
+    fetchImages(lang);
+    setCurrentIndex(0);
+
+    // listener so slider auto-updates on lang change
+    const onLangChanged = (lng) => {
+      fetchImages(lng);
+      setCurrentIndex(0);
+    };
+
+    i18n.on("languageChanged", onLangChanged);
+
+    return () => {
+      i18n.off("languageChanged", onLangChanged);
+    };
   }, []);
 
+  // ⏱️ Auto Slide
+  useEffect(() => {
+    if (images.length > 0) {
+      intervalRef.current = setInterval(() => {
+        setCurrentIndex((prev) =>
+          prev === images.length - 1 ? 0 : prev + 1
+        );
+      }, 4000);
+    }
+    return () => clearInterval(intervalRef.current);
+  }, [images]);
+
+  // ⬅️ Prev Slide
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrentIndex((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
   };
 
+  // ➡️ Next Slide
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) =>
+      prev === images.length - 1 ? 0 : prev + 1
+    );
   };
+
+  if (images.length === 0) {
+    return (
+      <div className="w-full h-[300px] flex justify-center items-center text-gray-500">
+        Loading slider...
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full mx-auto">
@@ -34,7 +79,7 @@ export default function ImageSlider() {
         <img
           src={images[currentIndex].url}
           alt={`Slide ${currentIndex + 1}`}
-          className="w-full h-full transition-transform duration-500 ease-in-out"
+          className="w-full h-full transition-transform duration-500 ease-in-out object-cover"
           loading="eager"
         />
       </div>

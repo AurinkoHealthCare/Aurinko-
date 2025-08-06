@@ -1,22 +1,52 @@
 import React, { useState } from "react";
-import { productTypes } from "../Data/data.jsx";
+import { useTranslation } from 'react-i18next';
 
 const Block3 = () => {
+  const { t } = useTranslation('home_part3');
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleOverlay = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const productTypes = [
+    {
+      title: t("powder_title"),
+      description: t("powder_desc"),
+      image: "/Assets/block 5/Powder.jpg",
+      alt: "Powder Granules"
+    },
+    {
+      title: t("tablet_title"),
+      description: t("tablet_desc"),
+      image: "/Assets/block 5/tablets.jpg",
+      alt: "Tablets and Capsules"
+    },
+    {
+      title: t("liquid_title"),
+      description: t("liquid_desc"),
+      image: "/Assets/block 5/Liquid.jpg",
+      alt: "Liquid Products"
+    },
+    {
+      title: t("gel_title"),
+      description: t("gel_desc"),
+      image: "/Assets/block 5/gel.jpg",
+      alt: "Gel Formulation"
+    },
+    {
+      title: t("spray_title"),
+      description: t("spray_desc"),
+      image: "/Assets/block 5/spray.jpg",
+      alt: "Spray Bottle"
+    }
+  ];
+
   return (
     <div className="w-full min-h-screen py-12 px-4 md:px-8 lg:px-16 xl:px-24 font-poppins">
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-orange-600 mb-6 tracking-wide">
-        PRODUCT TYPES
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-6 tracking-wide">
+        {t("heading")}
       </h1>
-      <div
-        className="h-1 w-56 mx-auto rounded mb-10"
-        style={{ background: "linear-gradient(to right, #ea580c, #15803d)" }}
-      ></div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {productTypes.map((product, index) => (
@@ -30,22 +60,19 @@ const Block3 = () => {
               className="w-full h-72 object-cover transition duration-300 ease-in-out"
             />
 
-            {/* Button directly under image */}
             <button
               onClick={() => toggleOverlay(index)}
-              className="mx-auto mt-4 mb-4 bg-orange-600 text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-orange-700 z-10"
+              className="mx-auto mt-4 mb-4 bg-blue-600 text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-blue-700 z-10"
             >
-              {activeIndex === index ? "Back" : "Know More"}
+              {activeIndex === index ? t("back_btn") : t("know_more_btn")}
             </button>
 
-            {/* Sliding Overlay with Details */}
             <div
-              className={`absolute bottom-0 left-0 w-full h-full rounded-t-2xl bg-gradient-to-t from-white via-white/50 to-white/50 backdrop-blur-lg shadow-inner transition-transform duration-500 ease-in-out ${
-                activeIndex === index ? "translate-y-0" : "translate-y-full"
-              }`}
+              className={`absolute bottom-0 left-0 w-full h-full rounded-t-2xl bg-gradient-to-t from-white via-white/50 to-white/50 backdrop-blur-lg shadow-inner transition-transform duration-500 ease-in-out ${activeIndex === index ? "translate-y-0" : "translate-y-full"
+                }`}
             >
               <div className="p-5 h-72 overflow-y-auto no-scrollbar text-gray-800 ">
-                <h2 className="text-xl font-bold mb-2 text-green-800">
+                <h2 className="text-xl font-bold mb-2 text-blue-800">
                   {product.title}
                 </h2>
                 <p className="text-sm leading-relaxed">{product.description}</p>

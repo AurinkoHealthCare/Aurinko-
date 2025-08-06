@@ -77,9 +77,8 @@ import Productimage from './Admin/Pages/Media/Product image';
 import ProductLogo from './Admin/Pages/Media/Product logo';
 
 // Home
-import Block1 from './Admin/Pages/Pages/Home/Block 1';
-import Block2 from './Admin/Pages/Pages/Home/Block 2';
-import Block3 from './Admin/Pages/Pages/Home/Block 3';
+import Product_Cart from './Admin/Pages/Pages/Home/Product_Cart';
+import Product_List from './Admin/Pages/Pages/Home/Product_List';
 import ImageSlider from './Admin/Pages/Pages/Home/Image Slider';
 
 
@@ -88,7 +87,7 @@ import Report from './Admin/Pages/Pages/Media/Reports';
 import Gallerys from './Admin/Pages/Pages/Media/Gallery';
 import Brochure from './Admin/Pages/Pages/Media/Brochures';
 import Blogs from './Admin/Pages/Pages/Media/Blogs';
-import Article from './Admin/Pages/Pages/Media/Articles';
+import Page_banner from './Admin/Pages/Pages/Media/page_banner.jsx';
 import Video from './Admin/Pages/Pages/Media/Videos';
 import Feedback from './Admin/Pages/Feedback/Feedback';
 
@@ -233,9 +232,8 @@ function App() {
 
           {/* Home */}
           <Route path='/dashboard/imageSlider' element={<ImageSlider />} />
-          <Route path='/dashboard/block1' element={<Block1 />} />
-          <Route path='/dashboard/block2' element={<Block2 />} />
-          <Route path='/dashboard/block3' element={<Block3 />} />
+          <Route path='/dashboard/product_cart' element={<Product_Cart />} />
+          <Route path='/dashboard/product_list' element={<Product_List />} />
 
           {/* Media */}
           <Route path='/dashboard/Reports' element={<Report />} />
@@ -244,7 +242,7 @@ function App() {
           <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
           <Route path='/dashboard/Brochures' element={<Brochure />} />
           <Route path='/dashboard/Blogs' element={<Blogs />} />
-          <Route path='/dashboard/Articles' element={<Article />} />
+          <Route path='/dashboard/page_banner' element={<Page_banner />} />
           <Route path='/dashboard/Videos' element={<Video />} />
 
           {/* Feedback */}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 import { toast } from "react-toastify";
 
-const FileUpload = ({ onUploadSuccess }) => {
+const Page_banner = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
@@ -70,4 +70,4 @@ const FileUpload = ({ onUploadSuccess }) => {
   );
 };
 
-export default FileUpload;
+export default Page_banner;

@@ -10,6 +10,7 @@ import enNavbar from './locales/en/navbar.json';
 import enFooter from './locales/en/footer.json';
 // Home
 import enhome_parts from './locales/en/home_parts.json';
+import enhome_part3 from './locales/en/home_part3.json';
 // About us
 import enAbout_us from './locales/en/about.json';
 // Export
@@ -29,6 +30,7 @@ import arNavbar from './locales/ar/navbar.json';
 import arFooter from './locales/ar/footer.json';
 // Home
 import arhome_parts from './locales/ar/home_parts.json';
+import arhome_part3 from './locales/ar/home_part3.json';
 // About us
 import arAbout_us from './locales/ar/about.json';
 // Export
@@ -48,6 +50,7 @@ import frNavbar from './locales/fr/navbar.json';
 import frFooter from './locales/fr/footer.json';
 // Home
 import frhome_parts from './locales/fr/home_parts.json';
+import frhome_part3 from './locales/fr/home_part3.json';
 // About us
 import frAbout_us from './locales/fr/about.json';
 // Export
@@ -67,6 +70,7 @@ import koNavbar from './locales/ko/navbar.json';
 import koFooter from './locales/ko/footer.json';
 // Home
 import kohome_parts from './locales/ko/home_parts.json';
+import kohome_part3 from './locales/ko/home_part3.json';
 // About us
 import koAbout_us from './locales/ko/about.json';
 // Export
@@ -86,6 +90,7 @@ import esNavbar from './locales/es/navbar.json';
 import esFooter from './locales/es/footer.json';
 // Home
 import eshome_parts from './locales/es/home_parts.json';
+import eshome_part3 from './locales/es/home_part3.json';
 // About us
 import esAbout_us from './locales/es/about.json';
 // Export
@@ -111,6 +116,7 @@ i18n
         navbar: enNavbar,
         footer: enFooter,
         home_parts: enhome_parts,
+        home_part3: enhome_part3,
         about: enAbout_us,
         export: enExport,
         visionmission: enVisionMission,
@@ -122,6 +128,7 @@ i18n
         navbar: arNavbar,
         footer: arFooter,
         home_parts: arhome_parts,
+        home_part3: arhome_part3,
         about: arAbout_us,
         export: arExport,
         visionmission: arVisionMission,
@@ -133,6 +140,7 @@ i18n
         navbar: frNavbar,
         footer: frFooter,
         home_parts: frhome_parts,
+        home_part3: frhome_part3,
         about: frAbout_us,
         export: frExport,
         visionmission: frVisionMission,
@@ -144,6 +152,7 @@ i18n
         navbar: koNavbar,
         footer: koFooter,
         home_parts: kohome_parts,
+        home_part3: kohome_part3,
         about: koAbout_us,
         export: koExport,
         visionmission: koVisionMission,
@@ -155,6 +164,7 @@ i18n
         navbar: esNavbar,
         footer: esFooter,
         home_parts: eshome_parts,
+        home_part3: eshome_part3,
         about: esAbout_us,
         export: esExport,
         visionmission: esVisionMission,

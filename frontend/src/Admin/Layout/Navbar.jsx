@@ -31,7 +31,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen fixed top-0 left-0 z-40 h-full">
       {/* Toggle button - visible only on mobile */}
       <button
         onClick={toggleSidebar}
@@ -42,7 +42,7 @@ const Navbar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 z-40 bg-gray-900 text-white w-64 pt-16 px-4 pb-5 h-full transform transition-transform duration-300 ease-in-out shadow-lg ${isOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed top-0 left-0 z-40 bg-gray-900 text-white lg:w-64 pt-16 px-4 pb-5 h-full transform transition-transform duration-300 ease-in-out shadow-lg ${isOpen ? "translate-x-0" : "-translate-x-full"
           } md:translate-x-0 md:relative md:block`}
       >
         {/* Branding */}
@@ -61,6 +61,8 @@ const Navbar = () => {
               { to: "/dashboard/banner", label: "Banner" },
               { to: "/dashboard/productimage", label: "Global page card" },
               { to: "/dashboard/productlogo", label: "Multiple product" },
+              { to: "/dashboard/report_view", label: "Report_view" },
+              { to: "/dashboard/Gallery_view", label: "Gallery_view" }
             ]}
           />
 
@@ -73,21 +75,18 @@ const Navbar = () => {
                 label: "Home",
                 items: [
                   { to: "/dashboard/imageSlider", label: "Image Slider" },
-                  { to: "/dashboard/block1", label: "Block 1" },
-                  { to: "/dashboard/block2", label: "Block 2" },
-                  { to: "/dashboard/block3", label: "Block 3" },
+                  { to: "/dashboard/product_cart", label: "Product Cart" },
+                  { to: "/dashboard/product_list", label: "Product List" },
                 ],
               },
               {
                 label: "Media",
                 items: [
                   { to: "/dashboard/Reports", label: "Reports" },
-                  { to: "/dashboard/report_view", label: "Report_view" },
                   { to: "/dashboard/Gallery", label: "Gallery" },
-                  { to: "/dashboard/Gallery_view", label: "Gallery_view" },
                   { to: "/dashboard/Brochures", label: "Brochures" },
                   { to: "/dashboard/Blogs", label: "Blogs" },
-                  { to: "/dashboard/Articles", label: "Articles" },
+                  { to: "/dashboard/page_banner", label: "Pages banner" },
                   { to: "/dashboard/Videos", label: "Videos" },
                 ],
               },
