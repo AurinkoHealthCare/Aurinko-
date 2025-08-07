@@ -5,10 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-regular-svg-icons";
 
-const Articles = () => {
+const Articles = ({ category = "Articles", type = "" }) => {
   const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const category = "Articles";
 
   const fetchPdfs = async () => {
     try {
@@ -26,7 +25,7 @@ const Articles = () => {
 
   useEffect(() => {
     fetchPdfs();
-  }, []);
+  }, [category]);
 
   const getPdfUrl = (filePath) => {
     if (!filePath) return "#";
@@ -36,7 +35,7 @@ const Articles = () => {
   return (
     <main className="max-w-7xl mx-auto py-12 px-5">
       <h2 className="text-4xl font-bold text-center text-gray-800 mb-12 tracking-wide">
-        📄 Articles Library
+        📄 {type || category} Articles
       </h2>
 
       {loading ? (
@@ -44,7 +43,7 @@ const Articles = () => {
       ) : !Array.isArray(pdfs) || pdfs.length === 0 ? (
         <p className="text-center text-gray-400 text-lg">No Articles Found.</p>
       ) : (
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6">
           {pdfs.map((pdf) => (
             <div
               key={pdf._id}

@@ -132,7 +132,7 @@ function App() {
           <Route path="/human/gallery" element={<Gallery />} />
           <Route path="/human/brochures" element={<ProductBrochures />} />
           <Route path="/human/blog" element={<Blog />} />
-          <Route path="/human/articles" element={<Articles />} />
+          <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/human/ingredients" element={<Ingredients />} />
@@ -172,7 +172,7 @@ function App() {
           <Route path="/veterinary/gallery" element={<Gallery />} />
           <Route path="/veterinary/brochures" element={<ProductBrochures />} />
           <Route path="/veterinary/blog" element={<Blog />} />
-          <Route path="/veterinary/articles" element={<Articles />} />
+          <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/veterinary/ingredients" element={<Ingredients />} />
@@ -207,7 +207,7 @@ function App() {
           <Route path="/agriculture/gallery" element={<Gallery />} />
           <Route path="/agriculture/brochures" element={<ProductBrochures />} />
           <Route path="/agriculture/blog" element={<Blog />} />
-          <Route path="/agriculture/articles" element={<Articles />} />
+          <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/agriculture/ingredients" element={<Ingredients />} />
