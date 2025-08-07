@@ -1,8 +1,8 @@
 import ImageSlideruse from "../../../../re-use/imageSlider";
 import Block1 from "../../Home Parts/Block1";
 import Block2 from "../../Home Parts/Block2";
-import Block3 from "../../Home Parts/Block3";
-import Block4 from "../../Home Parts/Block4";
+// import Block3 from "../../Home Parts/Block3";
+// import Block4 from "../../Home Parts/Block4";
 // import Block5 from "../../Home Parts/Block5";
 import Block6 from "../../Home Parts/Block6";
 
@@ -13,8 +13,8 @@ const Agriculture_Home = () => {
       <ImageSlideruse category="Agriculture" />
       <Block1 />
       <Block2 />
-      <Block3 />
-      <Block4 />
+      {/* <Block3 /> */}
+      {/* <Block4 /> */}
       {/* <Block5 /> */}
       <Block6 />
     </div>
