@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from "react";
 import axios from "../../../../api/axios";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
+
+  const { t } = useTranslation("contact");
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -81,15 +84,15 @@ const ContactUs = () => {
 
   return (
     <div className="bg-white text-gray-800 container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center mb-8">Contact Us</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">{t("contactTitle")}</h1>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div className="flex flex-col">
-            <label htmlFor="name" className="font-semibold">Name</label>
+            <label htmlFor="name" className="font-semibold">{t("name")}</label>
             <input
               id="name"
               className={`border p-2 ${errors.name ? "border-red-800" : "border-gray-300"}`}
-              placeholder="Enter your name"
+              placeholder={t("placeholderName")}
               type="text"
               name="name"
               value={formData.name}
@@ -99,11 +102,11 @@ const ContactUs = () => {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="mobile" className="font-semibold">Mobile No.</label>
+            <label htmlFor="mobile" className="font-semibold">{t("mobile")}</label>
             <input
               id="mobile"
               className={`border p-2 ${errors.mobile ? "border-red-800" : "border-gray-300"}`}
-              placeholder="Enter mobile number"
+              placeholder={t("placeholderMobile")}
               type="text"
               name="mobile"
               value={formData.mobile}
@@ -113,11 +116,11 @@ const ContactUs = () => {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="email" className="font-semibold">Email</label>
+            <label htmlFor="email" className="font-semibold">{t("email")}</label>
             <input
               id="email"
               className={`border p-2 ${errors.email ? "border-red-800" : "border-gray-300"}`}
-              placeholder="Enter your email"
+              placeholder={t("placeholderEmail")}
               type="email"
               name="email"
               value={formData.email}
@@ -127,11 +130,11 @@ const ContactUs = () => {
           </div>
 
           <div className="flex flex-col">
-            <label htmlFor="message" className="font-semibold">Message</label>
+            <label htmlFor="message" className="font-semibold">{t("message")}</label>
             <textarea
               id="message"
               className={`border p-2 h-32 ${errors.message ? "border-red-800" : "border-gray-300"}`}
-              placeholder="Enter your message"
+              placeholder={t("placeholderMessage")}
               name="message"
               value={formData.message}
               onChange={handleChange}
@@ -144,62 +147,63 @@ const ContactUs = () => {
             className="bg-green-800 text-white px-4 py-2 rounded disabled:bg-gray-800"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Sending..." : "Send Message"}
+            {isSubmitting ? t("sendingButton") : t("sendButton")}
           </button>
+
         </form>
 
         <div>
           <div className="mb-2">
             <h2 className="text-2xl font-bold mb-4 flex items-center">
               <span className="bg-green-800 h-6 w-1 mr-2"></span>
-              INDIA HEAD OFFICE
+              {t("indiaTitle")}
             </h2>
-             <p className="mb-2 font-semibold">Aurinko One Health Private Limited</p>
+            <p className="mb-2 font-semibold">{t("indiaCompany")}</p>
             <p className="mb-2">
-              <i className="fas fa-map-marker-alt text-green-700"></i> Plot: 1, Mirzapur, Sec-74, Mirzapur Mor, Ballabhgarh, Faridabad, Haryana-121004
+              <i className="fas fa-map-marker-alt text-green-700"></i> {t("indiaAddress")}
             </p>
             <p className="mb-2">
-              <i className="fas fa-envelope text-green-700"></i> info@aurinkohealthcare.com
+              <i className="fas fa-envelope text-green-700"></i> {t("indiaEmail")}
             </p>
             <p>
-              <i className="fas fa-phone text-green-700"></i> 01296662200
+              <i className="fas fa-phone text-green-700"></i> {t("indiaPhone")}
             </p>
           </div>
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-4 flex items-center">
                 <span className="bg-green-800 h-6 w-1 mr-2"></span>
-                ZIMBABWE
+                {t("zimTitle")}
               </h2>
               <p className="mb-2 font-semibold">
-                Aurinko One Health Zimbabwe Private Limited
+                {t("zimCompany")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-map-marker-alt text-green-700"></i> Unit 10, 248 Williams Way, MASA , Harare, Zimbabwe
+                <i className="fas fa-map-marker-alt text-green-700"></i>{t("zimAddress")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-envelope text-green-700"></i>  Drabhay@aurinkohealthcare.com
+                <i className="fas fa-envelope text-green-700"></i>{t("zimEmail")}
               </p>
               <p>
-                <i className="fas fa-phone text-green-700"></i> +263772235379 (Gorge Rundogo)
+                <i className="fas fa-phone text-green-700"></i>{t("zimPhone")}
               </p>
             </div>
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-4 flex items-center">
                 <span className="bg-green-800 h-6 w-1 mr-2"></span>
-                KOREA
+                {t("korTitle")}
               </h2>
               <p className="mb-2 font-semibold">
-                Aurinko One Health Korea Private Limited
+                {t("korCompany")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-map-marker-alt text-green-700"></i> 1622 Suite, U1 center, 385 bungil 25, jomaruro, Buchuncity, Gyunggido, Korea
+                <i className="fas fa-map-marker-alt text-green-700"></i>{t("korAddress")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-envelope text-green-700"></i> info@aurinkohealthcare.com
+                <i className="fas fa-envelope text-green-700"></i>{t("korEmail")}
               </p>
               <p>
-                <i className="fas fa-phone text-green-700"></i> +82 10 5277 8200 (Youngsun Yoo)
+                <i className="fas fa-phone text-green-700"></i>{t("korPhone")}
               </p>
             </div>
           </div>
