@@ -116,7 +116,7 @@ function App() {
           <Route path="/human/research" element={<ResearchDevelopment />} />
           <Route path="/human/export" element={<Export />} />
           <Route path="/human/certificates" element={<Certificates />} />
-
+         
           {/* Nano-biotechnology Compounds */}
           <Route path="/human/Nanophosphosomes" element={<Nanophosphosome />} />
           <Route path="/human/Neuna_mins" element={<Neunamin />} />
@@ -127,7 +127,7 @@ function App() {
           <Route path="/human/Wellness" element={<Wellness />} />
           <Route path="/human/Personal_Care" element={<Persnolcare />} />
           <Route path="/human/Yeppuen" element={<Yeppuen />} />
-
+          
           {/* Media */}
           <Route path="/human/report" element={<Reports />} />
           <Route path="/human/gallery" element={<Gallery />} />
