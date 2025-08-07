@@ -27,7 +27,7 @@ import Wellness from "./User/Human/Pages/Human/Wellness.jsx";
 
 // Media
 import Reports from "./User/Pages/Media/Report.jsx";
-import Gallery from "./User/Pages/Media/Gallery.jsx";
+import Gallery from "./User/Pages/Media/Gallery/Gallery";
 import ProductBrochures from "./User/Pages/Media/ProductBrochures.jsx";
 import Blog from "./User/Pages/Media/Blog.jsx";
 
@@ -97,6 +97,7 @@ import TrackVisitor from '../api/totalvisitors';
 import Report_view from "./Admin/Pages/Media/report_view";
 import Gallery_view from "./Admin/Pages/Media/gallery.jsx";
 import ProductCard from "../utils/ProductCard.jsx";
+import PhotoGallery from "./User/Pages/Media/Gallery/PhotoGallery.jsx";
 
 function App() {
   TrackVisitor();
@@ -130,6 +131,7 @@ function App() {
           {/* Media */}
           <Route path="/human/report" element={<Reports />} />
           <Route path="/human/gallery" element={<Gallery />} />
+          <Route path="/human/photo_gallery" element={<PhotoGallery />} />
           <Route path="/human/brochures" element={<ProductBrochures />} />
           <Route path="/human/blog" element={<Blog />} />
           <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
