@@ -1,15 +1,9 @@
 import React from "react";
+import SingleImage from "../../Human/Home Parts/Block4";
 
 const Block4 = () => {
   return (
-    <div className="relative w-full mx-auto">
-      <img
-        src="/Assets/banner/aurinko banner.jpg"
-        alt="Banner"
-        className="w-full h-full object-cover"
-        loading="eager"
-      />
-    </div>
+    <SingleImage category="Veterinary" />
   );
 }
 export default Block4;
