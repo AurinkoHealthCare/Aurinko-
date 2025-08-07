@@ -79,7 +79,7 @@ const Footer = () => {
         </div>
 
         <div className="text-center mt-8 text-sm border-t border-white/30 pt-4">
-          © {new Date().getFullYear()}{t("all_rights_reserved")}
+          © {new Date().getFullYear()} {t("all_rights_reserved")}
         </div>
       </div>
     </footer>

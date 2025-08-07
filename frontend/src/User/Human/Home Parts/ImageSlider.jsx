@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "../../../../api/axios";
-import i18n from "../../../i18n"; // जहां आपका i18n config है वहां से import करें
+import i18n from "../../../i18n";
 
 export default function ImageSlider() {
   const [images, setImages] = useState([]);
@@ -13,7 +13,7 @@ export default function ImageSlider() {
     try {
       const res = await axios.get(`/sliderimage/home/${lang}`);
       const validImages = Array.isArray(res.data.images) ? res.data.images : [];
-      setImages(validImages.slice(0, 5)); // सिर्फ 5 images दिखानी हैं
+      setImages(validImages.slice(0, 5)); 
     } catch (error) {
       console.error("Failed to fetch images:", error);
       setImages([]);
