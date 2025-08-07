@@ -3,26 +3,30 @@ import axios from "../../../../api/axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const MAX_FILE_SIZE_MB = 10;
+
 function Report_view() {
   const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("Reports");
   const [editingId, setEditingId] = useState(null);
-  const [editTitle, setEditTitle] = useState("");
-  const [editCategory, setEditCategory] = useState("");
-  const [editFile, setEditFile] = useState(null);
+  const [editForm, setEditForm] = useState({
+    title: "",
+    details: "",
+    category: "Reports",
+    file: null,
+  });
 
   // Fetch PDFs
   const fetchPdfs = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`/pdf/${category}`);
-      // ✅ Ensure array from backend response
       setPdfs(res.data.data || []);
     } catch (err) {
       console.error("Error fetching PDFs:", err);
       toast.error("❌ Failed to fetch PDFs!");
-      setPdfs([]); // fallback
+      setPdfs([]);
     } finally {
       setLoading(false);
     }
@@ -34,7 +38,7 @@ function Report_view() {
 
   // Delete PDF
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this PDF?")) return;
+    if (!window.confirm("⚠️ Are you sure you want to delete this PDF?")) return;
 
     try {
       await axios.delete(`/pdf/${id}`);
@@ -49,18 +53,42 @@ function Report_view() {
   // Start editing
   const handleEdit = (pdf) => {
     setEditingId(pdf._id);
-    setEditTitle(pdf.title);
-    setEditCategory(pdf.category);
-    setEditFile(null);
+    setEditForm({
+      title: pdf.title,
+      details: pdf.details || "",
+      category: pdf.category,
+      file: null,
+    });
+  };
+
+  // File validation
+  const validateFile = (file) => {
+    if (!file) return true;
+    if (file.type !== "application/pdf") {
+      toast.warn("⚠️ Only PDF files are allowed!");
+      return false;
+    }
+    if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      toast.warn(`⚠️ File size must be under ${MAX_FILE_SIZE_MB} MB`);
+      return false;
+    }
+    return true;
   };
 
   // Save update
   const handleUpdate = async (id) => {
+    if (!editForm.title.trim()) {
+      toast.warn("⚠️ Title is required!");
+      return;
+    }
+    if (editForm.file && !validateFile(editForm.file)) return;
+
     try {
       const formData = new FormData();
-      formData.append("title", editTitle);
-      formData.append("category", editCategory);
-      if (editFile) formData.append("pdf", editFile);
+      formData.append("title", editForm.title.trim());
+      formData.append("details", editForm.details.trim());
+      formData.append("category", editForm.category);
+      if (editForm.file) formData.append("pdf", editForm.file);
 
       await axios.put(`/pdf/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
@@ -75,17 +103,8 @@ function Report_view() {
     }
   };
 
-  // PDF URL creator (to handle Windows path like C:\Users\...)
-  const getPdfUrl = (filePath) => {
-    if (!filePath) return "#";
-    // Backend serve कर रहा है uploads folder से
-    return `http://localhost:2026/${filePath
-      .replace(/\\/g, "/")
-      .split("backend/")[1]}`;
-  };
-
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
+    <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
       <h3 className="text-xl font-bold mb-5 text-gray-800 text-center">
         📑 PDF List
       </h3>
@@ -111,34 +130,55 @@ function Report_view() {
           {pdfs.map((pdf) => (
             <li
               key={pdf._id}
-              className="border rounded-lg p-4 flex justify-between items-center"
+              className="border rounded-lg p-4 flex justify-between items-start"
             >
               {editingId === pdf._id ? (
                 <div className="flex-1 mr-4 space-y-2">
+                  {/* Title */}
                   <input
                     type="text"
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
+                    value={editForm.title}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, title: e.target.value })
+                    }
                     className="border border-gray-300 p-2 rounded-lg w-full"
                   />
+                  {/* Details */}
+                  <textarea
+                    value={editForm.details}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, details: e.target.value })
+                    }
+                    rows="2"
+                    placeholder="Enter PDF details"
+                    className="border border-gray-300 p-2 rounded-lg w-full resize-none"
+                  />
+                  {/* Category */}
                   <select
-                    value={editCategory}
-                    onChange={(e) => setEditCategory(e.target.value)}
+                    value={editForm.category}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, category: e.target.value })
+                    }
                     className="border border-gray-300 p-2 rounded-lg w-full"
                   >
                     <option value="Reports">Reports</option>
                     <option value="Articles">Articles</option>
                   </select>
+                  {/* File */}
                   <input
                     type="file"
                     accept="application/pdf"
-                    onChange={(e) => setEditFile(e.target.files[0])}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, file: e.target.files[0] })
+                    }
                     className="border border-gray-300 p-2 rounded-lg w-full"
                   />
+                  {/* Buttons */}
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleUpdate(pdf._id)}
-                      className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700"
+                      disabled={loading}
+                      className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 disabled:opacity-50"
                     >
                       Save
                     </button>
@@ -153,9 +193,12 @@ function Report_view() {
               ) : (
                 <div className="flex-1 mr-4">
                   <p className="font-semibold">{pdf.title}</p>
+                  {pdf.details && (
+                    <p className="text-sm text-gray-600 italic">{pdf.details}</p>
+                  )}
                   <p className="text-sm text-gray-500">{pdf.category}</p>
                   <a
-                    href={getPdfUrl(pdf.filePath)}
+                    href={pdf.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:underline text-sm"
@@ -175,7 +218,8 @@ function Report_view() {
                   </button>
                   <button
                     onClick={() => handleDelete(pdf._id)}
-                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700"
+                    disabled={loading}
+                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 disabled:opacity-50"
                   >
                     Delete
                   </button>

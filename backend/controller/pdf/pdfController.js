@@ -19,15 +19,22 @@ const deleteFileSafe = (filePath) => {
 // 📤 Upload PDF
 exports.uploadPdf = async (req, res) => {
   try {
-    const { category } = req.body;
+    const { category, title, details } = req.body;
+
+    // ✅ validate category
+    if (!["Reports", "Articles"].includes(category)) {
+      return res.status(400).json({ success: false, error: "Invalid category. Must be Reports or Articles." });
+    }
+
     if (!req.file) {
       return res.status(400).json({ success: false, error: "No file uploaded" });
     }
 
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const pdf = new Pdf({
-      title: req.file.originalname,
-      category: category || "general",
+      title: title || req.file.originalname,
+      details: details || "",
+      category,
       filePath: req.file.path,
     });
 
@@ -38,7 +45,7 @@ exports.uploadPdf = async (req, res) => {
       message: "PDF uploaded successfully",
       pdf: {
         ...pdf.toObject(),
-        url: `${baseUrl}/uploads/pdf/${req.file.filename}`, // ✅ public URL
+        url: `${baseUrl}/uploads/pdf/${path.basename(req.file.path)}`, // ✅ Public URL
       },
     });
   } catch (error) {
@@ -57,7 +64,7 @@ exports.getPdfs = async (req, res) => {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const pdfsWithUrl = pdfs.map((pdf) => ({
       ...pdf.toObject(),
-      url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`, // ✅ Generate URL
+      url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`, 
     }));
 
     res.json({ success: true, count: pdfsWithUrl.length, data: pdfsWithUrl });
@@ -91,6 +98,7 @@ exports.deletePdf = async (req, res) => {
 exports.updatePdf = async (req, res) => {
   try {
     const { id } = req.params;
+    const { category, title, details } = req.body;
     const pdf = await Pdf.findById(id);
 
     if (!pdf) {
@@ -99,12 +107,15 @@ exports.updatePdf = async (req, res) => {
 
     if (req.file) {
       deleteFileSafe(path.resolve(pdf.filePath));
-      pdf.title = req.file.originalname;
+      pdf.title = title || req.file.originalname;
       pdf.filePath = req.file.path;
+    } else if (title) {
+      pdf.title = title;
     }
 
-    if (req.body.category) {
-      pdf.category = req.body.category;
+    if (details) pdf.details = details;
+    if (category && ["Reports", "Articles"].includes(category)) {
+      pdf.category = category;
     }
 
     await pdf.save();
@@ -115,7 +126,7 @@ exports.updatePdf = async (req, res) => {
       message: "PDF updated successfully",
       pdf: {
         ...pdf.toObject(),
-        url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`, // ✅ return url
+        url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`,
       },
     });
   } catch (error) {

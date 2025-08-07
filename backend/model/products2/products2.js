@@ -29,8 +29,8 @@ const product2Schema = new mongoose.Schema({
   composition: { type: String, default: "" },
   indications: { type: String, default: "" },
   usage: { type: String, default: "" },
-  report: { type: String, default: "" },
-  brochure: { type: String, default: "" },
+  report: { type: String, default: "" },//pdf
+  brochure: { type: String, default: "" },//pdf
   feedback: { type: String, default: "" },
 
   translations: {
