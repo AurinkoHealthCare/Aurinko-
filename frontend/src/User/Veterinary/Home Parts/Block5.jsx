@@ -13,7 +13,13 @@ const Block5 = () => {
       </div>
 
       {/* Cards */}
-      <ProductsList category="Pet" theme="Pet" showHeading={false} />
+      <ProductsList
+        apiUrl="/products/get"
+        category="Pet"
+        limit={5}
+        theme="Pet"
+        showHeading={false}
+      />
     </div>
   );
 };

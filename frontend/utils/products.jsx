@@ -72,7 +72,7 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
                 <div className="flex flex-col items-center p-3 text-center">
                   <h3 className="text-lg font-semibold">{product.name}</h3>
                   <StarRating rating={product.rating} />
-                  <span className="mt-3 text-xs font-medium px-3 py-1 rounded-full bg-red-100 text-red-700">
+                  <span className="mt-3 text-xs font-medium px-3 py-1 rounded-full border">
                     {product.category}
                   </span>
                 </div>
@@ -88,7 +88,8 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
         ))}
       </div>
 
-      <style>{`
+      <style>
+        {`
         .flip-card {
           perspective: 1000px;
           height: 420px;
@@ -114,7 +115,8 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
         .flip-card-back {
           transform: rotateY(180deg);
         }
-      `}</style>
+      `}
+      </style>
     </div>
   );
 };

@@ -6,6 +6,7 @@ const ResearchDevelopment = () => {
 
   return (
     <div className="font-sans">
+      {/* Banner */}
       <div className="relative">
         <img
           src="/Assets/Aboutus/banner/Research and developement.webp"
@@ -20,6 +21,7 @@ const ResearchDevelopment = () => {
       </div>
 
       <div className="container mx-auto py-12 px-4">
+        {/* Section 1 */}
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="w-full md:w-1/2">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
@@ -27,12 +29,8 @@ const ResearchDevelopment = () => {
             </h2>
             <hr className="border-t-2 border-green-800 w-16 mb-4" />
             <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("paragraph1")}</h3>
-            <p className="text-gray-700 mb-4">
-              {t("paragraph2")}
-            </p>
-            <p className="text-gray-700">
-              {t("paragraph3")}
-            </p>
+            <p className="text-gray-700 mb-4">{t("paragraph2")}</p>
+            <p className="text-gray-700">{t("paragraph3")}</p>
           </div>
 
           <div className="w-full md:w-1/2">
@@ -46,18 +44,13 @@ const ResearchDevelopment = () => {
       </div>
 
       <div className="container mx-auto px-4">
+        {/* Section 2 */}
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="w-full md:w-1/2">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              {t("title1")}
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t("title1")}</h2>
             <hr className="border-t-2 border-green-800 w-16 mb-4" />
-            <p className="text-gray-700 mb-4">
-              {t("paragraph4")}
-            </p>
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              {t("title1a")}
-            </h3>
+            <p className="text-gray-700 mb-4">{t("paragraph4")}</p>
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title1a")}</h3>
             <ul className="text-gray-700 list-disc pl-5 mb-4">
               <li>{t("line1a")}</li>
               <li>{t("line2a")}</li>
@@ -70,17 +63,16 @@ const ResearchDevelopment = () => {
             <img
               src="/Assets/Aboutus/Research and developement/Nanophosphosome.jpg"
               alt="Nanophosphosome"
-              className=" h-96 mx-auto"
+              className="h-96 mx-auto"
             />
           </div>
         </div>
 
         <div className="py-6">
+          {/* Benefits and Applications */}
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-full md:w-1/2">
-              <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-                {t("title1b")}
-              </h3>
+              <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title1b")}</h3>
               <ul className="text-gray-700 list-disc pl-5 mb-4">
                 <li>{t("line1b")}</li>
                 <li>{t("line2b")}</li>
@@ -89,9 +81,7 @@ const ResearchDevelopment = () => {
               </ul>
             </div>
             <div className="w-full md:w-1/2">
-              <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-                {t("title1c")}
-              </h3>
+              <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title1c")}</h3>
               <ul className="text-gray-700 list-disc pl-5 mb-4">
                 <li>{t("line1c")}</li>
                 <li>{t("line2c")}</li>
@@ -101,6 +91,8 @@ const ResearchDevelopment = () => {
               </ul>
             </div>
           </div>
+
+          {/* Images */}
           <div className="flex justify-center items-center">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               <div>
@@ -117,30 +109,24 @@ const ResearchDevelopment = () => {
               </div>
             </div>
           </div>
-
         </div>
 
+        {/* NEUNA Section */}
         <div className="flex flex-col md:flex-row items-center gap-8">
           <div className="w-full md:w-1/2">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              {t("title2")}
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t("title2")}</h2>
             <hr className="border-t-2 border-green-800 w-16 mb-4" />
-            <p className="text-gray-700 mb-4">
-              {t("paragraph5")}
-            </p>
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              {t("title2a")}
-            </h3>
+            <p className="text-gray-700 mb-4">{t("paragraph5")}</p>
+
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title2a")}</h3>
             <ul className="text-gray-700 list-disc pl-5 mb-4">
               <li>{t("line1d")}</li>
               <li>{t("line2d")}</li>
               <li>{t("line3d")}</li>
               <li>{t("line4d")}</li>
             </ul>
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              {t("title2b")}
-            </h3>
+
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title2b")}</h3>
             <ul className="text-gray-700 list-disc pl-5 mb-4">
               <li>{t("line1e")}</li>
               <li>{t("line2e")}</li>
@@ -148,10 +134,11 @@ const ResearchDevelopment = () => {
               <li>{t("line4e")}</li>
             </ul>
           </div>
+
           <div className="w-full md:w-1/2">
             <img
               src="/Assets/Aboutus/Research and developement/Neuna® particles.jpg"
-              alt="Neuna® particles"
+              alt="Neuna particles"
               className="w-full h-auto mx-auto"
             />
           </div>
@@ -159,9 +146,7 @@ const ResearchDevelopment = () => {
 
         <div className="flex flex-col md:flex-row items-center gap-8 my-8">
           <div className="w-full md:w-1/2">
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              {t("title2c")}
-            </h3>
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title2c")}</h3>
             <ul className="text-gray-700 pl-5 mb-4">
               <li>{t("line1f")}
                 <ul>
@@ -181,6 +166,7 @@ const ResearchDevelopment = () => {
               <li>{t("line3f2")}</li>
             </ul>
           </div>
+
           <div className="w-full md:w-1/2">
             <img
               src="/Assets/Aboutus/Research and developement/Application of neuna particle.jpg"
@@ -189,6 +175,8 @@ const ResearchDevelopment = () => {
             />
           </div>
         </div>
+
+        {/* Particle Images */}
         <div className="flex justify-center items-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div>
@@ -209,128 +197,99 @@ const ResearchDevelopment = () => {
             </div>
           </div>
         </div>
+
+        {/* NEUNA® Min */}
         <div className="font-sans py-12 container mx-auto px-4">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">{t("title3")}</h2>
           <hr className="border-t-2 border-green-800 w-16 mb-4" />
-          <p className="text-gray-700 mb-4">
-            {t("paragraph6")}
-          </p>
+          <p className="text-gray-700 mb-4">{t("paragraph6")}</p>
           <p className="text-gray-700 mb-4">
             <span className="font-bold">{t("paragraph6a")}</span> {t("paragraph6b")}
           </p>
 
-          <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-            {t("title3a")}
-          </h3>
+          <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("title3a")}</h3>
 
+          {/* Technology 1 */}
           <div className="grid grid-cols-1 gap-8">
             <div className="flex gap-8 flex-wrap items-center">
-              <div>
-                <img
-                  src="/Assets/Aboutus/Research and developement/Carbon Quantum Dots (CQDs).jpg"
-                  alt="Carbon Quantum Dots (CQDs)"
-                  className="h-20 object-cover"
-                />
-              </div>
+              <img src="/Assets/Aboutus/Research and developement/Carbon Quantum Dots (CQDs).jpg" alt="CQDs" className="h-20 object-cover" />
               <div className="md:w-3/4 w-full">
                 <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-                  1. Carbon Quantum Dots (CQDs)
+                  {t("title7a")}
                 </h3>
-                <p>
-                  {t("paragraph7")}
-                  Carbon Quantum Dots passivated Minerals (CQD Minerals) is a highly bioavailable form of supplemental minerals which can be used further for the production of high-quality mineral feeds and supplements.
-                </p>
+                <p>{t("paragraph7")}</p>
               </div>
             </div>
-            <div className="flex gap-8 flex-wrap items-center">
-              <div className="w-20">
-                <img
-                  src="/Assets/Aboutus/Research and developement/Carbon Polymer Bio-caging.jpg"
-                  alt="Carbon Polymer Bio-caging"
-                  className="h-20 w-auto object-cover"
-                />
-              </div>
 
+            {/* Technology 2 */}
+            <div className="flex gap-8 flex-wrap items-center">
+              <img src="/Assets/Aboutus/Research and developement/Carbon Polymer Bio-caging.jpg" alt="Carbon Polymer" className="h-20 w-auto object-cover" />
               <div className="md:w-3/4 w-full">
                 <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-2">
-                  2. Carbon Polymer Bio-caging
+                  {t("title7b")}
                 </h3>
-                <p className="text-gray-700">
-                  {t("paragraph8")}
-                  Bio-cage is a carbon polymer which can be used as a carrier for minerals, including trace minerals and can form nanoparticles after complexation.
-                </p>
+                <p className="text-gray-700">{t("paragraph8")}</p>
               </div>
             </div>
           </div>
 
+          {/* Properties */}
           <div className="mt-12">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
-              Properties of Neuna® Min
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">{t("neuna_min_properties")}</h2>
             <ul className="text-gray-700 pl-5 mb-4">
               <li>
-                <span className="font-bold">High Surface Area-to-Volume Ratio</span>
+                <span className="font-bold">{t("neuna_min_prop1")}</span>
                 <ul className="list-disc pl-5">
-                  <li>Increases reactivity and adsorption capabilities.</li>
-                  <li>Enhances catalytic efficiency in chemical processes.</li>
+                  <li>{t("neuna_min_prop1a")}</li>
+                  <li>{t("neuna_min_prop1b")}</li>
                 </ul>
               </li>
               <li>
-                <span className="font-bold">Enhances Mechanical Strength</span>
+                <span className="font-bold">{t("neuna_min_prop2")}</span>
                 <ul className="list-disc pl-5">
-                  <li>Neuna® Min exhibit improved hardness and durability.</li>
-                  <li>Used in reinforcement of composite materials.</li>
+                  <li>{t("neuna_min_prop2a")}</li>
+                  <li>{t("neuna_min_prop2b")}</li>
                 </ul>
               </li>
               <li>
-                <span className="font-bold">Improves Thermal Stability</span>
+                <span className="font-bold">{t("neuna_min_prop3")}</span>
                 <ul className="list-disc pl-5">
-                  <li>Neuna® Min can withstand high temperatures without significant degradation.</li>
-                  <li>Applied in heat-resistant coatings and thermal insulation materials.</li>
+                  <li>{t("neuna_min_prop3a")}</li>
+                  <li>{t("neuna_min_prop3b")}</li>
                 </ul>
               </li>
             </ul>
 
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              Benefits of Neuna® Min
-            </h3>
+            {/* Benefits */}
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("neuna_min_benefits")}</h3>
             <ul className="text-gray-700 list-disc pl-5 mb-4">
-              <li>Greater Bioavailability</li>
-              <li>Higher Cellular Availability</li>
-              <li>Higher Retention</li>
-              <li>Lower Faecal Excretion</li>
-              <li>Broad Safety Margin</li>
+              <li>{t("neuna_min_ben1")}</li>
+              <li>{t("neuna_min_ben2")}</li>
+              <li>{t("neuna_min_ben3")}</li>
+              <li>{t("neuna_min_ben4")}</li>
+              <li>{t("neuna_min_ben5")}</li>
             </ul>
 
-            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">
-              Applications of Neuna® Min
-            </h3>
+            {/* Applications */}
+            <h3 className="text-xl md:text-2xl font-bold text-green-800 mb-4">{t("neuna_min_applications")}</h3>
             <ul className="text-gray-700 pl-5 mb-4">
               <li>
-                <span className="font-bold">Environmental Applications</span>
+                <span className="font-bold">{t("neuna_min_env")}</span>
                 <ul className="list-disc pl-5">
-                  <li>
-                    Soil Remediation: Neuna® Min can break down contaminants in soil, making it safer for agriculture and construction.
-                  </li>
+                  <li>{t("neuna_min_env1")}</li>
                 </ul>
               </li>
               <li>
-                <span className="font-bold">Medical and Healthcare</span>
+                <span className="font-bold">{t("neuna_min_med")}</span>
                 <ul className="list-disc pl-5">
-                  <li>
-                    Drug Delivery Systems: Neuna® Min can be engineered to deliver drugs to specific sites in the body, increasing treatment efficacy and reducing side effects.
-                  </li>
-                  <li>
-                    Antibacterial Coatings: Silver and copper nanoparticles exhibit strong antimicrobial properties.
-                  </li>
+                  <li>{t("neuna_min_med1")}</li>
+                  <li>{t("neuna_min_med2")}</li>
                 </ul>
               </li>
               <li>
-                <span className="font-bold">Agricultural Applications</span>
+                <span className="font-bold">{t("neuna_min_agri")}</span>
                 <ul className="list-disc pl-5">
-                  <li>
-                    Nano-fertilizers: Improves nutrient absorption and enhances crop yield.
-                  </li>
+                  <li>{t("neuna_min_agri1")}</li>
                 </ul>
               </li>
             </ul>

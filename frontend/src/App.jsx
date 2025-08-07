@@ -30,7 +30,9 @@ import Reports from "./User/Pages/Media/Report.jsx";
 import Gallery from "./User/Pages/Media/Gallery.jsx";
 import ProductBrochures from "./User/Pages/Media/ProductBrochures.jsx";
 import Blog from "./User/Pages/Media/Blog.jsx";
-import Articles from "./User/Pages/Media/Articles.jsx";
+
+// Media
+import Articles from "./User/Human/Media/Articles.jsx";
 
 // Ingredients
 import Ingredients from "./User/Pages/Media/Ingredients.jsx";
@@ -76,13 +78,9 @@ import Banner from './Admin/Pages/Media/Banner';
 import Productimage from './Admin/Pages/Media/Product image';
 import ProductLogo from './Admin/Pages/Media/Product logo';
 
-// About Us
-import Overview from './Admin/Pages/Pages/About us/Overview';
-
 // Home
-import Block1 from './Admin/Pages/Pages/Home/Block 1';
-import Block2 from './Admin/Pages/Pages/Home/Block 2';
-import Block3 from './Admin/Pages/Pages/Home/Block 3';
+import Product_Cart from './Admin/Pages/Pages/Home/Product_Cart';
+import Product_List from './Admin/Pages/Pages/Home/Product_List';
 import ImageSlider from './Admin/Pages/Pages/Home/Image Slider';
 
 
@@ -91,15 +89,14 @@ import Report from './Admin/Pages/Pages/Media/Reports';
 import Gallerys from './Admin/Pages/Pages/Media/Gallery';
 import Brochure from './Admin/Pages/Pages/Media/Brochures';
 import Blogs from './Admin/Pages/Pages/Media/Blogs';
-import Article from './Admin/Pages/Pages/Media/Articles';
+import Page_banner from './Admin/Pages/Pages/Media/page_banner.jsx';
 import Video from './Admin/Pages/Pages/Media/Videos';
 import Feedback from './Admin/Pages/Feedback/Feedback';
 
 import TrackVisitor from '../api/totalvisitors';
-import PdfUpload from "./Admin/Pages/Pages/Media/Reports";
-import PdfManager from "./Admin/Pages/Media/pdf.jsx";
-import ImageUpload from "./Admin/Pages/Pages/Media/Gallery";
-import ImageList from "./Admin/Pages/Media/gallery.jsx";
+import Report_view from "./Admin/Pages/Media/report_view";
+import Gallery_view from "./Admin/Pages/Media/gallery.jsx";
+import ProductCard from "../utils/ProductCard.jsx";
 
 function App() {
   TrackVisitor();
@@ -237,30 +234,25 @@ function App() {
 
           {/* Home */}
           <Route path='/dashboard/imageSlider' element={<ImageSlider />} />
-          <Route path='/dashboard/block1' element={<Block1 />} />
-          <Route path='/dashboard/block2' element={<Block2 />} />
-          <Route path='/dashboard/block3' element={<Block3 />} />
-
-          {/* About us */}
-          <Route path='/dashboard/overview' element={<Overview />} />
+          <Route path='/dashboard/product_cart' element={<Product_Cart />} />
+          <Route path='/dashboard/product_list' element={<Product_List />} />
 
           {/* Media */}
           <Route path='/dashboard/Reports' element={<Report />} />
+          <Route path="/dashboard/report_view" element={<Report_view />} />
           <Route path='/dashboard/Gallery' element={<Gallerys />} />
+          <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
           <Route path='/dashboard/Brochures' element={<Brochure />} />
           <Route path='/dashboard/Blogs' element={<Blogs />} />
-          <Route path='/dashboard/Articles' element={<Article />} />
+          <Route path='/dashboard/page_banner' element={<Page_banner />} />
           <Route path='/dashboard/Videos' element={<Video />} />
-          
+
           {/* Feedback */}
           <Route path='/dashboard/feedback' element={<Feedback />} />
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/pdfuploaderadmin" element={<PdfUpload />} />
-        <Route path="/pdflistadmin" element={<PdfManager />} />
-        <Route path="/imageuploadadmin" element={<ImageUpload />} />
-        <Route path="/galleryflistadmin" element={<ImageList />} />
-        
+        <Route path="/galleryflistadmin" element={<ProductCard />} />
+
       </Routes>
     </div>
   );

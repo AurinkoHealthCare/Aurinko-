@@ -3,7 +3,7 @@ import ProductsList from "../../../../utils/products";
 import { useTranslation } from 'react-i18next';
 
 const Block5 = () => {
-  const { t } = useTranslation("Human_home");
+  const { t } = useTranslation("home_parts");
 
   return (
     <div className="py-16 px-2 md:px-6 lg:px-8">
@@ -15,7 +15,13 @@ const Block5 = () => {
       </div>
 
       {/* Cards */}
-      <ProductsList category="Personal care" theme="Personal care" showHeading={false} />
+      <ProductsList
+        apiUrl="/products/get"
+        category="Personal care"
+        limit={5}
+        theme="Personal care"
+        showHeading={false}
+      />
     </div>
   );
 };

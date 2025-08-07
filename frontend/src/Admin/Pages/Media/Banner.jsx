@@ -7,7 +7,7 @@ const Banner = () => {
   const [images, setImages] = useState([]);
   const [selectedFiles, setSelectedFiles] = useState({});
   const [loading, setLoading] = useState({});
-  const [category, setCategory] = useState("home");
+  const [category, setCategory] = useState("Human");
   const [lang, setLang] = useState("en");
   const [isFetching, setIsFetching] = useState(false);
 
@@ -89,9 +89,9 @@ const Banner = () => {
           onChange={(e) => setCategory(e.target.value)}
           className="px-4 py-3 rounded-xl border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500"
         >
-          <option value="home">Home</option>
-          <option value="about">Veterinary</option>
-          <option value="contact">Agriculture</option>
+          <option value="Human">Human</option>
+          <option value="Veterinary">Veterinary</option>
+          <option value="Agriculture">Agriculture</option>
         </select>
 
         <select

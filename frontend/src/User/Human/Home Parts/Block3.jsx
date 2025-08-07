@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const Block3 = () => {
-  const { t } = useTranslation("Human_home");
+  const { t } = useTranslation("home_parts");
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleOverlay = (index) => {
