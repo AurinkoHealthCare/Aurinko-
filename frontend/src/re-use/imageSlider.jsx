@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "../../api/axios";
 import i18n from "../i18n";
 
-export default function ImageSlideruse({ category = "home" }) {
+export default function ImageSlideruse({ category = "Human" }) {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
