@@ -3,6 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // ➕ Add Product
+// ➕ Add Product
 exports.addProduct = async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
@@ -27,6 +28,15 @@ exports.addProduct = async (req, res) => {
         .json({ message: `Category '${body.category}' already has 5 products` });
     }
 
+    // ✅ Handle report and brochure as file or text
+    const report = req.files?.report?.[0]
+      ? `${baseUrl}/uploads/${req.files.report[0].customPath}/${req.files.report[0].customFilename}`
+      : body.report || "";
+
+    const brochure = req.files?.brochure?.[0]
+      ? `${baseUrl}/uploads/${req.files.brochure[0].customPath}/${req.files.brochure[0].customFilename}`
+      : body.brochure || "";
+
     const product = new Product({
       productImage: req.files?.productImage?.[0]
         ? `${baseUrl}/uploads/${req.files.productImage[0].customPath}/${req.files.productImage[0].customFilename}`
@@ -44,8 +54,8 @@ exports.addProduct = async (req, res) => {
       composition: body.composition,
       indications: body.indications,
       usage: body.usage,
-      report: body.report,
-      brochure: body.brochure,
+      report,
+      brochure,
       feedback: body.feedback,
       translations,
     });
@@ -57,6 +67,7 @@ exports.addProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // 📥 Get All Products
 exports.getProducts = async (req, res) => {
@@ -106,6 +117,7 @@ exports.getProductById = async (req, res) => {
 };
 
 // ✏️ Update Product
+// ✏️ Update Product
 exports.updateProduct = async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
@@ -123,6 +135,21 @@ exports.updateProduct = async (req, res) => {
       product.productLogo = `${baseUrl}/uploads/${req.files.productLogo[0].customPath}/${req.files.productLogo[0].customFilename}`;
     }
 
+    // ✅ Handle report and brochure update (text or file)
+    if (req.files?.report?.[0]) {
+      deleteFileIfExists(product.report, baseUrl);
+      product.report = `${baseUrl}/uploads/${req.files.report[0].customPath}/${req.files.report[0].customFilename}`;
+    } else if (body.report !== undefined) {
+      product.report = body.report;
+    }
+
+    if (req.files?.brochure?.[0]) {
+      deleteFileIfExists(product.brochure, baseUrl);
+      product.brochure = `${baseUrl}/uploads/${req.files.brochure[0].customPath}/${req.files.brochure[0].customFilename}`;
+    } else if (body.brochure !== undefined) {
+      product.brochure = body.brochure;
+    }
+
     // ✅ Update translations
     if (body.translations) {
       try {
@@ -137,7 +164,7 @@ exports.updateProduct = async (req, res) => {
       if (["name", "segment", "type", "category", "packing"].includes(key)) {
         product.generalInfo[key] = body[key];
       } else if (
-        ["composition", "indications", "usage", "report", "brochure", "feedback"].includes(key)
+        ["composition", "indications", "usage", "feedback"].includes(key)
       ) {
         product[key] = body[key];
       }
@@ -149,6 +176,7 @@ exports.updateProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 // ❌ Delete Product
 exports.deleteProduct = async (req, res) => {

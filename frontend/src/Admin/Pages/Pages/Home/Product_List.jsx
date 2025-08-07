@@ -18,6 +18,8 @@ const Product_List = () => {
       brochure: "",
       feedback: "",
       translations: { fr: {}, es: {}, ar: {}, ko: {} },
+      reportType: "text",
+      brochureType: "text",
       previewImage: "",
       previewLogo: ""
     }
@@ -28,7 +30,7 @@ const Product_List = () => {
     const newItems = [...items];
     newItems[index][field] = file;
     newItems[index][`preview${field.charAt(0).toUpperCase() + field.slice(1)}`] =
-      file ? URL.createObjectURL(file) : "";
+      file && field.includes("product") ? URL.createObjectURL(file) : "";
     setItems(newItems);
   };
 
@@ -71,6 +73,8 @@ const Product_List = () => {
         brochure: "",
         feedback: "",
         translations: { fr: {}, es: {}, ar: {}, ko: {} },
+        reportType: "text",
+        brochureType: "text",
         previewImage: "",
         previewLogo: ""
       }
@@ -84,6 +88,7 @@ const Product_List = () => {
         const formData = new FormData();
         if (item.productImage) formData.append("productImage", item.productImage);
         if (item.productLogo) formData.append("productLogo", item.productLogo);
+
         formData.append("name", item.name);
         formData.append("segment", item.segment);
         formData.append("type", item.type);
@@ -92,10 +97,22 @@ const Product_List = () => {
         formData.append("composition", item.composition);
         formData.append("indications", item.indications);
         formData.append("usage", item.usage);
-        formData.append("report", item.report);
-        formData.append("brochure", item.brochure);
         formData.append("feedback", item.feedback);
         formData.append("translations", JSON.stringify(item.translations));
+
+        // ✅ Append report as file or text
+        if (item.reportType === "file" && item.report instanceof File) {
+          formData.append("report", item.report);
+        } else {
+          formData.append("report", item.report);
+        }
+
+        // ✅ Append brochure as file or text
+        if (item.brochureType === "file" && item.brochure instanceof File) {
+          formData.append("brochure", item.brochure);
+        } else {
+          formData.append("brochure", item.brochure);
+        }
 
         const res = await axios.post("/products2/add", formData, {
           headers: { "Content-Type": "multipart/form-data" }
@@ -121,6 +138,7 @@ const Product_List = () => {
           <div key={idx} className="border rounded-md p-3 mb-5 bg-white shadow">
             <h3 className="font-semibold mb-3 text-base text-blue-600">📦 Product {idx + 1}</h3>
 
+            {/* Product Image & Logo */}
             <div className="flex flex-wrap gap-4 mb-3">
               <div>
                 {item.previewImage && (
@@ -150,28 +168,96 @@ const Product_List = () => {
               </div>
             </div>
 
+            {/* Common Fields */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
                 "name", "segment", "type", "category", "packing", "composition",
-                "indications", "usage", "report", "brochure", "feedback"
+                "indications", "usage", "feedback"
               ].map((field) => (
                 <div key={field}>
                   <label className="text-sm font-medium capitalize">{field}</label>
                   <input
-                    key={field}
                     type="text"
                     name={field}
                     value={item[field]}
                     onChange={(e) => handleChange(e, idx)}
                     placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    required={!["report", "brochure", "feedback"].includes(field)}
+                    required
                     className="border p-1.5 rounded w-full"
                   />
                 </div>
               ))}
+
+              {/* 📄 Report Field */}
+              <div>
+                <label className="text-sm font-medium capitalize">Report</label>
+                <select
+                  value={item.reportType}
+                  onChange={(e) => {
+                    const newItems = [...items];
+                    newItems[idx].reportType = e.target.value;
+                    newItems[idx].report = "";
+                    setItems(newItems);
+                  }}
+                  className="border p-1.5 rounded w-full mb-1"
+                >
+                  <option value="text">Text</option>
+                  <option value="file">PDF File</option>
+                </select>
+                {item.reportType === "text" ? (
+                  <input
+                    type="text"
+                    name="report"
+                    value={item.report}
+                    onChange={(e) => handleChange(e, idx)}
+                    className="border p-1.5 rounded w-full"
+                  />
+                ) : (
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) => handleFileChange(e, idx, "report")}
+                    className="border p-1.5 rounded w-full"
+                  />
+                )}
+              </div>
+
+              {/* 📄 Brochure Field */}
+              <div>
+                <label className="text-sm font-medium capitalize">Brochure</label>
+                <select
+                  value={item.brochureType}
+                  onChange={(e) => {
+                    const newItems = [...items];
+                    newItems[idx].brochureType = e.target.value;
+                    newItems[idx].brochure = "";
+                    setItems(newItems);
+                  }}
+                  className="border p-1.5 rounded w-full mb-1"
+                >
+                  <option value="text">Text</option>
+                  <option value="file">PDF File</option>
+                </select>
+                {item.brochureType === "text" ? (
+                  <input
+                    type="text"
+                    name="brochure"
+                    value={item.brochure}
+                    onChange={(e) => handleChange(e, idx)}
+                    className="border p-1.5 rounded w-full"
+                  />
+                ) : (
+                  <input
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) => handleFileChange(e, idx, "brochure")}
+                    className="border p-1.5 rounded w-full"
+                  />
+                )}
+              </div>
             </div>
 
-            {/* Translations */}
+            {/* 🌍 Translations */}
             <div className="mt-4">
               {["fr", "es", "ar", "ko"].map((langKey) => (
                 <div key={langKey} className="mb-3">
@@ -184,7 +270,6 @@ const Product_List = () => {
                       <div key={field}>
                         <label className="text-sm font-medium capitalize">{field}</label>
                         <input
-                          key={field}
                           type="text"
                           name={field}
                           value={item.translations[langKey][field] || ""}
@@ -201,6 +286,7 @@ const Product_List = () => {
           </div>
         ))}
 
+        {/* Submit & Add More */}
         <div className="flex justify-between mt-4">
           <button
             type="button"
