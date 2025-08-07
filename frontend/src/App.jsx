@@ -27,7 +27,7 @@ import Wellness from "./User/Human/Pages/Human/Wellness.jsx";
 
 // Media
 import Reports from "./User/Pages/Media/Report.jsx";
-import Gallery from "./User/Pages/Media/Gallery.jsx";
+import Gallery from "./User/Pages/Media/Gallery/Gallery";
 import ProductBrochures from "./User/Pages/Media/ProductBrochures.jsx";
 import Blog from "./User/Pages/Media/Blog.jsx";
 
@@ -97,6 +97,7 @@ import TrackVisitor from '../api/totalvisitors';
 import Report_view from "./Admin/Pages/Media/report_view";
 import Gallery_view from "./Admin/Pages/Media/gallery.jsx";
 import ProductCard from "../utils/ProductCard.jsx";
+import PhotoGallery from "./User/Pages/Media/Gallery/PhotoGallery.jsx";
 
 function App() {
   TrackVisitor();
@@ -115,7 +116,7 @@ function App() {
           <Route path="/human/research" element={<ResearchDevelopment />} />
           <Route path="/human/export" element={<Export />} />
           <Route path="/human/certificates" element={<Certificates />} />
-
+         
           {/* Nano-biotechnology Compounds */}
           <Route path="/human/Nanophosphosomes" element={<Nanophosphosome />} />
           <Route path="/human/Neuna_mins" element={<Neunamin />} />
@@ -126,13 +127,14 @@ function App() {
           <Route path="/human/Wellness" element={<Wellness />} />
           <Route path="/human/Personal_Care" element={<Persnolcare />} />
           <Route path="/human/Yeppuen" element={<Yeppuen />} />
-
+          
           {/* Media */}
           <Route path="/human/report" element={<Reports />} />
           <Route path="/human/gallery" element={<Gallery />} />
+          <Route path="/human/photo_gallery" element={<PhotoGallery />} />
           <Route path="/human/brochures" element={<ProductBrochures />} />
           <Route path="/human/blog" element={<Blog />} />
-          <Route path="/human/articles" element={<Articles />} />
+          <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/human/ingredients" element={<Ingredients />} />
@@ -172,7 +174,7 @@ function App() {
           <Route path="/veterinary/gallery" element={<Gallery />} />
           <Route path="/veterinary/brochures" element={<ProductBrochures />} />
           <Route path="/veterinary/blog" element={<Blog />} />
-          <Route path="/veterinary/articles" element={<Articles />} />
+          <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/veterinary/ingredients" element={<Ingredients />} />
@@ -207,7 +209,7 @@ function App() {
           <Route path="/agriculture/gallery" element={<Gallery />} />
           <Route path="/agriculture/brochures" element={<ProductBrochures />} />
           <Route path="/agriculture/blog" element={<Blog />} />
-          <Route path="/agriculture/articles" element={<Articles />} />
+          <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
 
           {/* Ingredients */}
           <Route path="/agriculture/ingredients" element={<Ingredients />} />

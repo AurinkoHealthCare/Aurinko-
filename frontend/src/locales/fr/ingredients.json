@@ -1,0 +1,21 @@
+{
+  "ingredientsTitle": "Ingrédients",
+  "ingredientsList": [
+    {
+      "title": "API",
+      "desc": "Une API (Interface de Programmation d'Applications) est un ensemble de règles pour interagir avec des applications logicielles."
+    },
+    {
+      "title": "Herbes et Extraits",
+      "desc": "Les herbes et extraits proviennent de plantes et sont utilisés en cuisine, médecine et soins de la peau."
+    },
+    {
+      "title": "Épices",
+      "desc": "Les épices ajoutent saveur, couleur et arôme aux plats."
+    },
+    {
+      "title": "Légumes Séchés",
+      "desc": "Les légumes séchés sont conservés en retirant l'humidité pour une utilisation facile."
+    }
+  ]
+}

@@ -21,6 +21,10 @@ import enVisionMission from './locales/en/visionmission.json';
 import enManufacturing from './locales/en/manufacturing.json';
 // Research
 import enResearch from './locales/en/research_development.json';
+// Ingredients
+import enIngredients from './locales/en/ingredients.json';
+// Contact
+import enContact from './locales/en/contact.json';
 
 // Arabic
 import arHome from './locales/ar/home.json';
@@ -41,6 +45,10 @@ import arVisionMission from './locales/ar/visionmission.json';
 import arManufacturing from './locales/ar/manufacturing.json';
 // Research
 import arResearch from './locales/ar/research_development.json';
+// Ingredients
+import arIngredients from './locales/ar/ingredients.json';
+// Contact
+import arContact from './locales/ar/contact.json';
 
 // French
 import frHome from './locales/fr/home.json';
@@ -61,6 +69,10 @@ import frVisionMission from './locales/fr/visionmission.json';
 import frManufacturing from './locales/fr/manufacturing.json';
 // Research
 import frResearch from './locales/fr/research_development.json';
+// Ingredients
+import frIngredients from './locales/fr/ingredients.json';
+// Contact
+import frContact from './locales/fr/contact.json';
 
 // Korean
 import koHome from './locales/ko/home.json';
@@ -81,6 +93,10 @@ import koVisionMission from './locales/ko/visionmission.json';
 import koManufacturing from './locales/ko/manufacturing.json';
 // Research
 import koResearch from './locales/ko/research_development.json';
+// Ingredients
+import koIngredients from './locales/ko/ingredients.json';
+// Contact
+import koContact from './locales/ko/contact.json';
 
 // Spanish
 import esHome from './locales/es/home.json';
@@ -101,6 +117,10 @@ import esVisionMission from './locales/es/visionmission.json';
 import esManufacturing from './locales/es/manufacturing.json';
 // Research
 import esResearch from './locales/es/research_development.json';
+// Ingredients
+import esIngredients from './locales/es/ingredients.json';
+// Contact
+import esContact from './locales/es/contact.json';
 
 i18n
   .use(LanguageDetector)
@@ -122,6 +142,8 @@ i18n
         visionmission: enVisionMission,
         manufacturing: enManufacturing,
         research_development: enResearch,
+        ingredients: enIngredients,
+        contact: enContact,
       },
       ar: {
         home: arHome,
@@ -134,6 +156,8 @@ i18n
         visionmission: arVisionMission,
         manufacturing: arManufacturing,
         research_development: arResearch,
+        ingredients: arIngredients,
+        contact: arContact,
       },
       fr: {
         home: frHome,
@@ -146,6 +170,8 @@ i18n
         visionmission: frVisionMission,
         manufacturing: frManufacturing,
         research_development: frResearch,
+        ingredients: frIngredients,
+        contact: frContact,
       },
       ko: {
         home: koHome,
@@ -158,6 +184,8 @@ i18n
         visionmission: koVisionMission,
         manufacturing: koManufacturing,
         research_development: koResearch,
+        ingredients: koIngredients,
+        contact: koContact,
       },
       es: {
         home: esHome,
@@ -170,6 +198,8 @@ i18n
         visionmission: esVisionMission,
         manufacturing: esManufacturing,
         research_development: esResearch,
+        ingredients: esIngredients,
+        contact: esContact,
       }
     },
   });
