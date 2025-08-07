@@ -30,47 +30,47 @@ const Articles = () => {
 
   const getPdfUrl = (filePath) => {
     if (!filePath) return "#";
-    return `http://localhost:2026/${filePath
-      .replace(/\\/g, "/")
-      .split("backend/")[1]}`;
+    return `http://localhost:2026/${filePath.replace(/\\/g, "/").split("backend/")[1]}`;
   };
 
   return (
-    <main className="container mx-auto py-8 px-4">
-      <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Articles Reports
+    <main className="max-w-7xl mx-auto py-12 px-5">
+      <h2 className="text-4xl font-bold text-center text-gray-800 mb-12 tracking-wide">
+        📄 Articles Library
       </h2>
 
       {loading ? (
-        <p className="text-center text-gray-600">⏳ Loading PDFs...</p>
+        <p className="text-center text-gray-500 text-lg">⏳ Loading PDFs...</p>
       ) : !Array.isArray(pdfs) || pdfs.length === 0 ? (
-        <p className="text-center text-gray-500">No PDFs found.</p>
+        <p className="text-center text-gray-400 text-lg">No Articles Found.</p>
       ) : (
-        <ul className="space-y-4">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {pdfs.map((pdf) => (
-            <li key={pdf._id}>
-              <div className="p-4 border border-gray-300 rounded-lg bg-white shadow-md hover:bg-gray-100 transition flex flex-wrap md:flex-nowrap items-center justify-between gap-x-4 gap-y-2">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-gray-800">
-                    {pdf.title}
-                  </h3>
-                  <p className="text-sm text-gray-500">{pdf.category}</p>
-                </div>
+            <div
+              key={pdf._id}
+              className="bg-white rounded-2xl shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 p-6 flex flex-col justify-between border-t-4 border-red-400"
+            >
+              <div className="flex flex-col gap-2">
+                <h3 className="text-xl font-bold text-gray-800">{pdf.title}</h3>
+                <span className="text-xs inline-block w-fit px-2 py-1 bg-red-100 text-red-700 font-semibold rounded-full">
+                  {pdf.category}
+                </span>
+                <p className="text-gray-600 text-sm mt-1">{pdf.details}</p>
+              </div>
+              <div className="mt-6">
                 <a
                   href={getPdfUrl(pdf.filePath)}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-red-100 text-red-600 font-medium rounded-lg hover:bg-red-200 transition"
                 >
-                  <FontAwesomeIcon
-                    icon={faFilePdf}
-                    size="2x"
-                    className="text-red-500 hover:text-red-600 transition"
-                  />
+                  <FontAwesomeIcon icon={faFilePdf} />
+                  View PDF
                 </a>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </main>
   );
