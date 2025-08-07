@@ -15,7 +15,7 @@ const Block2 = () => {
       </div>
 
       {/* Cards */}
-       <ProductsList
+      <ProductsList
         apiUrl="/products/get"
         category="Veterinary"
         limit={5}
