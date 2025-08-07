@@ -31,5 +31,6 @@ const getContacts = async (req, res) => {
         res.status(500).json({ success: false, message: "Error fetching contacts", error });
     }
 };
+cons
 
 module.exports = { contactController, getContacts };
