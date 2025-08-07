@@ -19,11 +19,15 @@ const deleteFileSafe = (filePath) => {
 // 📤 Upload PDF
 exports.uploadPdf = async (req, res) => {
   try {
-    const { category, title, details } = req.body;
+    const { category, title, details, type } = req.body;
 
-    // ✅ validate category
+    // ✅ Validate required fields
     if (!["Reports", "Articles"].includes(category)) {
       return res.status(400).json({ success: false, error: "Invalid category. Must be Reports or Articles." });
+    }
+
+    if (!type || typeof type !== "string") {
+      return res.status(400).json({ success: false, error: "Type is required and must be a string." });
     }
 
     if (!req.file) {
@@ -35,6 +39,7 @@ exports.uploadPdf = async (req, res) => {
       title: title || req.file.originalname,
       details: details || "",
       category,
+      type,
       filePath: req.file.path,
     });
 
@@ -45,7 +50,7 @@ exports.uploadPdf = async (req, res) => {
       message: "PDF uploaded successfully",
       pdf: {
         ...pdf.toObject(),
-        url: `${baseUrl}/uploads/pdf/${path.basename(req.file.path)}`, // ✅ Public URL
+        url: `${baseUrl}/uploads/pdf/${path.basename(req.file.path)}`,
       },
     });
   } catch (error) {
@@ -64,7 +69,7 @@ exports.getPdfs = async (req, res) => {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const pdfsWithUrl = pdfs.map((pdf) => ({
       ...pdf.toObject(),
-      url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`, 
+      url: `${baseUrl}/uploads/pdf/${path.basename(pdf.filePath)}`,
     }));
 
     res.json({ success: true, count: pdfsWithUrl.length, data: pdfsWithUrl });
@@ -98,7 +103,7 @@ exports.deletePdf = async (req, res) => {
 exports.updatePdf = async (req, res) => {
   try {
     const { id } = req.params;
-    const { category, title, details } = req.body;
+    const { category, title, details, type } = req.body;
     const pdf = await Pdf.findById(id);
 
     if (!pdf) {
@@ -114,6 +119,7 @@ exports.updatePdf = async (req, res) => {
     }
 
     if (details) pdf.details = details;
+    if (type) pdf.type = type;
     if (category && ["Reports", "Articles"].includes(category)) {
       pdf.category = category;
     }

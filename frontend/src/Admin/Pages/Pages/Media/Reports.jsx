@@ -6,12 +6,17 @@ import { FileText, Loader2, Upload } from "lucide-react";
 
 const MAX_FILE_SIZE_MB = 10;
 
+const initialForm = {
+  title: "",
+  details: "",
+  category: "Reports",
+  type: "",
+};
+
 const handleAxiosError = (err) => {
   if (err.response) {
     toast.error(
-      `❌ [${err.response.status}] ${
-        err.response.data?.message || "Something went wrong!"
-      }`
+      `❌ [${err.response.status}] ${err.response.data?.error || "Something went wrong!"}`
     );
   } else if (err.request) {
     toast.error("❌ No response from server. Please try again!");
@@ -21,7 +26,7 @@ const handleAxiosError = (err) => {
 };
 
 function Report({ onUpload }) {
-  const [form, setForm] = useState({ title: "", details: "", category: "Reports" });
+  const [form, setForm] = useState(initialForm);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [statusMsg, setStatusMsg] = useState("");
@@ -32,42 +37,40 @@ function Report({ onUpload }) {
   };
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
+    const selected = e.target.files[0];
+    if (!selected) return;
 
-    if (selectedFile.type !== "application/pdf") {
+    if (selected.type !== "application/pdf") {
       toast.warn("⚠️ Only PDF files are allowed!");
       return;
     }
 
-    if (selectedFile.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-      toast.warn(`⚠️ File size must be less than ${MAX_FILE_SIZE_MB} MB`);
+    if (selected.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      toast.warn(`⚠️ File must be less than ${MAX_FILE_SIZE_MB} MB`);
       return;
     }
 
-    setFile(selectedFile);
+    setFile(selected);
   };
 
   const resetForm = () => {
-    setForm({ title: "", details: "", category: "Reports" });
+    setForm(initialForm);
     setFile(null);
-    if (fileInputRef.current) fileInputRef.current.value = "";
+    fileInputRef.current && (fileInputRef.current.value = "");
     setStatusMsg("");
   };
 
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    if (!form.title.trim() || !file) {
-      toast.warn("⚠️ Please fill all required fields!");
-      setStatusMsg("⚠️ Title and PDF are required!");
+    if (!form.title.trim() || !form.type.trim() || !file) {
+      toast.warn("⚠️ Title, Type and PDF are required!");
+      setStatusMsg("⚠️ Please fill all required fields!");
       return;
     }
 
     const formData = new FormData();
-    formData.append("title", form.title.trim());
-    formData.append("details", form.details.trim());
-    formData.append("category", form.category);
+    Object.keys(form).forEach((key) => formData.append(key, form[key].trim()));
     formData.append("pdf", file);
 
     try {
@@ -82,9 +85,9 @@ function Report({ onUpload }) {
       setStatusMsg("✅ PDF uploaded successfully!");
       resetForm();
 
-      if (typeof onUpload === "function") onUpload();
+      typeof onUpload === "function" && onUpload();
     } catch (err) {
-      console.error("Error uploading PDF:", err);
+      console.error("Upload Error:", err);
       handleAxiosError(err);
       setStatusMsg("❌ Upload failed. Please try again!");
     } finally {
@@ -106,30 +109,36 @@ function Report({ onUpload }) {
       {/* Form */}
       <div className="p-7">
         <form onSubmit={handleUpload} className="space-y-6">
-          {/* Title input */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              PDF Title <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter a title for the PDF"
-              value={form.title}
-              onChange={handleChange}
-              className="border border-gray-300 p-3 rounded-xl w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-inner bg-gray-50"
-              disabled={loading}
-            />
-          </div>
+          {/* Title */}
+          <InputField
+            label="PDF Title"
+            required
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            disabled={loading}
+            placeholder="Enter a title"
+          />
 
-          {/* Details input */}
+          {/* Type */}
+          <InputField
+            label="PDF Type"
+            required
+            name="type"
+            value={form.type}
+            onChange={handleChange}
+            disabled={loading}
+            placeholder="e.g. Invoice, Legal, Education"
+          />
+
+          {/* Details */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
               PDF Details
             </label>
             <textarea
               name="details"
-              placeholder="Enter PDF details"
+              placeholder="Optional details about PDF"
               value={form.details}
               onChange={handleChange}
               rows="3"
@@ -138,7 +147,7 @@ function Report({ onUpload }) {
             />
           </div>
 
-          {/* Category dropdown */}
+          {/* Category */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
               Category <span className="text-red-500">*</span>
@@ -155,21 +164,23 @@ function Report({ onUpload }) {
             </select>
           </div>
 
-          {/* File input */}
+          {/* File Upload */}
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-1">
               PDF File <span className="text-red-500">*</span>
             </label>
             <div
               className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:border-indigo-600 hover:bg-indigo-50 transition-all"
-              onClick={() => fileInputRef.current.click()}
+              onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-9 h-9 mx-auto text-indigo-500 mb-2" />
               <p className="text-sm text-gray-600">
                 {file ? (
-                  <span className="font-medium text-gray-800">📂 {file.name}</span>
+                  <span className="font-medium text-gray-800">
+                    📂 {file.name} ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                  </span>
                 ) : (
-                  "Click to browse and select a PDF (Max 10MB)"
+                  `Click to select a PDF file (Max ${MAX_FILE_SIZE_MB} MB)`
                 )}
               </p>
             </div>
@@ -183,7 +194,7 @@ function Report({ onUpload }) {
             />
           </div>
 
-          {/* Submit button */}
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
@@ -205,7 +216,7 @@ function Report({ onUpload }) {
           </button>
         </form>
 
-        {/* Status message */}
+        {/* Status Message */}
         {statusMsg && (
           <p
             className={`text-center mt-5 text-base font-semibold ${
@@ -222,6 +233,26 @@ function Report({ onUpload }) {
           </p>
         )}
       </div>
+    </div>
+  );
+}
+
+// 🧩 Reusable InputField component
+function InputField({ label, name, value, onChange, placeholder, disabled, required }) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-gray-700 mb-1">
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <input
+        type="text"
+        name={name}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+        className="border border-gray-300 p-3 rounded-xl w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-inner bg-gray-50"
+      />
     </div>
   );
 }
