@@ -2,41 +2,32 @@ import React from "react";
 
 const HorizontalBounceLoader = () => {
   return (
-    <div style={styles.wrapper}>
+    <div className="icon-wrapper" style={styles.wrapper}>
       {/* Human Icon - Red Glow */}
       <div
-        style={{
-          ...styles.iconCircle,
-          ...glowStyles.red,
-          animationDelay: "0s",
-        }}
+        className="icon-circle"
+        style={{ ...styles.iconCircle, ...glowStyles.red, animationDelay: "0s" }}
       >
-        <span style={styles.icon}>👨‍⚕️</span>
+        <span className="icon" style={styles.icon}>👨‍⚕️</span>
       </div>
 
       {/* Animal Icon - Blue Glow */}
       <div
-        style={{
-          ...styles.iconCircle,
-          ...glowStyles.blue,
-          animationDelay: "0.2s",
-        }}
+        className="icon-circle"
+        style={{ ...styles.iconCircle, ...glowStyles.blue, animationDelay: "0.2s" }}
       >
-        <span style={styles.icon}>🐾</span>
+        <span className="icon" style={styles.icon}>🐾</span>
       </div>
 
       {/* Agriculture Icon - Green Glow */}
       <div
-        style={{
-          ...styles.iconCircle,
-          ...glowStyles.green,
-          animationDelay: "0.4s",
-        }}
+        className="icon-circle"
+        style={{ ...styles.iconCircle, ...glowStyles.green, animationDelay: "0.4s" }}
       >
-        <span style={styles.icon}>🌿</span>
+        <span className="icon" style={styles.icon}>🌿</span>
       </div>
 
-      {/* Animations and Responsive Styles */}
+      {/* Styles */}
       <style>
         {`
           @keyframes bounceUpDown {
