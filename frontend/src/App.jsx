@@ -32,7 +32,7 @@ import ProductBrochures from "./User/Pages/Media/ProductBrochures.jsx";
 import Blog from "./User/Pages/Media/Blog.jsx";
 
 // Media
-import Articles from "./User/Human/Media/Articles.jsx";
+import Articles from "./User/Pages/Media/Articles.jsx";
 
 // Ingredients
 import Ingredients from "./User/Pages/Media/Ingredients.jsx";

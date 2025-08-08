@@ -7,13 +7,18 @@ const Healthsupplements = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
-  const category = searchParams.get("category");
+
+  const segment = searchParams.get("segment"); // 🔍 Get segment from query
+  const theme = searchParams.get("theme");     // 🎨 Optional theme from query
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get("/products2/all");
-        setProducts(res.data);
+        const filtered = segment
+          ? res.data.filter((item) => item.segment?.toLowerCase() === segment.toLowerCase())
+          : res.data;
+        setProducts(filtered);
       } catch {
         alert("❌ Error fetching products");
       } finally {
@@ -21,12 +26,12 @@ const Healthsupplements = () => {
       }
     };
     fetchProducts();
-  }, []);
+  }, [segment]);
 
   if (loading) return <p className="text-center">Loading...</p>;
 
   return (
-    <div className="font-sans">
+    <div className={`font-sans ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       <div className="relative">
         <img
           src="/Assets/Human/Health supplements.webp"
@@ -40,7 +45,8 @@ const Healthsupplements = () => {
       </div>
       <div className="flex flex-col min-h-screen w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
-          <ProductCard products={products} category={"Health Supplement"} />
+          <ProductCard products={products} segment="Human OTC" theme="Human OTC" />
+
         </div>
       </div>
     </div>

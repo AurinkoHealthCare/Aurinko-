@@ -26,6 +26,8 @@ const Product_List = () => {
     }
   ]);
 
+  const [activeLang, setActiveLang] = useState({});
+
   const handleFileChange = (e, index, field) => {
     const file = e.target.files[0];
     const newItems = [...items];
@@ -129,182 +131,197 @@ const Product_List = () => {
   };
 
   return (
-    <div className="p-4 max-w-5xl mx-auto text-sm">
-      <h2 className="text-xl font-bold mb-3 text-center text-green-700 uppercase">
-        Global Provider of Animal Feed Supplements
+    <div className="p-6 max-w-6xl mx-auto font-sans text-sm text-gray-800">
+      <h2 className="text-2xl font-bold mb-6 text-center text-green-700 uppercase tracking-wide">
+        🌍 Global Provider of Animal Feed Supplements
       </h2>
 
       <form onSubmit={handleSubmit}>
         {items.map((item, idx) => (
-          <div key={idx} className="border rounded-md p-3 mb-5 bg-white shadow">
-            <h3 className="font-semibold mb-3 text-base text-blue-600">📦 Product {idx + 1}</h3>
+          <div key={idx} className="border border-gray-200 rounded-lg p-5 mb-8 bg-white shadow-md">
+            <h3 className="font-semibold text-lg text-blue-700 mb-5">📦 Product {idx + 1}</h3>
 
-            {/* Product Image & Logo */}
-            <div className="flex flex-wrap gap-4 mb-3">
-              <div>
+            <div className="flex flex-wrap gap-6 mb-6">
+              <div className="flex flex-col items-center">
                 {item.previewImage && (
-                  <img src={item.previewImage} alt="Preview" className="w-20 h-20 object-cover rounded border" />
+                  <img src={item.previewImage} alt="Preview" className="w-24 h-24 object-cover rounded border mb-2" />
                 )}
-                <label className="text-sm font-medium capitalize">Product Image </label>
+                <label className="text-sm font-semibold">Product Image</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleFileChange(e, idx, "productImage")}
                   required
-                  className="mt-1 text-xs border border-gray-300 rounded p-2"
+                  className="mt-1 text-xs border border-gray-300 rounded px-3 py-2 w-52"
                 />
               </div>
-              <div>
+              <div className="flex flex-col items-center">
                 {item.previewLogo && (
-                  <img src={item.previewLogo} alt="Logo Preview" className="w-20 h-20 object-contain rounded border" />
+                  <img src={item.previewLogo} alt="Logo Preview" className="w-24 h-24 object-contain rounded border mb-2" />
                 )}
-                <label className="text-sm font-medium capitalize">Product Logo </label>
+                <label className="text-sm font-semibold">Product Logo</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleFileChange(e, idx, "productLogo")}
                   required
-                  className="mt-1 text-xs border border-gray-300 rounded p-2"
+                  className="mt-1 text-xs border border-gray-300 rounded px-3 py-2 w-52"
                 />
               </div>
             </div>
 
-            {/* Common Fields */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {[
-                "name", "details", "segment", "type", "category", "packing", "composition",
-                "indications", "usage", "feedback"
-              ].map((field) => (
+            {/* Product Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {["name", "segment", "type", "category", "packing", "feedback", "details", "composition", "indications", "usage"].map((field) => (
                 <div key={field}>
-                  <label className="text-sm font-medium capitalize">{field}</label>
-                  <input
-                    type="text"
-                    name={field}
-                    value={item[field]}
-                    onChange={(e) => handleChange(e, idx)}
-                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    required
-                    className="border p-1.5 rounded w-full"
-                  />
+                  <label className="text-sm font-semibold capitalize">{field}</label>
+                  {["composition", "usage", "details", "indications"].includes(field) ? (
+                    <textarea
+                      name={field}
+                      value={item[field]}
+                      onChange={(e) => handleChange(e, idx)}
+                      placeholder={`Enter ${field}`}
+                      rows={3}
+                      className="border p-2 rounded w-full resize-y focus:ring-2 focus:ring-blue-300"
+                      required
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      name={field}
+                      value={item[field]}
+                      onChange={(e) => handleChange(e, idx)}
+                      placeholder={`Enter ${field}`}
+                      className="border p-2 rounded w-full focus:ring-2 focus:ring-blue-300"
+                      required
+                    />
+                  )}
                 </div>
               ))}
-
-              {/* 📄 Report Field */}
-              <div>
-                <label className="text-sm font-medium capitalize">Report</label>
-                <select
-                  value={item.reportType}
-                  onChange={(e) => {
-                    const newItems = [...items];
-                    newItems[idx].reportType = e.target.value;
-                    newItems[idx].report = "";
-                    setItems(newItems);
-                  }}
-                  className="border p-1.5 rounded w-full mb-1"
-                >
-                  <option value="text">Text</option>
-                  <option value="file">PDF File</option>
-                </select>
-                {item.reportType === "text" ? (
-                  <input
-                    type="text"
-                    name="report"
-                    value={item.report}
-                    onChange={(e) => handleChange(e, idx)}
-                    className="border p-1.5 rounded w-full"
-                  />
-                ) : (
-                  <input
-                    type="file"
-                    accept="application/pdf"
-                    onChange={(e) => handleFileChange(e, idx, "report")}
-                    className="border p-1.5 rounded w-full"
-                  />
-                )}
-              </div>
-
-              {/* 📄 Brochure Field */}
-              <div>
-                <label className="text-sm font-medium capitalize">Brochure</label>
-                <select
-                  value={item.brochureType}
-                  onChange={(e) => {
-                    const newItems = [...items];
-                    newItems[idx].brochureType = e.target.value;
-                    newItems[idx].brochure = "";
-                    setItems(newItems);
-                  }}
-                  className="border p-1.5 rounded w-full mb-1"
-                >
-                  <option value="text">Text</option>
-                  <option value="file">PDF File</option>
-                </select>
-                {item.brochureType === "text" ? (
-                  <input
-                    type="text"
-                    name="brochure"
-                    value={item.brochure}
-                    onChange={(e) => handleChange(e, idx)}
-                    className="border p-1.5 rounded w-full"
-                  />
-                ) : (
-                  <input
-                    type="file"
-                    accept="application/pdf"
-                    onChange={(e) => handleFileChange(e, idx, "brochure")}
-                    className="border p-1.5 rounded w-full"
-                  />
-                )}
-              </div>
             </div>
 
-            {/* 🌍 Translations */}
-            <div className="mt-4">
-              {["fr", "es", "ar", "ko"].map((langKey) => (
-                <div key={langKey} className="mb-3">
-                  <h4 className="text-gray-600 font-medium mb-1">{langKey.toUpperCase()} Translation</h4>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                    {[
-                      "name", "details", "segment", "type", "category", "packing",
-                      "composition", "indications", "usage"
-                    ].map((field) => (
-                      <div key={field}>
-                        <label className="text-sm font-medium capitalize">{field}</label>
-                        <input
-                          type="text"
-                          name={field}
-                          value={item.translations[langKey][field] || ""}
-                          onChange={(e) => handleTranslationChange(e, idx, langKey)}
-                          placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
-                          className="border p-1.5 rounded w-full"
-                        />
-                      </div>
-                    ))}
-                  </div>
+            {/* Report and Brochure */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+              {["report", "brochure"].map((typeKey) => (
+                <div key={typeKey}>
+                  <label className="text-sm font-semibold capitalize">{typeKey}</label>
+                  <select
+                    value={item[`${typeKey}Type`]}
+                    onChange={(e) => {
+                      const newItems = [...items];
+                      newItems[idx][`${typeKey}Type`] = e.target.value;
+                      newItems[idx][typeKey] = "";
+                      setItems(newItems);
+                    }}
+                    className="border p-2 rounded w-full mb-2"
+                  >
+                    <option value="text">Text</option>
+                    <option value="file">PDF File</option>
+                  </select>
+                  {item[`${typeKey}Type`] === "text" ? (
+                    <input
+                      type="text"
+                      name={typeKey}
+                      value={item[typeKey]}
+                      onChange={(e) => handleChange(e, idx)}
+                      className="border p-2 rounded w-full"
+                      placeholder={`Enter ${typeKey}`}
+                    />
+                  ) : (
+                    <input
+                      type="file"
+                      accept="application/pdf"
+                      onChange={(e) => handleFileChange(e, idx, typeKey)}
+                      className="border p-2 rounded w-full"
+                    />
+                  )}
                 </div>
               ))}
+            </div>
+
+            {/* Language Translations */}
+            <div className="mt-6">
+              <p className="mb-2 text-sm font-semibold">🌐 Add Translations:</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {["fr", "es", "ar", "ko"].map((langKey) => (
+                  <button
+                    key={langKey}
+                    type="button"
+                    onClick={() =>
+                      setActiveLang((prev) => ({
+                        ...prev,
+                        [idx]: prev[idx] === langKey ? null : langKey,
+                      }))
+                    }
+                    className={`px-3 py-1 rounded text-sm font-semibold border ${activeLang[idx] === langKey
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      }`}
+                  >
+                    {langKey.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+
+              {["fr", "es", "ar", "ko"].map(
+                (langKey) =>
+                  activeLang[idx] === langKey && (
+                    <div key={langKey} className="mb-5 p-4 border rounded-md bg-gray-50 shadow-inner">
+                      <h4 className="font-semibold text-gray-700 mb-3">
+                        {langKey.toUpperCase()} Translation Fields
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {["name", "segment", "type", "category", "packing", "details", "composition", "indications", "usage"].map((field) => (
+                          <div key={field}>
+                            <label className="text-sm font-medium capitalize">{field}</label>
+                            {["composition", "usage", "details", "indications"].includes(field) ? (
+                              <textarea
+                                name={field}
+                                value={item.translations[langKey][field] || ""}
+                                onChange={(e) => handleTranslationChange(e, idx, langKey)}
+                                placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
+                                rows={3}
+                                className="border p-2 rounded w-full resize-y focus:ring-2 focus:ring-blue-300"
+                              />
+                            ) : (
+                              <input
+                                type="text"
+                                name={field}
+                                value={item.translations[langKey][field] || ""}
+                                onChange={(e) => handleTranslationChange(e, idx, langKey)}
+                                placeholder={`${field.charAt(0).toUpperCase() + field.slice(1)} (${langKey.toUpperCase()})`}
+                                className="border p-2 rounded w-full focus:ring-2 focus:ring-blue-300"
+                              />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+              )}
             </div>
           </div>
         ))}
 
-        {/* Submit & Add More */}
-        <div className="flex justify-between mt-4">
+        {/* Buttons */}
+        <div className="flex justify-between mt-6">
           <button
             type="button"
             onClick={handleAddMore}
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded shadow transition duration-200"
           >
-            ➕ Add More
+            ➕ Add Product
           </button>
           <button
             type="submit"
-            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm"
+            className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded shadow transition duration-200"
           >
-            ✅ Save
+            ✅ Submit All
           </button>
         </div>
       </form>
     </div>
+
   );
 };
 
