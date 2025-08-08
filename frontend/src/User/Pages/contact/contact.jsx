@@ -2,9 +2,13 @@ import React, { useState, useCallback } from "react";
 import axios from "../../../../api/axios";
 import { useTranslation } from "react-i18next";
 
-const ContactUs = () => {
+// ✅ Toastify import
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+const ContactUs = () => {
   const { t } = useTranslation("contact");
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -29,11 +33,11 @@ const ContactUs = () => {
       isValid = false;
     }
 
-    if (!formData.mobile.trim()) {
-      formErrors.mobile = "Mobile number is required";
+    if (!formData.phone.trim()) {
+      formErrors.phone = "Mobile number is required";
       isValid = false;
-    } else if (!/^\d{10}$/.test(formData.mobile.trim())) {
-      formErrors.mobile = "Mobile number must be 10 digits";
+    } else if (!/^\d{10}$/.test(formData.phone.trim())) {
+      formErrors.phone = "Mobile number must be 10 digits";
       isValid = false;
     }
 
@@ -60,23 +64,24 @@ const ContactUs = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await axios.post("/submit/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await axios.post("/submit/contact", formData);
 
-      const result = await response.json();
-      if (response.ok) {
-        alert("Message sent successfully!");
-        setFormData({ name: "", mobile: "", email: "", message: "" });
+      if (response.status === 201) {
+        toast.success("Message sent successfully!", {
+          className: "bg-green-600 text-white", // ✅ Tailwind success
+        });
+        setFormData({ name: "", phone: "", email: "", message: "" });
         setErrors({});
       } else {
-        alert(result.message || "Failed to send message. Please try again.");
+        toast.error(response.data?.message || "Failed to send message. Please try again.", {
+          className: "bg-red-600 text-white", // ✅ Tailwind error
+        });
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      alert("An error occurred. Please try again later.");
+      toast.error("An error occurred. Please try again later.", {
+        className: "bg-red-600 text-white", // ✅ Tailwind error
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -84,6 +89,8 @@ const ContactUs = () => {
 
   return (
     <div className="bg-white text-gray-800 container mx-auto p-4">
+      <ToastContainer position="top-right" autoClose={3000} />
+      
       <h1 className="text-4xl font-bold text-center mb-8">{t("contactTitle")}</h1>
       <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8">
         <form className="space-y-4" onSubmit={handleSubmit}>
@@ -105,14 +112,14 @@ const ContactUs = () => {
             <label htmlFor="mobile" className="font-semibold">{t("mobile")}</label>
             <input
               id="mobile"
-              className={`border p-2 ${errors.mobile ? "border-red-800" : "border-gray-300"}`}
+              className={`border p-2 ${errors.phone ? "border-red-800" : "border-gray-300"}`}
               placeholder={t("placeholderMobile")}
               type="text"
-              name="mobile"
-              value={formData.mobile}
+              name="phone"
+              value={formData.phone}
               onChange={handleChange}
             />
-            {errors.mobile && <p className="text-red-800 text-sm">{errors.mobile}</p>}
+            {errors.phone && <p className="text-red-800 text-sm">{errors.phone}</p>}
           </div>
 
           <div className="flex flex-col">
@@ -149,7 +156,6 @@ const ContactUs = () => {
           >
             {isSubmitting ? t("sendingButton") : t("sendButton")}
           </button>
-
         </form>
 
         <div>
@@ -169,15 +175,14 @@ const ContactUs = () => {
               <i className="fas fa-phone text-green-700"></i> {t("indiaPhone")}
             </p>
           </div>
+
           <div className="flex flex-col md:flex-row md:space-x-4">
             <div className="mb-8">
               <h2 className="text-2xl font-bold mb-4 flex items-center">
                 <span className="bg-green-800 h-6 w-1 mr-2"></span>
                 {t("zimTitle")}
               </h2>
-              <p className="mb-2 font-semibold">
-                {t("zimCompany")}
-              </p>
+              <p className="mb-2 font-semibold">{t("zimCompany")}</p>
               <p className="mb-2">
                 <i className="fas fa-map-marker-alt text-green-700"></i>{t("zimAddress")}
               </p>
@@ -193,9 +198,7 @@ const ContactUs = () => {
                 <span className="bg-green-800 h-6 w-1 mr-2"></span>
                 {t("korTitle")}
               </h2>
-              <p className="mb-2 font-semibold">
-                {t("korCompany")}
-              </p>
+              <p className="mb-2 font-semibold">{t("korCompany")}</p>
               <p className="mb-2">
                 <i className="fas fa-map-marker-alt text-green-700"></i>{t("korAddress")}
               </p>
@@ -208,8 +211,8 @@ const ContactUs = () => {
             </div>
           </div>
         </div>
-
       </div>
+
       <div className="mt-8">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3511.2936394417075!2d77.34505539999999!3d28.3499707!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cdb9766d62aab%3A0x499dcf82d3074077!2sAurinko%20Healthcare%20Private%20Limited!5e0!3m2!1sen!2sin!4v1741677068894!5m2!1sen!2sin"
