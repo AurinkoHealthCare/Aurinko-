@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
+import ProductsBySegment from "../utils/component/card.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -239,6 +240,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/galleryflistadmin" element={<ProductCard />} />
         <Route path="/loader" element={<HorizontalBounceLoader />}/>
+        <Route path="/card" element={<ProductsBySegment segment="Human OTC" />}/>
       </Routes>
         </Suspense>
 
