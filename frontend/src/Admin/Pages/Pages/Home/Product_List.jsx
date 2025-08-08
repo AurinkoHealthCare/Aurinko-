@@ -7,6 +7,7 @@ const Product_List = () => {
       productImage: null,
       productLogo: null,
       name: "",
+      details: "",
       segment: "",
       type: "",
       category: "",
@@ -62,6 +63,7 @@ const Product_List = () => {
         productImage: null,
         productLogo: null,
         name: "",
+        details: "",
         segment: "",
         type: "",
         category: "",
@@ -90,6 +92,7 @@ const Product_List = () => {
         if (item.productLogo) formData.append("productLogo", item.productLogo);
 
         formData.append("name", item.name);
+        formData.append("details", item.details);
         formData.append("segment", item.segment);
         formData.append("type", item.type);
         formData.append("category", item.category);
@@ -100,14 +103,12 @@ const Product_List = () => {
         formData.append("feedback", item.feedback);
         formData.append("translations", JSON.stringify(item.translations));
 
-        // ✅ Append report as file or text
         if (item.reportType === "file" && item.report instanceof File) {
           formData.append("report", item.report);
         } else {
           formData.append("report", item.report);
         }
 
-        // ✅ Append brochure as file or text
         if (item.brochureType === "file" && item.brochure instanceof File) {
           formData.append("brochure", item.brochure);
         } else {
@@ -171,7 +172,7 @@ const Product_List = () => {
             {/* Common Fields */}
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
               {[
-                "name", "segment", "type", "category", "packing", "composition",
+                "name", "details", "segment", "type", "category", "packing", "composition",
                 "indications", "usage", "feedback"
               ].map((field) => (
                 <div key={field}>
@@ -264,7 +265,7 @@ const Product_List = () => {
                   <h4 className="text-gray-600 font-medium mb-1">{langKey.toUpperCase()} Translation</h4>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {[
-                      "name", "segment", "type", "category", "packing",
+                      "name", "details", "segment", "type", "category", "packing",
                       "composition", "indications", "usage"
                     ].map((field) => (
                       <div key={field}>
