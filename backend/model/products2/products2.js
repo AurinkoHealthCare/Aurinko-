@@ -20,6 +20,7 @@ const product2Schema = new mongoose.Schema({
 
   generalInfo: {
     name: { type: String, required: true },
+    details: { type: String, required: true },
     segment: { type: String, default: "" },
     type: { type: String, default: "" },
     category: { type: String, required: true },
