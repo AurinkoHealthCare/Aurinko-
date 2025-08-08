@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const tabs = [
+const rawTabs = [
   "General Info",
   "Composition",
   "Indications",
@@ -37,11 +38,14 @@ const getTabColorClasses = (theme, isActive) => {
 
 const SingleProductCard = ({ product, theme }) => {
   const [activeTab, setActiveTab] = useState("General Info");
+  const { t } = useTranslation("productcart");
+
+  const tabs = rawTabs.map((key) => ({ key, label: t(key) }));
 
   return (
-    <div className="flex flex-col md:flex-row w-full max-w-full max-h-full bg-white border border-neutral-300 overflow-hidden">
+    <div className="flex flex-col md:flex-row w-full max-w-full bg-white border border-neutral-300 overflow-hidden rounded shadow-md">
       {/* Product Image */}
-      <div className="md:w-1/3 h-full w-full p-2 flex justify-center">
+      <div className="md:w-1/3 w-full p-3 flex justify-center">
         <img
           src={product.productImage}
           alt="Product"
@@ -50,24 +54,24 @@ const SingleProductCard = ({ product, theme }) => {
       </div>
 
       {/* Product Content */}
-      <div className="md:w-2/3 w-full p-3 flex flex-col border border-neutral-300">
+      <div className="md:w-2/3 w-full p-4 flex flex-col border-l border-neutral-300">
         {/* Logo */}
         <img
           src={product.productLogo}
           alt="Product Logo"
-          className="h-16 w-64 md:h-20 md:w-72 rounded-lg mb-2 object-contain"
+          className="h-16 w-64 md:h-20 md:w-72 rounded-lg mb-3 object-contain"
         />
 
         {/* Tabs */}
         <div className="flex flex-wrap border-b border-neutral-300 pb-2">
-          {tabs.map((label) => (
+          {tabs.map(({ key, label }) => (
             <button
-              key={label}
-              className={`px-3 py-1 text-sm md:text-lg transition duration-300 ${getTabColorClasses(
+              key={key}
+              className={`px-3 py-1 text-xs md:text-sm lg:text-base transition duration-300 ${getTabColorClasses(
                 theme,
-                activeTab === label
+                activeTab === key
               )}`}
-              onClick={() => setActiveTab(label)}
+              onClick={() => setActiveTab(key)}
             >
               {label}
             </button>
@@ -75,69 +79,48 @@ const SingleProductCard = ({ product, theme }) => {
         </div>
 
         {/* Tab Content */}
-        <div className="mt-3 text-base text-gray-700 overflow-y-auto max-h-[60vh]">
+        <div className="mt-4 text-base text-gray-700 overflow-y-auto max-h-[60vh] p-2 whitespace-pre-wrap">
           {activeTab === "General Info" && (
             <>
               <h1 className="text-lg font-semibold">
                 {product.generalInfo?.name}
               </h1>
-              <h2 className="mt-2 font-semibold">
-                Segment:{" "}
-                <span className="font-normal">
-                  {product.generalInfo?.segment}
-                </span>
-              </h2>
-              <h2 className="font-semibold">
-                Type:{" "}
-                <span className="font-normal">
-                  {product.generalInfo?.type}
-                </span>
-              </h2>
-              <h2 className="font-semibold">
-                Category:{" "}
-                <span className="font-normal">
-                  {product.generalInfo?.category}
-                </span>
-              </h2>
-              <h2 className="font-semibold">
-                Packing:{" "}
-                <span className="font-normal">
-                  {product.generalInfo?.packing}
-                </span>
-              </h2>
+              <p className="mt-2">{product.generalInfo?.details}</p>
+              <p className="mt-2">
+                <strong>{t("Segment")}:</strong> {product.generalInfo?.segment}
+              </p>
+              <p>
+                <strong>{t("Type")}:</strong> {product.generalInfo?.type}
+              </p>
+              <p>
+                <strong>{t("Category")}:</strong> {product.generalInfo?.category}
+              </p>
+              <p>
+                <strong>{t("Packing")}:</strong> {product.generalInfo?.packing}
+              </p>
             </>
           )}
           {activeTab === "Composition" && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.composition || "" }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: product.composition || "" }} />
           )}
           {activeTab === "Indications" && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.indications || "" }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: product.indications || "" }} />
           )}
           {activeTab === "Usage" && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.usage || "" }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: product.usage || "" }} />
           )}
           {activeTab === "Report" && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.report || "" }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: product.report || "" }} />
           )}
           {activeTab === "Brochure" && product.brochure && (
             <iframe
               src={product.brochure}
               title="Brochure"
-              className="w-full h-[500px] border"
+              className="w-full h-[60vh] border rounded"
             />
           )}
           {activeTab === "Feedback" && (
-            <div
-              dangerouslySetInnerHTML={{ __html: product.feedback || "" }}
-            />
+            <div dangerouslySetInnerHTML={{ __html: product.feedback || "" }} />
           )}
         </div>
       </div>

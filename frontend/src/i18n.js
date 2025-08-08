@@ -11,6 +11,8 @@ import enFooter from './locales/en/footer.json';
 // Home
 import enhome_parts from './locales/en/home_parts.json';
 import enhome_part3 from './locales/en/home_part3.json';
+// Productcard
+import enproductcart from './locales/en/productcart.json';
 // About us
 import enAbout_us from './locales/en/about.json';
 // Export
@@ -35,6 +37,8 @@ import arFooter from './locales/ar/footer.json';
 // Home
 import arhome_parts from './locales/ar/home_parts.json';
 import arhome_part3 from './locales/ar/home_part3.json';
+// Productcard
+import arproductcart from './locales/ar/productcart.json';
 // About us
 import arAbout_us from './locales/ar/about.json';
 // Export
@@ -59,6 +63,8 @@ import frFooter from './locales/fr/footer.json';
 // Home
 import frhome_parts from './locales/fr/home_parts.json';
 import frhome_part3 from './locales/fr/home_part3.json';
+// Productcard
+import frproductcart from './locales/fr/productcart.json';
 // About us
 import frAbout_us from './locales/fr/about.json';
 // Export
@@ -83,6 +89,8 @@ import koFooter from './locales/ko/footer.json';
 // Home
 import kohome_parts from './locales/ko/home_parts.json';
 import kohome_part3 from './locales/ko/home_part3.json';
+// Productcard
+import koproductcart from './locales/ko/productcart.json';
 // About us
 import koAbout_us from './locales/ko/about.json';
 // Export
@@ -107,6 +115,8 @@ import esFooter from './locales/es/footer.json';
 // Home
 import eshome_parts from './locales/es/home_parts.json';
 import eshome_part3 from './locales/es/home_part3.json';
+// Productcard
+import esproductcart from './locales/es/productcart.json';
 // About us
 import esAbout_us from './locales/es/about.json';
 // Export
@@ -137,6 +147,7 @@ i18n
         footer: enFooter,
         home_parts: enhome_parts,
         home_part3: enhome_part3,
+        productcart: enproductcart,
         about: enAbout_us,
         export: enExport,
         visionmission: enVisionMission,
@@ -151,6 +162,7 @@ i18n
         footer: arFooter,
         home_parts: arhome_parts,
         home_part3: arhome_part3,
+        productcart: arproductcart,
         about: arAbout_us,
         export: arExport,
         visionmission: arVisionMission,
@@ -165,6 +177,7 @@ i18n
         footer: frFooter,
         home_parts: frhome_parts,
         home_part3: frhome_part3,
+        productcart: frproductcart,
         about: frAbout_us,
         export: frExport,
         visionmission: frVisionMission,
@@ -179,6 +192,7 @@ i18n
         footer: koFooter,
         home_parts: kohome_parts,
         home_part3: kohome_part3,
+        productcart: koproductcart,
         about: koAbout_us,
         export: koExport,
         visionmission: koVisionMission,
@@ -193,6 +207,7 @@ i18n
         footer: esFooter,
         home_parts: eshome_parts,
         home_part3: eshome_part3,
+        productcart: esproductcart,
         about: esAbout_us,
         export: esExport,
         visionmission: esVisionMission,
