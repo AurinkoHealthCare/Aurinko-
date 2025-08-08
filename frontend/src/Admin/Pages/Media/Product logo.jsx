@@ -10,6 +10,7 @@ const ProductManager = () => {
   function initialFormData() {
     return {
       name: "",
+      details: "",
       segment: "",
       type: "",
       category: "",
@@ -63,7 +64,7 @@ const ProductManager = () => {
     if (files.length > 0) {
       setFormData((prev) => ({
         ...prev,
-        [name]: files[0], // agar file diya gaya ho toh overwrite kare
+        [name]: files[0],
       }));
     }
   };
@@ -72,6 +73,7 @@ const ProductManager = () => {
     setEditProduct(product);
     setFormData({
       name: product.generalInfo?.name || "",
+      details: product.generalInfo?.details || "",
       segment: product.generalInfo?.segment || "",
       type: product.generalInfo?.type || "",
       category: product.generalInfo?.category || "",
@@ -156,10 +158,7 @@ const ProductManager = () => {
           <h2 className="text-lg font-semibold mb-3 text-green-800">Edit Product</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            {[
-              "name", "segment", "type", "category", "packing",
-              "composition", "indications", "usage", "feedback"
-            ].map((field) => (
+            {["name", "details", "segment", "type", "category", "packing", "composition", "indications", "usage", "feedback"].map((field) => (
               <div key={field}>
                 <label className="text-sm font-medium capitalize">{field}</label>
                 <input
@@ -167,7 +166,7 @@ const ProductManager = () => {
                   name={field}
                   value={formData[field]}
                   onChange={handleInputChange}
-                  required={field === "name" || field === "category"}
+                  required={field === "name" || field === "category" || field === "details"}
                   className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
                 />
               </div>
@@ -212,11 +211,13 @@ const ProductManager = () => {
             </div>
           </div>
 
-          {["fr", "es", "ar", "ko"].map((langKey) => (
+          {[
+            "fr", "es", "ar", "ko"
+          ].map((langKey) => (
             <div key={langKey} className="mb-4 border-t pt-3">
               <h4 className="font-semibold text-sm mb-2">{langKey.toUpperCase()} Translation</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {["name", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
+                {["name", "details", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
                   <div key={field}>
                     <label className="text-sm font-medium capitalize">{field}</label>
                     <input

@@ -1,108 +1,92 @@
+import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Admin from './Admin/admin';
+import HorizontalBounceLoader from "../private/loader.jsx";
 
-// Human
-import Human from "./User/Human/Human.jsx";
-import Human_Home from "./User/Human/Pages/Home/Homepage.jsx";
+// Lazy Imports
+const Home = lazy(() => import("./Home"));
+const Admin = lazy(() => import("./Admin/admin"));
+const Human = lazy(() => import("./User/Human/Human.jsx"));
+const Human_Home = lazy(() => import("./User/Human/Pages/Home/Homepage.jsx"));
 
-// About us
-import About from "./User/Pages/About us/about.jsx";
-import Certificates from "./User/Pages/About us/Certificates.jsx";
-import VisionMission from "./User/Pages/About us/vision&mission.jsx";
-import ManufacturingFacility from "./User/Pages/About us/manufacturing-facility.jsx";
-import ResearchDevelopment from "./User/Pages/About us/ResearchDevelopment.jsx";
-import Export from "./User/Pages/About us/Export.jsx";
+const About = lazy(() => import("./User/Pages/About us/about.jsx"));
+const Certificates = lazy(() => import("./User/Pages/About us/Certificates.jsx"));
+const VisionMission = lazy(() => import("./User/Pages/About us/vision&mission.jsx"));
+const ManufacturingFacility = lazy(() => import("./User/Pages/About us/manufacturing-facility.jsx"));
+const ResearchDevelopment = lazy(() => import("./User/Pages/About us/ResearchDevelopment.jsx"));
+const Export = lazy(() => import("./User/Pages/About us/Export.jsx"));
 
-// Nano-biotechnology Compounds
-import Nanophosphosome from "./User/Human/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx";
-import Neunamin from "./User/Human/Pages/Nano-biotechnology Compounds/Neunamin.jsx";
-import Neunaparticles from "./User/Human/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx";
+const Nanophosphosome = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx"));
+const Neunamin = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Neunamin.jsx"));
+const Neunaparticles = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx"));
 
-// Human
-import Healthsupplements from "./User/Human/Pages/Human/Health-supplements.jsx";
-import Persnolcare from "./User/Human/Pages/Human/Persnol care.jsx";
-import Yeppuen from "./User/Human/Pages/Human/Yeppuen.jsx";
-import Wellness from "./User/Human/Pages/Human/Wellness.jsx";
+const Healthsupplements = lazy(() => import("./User/Human/Pages/Human/Health-supplements.jsx"));
+const Persnolcare = lazy(() => import("./User/Human/Pages/Human/Persnol care.jsx"));
+const Yeppuen = lazy(() => import("./User/Human/Pages/Human/Yeppuen.jsx"));
+const Wellness = lazy(() => import("./User/Human/Pages/Human/Wellness.jsx"));
 
-// Media
-import Reports from "./User/Pages/Media/Report.jsx";
-import Gallery from "./User/Pages/Media/Gallery/Gallery";
-import ProductBrochures from "./User/Pages/Media/ProductBrochures.jsx";
-import Blog from "./User/Pages/Media/Blog.jsx";
+const Reports = lazy(() => import("./User/Pages/Media/Report.jsx"));
+const Gallery = lazy(() => import("./User/Pages/Media/Gallery/Gallery"));
+const ProductBrochures = lazy(() => import("./User/Pages/Media/ProductBrochures.jsx"));
+const Blog = lazy(() => import("./User/Pages/Media/Blog.jsx"));
 
-// Media
-import Articles from "./User/Pages/Media/Articles.jsx";
+const Articles = lazy(() => import("./User/Pages/Media/Articles.jsx"));
+const Ingredients = lazy(() => import("./User/Pages/Media/Ingredients.jsx"));
+const ContactUs = lazy(() => import("./User/Pages/contact/contact.jsx"));
 
-// Ingredients
-import Ingredients from "./User/Pages/Media/Ingredients.jsx";
+const Veterinary = lazy(() => import("./User/Veterinary/Veterinary.jsx"));
+const Veterinary_Home = lazy(() => import("./User/Veterinary/Pages/Home/Homepage.jsx"));
+const VNanophosphosome = lazy(() => import("./User/Veterinary/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx"));
+const VNeunamin = lazy(() => import("./User/Veterinary/Pages/Nano-biotechnology Compounds/Neunamin.jsx"));
+const VNeunaparticles = lazy(() => import("./User/Veterinary/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx"));
 
-// Contact US
-import ContactUs from "./User/Pages/contact/contact.jsx";
+const Livestock = lazy(() => import("./User/Veterinary/Pages/Veterinary/Livestock.jsx"));
+const Poultry = lazy(() => import("./User/Veterinary/Pages/Veterinary/Poultry.jsx"));
+const Aqua = lazy(() => import("./User/Veterinary/Pages/Veterinary/Aqua.jsx"));
+const Equines = lazy(() => import("./User/Veterinary/Pages/Veterinary/Equines.jsx"));
+const FeedGrain = lazy(() => import("./User/Veterinary/Pages/Veterinary/Feed & Grain.jsx"));
+const Swine = lazy(() => import("./User/Veterinary/Pages/Veterinary/Swine.jsx"));
+const Pet = lazy(() => import("./User/Veterinary/Pages/Veterinary/Pet.jsx"));
 
-// Veterinary
-import Veterinary from "./User/Veterinary/Veterinary.jsx";
-import Veterinary_Home from "./User/Veterinary/Pages/Home/Homepage.jsx";
+const Agriculture = lazy(() => import("./User/Agriculture/Agriculture.jsx"));
+const Agriculture_Home = lazy(() => import("./User/Agriculture/Pages/Home/Homepage.jsx"));
+const ANanophosphosome = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx"));
+const ANeunamin = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunamin.jsx"));
+const ANeunaparticles = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx"));
+const SoilMinerals = lazy(() => import("./User/Agriculture/Pages/Agriculture/SoilMinerals.jsx"));
+const NanoFertilizers = lazy(() => import("./User/Agriculture/Pages/Agriculture/NanoFertilizers.jsx"));
 
-// Nano-biotechnology Compounds
-import VNanophosphosome from "./User/Veterinary/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx";
-import VNeunamin from "./User/Veterinary/Pages/Nano-biotechnology Compounds/Neunamin.jsx";
-import VNeunaparticles from "./User/Veterinary/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx";
+const PrivateRoute = lazy(() => import("../private/privaterouts"));
+const Dashboard = lazy(() => import("./Admin/Dashboard"));
+const Unauthorized = lazy(() => import("../private/privatepage"));
+const Dash_Home = lazy(() => import("./Admin/Pages/Home/Home"));
 
-// Veterinary
-import Livestock from "./User/Veterinary/Pages/Veterinary/Livestock.jsx";
-import Poultry from "./User/Veterinary/Pages/Veterinary/Poultry.jsx";
-import Aqua from "./User/Veterinary/Pages/Veterinary/Aqua.jsx";
-import Equines from "./User/Veterinary/Pages/Veterinary/Equines.jsx";
-import FeedGrain from "./User/Veterinary/Pages/Veterinary/Feed & Grain.jsx";
-import Swine from "./User/Veterinary/Pages/Veterinary/Swine.jsx";
-import Pet from "./User/Veterinary/Pages/Veterinary/Pet.jsx";
+const Banner = lazy(() => import("./Admin/Pages/Media/Banner"));
+const Productimage = lazy(() => import("./Admin/Pages/Media/Product image"));
+const ProductLogo = lazy(() => import("./Admin/Pages/Media/Product logo"));
 
-// Agriculture
-import Agriculture from "./User/Agriculture/Agriculture.jsx";
-import Agriculture_Home from "./User/Agriculture/Pages/Home/Homepage.jsx";
-import ANanophosphosome from "./User/Agriculture/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx";
-import ANeunamin from "./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunamin.jsx";
-import ANeunaparticles from "./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx";
-import SoilMinerals from "./User/Agriculture/Pages/Agriculture/SoilMinerals.jsx";
-import NanoFertilizers from "./User/Agriculture/Pages/Agriculture/NanoFertilizers.jsx";
+const Product_Cart = lazy(() => import("./Admin/Pages/Pages/Home/Product_Cart"));
+const Product_List = lazy(() => import("./Admin/Pages/Pages/Home/Product_List"));
+const ImageSlider = lazy(() => import("./Admin/Pages/Pages/Home/Image Slider"));
 
-// admin
-import PrivateRoute from '../private/privaterouts';
-import Dashboard from './Admin/Dashboard';
-import Unauthorized from '../private/privatepage';
-import Dash_Home from './Admin/Pages/Home/Home';
+const Report = lazy(() => import("./Admin/Pages/Pages/Media/Reports"));
+const Gallerys = lazy(() => import("./Admin/Pages/Pages/Media/Gallery"));
+const Brochure = lazy(() => import("./Admin/Pages/Pages/Media/Brochures"));
+const Blogs = lazy(() => import("./Admin/Pages/Pages/Media/Blogs"));
+const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
+const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
+const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
 
-// Media
-import Banner from './Admin/Pages/Media/Banner';
-import Productimage from './Admin/Pages/Media/Product image';
-import ProductLogo from './Admin/Pages/Media/Product logo';
-
-// Home
-import Product_Cart from './Admin/Pages/Pages/Home/Product_Cart';
-import Product_List from './Admin/Pages/Pages/Home/Product_List';
-import ImageSlider from './Admin/Pages/Pages/Home/Image Slider';
-
-
-// Media
-import Report from './Admin/Pages/Pages/Media/Reports';
-import Gallerys from './Admin/Pages/Pages/Media/Gallery';
-import Brochure from './Admin/Pages/Pages/Media/Brochures';
-import Blogs from './Admin/Pages/Pages/Media/Blogs';
-import Page_banner from './Admin/Pages/Pages/Media/page_banner.jsx';
-import Video from './Admin/Pages/Pages/Media/Videos';
-import Feedback from './Admin/Pages/Feedback/Feedback';
-
-import TrackVisitor from '../api/totalvisitors';
-import Report_view from "./Admin/Pages/Media/report_view";
-import Gallery_view from "./Admin/Pages/Media/gallery.jsx";
-import ProductCard from "../utils/ProductCard.jsx";
-import PhotoGallery from "./User/Pages/Media/Gallery/PhotoGallery.jsx";
+const TrackVisitor = lazy(() => import("../api/totalvisitors"));
+const Report_view = lazy(() => import("./Admin/Pages/Media/report_view"));
+const Gallery_view = lazy(() => import("./Admin/Pages/Media/gallery.jsx"));
+const ProductCard = lazy(() => import("../utils/ProductCard.jsx"));
+const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
 
 function App() {
-  TrackVisitor();
   return (
     <div>
+      <TrackVisitor ></TrackVisitor>
+         <Suspense fallback={<HorizontalBounceLoader />}>
       <Routes>
         <Route path="/" element={<Home />} />
         {/* Human */}
@@ -254,10 +238,11 @@ function App() {
         </Route>
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="/galleryflistadmin" element={<ProductCard />} />
-
+        <Route path="/loader" element={<HorizontalBounceLoader />}/>
       </Routes>
+        </Suspense>
+
     </div>
   );
 }
-
 export default App;
