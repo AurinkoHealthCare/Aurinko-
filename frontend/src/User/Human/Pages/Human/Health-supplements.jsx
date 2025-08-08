@@ -40,7 +40,7 @@ const Healthsupplements = () => {
       </div>
       <div className="flex flex-col min-h-screen w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
-          <ProductCard products={products} category="Health Supplement" />
+          <ProductCard products={products} category={"Health Supplement"} />
         </div>
       </div>
     </div>
