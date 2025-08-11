@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
-import ProductsBySegment from "../utils/component/card.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -80,170 +79,166 @@ const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
 const TrackVisitor = lazy(() => import("../api/totalvisitors"));
 const Report_view = lazy(() => import("./Admin/Pages/Media/report_view"));
 const Gallery_view = lazy(() => import("./Admin/Pages/Media/gallery.jsx"));
-const ProductCard = lazy(() => import("../utils/ProductCard.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
 
 function App() {
   return (
     <div>
       <TrackVisitor ></TrackVisitor>
-         <Suspense fallback={<HorizontalBounceLoader />}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Human */}
-        <Route path="/human" element={<Human />} >
-          <Route path="/human" element={<Human_Home />} />
-
-          {/* About us  */}
-          <Route path="/human/about" element={<About />} />
-          <Route path="/human/vision" element={<VisionMission />} />
-          <Route path="/human/manufacturing" element={<ManufacturingFacility />} />
-          <Route path="/human/research" element={<ResearchDevelopment />} />
-          <Route path="/human/export" element={<Export />} />
-          <Route path="/human/certificates" element={<Certificates />} />
-         
-          {/* Nano-biotechnology Compounds */}
-          <Route path="/human/Nanophosphosomes" element={<Nanophosphosome />} />
-          <Route path="/human/Neuna_mins" element={<Neunamin />} />
-          <Route path="/human/Neuna_particles" element={<Neunaparticles />} />
-
+      <Suspense fallback={<HorizontalBounceLoader />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
           {/* Human */}
-          <Route path="/human/Health_supplements" element={<Healthsupplements />} />
-          <Route path="/human/Wellness" element={<Wellness />} />
-          <Route path="/human/Personal_Care" element={<Persnolcare />} />
-          <Route path="/human/Yeppuen" element={<Yeppuen />} />
-          
-          {/* Media */}
-          <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
-          <Route path="/human/gallery" element={<Gallery />} />
-          <Route path="/human/photo_gallery" element={<PhotoGallery />} />
-          <Route path="/human/brochures" element={<ProductBrochures />} />
-          <Route path="/human/blog" element={<Blog />} />
-          <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
+          <Route path="/human" element={<Human />} >
+            <Route path="/human" element={<Human_Home />} />
 
-          {/* Ingredients */}
-          <Route path="/human/ingredients" element={<Ingredients />} />
+            {/* About us  */}
+            <Route path="/human/about" element={<About />} />
+            <Route path="/human/vision" element={<VisionMission />} />
+            <Route path="/human/manufacturing" element={<ManufacturingFacility />} />
+            <Route path="/human/research" element={<ResearchDevelopment />} />
+            <Route path="/human/export" element={<Export />} />
+            <Route path="/human/certificates" element={<Certificates />} />
 
-          {/* Contact US */}
-          <Route path="/human/contact_us" element={<ContactUs />} />
-        </Route>
+            {/* Nano-biotechnology Compounds */}
+            <Route path="/human/Nanophosphosomes" element={<Nanophosphosome />} />
+            <Route path="/human/Neuna_mins" element={<Neunamin />} />
+            <Route path="/human/Neuna_particles" element={<Neunaparticles />} />
 
-        {/* Veterinary */}
-        <Route path="/veterinary" element={<Veterinary />}>
-          <Route path="/veterinary" element={<Veterinary_Home />} />
+            {/* Human */}
+            <Route path="/human/Health_supplements" element={<Healthsupplements />} />
+            <Route path="/human/Wellness" element={<Wellness />} />
+            <Route path="/human/Personal_Care" element={<Persnolcare />} />
+            <Route path="/human/Yeppuen" element={<Yeppuen />} />
 
-          {/* About us  */}
-          <Route path="/veterinary/about" element={<About />} />
-          <Route path="/veterinary/vision" element={<VisionMission />} />
-          <Route path="/veterinary/manufacturing" element={<ManufacturingFacility />} />
-          <Route path="/veterinary/research" element={<ResearchDevelopment />} />
-          <Route path="/veterinary/export" element={<Export />} />
-          <Route path="/veterinary/certificates" element={<Certificates />} />
+            {/* Media */}
+            <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
+            <Route path="/human/gallery" element={<Gallery />} />
+            <Route path="/human/photo_gallery" element={<PhotoGallery />} />
+            <Route path="/human/brochures" element={<ProductBrochures />} />
+            <Route path="/human/blog" element={<Blog />} />
+            <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
-          {/* Nano-biotechnology Compounds */}
-          <Route path="/veterinary/Nanophosphosomes" element={<VNanophosphosome />} />
-          <Route path="/veterinary/Neuna_mins" element={<VNeunamin />} />
-          <Route path="/veterinary/Neuna_particles" element={<VNeunaparticles />} />
+            {/* Ingredients */}
+            <Route path="/human/ingredients" element={<Ingredients />} />
 
-          {/* Veterinary */}
-          <Route path="/veterinary/livestock" element={<Livestock />} />
-          <Route path="/veterinary/poultry" element={<Poultry />} />
-          <Route path="/veterinary/Aqua" element={<Aqua />} />
-          <Route path="/veterinary/Swine" element={<Swine />} />
-          <Route path="/veterinary/Equine" element={<Equines />} />
-          <Route path="/veterinary/pet" element={<Pet />} />
-          <Route path="/veterinary/feed_grain" element={<FeedGrain />} />
-
-          {/* Media */}
-          <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
-          <Route path="/veterinary/gallery" element={<Gallery />} />
-          <Route path="/veterinary/brochures" element={<ProductBrochures />} />
-          <Route path="/veterinary/blog" element={<Blog />} />
-          <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
-
-          {/* Ingredients */}
-          <Route path="/veterinary/ingredients" element={<Ingredients />} />
-
-          {/* Contact US */}
-          <Route path="/veterinary/contact_us" element={<ContactUs />} />
-        </Route>
-
-        {/* Agriculture */}
-        <Route path="/agriculture" element={<Agriculture />} >
-          <Route path="/agriculture/" element={<Agriculture_Home />} />
-
-          {/* About us  */}
-          <Route path="/agriculture/about" element={<About />} />
-          <Route path="/agriculture/vision" element={<VisionMission />} />
-          <Route path="/agriculture/manufacturing" element={<ManufacturingFacility />} />
-          <Route path="/agriculture/research" element={<ResearchDevelopment />} />
-          <Route path="/agriculture/export" element={<Export />} />
-          <Route path="/agriculture/certificates" element={<Certificates />} />
-
-          {/* Nano-biotechnology Compounds */}
-          <Route path="/agriculture/Nanophosphosomes" element={<ANanophosphosome />} />
-          <Route path="/agriculture/Neuna_mins" element={<ANeunamin />} />
-          <Route path="/agriculture/Neuna_particles" element={<ANeunaparticles />} />
+            {/* Contact US */}
+            <Route path="/human/contact_us" element={<ContactUs />} />
+          </Route>
 
           {/* Veterinary */}
-          <Route path="/agriculture/SoilMinerals" element={<SoilMinerals />} />
-          <Route path="/agriculture/NanoFertilizers" element={<NanoFertilizers />} />
+          <Route path="/veterinary" element={<Veterinary />}>
+            <Route path="/veterinary" element={<Veterinary_Home />} />
 
-          {/* Media */}
-          <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
-          <Route path="/agriculture/gallery" element={<Gallery />} />
-          <Route path="/agriculture/brochures" element={<ProductBrochures />} />
-          <Route path="/agriculture/blog" element={<Blog />} />
-          <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
+            {/* About us  */}
+            <Route path="/veterinary/about" element={<About />} />
+            <Route path="/veterinary/vision" element={<VisionMission />} />
+            <Route path="/veterinary/manufacturing" element={<ManufacturingFacility />} />
+            <Route path="/veterinary/research" element={<ResearchDevelopment />} />
+            <Route path="/veterinary/export" element={<Export />} />
+            <Route path="/veterinary/certificates" element={<Certificates />} />
 
-          {/* Ingredients */}
-          <Route path="/agriculture/ingredients" element={<Ingredients />} />
+            {/* Nano-biotechnology Compounds */}
+            <Route path="/veterinary/Nanophosphosomes" element={<VNanophosphosome />} />
+            <Route path="/veterinary/Neuna_mins" element={<VNeunamin />} />
+            <Route path="/veterinary/Neuna_particles" element={<VNeunaparticles />} />
 
-          {/* Contact US */}
-          <Route path="/agriculture/contact_us" element={<ContactUs />} />
-        </Route>
+            {/* Veterinary */}
+            <Route path="/veterinary/livestock" element={<Livestock />} />
+            <Route path="/veterinary/poultry" element={<Poultry />} />
+            <Route path="/veterinary/Aqua" element={<Aqua />} />
+            <Route path="/veterinary/Swine" element={<Swine />} />
+            <Route path="/veterinary/Equine" element={<Equines />} />
+            <Route path="/veterinary/pet" element={<Pet />} />
+            <Route path="/veterinary/feed_grain" element={<FeedGrain />} />
 
-        {/* Admin */}
-        <Route path="/AurinkoOne" element={<Admin />} />
-        <Route path="/dashboard" element={
-          <PrivateRoute
-            allowedRoles={["admin"]}>
-            <Dashboard />
-          </PrivateRoute>
-        }
-        >
-          <Route path='/dashboard/' element={<Dash_Home />} />
+            {/* Media */}
+            <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
+            <Route path="/veterinary/gallery" element={<Gallery />} />
+            <Route path="/veterinary/brochures" element={<ProductBrochures />} />
+            <Route path="/veterinary/blog" element={<Blog />} />
+            <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
-          {/* Media */}
-          <Route path='/dashboard/banner' element={<Banner />} />
-          <Route path='/dashboard/productimage' element={<Productimage />} />
-          <Route path='/dashboard/productlogo' element={<ProductLogo />} />
+            {/* Ingredients */}
+            <Route path="/veterinary/ingredients" element={<Ingredients />} />
 
-          {/* Home */}
-          <Route path='/dashboard/imageSlider' element={<ImageSlider />} />
-          <Route path='/dashboard/product_cart' element={<Product_Cart />} />
-          <Route path='/dashboard/product_list' element={<Product_List />} />
+            {/* Contact US */}
+            <Route path="/veterinary/contact_us" element={<ContactUs />} />
+          </Route>
 
-          {/* Media */}
-          <Route path='/dashboard/Reports' element={<Report />} />
-          <Route path="/dashboard/report_view" element={<Report_view />} />
-          <Route path='/dashboard/Gallery' element={<Gallerys />} />
-          <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
-          <Route path='/dashboard/Brochures' element={<Brochure />} />
-          <Route path='/dashboard/Blogs' element={<Blogs />} />
-          <Route path='/dashboard/page_banner' element={<Page_banner />} />
-          <Route path='/dashboard/Videos' element={<Video />} />
+          {/* Agriculture */}
+          <Route path="/agriculture" element={<Agriculture />} >
+            <Route path="/agriculture/" element={<Agriculture_Home />} />
 
-          {/* Feedback */}
-          <Route path='/dashboard/feedback' element={<Feedback />} />
-        </Route>
-        <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/galleryflistadmin" element={<ProductCard />} />
-        <Route path="/loader" element={<HorizontalBounceLoader />}/>
-        <Route path="/card" element={<ProductsBySegment segment="Human OTC" />}/>
-      </Routes>
-        </Suspense>
+            {/* About us  */}
+            <Route path="/agriculture/about" element={<About />} />
+            <Route path="/agriculture/vision" element={<VisionMission />} />
+            <Route path="/agriculture/manufacturing" element={<ManufacturingFacility />} />
+            <Route path="/agriculture/research" element={<ResearchDevelopment />} />
+            <Route path="/agriculture/export" element={<Export />} />
+            <Route path="/agriculture/certificates" element={<Certificates />} />
 
+            {/* Nano-biotechnology Compounds */}
+            <Route path="/agriculture/Nanophosphosomes" element={<ANanophosphosome />} />
+            <Route path="/agriculture/Neuna_mins" element={<ANeunamin />} />
+            <Route path="/agriculture/Neuna_particles" element={<ANeunaparticles />} />
+
+            {/* Veterinary */}
+            <Route path="/agriculture/SoilMinerals" element={<SoilMinerals />} />
+            <Route path="/agriculture/NanoFertilizers" element={<NanoFertilizers />} />
+
+            {/* Media */}
+            <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
+            <Route path="/agriculture/gallery" element={<Gallery />} />
+            <Route path="/agriculture/brochures" element={<ProductBrochures />} />
+            <Route path="/agriculture/blog" element={<Blog />} />
+            <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
+
+            {/* Ingredients */}
+            <Route path="/agriculture/ingredients" element={<Ingredients />} />
+
+            {/* Contact US */}
+            <Route path="/agriculture/contact_us" element={<ContactUs />} />
+          </Route>
+
+          {/* Admin */}
+          <Route path="/AurinkoOne" element={<Admin />} />
+          <Route path="/dashboard" element={
+            <PrivateRoute
+              allowedRoles={["admin"]}>
+              <Dashboard />
+            </PrivateRoute>
+          }
+          >
+            <Route path='/dashboard/' element={<Dash_Home />} />
+
+            {/* Media */}
+            <Route path='/dashboard/banner' element={<Banner />} />
+            <Route path='/dashboard/productimage' element={<Productimage />} />
+            <Route path='/dashboard/productlogo' element={<ProductLogo />} />
+
+            {/* Home */}
+            <Route path='/dashboard/imageSlider' element={<ImageSlider />} />
+            <Route path='/dashboard/product_cart' element={<Product_Cart />} />
+            <Route path='/dashboard/product_list' element={<Product_List />} />
+
+            {/* Media */}
+            <Route path='/dashboard/Reports' element={<Report />} />
+            <Route path="/dashboard/report_view" element={<Report_view />} />
+            <Route path='/dashboard/Gallery' element={<Gallerys />} />
+            <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
+            <Route path='/dashboard/Brochures' element={<Brochure />} />
+            <Route path='/dashboard/Blogs' element={<Blogs />} />
+            <Route path='/dashboard/page_banner' element={<Page_banner />} />
+            <Route path='/dashboard/Videos' element={<Video />} />
+
+            {/* Feedback */}
+            <Route path='/dashboard/feedback' element={<Feedback />} />
+          </Route>
+          <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/loader" element={<HorizontalBounceLoader />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 }
