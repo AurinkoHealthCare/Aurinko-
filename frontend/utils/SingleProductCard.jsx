@@ -109,7 +109,7 @@ const SingleProductCard = ({ product, theme }) => {
           {activeTab === "General Info" && (
             <>
               <h1 className="text-lg font-semibold">{name}</h1>
-              <p className="mt-2">{t("details")}</p>
+              <p className="mt-2">{details}</p>
               <p className="mt-2">
                 <strong>{t("Segment")}:</strong> {segment}
               </p>

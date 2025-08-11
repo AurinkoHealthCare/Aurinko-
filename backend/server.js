@@ -21,6 +21,7 @@ const Products2 = require('./router/products2router/products2');
 const pdfRoutes = require("./router/pdf/pdfRouter");
 const galleryupload = require("./router/galleryRouter/gallery");
 const otherImages = require("./router/otherimagesRouter/otherimages");
+const brochuresRouter = require("./router/brochures/brochures");
 
 // Connect to MongoDB
 MongoDB();
@@ -70,6 +71,7 @@ app.use('/api/products2', Products2);
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/gallery", galleryupload);
 app.use("/api/otherimage", otherImages);
+app.use("/api/brochures", brochuresRouter);
 
 // ✅ Error Handler
 app.use((err, req, res, next) => {
