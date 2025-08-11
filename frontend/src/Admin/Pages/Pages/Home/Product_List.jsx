@@ -2,30 +2,29 @@ import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 
 const Product_List = () => {
-  const [items, setItems] = useState([
-    {
-      productImage: null,
-      productLogo: null,
-      name: "",
-      details: "",
-      segment: "",
-      type: "",
-      category: "",
-      packing: "",
-      composition: "",
-      indications: "",
-      usage: "",
-      report: "",
-      brochure: "",
-      feedback: "",
-      translations: { fr: {}, es: {}, ar: {}, ko: {} },
-      reportType: "text",
-      brochureType: "text",
-      previewImage: "",
-      previewLogo: ""
-    }
-  ]);
+  const emptyItem = {
+    productImage: null,
+    productLogo: null,
+    name: "",
+    details: "",
+    segment: "",
+    type: "",
+    category: "",
+    packing: "",
+    composition: "",
+    indications: "",
+    usage: "",
+    report: "",
+    brochure: "",
+    feedback: "",
+    translations: { fr: {}, es: {}, ar: {}, ko: {} },
+    reportType: "text",
+    brochureType: "text",
+    previewImage: "",
+    previewLogo: ""
+  };
 
+  const [items, setItems] = useState([emptyItem]);
   const [activeLang, setActiveLang] = useState({});
 
   const handleFileChange = (e, index, field) => {
@@ -59,30 +58,7 @@ const Product_List = () => {
       alert("❌ Maximum 5 items allowed");
       return;
     }
-    setItems([
-      ...items,
-      {
-        productImage: null,
-        productLogo: null,
-        name: "",
-        details: "",
-        segment: "",
-        type: "",
-        category: "",
-        packing: "",
-        composition: "",
-        indications: "",
-        usage: "",
-        report: "",
-        brochure: "",
-        feedback: "",
-        translations: { fr: {}, es: {}, ar: {}, ko: {} },
-        reportType: "text",
-        brochureType: "text",
-        previewImage: "",
-        previewLogo: ""
-      }
-    ]);
+    setItems([...items, { ...emptyItem }]);
   };
 
   const handleSubmit = async (e) => {
@@ -117,13 +93,14 @@ const Product_List = () => {
           formData.append("brochure", item.brochure);
         }
 
-        const res = await axios.post("/products2/add", formData, {
+        await axios.post("/products2/add", formData, {
           headers: { "Content-Type": "multipart/form-data" }
         });
-        console.log("✅ Added:", res.data);
       }
+
       alert("✅ All products added successfully!");
-      setItems([items[0]]);
+      setItems([{ ...emptyItem }]); // reset to blank
+      setActiveLang({});
     } catch (err) {
       console.error("❌ Error:", err);
       alert("❌ Error adding products: " + (err.response?.data?.message || err.message));
@@ -170,7 +147,6 @@ const Product_List = () => {
               </div>
             </div>
 
-            {/* Product Fields */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {["name", "segment", "type", "category", "packing", "feedback", "details", "composition", "indications", "usage"].map((field) => (
                 <div key={field}>
@@ -200,7 +176,6 @@ const Product_List = () => {
               ))}
             </div>
 
-            {/* Report and Brochure */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
               {["report", "brochure"].map((typeKey) => (
                 <div key={typeKey}>
@@ -239,7 +214,6 @@ const Product_List = () => {
               ))}
             </div>
 
-            {/* Language Translations */}
             <div className="mt-6">
               <p className="mb-2 text-sm font-semibold">🌐 Add Translations:</p>
               <div className="flex flex-wrap gap-2 mb-4">
@@ -253,10 +227,11 @@ const Product_List = () => {
                         [idx]: prev[idx] === langKey ? null : langKey,
                       }))
                     }
-                    className={`px-3 py-1 rounded text-sm font-semibold border ${activeLang[idx] === langKey
-                      ? "bg-green-600 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                      }`}
+                    className={`px-3 py-1 rounded text-sm font-semibold border ${
+                      activeLang[idx] === langKey
+                        ? "bg-green-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
                   >
                     {langKey.toUpperCase()}
                   </button>
@@ -303,7 +278,6 @@ const Product_List = () => {
           </div>
         ))}
 
-        {/* Buttons */}
         <div className="flex justify-between mt-6">
           <button
             type="button"
@@ -321,7 +295,6 @@ const Product_List = () => {
         </div>
       </form>
     </div>
-
   );
 };
 

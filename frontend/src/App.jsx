@@ -79,6 +79,7 @@ const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
 const TrackVisitor = lazy(() => import("../api/totalvisitors"));
 const Report_view = lazy(() => import("./Admin/Pages/Media/report_view"));
 const Gallery_view = lazy(() => import("./Admin/Pages/Media/gallery.jsx"));
+const Brochure_view = lazy(() => import("./Admin/Pages/Media/brochures.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
 
 function App() {
@@ -115,7 +116,7 @@ function App() {
             <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
             <Route path="/human/gallery" element={<Gallery />} />
             <Route path="/human/photo_gallery" element={<PhotoGallery />} />
-            <Route path="/human/brochures" element={<ProductBrochures />} />
+            <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
             <Route path="/human/blog" element={<Blog />} />
             <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
@@ -155,7 +156,7 @@ function App() {
             {/* Media */}
             <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
             <Route path="/veterinary/gallery" element={<Gallery />} />
-            <Route path="/veterinary/brochures" element={<ProductBrochures />} />
+            <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
@@ -190,7 +191,7 @@ function App() {
             {/* Media */}
             <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
             <Route path="/agriculture/gallery" element={<Gallery />} />
-            <Route path="/agriculture/brochures" element={<ProductBrochures />} />
+            <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
             <Route path="/agriculture/blog" element={<Blog />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
 
@@ -227,6 +228,7 @@ function App() {
             <Route path="/dashboard/report_view" element={<Report_view />} />
             <Route path='/dashboard/Gallery' element={<Gallerys />} />
             <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
+            <Route path='/dashboard/Brochure_view' element={<Brochure_view />} />
             <Route path='/dashboard/Brochures' element={<Brochure />} />
             <Route path='/dashboard/Blogs' element={<Blogs />} />
             <Route path='/dashboard/page_banner' element={<Page_banner />} />

@@ -62,7 +62,8 @@ const Navbar = () => {
               { to: "/dashboard/productimage", label: "Global page card" },
               { to: "/dashboard/productlogo", label: "Multiple product" },
               { to: "/dashboard/report_view", label: "Report_view" },
-              { to: "/dashboard/Gallery_view", label: "Gallery_view" }
+              { to: "/dashboard/Gallery_view", label: "Gallery_view" },
+              { to: "/dashboard/Brochure_view", label: "Brochure_view" }
             ]}
           />
 
