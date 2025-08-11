@@ -1,7 +1,9 @@
 import React from "react";
 import SingleProductCard from "./SingleProductCard";
+import { useTranslation } from "react-i18next";
 
 const ProductCard = ({ products = [], segment, theme }) => {
+  const { i18n } = useTranslation();
   const filteredProducts = segment
     ? products.filter(
         (p) => p.generalInfo?.segment?.toLowerCase() === segment.toLowerCase()

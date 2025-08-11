@@ -36,31 +36,57 @@ const getTabColorClasses = (theme, isActive) => {
   return isActive ? colors.active : colors.inactive;
 };
 
+// Helper to get translated product field
+const getTranslated = (product, lang, key) =>
+  product?.translations?.[lang]?.[key] ||
+  product?.generalInfo?.[key] ||
+  product?.[key.toLowerCase()] ||
+  "";
+
 const SingleProductCard = ({ product, theme }) => {
   const [activeTab, setActiveTab] = useState("General Info");
-  const { t } = useTranslation("productcart");
+  const { t, i18n } = useTranslation("productcart");
+  const currentLang = i18n.language;
 
   const tabs = rawTabs.map((key) => ({ key, label: t(key) }));
+
+  // Translated product fields
+  const name = getTranslated(product, currentLang, "name");
+  const details = getTranslated(product, currentLang, "details");
+  const composition = getTranslated(product, currentLang, "composition");
+  const indications = getTranslated(product, currentLang, "indications");
+  const usage = getTranslated(product, currentLang, "usage");
+  const report = product?.report;
+  const brochure = product?.brochure;
+  const feedback = product?.feedback;
+  const segment = getTranslated(product, currentLang, "segment");
+  const type = getTranslated(product, currentLang, "type");
+  const category = getTranslated(product, currentLang, "category");
+  const packing = getTranslated(product, currentLang, "packing");
 
   return (
     <div className="flex flex-col md:flex-row w-full max-w-full bg-white border border-neutral-300 overflow-hidden rounded shadow-md">
       {/* Product Image */}
       <div className="md:w-1/3 w-full p-3 flex justify-center">
-        <img
-          src={product.productImage}
-          alt="Product"
-          className="h-64 w-64 md:h-80 md:w-80 object-cover rounded-lg"
-        />
+        {product.productImage && (
+          <img
+            src={product.productImage}
+            alt="Product"
+            className="h-64 w-64 md:h-80 md:w-80 object-cover rounded-lg"
+          />
+        )}
       </div>
 
       {/* Product Content */}
       <div className="md:w-2/3 w-full p-4 flex flex-col border-l border-neutral-300">
         {/* Logo */}
-        <img
-          src={product.productLogo}
-          alt="Product Logo"
-          className="h-16 w-64 md:h-20 md:w-72 rounded-lg mb-3 object-contain"
-        />
+        {product.productLogo && (
+          <img
+            src={product.productLogo}
+            alt="Product Logo"
+            className="h-16 w-64 md:h-20 md:w-72 rounded-lg mb-3 object-contain"
+          />
+        )}
 
         {/* Tabs */}
         <div className="flex flex-wrap border-b border-neutral-300 pb-2">
@@ -82,45 +108,65 @@ const SingleProductCard = ({ product, theme }) => {
         <div className="mt-4 text-base text-gray-700 overflow-y-auto max-h-[60vh] p-2 whitespace-pre-wrap">
           {activeTab === "General Info" && (
             <>
-              <h1 className="text-lg font-semibold">
-                {product.generalInfo?.name}
-              </h1>
-              <p className="mt-2">{product.generalInfo?.details}</p>
+              <h1 className="text-lg font-semibold">{name}</h1>
+              <p className="mt-2">{t("details")}</p>
               <p className="mt-2">
-                <strong>{t("Segment")}:</strong> {product.generalInfo?.segment}
+                <strong>{t("Segment")}:</strong> {segment}
               </p>
               <p>
-                <strong>{t("Type")}:</strong> {product.generalInfo?.type}
+                <strong>{t("Type")}:</strong> {type}
               </p>
               <p>
-                <strong>{t("Category")}:</strong> {product.generalInfo?.category}
+                <strong>{t("Category")}:</strong> {category}
               </p>
               <p>
-                <strong>{t("Packing")}:</strong> {product.generalInfo?.packing}
+                <strong>{t("Packing")}:</strong> {packing}
               </p>
             </>
           )}
           {activeTab === "Composition" && (
-            <div dangerouslySetInnerHTML={{ __html: product.composition || "" }} />
+            <div dangerouslySetInnerHTML={{ __html: composition || "" }} />
           )}
           {activeTab === "Indications" && (
-            <div dangerouslySetInnerHTML={{ __html: product.indications || "" }} />
+            <div dangerouslySetInnerHTML={{ __html: indications || "" }} />
           )}
           {activeTab === "Usage" && (
-            <div dangerouslySetInnerHTML={{ __html: product.usage || "" }} />
+            <div dangerouslySetInnerHTML={{ __html: usage || "" }} />
           )}
           {activeTab === "Report" && (
-            <div dangerouslySetInnerHTML={{ __html: product.report || "" }} />
+            <p>
+              {report ? (
+                <a
+                  href={report}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  {t("View Report")}
+                </a>
+              ) : (
+                t("No report available.")
+              )}
+            </p>
           )}
-          {activeTab === "Brochure" && product.brochure && (
-            <iframe
-              src={product.brochure}
-              title="Brochure"
-              className="w-full h-[60vh] border rounded"
-            />
+          {activeTab === "Brochure" && (
+            <p>
+              {brochure ? (
+                <a
+                  href={brochure}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 underline"
+                >
+                  {t("View Brochure")}
+                </a>
+              ) : (
+                t("No brochure available.")
+              )}
+            </p>
           )}
           {activeTab === "Feedback" && (
-            <div dangerouslySetInnerHTML={{ __html: product.feedback || "" }} />
+            <p>{feedback || t("No feedback available.")}</p>
           )}
         </div>
       </div>

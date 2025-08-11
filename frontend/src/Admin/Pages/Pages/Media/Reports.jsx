@@ -128,7 +128,7 @@ function Report({ onUpload }) {
             value={form.type}
             onChange={handleChange}
             disabled={loading}
-            placeholder="e.g. Invoice, Legal, Education"
+            placeholder="e.g. Human, Veterinary, Agriculture"
           />
 
           {/* Details */}
@@ -198,11 +198,10 @@ function Report({ onUpload }) {
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 px-4 rounded-xl text-white font-semibold flex justify-center items-center gap-2 transition-all duration-300 shadow-md ${
-              loading
+            className={`w-full py-3 px-4 rounded-xl text-white font-semibold flex justify-center items-center gap-2 transition-all duration-300 shadow-md ${loading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700"
-            }`}
+              }`}
           >
             {loading ? (
               <>
@@ -219,15 +218,14 @@ function Report({ onUpload }) {
         {/* Status Message */}
         {statusMsg && (
           <p
-            className={`text-center mt-5 text-base font-semibold ${
-              statusMsg.includes("✅")
+            className={`text-center mt-5 text-base font-semibold ${statusMsg.includes("✅")
                 ? "text-green-600"
                 : statusMsg.includes("⚠️")
-                ? "text-yellow-600"
-                : statusMsg.includes("❌")
-                ? "text-red-600"
-                : "text-gray-700"
-            }`}
+                  ? "text-yellow-600"
+                  : statusMsg.includes("❌")
+                    ? "text-red-600"
+                    : "text-gray-700"
+              }`}
           >
             {statusMsg}
           </p>

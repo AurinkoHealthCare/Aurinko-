@@ -114,7 +114,7 @@ function App() {
           <Route path="/human/Yeppuen" element={<Yeppuen />} />
           
           {/* Media */}
-          <Route path="/human/report" element={<Reports />} />
+          <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
           <Route path="/human/gallery" element={<Gallery />} />
           <Route path="/human/photo_gallery" element={<PhotoGallery />} />
           <Route path="/human/brochures" element={<ProductBrochures />} />
@@ -155,7 +155,7 @@ function App() {
           <Route path="/veterinary/feed_grain" element={<FeedGrain />} />
 
           {/* Media */}
-          <Route path="/veterinary/report" element={<Reports />} />
+          <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
           <Route path="/veterinary/gallery" element={<Gallery />} />
           <Route path="/veterinary/brochures" element={<ProductBrochures />} />
           <Route path="/veterinary/blog" element={<Blog />} />
@@ -190,7 +190,7 @@ function App() {
           <Route path="/agriculture/NanoFertilizers" element={<NanoFertilizers />} />
 
           {/* Media */}
-          <Route path="/agriculture/report" element={<Reports />} />
+          <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
           <Route path="/agriculture/gallery" element={<Gallery />} />
           <Route path="/agriculture/brochures" element={<ProductBrochures />} />
           <Route path="/agriculture/blog" element={<Blog />} />
