@@ -38,10 +38,6 @@ const Nanophosphosome = () => {
           alt="Health supplements"
           className="w-full"
         />
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="absolute inset-0 flex flex-col items-center text-white p-8">
-          <h1 className="lg:text-4xl font-bold">Nanophosphosome</h1>
-        </div>
       </div>
       <div className="flex flex-col w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">

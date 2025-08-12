@@ -17,7 +17,6 @@ const ResearchDevelopment = lazy(() => import("./User/Pages/About us/ResearchDev
 const Export = lazy(() => import("./User/Pages/About us/Export.jsx"));
 
 const Nanophosphosome = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx"));
-const Neunamin = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Neunamin.jsx"));
 const Neunaparticles = lazy(() => import("./User/Human/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx"));
 
 const Healthsupplements = lazy(() => import("./User/Human/Pages/Human/Health-supplements.jsx"));
@@ -51,7 +50,6 @@ const Pet = lazy(() => import("./User/Veterinary/Pages/Veterinary/Pet.jsx"));
 const Agriculture = lazy(() => import("./User/Agriculture/Agriculture.jsx"));
 const Agriculture_Home = lazy(() => import("./User/Agriculture/Pages/Home/Homepage.jsx"));
 const ANanophosphosome = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Nanophosphosomes.jsx"));
-const ANeunamin = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunamin.jsx"));
 const ANeunaparticles = lazy(() => import("./User/Agriculture/Pages/Nano-biotechnology Compounds/Neunaparticles.jsx"));
 const SoilMinerals = lazy(() => import("./User/Agriculture/Pages/Agriculture/SoilMinerals.jsx"));
 const NanoFertilizers = lazy(() => import("./User/Agriculture/Pages/Agriculture/NanoFertilizers.jsx"));
@@ -104,7 +102,6 @@ function App() {
 
             {/* Nano-biotechnology Compounds */}
             <Route path="/human/Nanophosphosomes" element={<Nanophosphosome />} />
-            <Route path="/human/Neuna_mins" element={<Neunamin />} />
             <Route path="/human/Neuna_particles" element={<Neunaparticles />} />
 
             {/* Human */}
@@ -182,7 +179,6 @@ function App() {
 
             {/* Nano-biotechnology Compounds */}
             <Route path="/agriculture/Nanophosphosomes" element={<ANanophosphosome />} />
-            <Route path="/agriculture/Neuna_mins" element={<ANeunamin />} />
             <Route path="/agriculture/Neuna_particles" element={<ANeunaparticles />} />
 
             {/* Veterinary */}
