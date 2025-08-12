@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
+import LiveProductSearch from "../utils/component/search.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -239,6 +240,7 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
+          <Route path="/search" element={<LiveProductSearch />} />
         </Routes>
       </Suspense>
     </div>
