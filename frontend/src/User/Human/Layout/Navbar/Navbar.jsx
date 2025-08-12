@@ -43,7 +43,6 @@ const Navbar = () => {
             <span className="hover:text-red-600 cursor-pointer">{t("nano_biotech")}</span>
             <ul className="absolute top-full left-0 bg-white/90 backdrop-blur-md w-64 shadow-lg p-2 rounded-md hidden group-hover:block">
               <li><Link to="/human/Nanophosphosomes" className="block px-4 py-1 hover:text-red-600">{t("nanophosphosomes")}</Link></li>
-              <li><Link to="/human/Neuna_mins" className="block px-4 py-1 hover:text-red-600">{t("neuna_mins")}</Link></li>
               <li><Link to="/human/Neuna_particles" className="block px-4 py-1 hover:text-red-600">{t("neuna_particles")}</Link></li>
             </ul>
           </li>

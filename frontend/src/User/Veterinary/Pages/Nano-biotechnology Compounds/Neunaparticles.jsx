@@ -1,27 +1,52 @@
-import React from "react";
-// import ProductCard from "../../../Components/Human/ProductCard";
-// import V_Neunaparticles_data from "../../../Data/V_Neunaparticles_data";
-
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import axios from "../../../../../api/axios";
+import ProductCard from "../../../../../utils/ProductCard.jsx";
+import { useTranslation } from 'react-i18next';
 
 const VNeunaparticles = () => {
+  const { t } = useTranslation("home_parts");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams] = useSearchParams();
+
+  const segment = searchParams.get("segment");
+  const theme = searchParams.get("theme");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get("/products2/all");
+        const filtered = segment
+          ? res.data.filter((item) => item.segment?.toLowerCase() === segment.toLowerCase())
+          : res.data;
+        setProducts(filtered);
+      } catch {
+        alert("❌ Error fetching products");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, [segment]);
+
   return (
-    <div className="font-sans">
+    <div className={`font-sans ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       <div className="relative">
-        <img src="/Assets/Nano-biotechnology Compounds/Neuna Particles.webp" alt="Nanophosphosome" className="w-full" />
+        <img
+          src="/Assets/Nano-biotechnology Compounds/Neuna Particles.webp"
+          alt="Health supplements"
+          className="w-full"
+        />
       </div>
-      {/* <div className="flex flex-col min-h-screen w-full p-4">
-        {V_Neunaparticles_data?.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
-            {V_Neunaparticles_data.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-center text-gray-600">No health supplements available.</p>
-        )}
-      </div> */}
+      <div className="flex flex-col w-full p-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
+          <ProductCard products={products} segment="VNeunaparticles" theme="Veterinary" />
+        </div>
+      </div>
     </div>
   );
 };
 
 export default VNeunaparticles;
+
