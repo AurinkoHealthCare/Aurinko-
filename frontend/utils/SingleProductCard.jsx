@@ -12,11 +12,11 @@ const rawTabs = [
 ];
 
 const themeClasses = {
-  "Human OTC": {
+  "Human": {
     active: "bg-red-800 text-white border-l-4 border-red-400",
     inactive: "bg-red-700 text-white hover:bg-red-600",
   },
-  Livestock: {
+  Veterinary: {
     active: "bg-blue-800 text-blue-400 border-l-4 border-blue-400",
     inactive: "bg-blue-700 text-white hover:bg-blue-600",
   },

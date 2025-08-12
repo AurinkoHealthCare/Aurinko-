@@ -10,8 +10,8 @@ const Healthsupplements = () => {
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
 
-  const segment = searchParams.get("segment"); // 🔍 Get segment from query
-  const theme = searchParams.get("theme");     // 🎨 Optional theme from query
+  const segment = searchParams.get("segment");
+  const theme = searchParams.get("theme");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,8 +30,6 @@ const Healthsupplements = () => {
     fetchProducts();
   }, [segment]);
 
-  if (loading) return <p className="text-center">Loading...</p>;
-
   return (
     <div className={`font-sans ${theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"}`}>
       <div className="relative">
@@ -45,10 +43,9 @@ const Healthsupplements = () => {
           <h1 className="lg:text-4xl font-bold">Health Supplements</h1>
         </div>
       </div>
-      <div className="flex flex-col min-h-screen w-full p-4">
+      <div className="flex flex-col w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
-          <ProductCard products={products} segment="Human OTC" theme="Human OTC" />
-
+          <ProductCard products={products} segment="Human OTC" theme="Human" />
         </div>
       </div>
     </div>

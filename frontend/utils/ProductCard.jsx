@@ -13,7 +13,7 @@ const ProductCard = ({ products = [], segment, theme }) => {
   if (filteredProducts.length === 0) {
     return (
       <p className="text-center text-gray-600 text-sm">
-        No products found for segment: {segment}
+        Comming soon {segment}
       </p>
     );
   }
