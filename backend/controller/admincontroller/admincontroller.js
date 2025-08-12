@@ -20,7 +20,7 @@ const loginUser = async (req, res) => {
 
   if (!name || !role || !password) {
     return res.status(400).json({ message: 'All fields are required' });
-  }
+  }``
 
   const admin = await Admin.findOne({ name, role });
   if (!admin) return res.status(404).json({ message: 'Admin not found' });
