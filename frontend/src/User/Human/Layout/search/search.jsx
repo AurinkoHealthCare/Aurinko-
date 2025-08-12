@@ -36,7 +36,7 @@ const Search = () => {
   }, [text, isDeleting, index, charIndex]);
 
   return (
-    <div className="relative flex items-center group">
+    <div className="relative flex items-center group ml-6 mr-4">
       <div className="relative flex items-center border-b-2 group">
         <button className="transition-all">
           <FaSearch size={16} />
