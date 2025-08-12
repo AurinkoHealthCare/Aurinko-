@@ -2,12 +2,12 @@ const ImageSlider = require("../../model/brochures/brochures");
 const path = require("path");
 const fs = require("fs");
 
-// 📌 Upload Single or Multiple (Same Function)
 exports.uploadFiles = async (req, res) => {
   try {
     const baseUrl = `${req.protocol}://${req.get("host")}`;
     const files = req.files || [];
     const names = Array.isArray(req.body.names) ? req.body.names : [req.body.names];
+    const categories = Array.isArray(req.body.categories) ? req.body.categories : [req.body.categories];
 
     if (files.length === 0) {
       return res.status(400).json({ message: "No files uploaded" });
@@ -18,6 +18,7 @@ exports.uploadFiles = async (req, res) => {
       return {
         no,
         name: names[index] || file.originalname,
+        category: categories[index] || "Uncategorized",
         url: `${baseUrl}/uploads/${file.customPath}/${file.customFilename}`,
         public_id: `${file.customPath}/${file.customFilename}`,
       };
@@ -36,8 +37,6 @@ exports.uploadFiles = async (req, res) => {
   }
 };
 
-
-// 📌 Get All Images
 exports.getImages = async (req, res) => {
   try {
     const images = await ImageSlider.find();
@@ -47,7 +46,6 @@ exports.getImages = async (req, res) => {
   }
 };
 
-// 📌 Delete Image
 exports.deleteImage = async (req, res) => {
   try {
     const image = await ImageSlider.findById(req.params.id);
@@ -66,7 +64,6 @@ exports.deleteImage = async (req, res) => {
   }
 };
 
-// 📌 Update Image
 exports.updateImage = async (req, res) => {
   try {
     const image = await ImageSlider.findById(req.params.id);
@@ -85,6 +82,7 @@ exports.updateImage = async (req, res) => {
 
     if (req.body.name) image.name = req.body.name;
     if (req.body.no) image.no = req.body.no;
+    if (req.body.category) image.category = req.body.category;
 
     await image.save();
     res.json({ message: "Image updated successfully", data: image });
