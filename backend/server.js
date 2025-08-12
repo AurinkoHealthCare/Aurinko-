@@ -24,20 +24,17 @@ const galleryupload = require("./router/galleryRouter/gallery");
 const brochuresRouter = require("./router/brochures/brochures");
  const searchRoutes=require('./utils/searchrouter')
 
-// Connect to MongoDB
 MongoDB();
 
 const app = express();
 app.set("trust proxy", 1);
 const PORT = process.env.PORT || 4040;
 
-// ✅ Ensure uploads folder exists
 const uploadsPath = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
 }
 
-// ✅ Static file serving
 app.use("/uploads", express.static(uploadsPath));
 console.log("Uploads path:", uploadsPath);
 
@@ -45,7 +42,7 @@ console.log("Uploads path:", uploadsPath);
 // ✅ Middleware
 app.use(
   cors({
-    origin:"http://localhost:8001", // React app ka URL
+    origin:"http://localhost:8001",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
