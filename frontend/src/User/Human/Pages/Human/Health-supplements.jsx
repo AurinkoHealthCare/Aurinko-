@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "../../../../../api/axios";
 import ProductCard from "../../../../../utils/ProductCard.jsx";
+import { useTranslation } from 'react-i18next';
 
 const Healthsupplements = () => {
+  const { t } = useTranslation("home_parts");
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
