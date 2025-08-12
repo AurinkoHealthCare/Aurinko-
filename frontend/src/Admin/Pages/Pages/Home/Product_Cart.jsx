@@ -102,9 +102,7 @@ const Product_Cart = () => {
       <form onSubmit={handleSubmit}>
         {items.map((item, index) => (
           <div key={index} className="border rounded-md p-3 mb-5 bg-white shadow">
-            <h3 className="font-semibold mb-3 text-base text-blue-600">
-              📦 Product {index + 1}
-            </h3>
+            <h3 className="font-semibold mb-3 text-base text-blue-600">📦 Product {index + 1}</h3>
 
             <div className="flex flex-wrap gap-4 mb-3">
               <div>
@@ -136,20 +134,15 @@ const Product_Cart = () => {
                 className="border p-1.5 rounded w-full"
                 required
               />
-
-              {/* Category Dropdown */}
-              <select
+              <input
+                type="text"
                 name="category"
                 value={item.category}
                 onChange={(e) => handleChange(e, index)}
+                placeholder="Category (English)"
                 className="border p-1.5 rounded w-full"
                 required
-              >
-                <option value="Health Supplements">Health Supplements</option>
-                <option value="Veterinary">Veterinary</option>
-                <option value="Agriculture">Agriculture</option>
-              </select>
-
+              />
               <textarea
                 name="details"
                 value={item.details}
@@ -166,13 +159,9 @@ const Product_Cart = () => {
                 className="border p-1.5 rounded w-full"
                 required
               >
-                <option value="" disabled>
-                  Select Rating (1 to 5)
-                </option>
+                <option value="" disabled>Select Rating (1 to 5)</option>
                 {[1, 2, 3, 4, 5].map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
+                  <option key={num} value={num}>{num}</option>
                 ))}
               </select>
             </div>
@@ -181,9 +170,7 @@ const Product_Cart = () => {
             <div className="mt-4 grid grid-cols-1 gap-4">
               {["fr", "es", "ar", "ko"].map((lang) => (
                 <div key={lang}>
-                  <h4 className="text-gray-700 font-medium mb-1">
-                    {lang.toUpperCase()} Translation
-                  </h4>
+                  <h4 className="text-gray-700 font-medium mb-1">{lang.toUpperCase()} Translation</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                     <input
                       type="text"

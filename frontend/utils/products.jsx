@@ -62,7 +62,7 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {products.map((product) => (
           <div key={product.productId} className="flip-card w-full max-w-xs mx-auto">
             <div className="flip-card-inner">

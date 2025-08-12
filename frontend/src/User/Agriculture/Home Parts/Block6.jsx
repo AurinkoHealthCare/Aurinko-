@@ -25,7 +25,7 @@ const Block6 = () => {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 py-20 gap-16">
+    <div className="flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 pb-20 gap-16">
 
       {/* LEFT */}
       <div className="w-full lg:w-1/2 space-y-8 text-center lg:text-left">
