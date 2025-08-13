@@ -45,19 +45,19 @@ exports.addProduct = async (req, res) => {
         ? `${baseUrl}/uploads/${req.files.productLogo[0].customPath}/${req.files.productLogo[0].customFilename}`
         : null,
       generalInfo: {
-  name: body.name,
-  details: body.details, // ✅ Add this line
-  segment: body.segment,
-  type: body.type,
-  category: body.category,
-  packing: body.packing,
-},
+        name: body.name,
+        details: body.details, // ✅ Add this line
+        segment: body.segment,
+        type: body.type,
+        category: body.category,
+        packing: body.packing,
+      },
       composition: body.composition,
       indications: body.indications,
       usage: body.usage,
       report,
       brochure,
-      feedback: body.feedback,
+      feedback,
       translations,
     });
 
@@ -117,7 +117,6 @@ exports.getProductById = async (req, res) => {
   }
 };
 
-// ✏️ Update Product
 // ✏️ Update Product
 exports.updateProduct = async (req, res) => {
   try {

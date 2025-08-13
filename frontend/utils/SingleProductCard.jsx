@@ -17,11 +17,11 @@ const themeClasses = {
     inactive: "bg-red-700 text-white hover:bg-red-600",
   },
   Veterinary: {
-    active: "bg-blue-800 text-blue-400 border-l-4 border-blue-400",
+    active: "bg-blue-800 text-white border-l-4 border-blue-400",
     inactive: "bg-blue-700 text-white hover:bg-blue-600",
   },
   Agriculture: {
-    active: "bg-green-800 text-green-400 border-l-4 border-green-400",
+    active: "bg-green-800 text-white border-l-4 border-green-400",
     inactive: "bg-green-700 text-white hover:bg-green-600",
   },
   default: {
