@@ -6,6 +6,7 @@ const ProductManager = () => {
   const [loading, setLoading] = useState(true);
   const [editProduct, setEditProduct] = useState(null);
   const [formData, setFormData] = useState(initialFormData());
+  const [segmentFilter, setSegmentFilter] = useState(""); // ✅ New state
 
   function initialFormData() {
     return {
@@ -133,12 +134,40 @@ const ProductManager = () => {
     }
   };
 
+  // ✅ Filtered products
+  const filteredProducts = segmentFilter
+    ? products.filter((p) => p.generalInfo?.segment === segmentFilter)
+    : products;
+
+  // ✅ Unique segments for dropdown
+  const uniqueSegments = [...new Set(products.map((p) => p.generalInfo?.segment).filter(Boolean))];
+
   if (loading) return <p className="text-center text-gray-600 text-sm">Loading products...</p>;
 
   return (
     <div className="max-w-6xl mx-auto px-3 py-6">
-      <h1 className="text-2xl font-bold text-center text-green-700 mb-6">Multiple product management</h1>
+      <h1 className="text-2xl font-bold text-center text-green-700 mb-6">
+        Multiple product management
+      </h1>
 
+      {/* ✅ Filter Dropdown */}
+      <div className="mb-4 flex gap-3 items-center">
+        <label className="text-sm font-medium">Filter by Segment:</label>
+        <select
+          value={segmentFilter}
+          onChange={(e) => setSegmentFilter(e.target.value)}
+          className="border border-gray-300 rounded px-2 py-1 text-sm"
+        >
+          <option value="">All</option>
+          {uniqueSegments.map((seg) => (
+            <option key={seg} value={seg}>
+              {seg}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* ✅ Original Form */}
       {editProduct && (
         <form
           onSubmit={handleUpdateProduct}
@@ -158,7 +187,18 @@ const ProductManager = () => {
           <h2 className="text-lg font-semibold mb-3 text-green-800">Edit Product</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            {["name", "details", "segment", "type", "category", "packing", "composition", "indications", "usage", "feedback"].map((field) => (
+            {[
+              "name",
+              "details",
+              "segment",
+              "type",
+              "category",
+              "packing",
+              "composition",
+              "indications",
+              "usage",
+              "feedback",
+            ].map((field) => (
               <div key={field}>
                 <label className="text-sm font-medium capitalize">{field}</label>
                 <input
@@ -185,7 +225,11 @@ const ProductManager = () => {
                 className="w-full border border-gray-300 rounded px-2 py-1 text-sm mt-1"
               />
               {editProduct?.report && (
-                <a href={editProduct.report} target="_blank" className="text-xs text-blue-600 underline">
+                <a
+                  href={editProduct.report}
+                  target="_blank"
+                  className="text-xs text-blue-600 underline"
+                >
                   View current report
                 </a>
               )}
@@ -204,20 +248,32 @@ const ProductManager = () => {
                 className="w-full border border-gray-300 rounded px-2 py-1 text-sm mt-1"
               />
               {editProduct?.brochure && (
-                <a href={editProduct.brochure} target="_blank" className="text-xs text-blue-600 underline">
+                <a
+                  href={editProduct.brochure}
+                  target="_blank"
+                  className="text-xs text-blue-600 underline"
+                >
                   View current brochure
                 </a>
               )}
             </div>
           </div>
 
-          {[
-            "fr", "es", "ar", "ko"
-          ].map((langKey) => (
+          {["fr", "es", "ar", "ko"].map((langKey) => (
             <div key={langKey} className="mb-4 border-t pt-3">
               <h4 className="font-semibold text-sm mb-2">{langKey.toUpperCase()} Translation</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {["name", "details", "segment", "type", "category", "packing", "composition", "indications", "usage"].map((field) => (
+                {[
+                  "name",
+                  "details",
+                  "segment",
+                  "type",
+                  "category",
+                  "packing",
+                  "composition",
+                  "indications",
+                  "usage",
+                ].map((field) => (
                   <div key={field}>
                     <label className="text-sm font-medium capitalize">{field}</label>
                     <input
@@ -235,7 +291,10 @@ const ProductManager = () => {
           ))}
 
           <div className="flex gap-3 mt-4">
-            <button type="submit" className="bg-green-600 text-white px-4 py-1.5 text-sm rounded hover:bg-green-700">
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-4 py-1.5 text-sm rounded hover:bg-green-700"
+            >
               Update
             </button>
             <button
@@ -249,68 +308,64 @@ const ProductManager = () => {
         </form>
       )}
 
-      {/* Table of Products */}
-      <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+      {/* Cards */}
+      <div className="p-4">
         <h2 className="text-lg font-semibold mb-3">All Products</h2>
-        {products.length === 0 ? (
+        {filteredProducts.length === 0 ? (
           <p className="text-gray-500 text-sm">No products available.</p>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm border border-gray-300">
-              <thead>
-                <tr className="bg-gray-100 text-gray-700">
-                  <th className="border p-2">ID</th>
-                  <th className="border p-2">Name</th>
-                  <th className="border p-2">Category</th>
-                  <th className="border p-2">Segment</th>
-                  <th className="border p-2">Image</th>
-                  <th className="border p-2">Logo</th>
-                  <th className="border p-2">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((p) => (
-                  <tr key={p._id} className="hover:bg-gray-50">
-                    <td className="border p-2">{p.productId}</td>
-                    <td className="border p-2">{p.generalInfo?.name || "-"}</td>
-                    <td className="border p-2">{p.generalInfo?.category || "-"}</td>
-                    <td className="border p-2">{p.generalInfo?.segment || "-"}</td>
-                    <td className="border p-2">
-                      {p.productImage && (
-                        <img
-                          src={p.productImage}
-                          alt="Product"
-                          className="h-10 w-10 object-cover rounded"
-                        />
-                      )}
-                    </td>
-                    <td className="border p-2">
-                      {p.productLogo && (
-                        <img
-                          src={p.productLogo}
-                          alt="Logo"
-                          className="h-10 w-10 object-contain"
-                        />
-                      )}
-                    </td>
-                    <td className="border p-2">
-                      <button
-                        onClick={() => startEdit(p)}
-                        className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700 mr-2"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(p._id)}
-                        className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+            {filteredProducts.map((p) => (
+              <div
+                key={p._id}
+                className="border bg-white border-gray-300 rounded-lg p-3 shadow hover:shadow-md transition"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-xs text-gray-500 font-mono">ID: {p.productId}</span>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="items-center">
+                    {p.productImage && (
+                      <img
+                        src={p.productImage}
+                        alt="Product"
+                        className="object-cover h-40 m-2"
+                      />
+                    )}
+                    {p.productLogo && (
+                      <img
+                        src={p.productLogo}
+                        alt="Logo"
+                        className="h-10 object-contain"
+                      />
+                    )}
+                  </div>
+                </div>
+                <h3 className="text-base font-semibold text-gray-800 mb-1">
+                  {p.generalInfo?.name || "-"}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  <span className="font-medium">Category:</span> {p.generalInfo?.category || "-"}
+                </p>
+                <p className="text-sm text-gray-600 mb-3">
+                  <span className="font-medium">Segment:</span> {p.generalInfo?.segment || "-"}
+                </p>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => startEdit(p)}
+                    className="flex-1 bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(p._id)}
+                    className="flex-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

@@ -112,8 +112,8 @@ function App() {
 
             {/* Media */}
             <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
-            <Route path="/human/gallery" element={<Gallery />} />
-            <Route path="/human/photo_gallery" element={<PhotoGallery />} />
+            <Route path="/human/gallery" element={<Gallery category="human" />} />
+            <Route path="/human/photo_gallery" element={<PhotoGallery category="human" />} />
             <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
             <Route path="/human/blog" element={<Blog />} />
             <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
@@ -153,7 +153,8 @@ function App() {
 
             {/* Media */}
             <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
-            <Route path="/veterinary/gallery" element={<Gallery />} />
+            <Route path="/veterinary/gallery" element={<Gallery category="Veterinary"/>} />
+            <Route path="/veterinary/photo_gallery" element={<PhotoGallery category="Veterinary"/>} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
@@ -187,7 +188,8 @@ function App() {
 
             {/* Media */}
             <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
-            <Route path="/agriculture/gallery" element={<Gallery />} />
+            <Route path="/agriculture/gallery" element={<Gallery category="Agriculture"/>} />
+            <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture"/>} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
             <Route path="/agriculture/blog" element={<Blog />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />

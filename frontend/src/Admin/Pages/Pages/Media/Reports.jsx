@@ -121,15 +121,23 @@ function Report({ onUpload }) {
           />
 
           {/* Type */}
-          <InputField
-            label="PDF Type"
-            required
-            name="type"
-            value={form.type}
-            onChange={handleChange}
-            disabled={loading}
-            placeholder="e.g. Human, Veterinary, Agriculture"
-          />
+          <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">
+              PDF Type <span className="text-red-500">*</span>
+            </label>
+            <select
+              name="type"
+              value={form.type}
+              onChange={handleChange}
+              disabled={loading}
+              className="border border-gray-300 p-3 rounded-xl w-full focus:ring-2 focus:ring-indigo-500 outline-none shadow-inner bg-gray-50"
+            >
+              <option value="">Select Type</option>
+              <option value="Human">Human</option>
+              <option value="Veterinary">Veterinary</option>
+              <option value="Agriculture">Agriculture</option>
+            </select>
+          </div>
 
           {/* Details */}
           <div>
@@ -235,7 +243,7 @@ function Report({ onUpload }) {
   );
 }
 
-// 🧩 Reusable InputField component
+// Reusable input
 function InputField({ label, name, value, onChange, placeholder, disabled, required }) {
   return (
     <div>
