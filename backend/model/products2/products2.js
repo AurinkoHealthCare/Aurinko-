@@ -3,8 +3,8 @@ const autoIncrement = require("../../middleware/counterMiddleware");
 
 const translationSchema = new mongoose.Schema({
   name: { type: String, default: "" },
-  details: { type: String, required: true },
-  segment: { type: String, default: "" },
+  details: { type: String, default: "" },
+  segment: { type: String, required: true },
   type: { type: String, default: "" },
   category: { type: String, default: "" },
   packing: { type: String, default: "" },
