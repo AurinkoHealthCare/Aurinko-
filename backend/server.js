@@ -23,6 +23,7 @@ const galleryupload = require("./router/galleryRouter/gallery");
 const otherImages = require("./router/otherimagesRouter/otherimage");
 const brochuresRouter = require("./router/brochures/brochures");
  const searchRoutes=require('./utils/searchrouter')
+ const Video=require('./router/videoRouter/video')
 
 MongoDB();
 
@@ -71,6 +72,7 @@ app.use("/api/gallery", galleryupload);
 app.use("/api/otherimage", otherImages);
 app.use("/api/brochures", brochuresRouter);
 app.use('/api/products', searchRoutes)
+app.use('/api/video', Video)
 
 // ✅ Error Handler
 app.use((err, req, res, next) => {
