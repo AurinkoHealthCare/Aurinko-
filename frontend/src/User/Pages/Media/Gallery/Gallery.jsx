@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "../../../../../api/axios";
 
-const Gallery = () => {
+const Gallery = ({ category }) => {
   const [images, setImages] = useState([]);
   const [randomImage, setRandomImage] = useState(null);
 
-  // Fetch all images on load
+  // Fetch images based on category
   const fetchImages = async () => {
     try {
-      const { data } = await axios.get("/gallery/all");
+      const { data } = await axios.get(`/gallery/all?category=${category}`);
       setImages(data.data);
       if (data.data.length > 0) {
         const initialIndex = Math.floor(Math.random() * data.data.length);
@@ -23,15 +23,15 @@ const Gallery = () => {
 
   useEffect(() => {
     fetchImages();
-  }, []);
+  }, [category]);
 
-  // Change random image every 5 seconds
+  // Change random image every 10 seconds
   useEffect(() => {
     if (images.length > 0) {
       const interval = setInterval(() => {
         const randomIndex = Math.floor(Math.random() * images.length);
         setRandomImage(images[randomIndex]);
-      }, 10000000);
+      }, 10000); // 10 seconds
 
       return () => clearInterval(interval);
     }
@@ -72,13 +72,13 @@ const Gallery = () => {
           className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl bg-black/20 backdrop-blur-md border border-white/10"
         >
           <Link
-            to="/human/photo_gallery"
+            to={`/${category}/photo_gallery`}
             className="block"
-            onClick={(e) => reloadPage(e, "/human/photo_gallery")}
+            onClick={(e) => reloadPage(e, `/${category}/photo_gallery`)}
           >
             <img
               src={randomImage ? randomImage.url : "Assets/Media/Photos/17.jpeg"}
-              alt="Photos"
+              alt={`${category} Photos`}
               className="w-full h-48 object-cover rounded-t-xl"
             />
             <div className="p-6 text-center">
@@ -96,13 +96,13 @@ const Gallery = () => {
           className="overflow-hidden rounded-xl shadow-lg hover:shadow-2xl bg-black/20 backdrop-blur-md border border-white/10"
         >
           <Link
-            to="/videos"
+            to={`/${category}/videos`}
             className="block"
-            onClick={(e) => reloadPage(e, "/videos")}
+            onClick={(e) => reloadPage(e, `/${category}/videos`)}
           >
             <img
               src="Assets/Media/Photos/25.jpeg"
-              alt="Videos"
+              alt={`${category} Videos`}
               className="w-full h-48 object-cover rounded-t-xl"
             />
             <div className="p-6 text-center">
