@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import LiveProductSearch from "../utils/component/search.jsx";
+import ImageManager from "./Admin/Pages/Media/page_banner.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -239,6 +240,7 @@ function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
           <Route path="/search" element={<LiveProductSearch />} />
+          <Route path="/adminimagemanager" element={<ImageManager />} />
         </Routes>
       </Suspense>
     </div>

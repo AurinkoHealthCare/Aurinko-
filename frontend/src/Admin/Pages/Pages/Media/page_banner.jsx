@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 import { toast } from "react-toastify";
+import { Upload, Image as ImageIcon, Languages, FolderOpen } from "lucide-react";
 
 const LANG_OPTIONS = [
   { code: "en", label: "English" },
@@ -41,7 +42,7 @@ export default function PageBanner({ onUploadSuccess }) {
 
     const formData = new FormData();
     formData.append("files", form.file);
-    formData.append("name", form.name); // 👈 input se liya hua name
+    formData.append("name", form.name);
     formData.append("lang", form.lang);
     formData.append("category", form.category);
 
@@ -69,65 +70,86 @@ export default function PageBanner({ onUploadSuccess }) {
   };
 
   return (
-    <div className="p-6 bg-white shadow-lg rounded-xl mb-6 w-full max-w-lg mx-auto">
-      <h2 className="text-xl font-bold mb-4">Upload Multilingual Image</h2>
+    <div className="p-8 bg-white/80 backdrop-blur-md shadow-2xl rounded-2xl mb-6 w-full max-w-xl mx-auto border border-gray-200 transition-all hover:shadow-[0_10px_40px_rgba(0,0,0,0.15)]">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 flex items-center gap-2">
+        <Upload className="w-6 h-6 text-blue-600" /> Upload Multilingual Image
+      </h2>
 
-      <input
-        type="text"
-        placeholder="Enter image name"
-        value={form.name}
-        onChange={(e) => updateField("name", e.target.value)}
-        className="border p-2 rounded w-full mb-3"
-      />
+      <div className="space-y-4">
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Image Name</label>
+          <input
+            type="text"
+            placeholder="Enter image name"
+            value={form.name}
+            onChange={(e) => updateField("name", e.target.value)}
+            className="border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 p-3 rounded-lg w-full outline-none transition"
+          />
+        </div>
 
-      <select
-        value={form.category}
-        onChange={(e) => updateField("category", e.target.value)}
-        className="border p-2 rounded w-full mb-3"
-      >
-        <option value="" disabled>Select Category</option>
-        {CATEGORY_OPTIONS.map((cat) => (
-          <option key={cat.code} value={cat.code}>
-            {cat.label}
-          </option>
-        ))}
-      </select>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Category</label>
+          <div className="relative">
+            <FolderOpen className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+            <select
+              value={form.category}
+              onChange={(e) => updateField("category", e.target.value)}
+              className="pl-10 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 p-3 rounded-lg w-full outline-none transition"
+            >
+              <option value="" disabled>Select Category</option>
+              {CATEGORY_OPTIONS.map((cat) => (
+                <option key={cat.code} value={cat.code}>
+                  {cat.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-      <select
-        value={form.lang}
-        onChange={(e) => updateField("lang", e.target.value)}
-        className="border p-2 rounded w-full mb-3"
-      >
-        <option value="" disabled>Select Language</option>
-        {LANG_OPTIONS.map((lang) => (
-          <option key={lang.code} value={lang.code}>
-            {lang.label}
-          </option>
-        ))}
-      </select>
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Language</label>
+          <div className="relative">
+            <Languages className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+            <select
+              value={form.lang}
+              onChange={(e) => updateField("lang", e.target.value)}
+              className="pl-10 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 p-3 rounded-lg w-full outline-none transition"
+            >
+              <option value="" disabled>Select Language</option>
+              {LANG_OPTIONS.map((lang) => (
+                <option key={lang.code} value={lang.code}>
+                  {lang.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-      <input
-        type="file"
-        onChange={(e) => updateField("file", e.target.files?.[0] || null)}
-        className="mb-3"
-      />
-      {form.file && (
-        <p className="text-sm text-gray-500 mb-3">Selected: {form.file.name}</p>
-      )}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-1">Select File</label>
+          <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer p-6 hover:border-blue-400 hover:bg-blue-50 transition">
+            <ImageIcon className="w-10 h-10 text-gray-400 mb-2" />
+            <span className="text-gray-500 text-sm">{form.file ? form.file.name : "Click to select image"}</span>
+            <input
+              type="file"
+              onChange={(e) => updateField("file", e.target.files?.[0] || null)}
+              className="hidden"
+            />
+          </label>
+        </div>
+      </div>
 
       <button
         onClick={handleUpload}
         disabled={loading}
-        className={`w-full py-2 rounded text-white flex justify-center items-center gap-2 transition ${
-          loading
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700"
+        className={`mt-6 w-full py-3 rounded-xl text-white flex justify-center items-center gap-2 font-semibold shadow-lg transition-transform transform hover:scale-[1.02] ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
         }`}
       >
         {loading && (
-          <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-4 h-4"></span>
+          <span className="animate-spin border-2 border-white border-t-transparent rounded-full w-5 h-5"></span>
         )}
-        {loading ? "Uploading..." : "Upload"}
+        {loading ? "Uploading..." : "Upload Image"}
       </button>
     </div>
   );
