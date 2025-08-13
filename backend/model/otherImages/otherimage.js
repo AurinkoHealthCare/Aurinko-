@@ -1,0 +1,14 @@
+const mongoose = require("mongoose");
+
+const ImageSliderSchema = new mongoose.Schema(
+  {
+    no: { type: Number, required: true },
+    url: { type: String, required: true },
+    category: { type: String, required: true },
+    lang: { type: String, required: true },
+    imageName: { type: String, required: true }
+  },
+  { timestamps: true }
+);
+
+module.exports = mongoose.model("OtherImage", ImageSliderSchema);

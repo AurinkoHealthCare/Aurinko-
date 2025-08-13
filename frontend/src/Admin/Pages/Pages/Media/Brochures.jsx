@@ -4,8 +4,8 @@ import axios from "../../../../../api/axios";
 const SixImageUploader = () => {
   const [category, setCategory] = useState("");
   const [files, setFiles] = useState(Array(6).fill(null));
-  const [previews, setPreviews] = useState(Array(6).fill(null));
   const [names, setNames] = useState(Array(6).fill(""));
+  const [previews, setPreviews] = useState(Array(6).fill(null));
   const [loading, setLoading] = useState(false);
 
   const categories = [
@@ -36,17 +36,20 @@ const SixImageUploader = () => {
       alert("Please select a category first.");
       return;
     }
+
     setLoading(true);
     const formData = new FormData();
     formData.append("category", category);
+
     files.forEach((file, i) => {
       if (file) {
-        formData.append("images", file);
-        formData.append("names", names[i]);
+        formData.append("files", file);
+        formData.append("imageNames", names[i]);
       }
     });
+
     try {
-      const res = await axios.post("/brochures/all", formData, {
+      const res = await axios.post("/otherimage/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("✅ Upload successful");
@@ -67,10 +70,9 @@ const SixImageUploader = () => {
   return (
     <div className="p-8 max-w-6xl mx-auto">
       <h2 className="text-3xl font-extrabold mb-8 text-gray-800 text-center tracking-tight">
-        📂 Add Brochure 
+        📂 Add Images
       </h2>
 
-      {/* Category Dropdown */}
       <div className="mb-8">
         <label className="block mb-2 text-base font-semibold text-gray-700">
           Select Category
@@ -88,15 +90,13 @@ const SixImageUploader = () => {
         </select>
       </div>
 
-      {/* Image Upload Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="border border-gray-200 rounded-2xl p-4 bg-white shadow-md flex flex-col items-center"
+            className="border border-gray-200 rounded-2xl p-4 bg-white shadow-md flex flex-col items-center gap-3"
           >
-            {/* Clickable image box */}
-            <label className="w-full h-32 flex items-center justify-center mb-3 overflow-hidden  cursor-pointer bg-gray-100 border border-gray-300">
+            <label className="w-full h-32 flex items-center justify-center overflow-hidden cursor-pointer bg-gray-100 border border-gray-300">
               {previews[index] ? (
                 <img
                   src={previews[index]}
@@ -116,19 +116,17 @@ const SixImageUploader = () => {
               />
             </label>
 
-            {/* Image name input */}
             <input
               type="text"
-              placeholder="Type image name"
+              placeholder="Enter image name"
               value={names[index]}
               onChange={(e) => handleNameChange(index, e.target.value)}
-              className="border border-gray-300 rounded-lg p-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
           </div>
         ))}
       </div>
 
-      {/* Upload Button */}
       <button
         onClick={handleUpload}
         disabled={loading}
@@ -138,6 +136,6 @@ const SixImageUploader = () => {
       </button>
     </div>
   );
-}
+};
 
 export default SixImageUploader;

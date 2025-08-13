@@ -20,7 +20,7 @@ const products = require('./router/products/productsrouter');
 const Products2 = require('./router/products2router/products2');
 const pdfRoutes = require("./router/pdf/pdfRouter");
 const galleryupload = require("./router/galleryRouter/gallery");
-// const otherImages = require("./router/otherimagesRouter/otherimages");
+const otherImages = require("./router/otherimagesRouter/otherimage");
 const brochuresRouter = require("./router/brochures/brochures");
  const searchRoutes=require('./utils/searchrouter')
 
@@ -68,7 +68,7 @@ app.use('/api/products', products);
 app.use('/api/products2', Products2);
 app.use("/api/pdf", pdfRoutes);
 app.use("/api/gallery", galleryupload);
-// app.use("/api/otherimage", otherImages);
+app.use("/api/otherimage", otherImages);
 app.use("/api/brochures", brochuresRouter);
 app.use('/api/products', searchRoutes)
 
