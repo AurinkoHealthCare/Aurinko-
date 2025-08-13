@@ -18,6 +18,11 @@ const Navbar = () => {
       [parent]: prev[parent] === child ? null : child,
     }));
 
+  // **Mobile click handler to auto-close sidebar**
+  const handleLinkClick = () => {
+    if (window.innerWidth < 768) setIsOpen(false);
+  };
+
   const handleLogout = async () => {
     try {
       await axios.post("/auth/logout", { withCredentials: true });
@@ -50,7 +55,7 @@ const Navbar = () => {
 
         {/* Nav Items */}
         <div className="space-y-2 text-sm">
-          <NavLink to="/dashboard/" label="Home" />
+          <NavLink to="/dashboard/" label="Home" onClick={handleLinkClick} />
 
           <Dropdown
             label="Media"
@@ -64,6 +69,7 @@ const Navbar = () => {
               { to: "/dashboard/Gallery_view", label: "Gallery View" },
               { to: "/dashboard/Brochure_view", label: "Brochure View" },
             ]}
+            onLinkClick={handleLinkClick}
           />
 
           <Dropdown
@@ -97,9 +103,10 @@ const Navbar = () => {
             ]}
             nestedDropdown={nestedDropdown}
             onNestedToggle={toggleNestedDropdown}
+            onLinkClick={handleLinkClick}
           />
 
-          <NavLink to="/dashboard/feedback" label="Feedback" />
+          <NavLink to="/dashboard/feedback" label="Feedback" onClick={handleLinkClick} />
 
           <button
             onClick={handleLogout}
@@ -113,17 +120,20 @@ const Navbar = () => {
   );
 };
 
-// ========== Reusable Components ==========
-
-const NavLink = ({ to, label }) => (
+// NavLink component with click handler
+const NavLink = ({ to, label, onClick }) => (
   <Link to={to}>
-    <button className="w-full text-left px-4 py-2 rounded hover:bg-gray-700 transition">
+    <button
+      onClick={onClick}
+      className="w-full text-left px-4 py-2 rounded hover:bg-gray-700 transition"
+    >
       {label}
     </button>
   </Link>
 );
 
-const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNestedToggle }) => (
+// Dropdown component updated for mobile auto-close
+const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNestedToggle, onLinkClick }) => (
   <div>
     <button
       onClick={onToggle}
@@ -136,7 +146,7 @@ const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNe
     {isOpen && links && (
       <div className="ml-4 mt-1 space-y-1">
         {links.map((link, idx) => (
-          <NavLink key={idx} to={link.to} label={link.label} />
+          <NavLink key={idx} to={link.to} label={link.label} onClick={onLinkClick} />
         ))}
       </div>
     )}
@@ -155,7 +165,7 @@ const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNe
             {nestedDropdown?.[label] === group.label && (
               <div className="ml-4 mt-1 space-y-1">
                 {group.items.map((item, i) => (
-                  <NavLink key={i} to={item.to} label={item.label} />
+                  <NavLink key={i} to={item.to} label={item.label} onClick={onLinkClick} />
                 ))}
               </div>
             )}
