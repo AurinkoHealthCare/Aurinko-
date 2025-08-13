@@ -18,7 +18,7 @@ const Navbar = () => {
       [parent]: prev[parent] === child ? null : child,
     }));
 
-  // **Mobile click handler to auto-close sidebar**
+  // Mobile/tablet: auto-hide sidebar on link click
   const handleLinkClick = () => {
     if (window.innerWidth < 768) setIsOpen(false);
   };
@@ -35,7 +35,7 @@ const Navbar = () => {
 
   return (
     <div className="flex h-full fixed top-0 left-0 z-40">
-      {/* Mobile Toggle */}
+      {/* Mobile Toggle Button */}
       <button
         onClick={toggleSidebar}
         className="p-2 text-white bg-gray-800 md:hidden fixed top-4 left-4 z-50 rounded shadow"
@@ -53,7 +53,7 @@ const Navbar = () => {
           <h1 className="text-xl font-bold">Aurinko One Health</h1>
         </div>
 
-        {/* Nav Items */}
+        {/* Navigation Items */}
         <div className="space-y-2 text-sm">
           <NavLink to="/dashboard/" label="Home" onClick={handleLinkClick} />
 
@@ -120,7 +120,7 @@ const Navbar = () => {
   );
 };
 
-// NavLink component with click handler
+// NavLink component
 const NavLink = ({ to, label, onClick }) => (
   <Link to={to}>
     <button
@@ -132,21 +132,40 @@ const NavLink = ({ to, label, onClick }) => (
   </Link>
 );
 
-// Dropdown component updated for mobile auto-close
-const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNestedToggle, onLinkClick }) => (
+// Dropdown component
+const Dropdown = ({
+  label,
+  isOpen,
+  onToggle,
+  links,
+  nested,
+  nestedDropdown,
+  onNestedToggle,
+  onLinkClick,
+}) => (
   <div>
     <button
       onClick={onToggle}
       className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-700 transition"
     >
-      {label} <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      {label}{" "}
+      <ChevronDown
+        className={`w-4 h-4 ml-2 transition-transform ${
+          isOpen ? "rotate-180" : ""
+        }`}
+      />
     </button>
 
     {/* Flat Dropdown */}
     {isOpen && links && (
       <div className="ml-4 mt-1 space-y-1">
         {links.map((link, idx) => (
-          <NavLink key={idx} to={link.to} label={link.label} onClick={onLinkClick} />
+          <NavLink
+            key={idx}
+            to={link.to}
+            label={link.label}
+            onClick={onLinkClick}
+          />
         ))}
       </div>
     )}
@@ -160,12 +179,22 @@ const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNe
               onClick={() => onNestedToggle(label, group.label)}
               className="flex justify-between items-center w-full px-2 py-1 hover:bg-gray-700 rounded"
             >
-              {group.label} <ChevronDown className={`w-4 h-4 transition-transform ${nestedDropdown?.[label] === group.label ? "rotate-180" : ""}`} />
+              {group.label}{" "}
+              <ChevronDown
+                className={`w-4 h-4 transition-transform ${
+                  nestedDropdown?.[label] === group.label ? "rotate-180" : ""
+                }`}
+              />
             </button>
             {nestedDropdown?.[label] === group.label && (
               <div className="ml-4 mt-1 space-y-1">
                 {group.items.map((item, i) => (
-                  <NavLink key={i} to={item.to} label={item.label} onClick={onLinkClick} />
+                  <NavLink
+                    key={i}
+                    to={item.to}
+                    label={item.label}
+                    onClick={onLinkClick}
+                  />
                 ))}
               </div>
             )}
@@ -177,3 +206,4 @@ const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNe
 );
 
 export default Navbar;
+  
