@@ -57,7 +57,7 @@ exports.addProduct = async (req, res) => {
       usage: body.usage,
       report,
       brochure,
-      feedback,
+      feedback: body.feedback,
       translations,
     });
 

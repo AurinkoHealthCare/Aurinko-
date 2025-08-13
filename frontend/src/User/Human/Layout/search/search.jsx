@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 
-const placeholderTexts = ["Health Supplements", "Personal Care", "Wellness", "Yeppuen"];
+const placeholderTexts = ["Human"];
 
 const Search = () => {
   const [text, setText] = useState("");
@@ -44,7 +44,7 @@ const Search = () => {
         <input
           type="text"
           placeholder={`Search for ${text}`}
-          className="pl-2 bg-transparent w-[120px] sm:w-[150px] md:w-[200px] lg:w-[250px] h-8 text-sm transition-all duration-300 focus:outline-none"
+          className="pl-2 bg-transparent w-[120px] h-8 text-sm transition-all duration-300 focus:outline-none"
         />
       </div>
     </div>

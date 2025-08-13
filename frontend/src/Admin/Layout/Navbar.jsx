@@ -10,10 +10,8 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-
   const toggleDropdown = (menu) =>
     setOpenDropdown(openDropdown === menu ? null : menu);
-
   const toggleNestedDropdown = (parent, child) =>
     setNestedDropdown((prev) => ({
       ...prev,
@@ -31,39 +29,40 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex min-h-screen fixed top-0 left-0 z-40 h-full">
-      {/* Toggle button - visible only on mobile */}
+    <div className="flex h-full fixed top-0 left-0 z-40">
+      {/* Mobile Toggle */}
       <button
         onClick={toggleSidebar}
-        className="p-2 text-white bg-gray-800 md:hidden fixed top-4 left-4 z-50 rounded"
+        className="p-2 text-white bg-gray-800 md:hidden fixed top-4 left-4 z-50 rounded shadow"
       >
         {isOpen ? <X /> : <Menu />}
       </button>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 z-40 bg-gray-900 text-white lg:w-64 pt-16 px-4 pb-5 h-full transform transition-transform duration-300 ease-in-out shadow-lg ${isOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 md:relative md:block`}
+        className={`fixed top-0 left-0 z-40 h-full w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out shadow-lg pt-16 px-2 pb-4
+          ${isOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 md:relative`}
       >
         {/* Branding */}
         <div className="mb-6 text-center md:text-left">
           <h1 className="text-xl font-bold">Aurinko One Health</h1>
         </div>
 
-        {/* Navigation Items */}
-        <div className="space-y-3 text-sm">
+        {/* Nav Items */}
+        <div className="space-y-2 text-sm">
           <NavLink to="/dashboard/" label="Home" />
+
           <Dropdown
             label="Media"
             isOpen={openDropdown === "media"}
             onToggle={() => toggleDropdown("media")}
             links={[
               { to: "/dashboard/banner", label: "Banner" },
-              { to: "/dashboard/productimage", label: "Global page card" },
-              { to: "/dashboard/productlogo", label: "Multiple product" },
-              { to: "/dashboard/report_view", label: "Report_view" },
-              { to: "/dashboard/Gallery_view", label: "Gallery_view" },
-              { to: "/dashboard/Brochure_view", label: "Brochure_view" }
+              { to: "/dashboard/productimage", label: "Global Page Card" },
+              { to: "/dashboard/productlogo", label: "Multiple Product" },
+              { to: "/dashboard/report_view", label: "Report View" },
+              { to: "/dashboard/Gallery_view", label: "Gallery View" },
+              { to: "/dashboard/Brochure_view", label: "Brochure View" },
             ]}
           />
 
@@ -87,7 +86,7 @@ const Navbar = () => {
                   { to: "/dashboard/Gallery", label: "Gallery" },
                   { to: "/dashboard/Brochures", label: "Brochures" },
                   { to: "/dashboard/Blogs", label: "Blogs" },
-                  { to: "/dashboard/page_banner", label: "Pages banner" },
+                  { to: "/dashboard/page_banner", label: "Pages Banner" },
                   { to: "/dashboard/Videos", label: "Videos" },
                 ],
               },
@@ -102,7 +101,6 @@ const Navbar = () => {
 
           <NavLink to="/dashboard/feedback" label="Feedback" />
 
-          {/* Logout */}
           <button
             onClick={handleLogout}
             className="w-full text-left text-red-400 hover:text-red-300 px-4 py-2 rounded hover:bg-gray-700 transition"
@@ -125,57 +123,47 @@ const NavLink = ({ to, label }) => (
   </Link>
 );
 
-const Dropdown = ({
-  label,
-  isOpen,
-  onToggle,
-  links,
-  nested,
-  nestedDropdown,
-  onNestedToggle,
-}) => {
-  return (
-    <div>
-      <button
-        onClick={onToggle}
-        className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-700 transition"
-      >
-        {label} <ChevronDown className="w-4 h-4 ml-2" />
-      </button>
+const Dropdown = ({ label, isOpen, onToggle, links, nested, nestedDropdown, onNestedToggle }) => (
+  <div>
+    <button
+      onClick={onToggle}
+      className="w-full flex justify-between items-center px-4 py-2 rounded hover:bg-gray-700 transition"
+    >
+      {label} <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+    </button>
 
-      {/* Flat Dropdown */}
-      {isOpen && links && (
-        <div className="ml-4 mt-1 space-y-1">
-          {links.map((link, idx) => (
-            <NavLink key={idx} to={link.to} label={link.label} />
-          ))}
-        </div>
-      )}
+    {/* Flat Dropdown */}
+    {isOpen && links && (
+      <div className="ml-4 mt-1 space-y-1">
+        {links.map((link, idx) => (
+          <NavLink key={idx} to={link.to} label={link.label} />
+        ))}
+      </div>
+    )}
 
-      {/* Nested Dropdown */}
-      {isOpen && nested && (
-        <div className="ml-4 mt-1 space-y-2">
-          {nested.map((group, idx) => (
-            <div key={idx}>
-              <button
-                onClick={() => onNestedToggle(label, group.label)}
-                className="flex justify-between items-center w-full px-2 p-1 hover:bg-gray-700 rounded"
-              >
-                {group.label} <ChevronDown className="w-4 h-4" />
-              </button>
-              {nestedDropdown?.[label] === group.label && (
-                <div className="ml-4 mt-1 space-y-1">
-                  {group.items.map((item, i) => (
-                    <NavLink key={i} to={item.to} label={item.label} />
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+    {/* Nested Dropdown */}
+    {isOpen && nested && (
+      <div className="ml-4 mt-1 space-y-2">
+        {nested.map((group, idx) => (
+          <div key={idx}>
+            <button
+              onClick={() => onNestedToggle(label, group.label)}
+              className="flex justify-between items-center w-full px-2 py-1 hover:bg-gray-700 rounded"
+            >
+              {group.label} <ChevronDown className={`w-4 h-4 transition-transform ${nestedDropdown?.[label] === group.label ? "rotate-180" : ""}`} />
+            </button>
+            {nestedDropdown?.[label] === group.label && (
+              <div className="ml-4 mt-1 space-y-1">
+                {group.items.map((item, i) => (
+                  <NavLink key={i} to={item.to} label={item.label} />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 export default Navbar;
