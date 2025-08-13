@@ -39,17 +39,17 @@ const SixImageUploader = () => {
 
     setLoading(true);
     const formData = new FormData();
-    formData.append("category", category);
 
     files.forEach((file, i) => {
       if (file) {
         formData.append("files", file);
-        formData.append("imageNames", names[i]);
+        formData.append("names", names[i] || file.name); // ✅ Backend match
+        formData.append("categories", category); // ✅ Backend match
       }
     });
 
     try {
-      const res = await axios.post("/otherimage/upload", formData, {
+      const res = await axios.post("/brochures/all", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       alert("✅ Upload successful");

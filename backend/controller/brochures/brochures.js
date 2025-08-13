@@ -39,9 +39,10 @@ exports.uploadFiles = async (req, res) => {
 
 exports.getImages = async (req, res) => {
   try {
-    const images = await ImageSlider.find();
+    const images = await ImageSlider.find().sort({ createdAt: -1 });
     res.json(images);
   } catch (error) {
+    console.error("Fetch Error:", error);
     res.status(500).json({ message: "Failed to fetch images", error: error.message });
   }
 };

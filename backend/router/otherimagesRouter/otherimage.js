@@ -3,7 +3,7 @@ const router = express.Router();
 const upload = require("../../middleware/imageuploadermiddleware/imageUploader");
 const otherImageController = require("../../controller/otherimages/otherimage");
 
-router.post("/upload", upload.array("files", 10), otherImageController.uploadImages);
+router.post("/upload", upload.array("files", 10), otherImageController.uploadFiles);
 router.put("/update/:id", upload.single("file"), otherImageController.updateImage);
 router.delete("/delete/:id", otherImageController.deleteImage);
 
