@@ -58,42 +58,42 @@ const Navbar = () => {
           <NavLink to="/dashboard/" label="Home" onClick={handleLinkClick} />
 
           <Dropdown
-            label="Media"
-            isOpen={openDropdown === "media"}
-            onToggle={() => toggleDropdown("media")}
+            label="Update & Replace"
+            isOpen={openDropdown === "Update & Replace"}
+            onToggle={() => toggleDropdown("Update & Replace")}
             links={[
               { to: "/dashboard/banner", label: "Banner" },
-              { to: "/dashboard/productimage", label: "Global Page Card" },
-              { to: "/dashboard/productlogo", label: "Multiple Product" },
-              { to: "/dashboard/report_view", label: "Report View" },
-              { to: "/dashboard/Gallery_view", label: "Gallery View" },
-              { to: "/dashboard/Brochure_view", label: "Brochure View" },
+              { to: "/dashboard/productimage", label: "Global Providers" },
+              { to: "/dashboard/productlogo", label: "Product details" },
+              { to: "/dashboard/report_view", label: "Reports & Articles" },
+              { to: "/dashboard/Gallery_view", label: "Gallery" },
+              { to: "/dashboard/Brochure_view", label: "Brochure" },
             ]}
             onLinkClick={handleLinkClick}
           />
 
           <Dropdown
-            label="Pages"
-            isOpen={openDropdown === "pages"}
-            onToggle={() => toggleDropdown("pages")}
+            label="Input forms"
+            isOpen={openDropdown === "Input forms"}
+            onToggle={() => toggleDropdown("Input forms")}
             nested={[
               {
                 label: "Home",
                 items: [
-                  { to: "/dashboard/imageSlider", label: "Image Slider" },
-                  { to: "/dashboard/product_cart", label: "Product Cart" },
-                  { to: "/dashboard/product_list", label: "Product List" },
+                  { to: "/dashboard/imageSlider", label: "Image Sliders Form" },
+                  { to: "/dashboard/product_cart", label: "Global Provider Form" },
+                  { to: "/dashboard/product_list", label: "Product details" },
                 ],
               },
               {
                 label: "Media",
                 items: [
-                  { to: "/dashboard/Reports", label: "Reports" },
-                  { to: "/dashboard/Gallery", label: "Gallery" },
-                  { to: "/dashboard/Brochures", label: "Brochures" },
-                  { to: "/dashboard/Blogs", label: "Blogs" },
-                  { to: "/dashboard/page_banner", label: "Pages Banner" },
-                  { to: "/dashboard/Videos", label: "Videos" },
+                  { to: "/dashboard/Reports", label: "Reports & Articles Form" },
+                  { to: "/dashboard/Gallery", label: "Gallery Form" },
+                  { to: "/dashboard/Brochures", label: "Brochures Form" },
+                  { to: "/dashboard/Blogs", label: "Blogs Form" },
+                  { to: "/dashboard/page_banner", label: "Pages Banner Form" },
+                  { to: "/dashboard/Videos", label: "Videos Form" },
                 ],
               },
               {
