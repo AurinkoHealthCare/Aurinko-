@@ -4,6 +4,7 @@ import HorizontalBounceLoader from "../private/loader.jsx";
 import LiveProductSearch from "../utils/component/search.jsx";
 import ImageManager from "./Admin/Pages/Media/page_banner.jsx";
 import VideoManager from "./Admin/Pages/Media/video_view.jsx";
+import FloatingSocialMenu from "../utils/message.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -243,6 +244,7 @@ function App() {
           <Route path="/search" element={<LiveProductSearch />} />
           <Route path="/adminimagemanager" element={<ImageManager />} />
           <Route path="/adminvideomanager" element={<VideoManager />} />
+          <Route path="/social" element={<FloatingSocialMenu />} />
         </Routes>
       </Suspense>
     </div>

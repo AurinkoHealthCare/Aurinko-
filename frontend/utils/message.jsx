@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   FaFacebookF,
   FaInstagram,
-  FaWhatsapp,
-  FaPhone,
+  FaLinkedinIn,
+  FaUser,
+  FaPaw,
+  FaLeaf,
+  FaHome,
   FaPlus,
 } from "react-icons/fa";
 
 const FloatingSocialMenu = () => {
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState({ x: 20, y: 100 });
-  const dragRef = useRef(null);
   const isDragging = useRef(false);
   const offset = useRef({ x: 0, y: 0 });
 
@@ -70,26 +72,17 @@ const FloatingSocialMenu = () => {
   }, []);
 
   const icons = [
-    {
-      icon: <FaWhatsapp />,
-      link: "https://wa.me/919999999999",
-    },
-    {
-      icon: <FaPhone />,
-      link: "tel:+919999999999",
-    },
-    {
-      icon: <FaFacebookF />,
-      link: "https://facebook.com",
-    },
-    {
-      icon: <FaInstagram />,
-      link: "https://instagram.com",
-    },
+    { icon: <FaFacebookF />, link: "https://facebook.com", bg: "#1877f2" },
+    { icon: <FaInstagram />, link: "https://instagram.com", bg: "#e4405f" },
+    { icon: <FaLinkedinIn />, link: "https://linkedin.com", bg: "#0a66c2" },
+    { icon: <FaUser />, link: "#", bg: "#ff9800" }, // Human
+    { icon: <FaPaw />, link: "#", bg: "#4caf50" },  // Veterinary
+    { icon: <FaLeaf />, link: "#", bg: "#8bc34a" }, // Agriculture
+    { icon: <FaHome />, link: "/", bg: "#00bfa5" }, // Home
   ];
 
   const angleGap = (2 * Math.PI) / icons.length;
-  const radius = 70;
+  const radius = 90;
 
   const menuStyle = {
     position: "fixed",
@@ -98,6 +91,8 @@ const FloatingSocialMenu = () => {
     left: position.x,
     userSelect: "none",
     touchAction: "none",
+    width: "60px",
+    height: "60px",
   };
 
   const mainButtonStyle = {
@@ -115,32 +110,32 @@ const FloatingSocialMenu = () => {
     transition: "transform 0.3s ease",
     zIndex: 2,
     position: "relative",
+    cursor: "pointer",
   };
 
-  const iconStyle = {
+  const iconStyle = (bg) => ({
     position: "absolute",
     width: "46px",
     height: "46px",
-    backgroundColor: "#fff",
-    color: "#007bff",
+    backgroundColor: bg,
+    color: "#fff",
     borderRadius: "50%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     textDecoration: "none",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-    transition: "all 0.3s ease",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+    transition: "all 0.35s ease",
     zIndex: 1,
-  };
+    transform: "scale(0)",
+  });
 
   return (
     <div
-      ref={dragRef}
       style={menuStyle}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >
-      {/* Circular menu icons */}
       {icons.map((item, index) => {
         const angle = angleGap * index - Math.PI / 2;
         const x = open ? radius * Math.cos(angle) : 0;
@@ -153,21 +148,32 @@ const FloatingSocialMenu = () => {
             target="_blank"
             rel="noreferrer"
             style={{
-              ...iconStyle,
-              left: `${30 + x}px`,
-              top: `${30 + y}px`,
+              ...iconStyle(item.bg),
+              left: `calc(50% + ${x}px - 23px)`,
+              top: `calc(50% + ${y}px - 23px)`,
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
+              transform: open ? "scale(1)" : "scale(0)",
             }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.transform = "scale(1.2)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.transform = "scale(1)")
+            }
           >
             {item.icon}
           </a>
         );
       })}
 
-      {/* Main toggle button */}
       <button style={mainButtonStyle} onClick={toggleMenu}>
-        <FaPlus />
+        <FaPlus
+          style={{
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+            transition: "0.3s",
+          }}
+        />
       </button>
     </div>
   );
