@@ -63,11 +63,14 @@ const Navbar = () => {
             onToggle={() => toggleDropdown("Update & Replace")}
             links={[
               { to: "/dashboard/banner", label: "Banner" },
-              { to: "/dashboard/productimage", label: "Global Providers" },
-              { to: "/dashboard/productlogo", label: "Product details" },
-              { to: "/dashboard/report_view", label: "Reports & Articles" },
-              { to: "/dashboard/Gallery_view", label: "Gallery" },
-              { to: "/dashboard/Brochure_view", label: "Brochure" },
+              { to: "/dashboard/global_providers", label: "Global Providers" },
+              { to: "/dashboard/pages_banner", label: "Pages Banner" },
+              { to: "/dashboard/product_details", label: "Product details" },
+              { to: "/dashboard/reports_articles", label: "Reports & Articles" },
+              { to: "/dashboard/gallery_view", label: "Gallery_view" },
+              { to: "/dashboard/brochure_view", label: "Brochure_view" },
+              { to: "/dashboard/Blogs_view", label: "Blogs_view" },
+              { to: "/dashboard/video_view", label: "Video_view" },
             ]}
             onLinkClick={handleLinkClick}
           />
@@ -80,9 +83,10 @@ const Navbar = () => {
               {
                 label: "Home",
                 items: [
-                  { to: "/dashboard/imageSlider", label: "Image Sliders Form" },
+                  { to: "/dashboard/image_slider", label: "Image Sliders Form" },
                   { to: "/dashboard/product_cart", label: "Global Provider Form" },
-                  { to: "/dashboard/product_list", label: "Product details" },
+                  { to: "/dashboard/page_banner", label: "Pages Banner Form" },
+                  { to: "/dashboard/product_detail", label: "Product detail" }
                 ],
               },
               {
@@ -92,14 +96,9 @@ const Navbar = () => {
                   { to: "/dashboard/Gallery", label: "Gallery Form" },
                   { to: "/dashboard/Brochures", label: "Brochures Form" },
                   { to: "/dashboard/Blogs", label: "Blogs Form" },
-                  { to: "/dashboard/page_banner", label: "Pages Banner Form" },
                   { to: "/dashboard/Videos", label: "Videos Form" },
                 ],
-              },
-              {
-                label: "Contact Us",
-                items: [{ to: "/dashboard/contact", label: "Contact Us" }],
-              },
+              }
             ]}
             nestedDropdown={nestedDropdown}
             onNestedToggle={toggleNestedDropdown}
@@ -150,9 +149,8 @@ const Dropdown = ({
     >
       {label}{" "}
       <ChevronDown
-        className={`w-4 h-4 ml-2 transition-transform ${
-          isOpen ? "rotate-180" : ""
-        }`}
+        className={`w-4 h-4 ml-2 transition-transform ${isOpen ? "rotate-180" : ""
+          }`}
       />
     </button>
 
@@ -181,9 +179,8 @@ const Dropdown = ({
             >
               {group.label}{" "}
               <ChevronDown
-                className={`w-4 h-4 transition-transform ${
-                  nestedDropdown?.[label] === group.label ? "rotate-180" : ""
-                }`}
+                className={`w-4 h-4 transition-transform ${nestedDropdown?.[label] === group.label ? "rotate-180" : ""
+                  }`}
               />
             </button>
             {nestedDropdown?.[label] === group.label && (
@@ -206,4 +203,3 @@ const Dropdown = ({
 );
 
 export default Navbar;
-  

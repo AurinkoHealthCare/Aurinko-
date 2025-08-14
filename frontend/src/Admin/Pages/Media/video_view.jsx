@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 import { toast } from "react-toastify";
 
-export default function VideoManager() {
+const Video_view = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingVideo, setEditingVideo] = useState(null);
@@ -140,3 +140,5 @@ export default function VideoManager() {
     </div>
   );
 }
+
+export default Video_view;

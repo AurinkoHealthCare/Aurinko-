@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import axios from "../../../../api/axios"; // ✅ added axios import
 
 const Export = () => {
   const { t } = useTranslation("export");
   const [tooltip, setTooltip] = useState({ visible: false, text: "", top: "0%", left: "0%" });
+
+  // ✅ new states
+  const [headerImage, setHeaderImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const locations = [
     { name: t("locations.India"), top: "45%", left: "63%" },
@@ -23,19 +28,55 @@ const Export = () => {
     setTooltip({ visible: false });
   };
 
+  // ✅ fetch image named "export"
+  const fetchHeaderImage = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get("/otherimage/all");
+      const arr = Array.isArray(res.data) ? res.data : res.data?.data || [];
+      const selected = arr.find(
+        img => img.imageName?.toLowerCase() === "export"
+      );
+      setHeaderImage(selected || null);
+    } catch (err) {
+      console.error("Failed to fetch export image ❌", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHeaderImage();
+  }, []);
+
   return (
     <div className="font-sans">
       <div className="relative">
-        <img
-          src="/Assets/Aboutus/banner/export.webp"
-          alt="Export"
-          className="w-full"
-        />
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">{t("title")}</h1>
-        </div>
+        {loading ? (
+          <div className="w-full h-64 flex items-center justify-center bg-gray-100">
+            <p className="text-gray-500">Loading header image...</p>
+          </div>
+        ) : headerImage ? (
+          <>
+            <img
+              src={headerImage.url}
+              alt={headerImage.imageName}
+              className="w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-black opacity-50"></div>
+            <div className="absolute inset-0 flex flex-col justify-center items-center text-white">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                {headerImage.imageName}
+              </h1>
+            </div>
+          </>
+        ) : (
+          <div className="w-full h-64 flex items-center justify-center bg-gray-100">
+            <p className="text-gray-500">No 'export' image found</p>
+          </div>
+        )}
       </div>
+
       <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row items-center gap-8">
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl font-bold mb-4">{t("subtitle")}</h2>

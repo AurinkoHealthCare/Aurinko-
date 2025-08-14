@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
-export default function ImageManager() {
+const Pages_Banner = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editId, setEditId] = useState(null);
@@ -161,3 +161,5 @@ export default function ImageManager() {
     </div>
   );
 }
+
+export default Pages_Banner;

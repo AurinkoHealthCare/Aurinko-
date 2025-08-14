@@ -5,7 +5,7 @@ const renderStars = (rating) => {
   return "★".repeat(Number(rating)) + "☆".repeat(5 - Number(rating));
 };
 
-const Productimage = () => {
+const Global_Providers = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -253,4 +253,4 @@ const Productimage = () => {
   );
 };
 
-export default Productimage;
+export default Global_Providers;
