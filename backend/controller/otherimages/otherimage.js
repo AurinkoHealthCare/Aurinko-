@@ -45,8 +45,7 @@ exports.updateImage = async (req, res) => {
     if (!imageDoc) return res.status(404).json({ message: "File not found" });
 
     if (req.files && req.files.length > 0) {
-      const oldPath = path.join(__dirname, "../../", imageDoc.url.replace(baseUrl + "/", ""));
-
+      const oldPath = path.join(__dirname, "../../", imageDoc.url.split("?")[0].replace(baseUrl + "/", ""));
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
 
       const file = req.files[0];
@@ -61,11 +60,16 @@ exports.updateImage = async (req, res) => {
     if (req.body.imageName) imageDoc.imageName = req.body.imageName;
 
     await imageDoc.save();
+
+    // Cache busting for updated image
+    imageDoc.url = `${imageDoc.url}?t=${Date.now()}`;
+
     res.json({ message: "File updated successfully", data: imageDoc });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 
 exports.deleteImage = async (req, res) => {
   try {
