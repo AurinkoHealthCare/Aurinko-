@@ -82,6 +82,7 @@ const Healthsupplements = () => {
           </div>
         )}
       </div>
+      
       <div className="flex flex-col w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
           <ProductCard products={products} segment="Human OTC" theme="Human" />
