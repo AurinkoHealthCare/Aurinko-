@@ -6,9 +6,9 @@ import {
   FaUser,
   FaPaw,
   FaLeaf,
-  FaHome,
-  FaPlus,
 } from "react-icons/fa";
+import { RiHomeSmile2Fill } from "react-icons/ri"; // Remix style home icon
+import { FaPlus } from "react-icons/fa6"; // Naya plus icon
 
 const FloatingSocialMenu = () => {
   const [open, setOpen] = useState(false);
@@ -71,14 +71,15 @@ const FloatingSocialMenu = () => {
     };
   }, []);
 
+  // Links & colors easily change ho sake
   const icons = [
-    { icon: <FaFacebookF />, link: "https://facebook.com", bg: "#1877f2" },
-    { icon: <FaInstagram />, link: "https://instagram.com", bg: "#e4405f" },
-    { icon: <FaLinkedinIn />, link: "https://linkedin.com", bg: "#0a66c2" },
-    { icon: <FaUser />, link: "#", bg: "#ff9800" }, // Human
-    { icon: <FaPaw />, link: "#", bg: "#4caf50" },  // Veterinary
-    { icon: <FaLeaf />, link: "#", bg: "#8bc34a" }, // Agriculture
-    { icon: <FaHome />, link: "/", bg: "#00bfa5" }, // Home
+    { icon: <FaFacebookF />, link: "https://facebook.com", bg: "linear-gradient(135deg, #3b5998, #1877f2)" },
+    { icon: <FaInstagram />, link: "https://instagram.com", bg: "linear-gradient(135deg, #f58529, #dd2a7b)" },
+    { icon: <FaLinkedinIn />, link: "https://linkedin.com", bg: "linear-gradient(135deg, #0072b1, #005582)" },
+    { icon: <FaUser />, link: "/human", bg: "linear-gradient(135deg, #ff4b2b, #ff416c)" }, // Human - Red
+    { icon: <FaPaw />, link: "/veterinary", bg: "linear-gradient(135deg, #2193b0, #6dd5ed)" }, // Veterinary - Blue
+    { icon: <FaLeaf />, link: "/agriculture", bg: "linear-gradient(135deg, #56ab2f, #a8e063)" }, // Agriculture - Green
+    { icon: <RiHomeSmile2Fill />, link: "/", bg: "linear-gradient(135deg, #00c6ff, #0072ff)" }, // Home remix style
   ];
 
   const angleGap = (2 * Math.PI) / icons.length;
@@ -95,36 +96,36 @@ const FloatingSocialMenu = () => {
     height: "60px",
   };
 
-  const mainButtonStyle = {
-    backgroundColor: "#007bff",
-    color: "white",
-    border: "none",
-    borderRadius: "50%",
-    width: "60px",
-    height: "60px",
-    fontSize: "24px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
-    transition: "transform 0.3s ease",
-    zIndex: 2,
-    position: "relative",
-    cursor: "pointer",
-  };
+const mainButtonStyle = {
+  background: "linear-gradient(135deg, cyan, magenta, yellow)",
+  color: "#fff",
+  border: "none",
+  borderRadius: "50%",
+  width: "50px",
+  height: "50px",
+  fontSize: "24px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
+  transition: "transform 0.3s ease",
+  zIndex: 2,
+  position: "relative",
+  cursor: "pointer",
+};
 
   const iconStyle = (bg) => ({
     position: "absolute",
-    width: "46px",
-    height: "46px",
-    backgroundColor: bg,
+    width: "48px",
+    height: "48px",
+    background: bg,
     color: "#fff",
     borderRadius: "50%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     textDecoration: "none",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
+    boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
     transition: "all 0.35s ease",
     zIndex: 1,
     transform: "scale(0)",
@@ -145,18 +146,18 @@ const FloatingSocialMenu = () => {
           <a
             key={index}
             href={open ? item.link : "#"}
-            target="_blank"
+            target={item.link.startsWith("http") ? "_blank" : "_self"}
             rel="noreferrer"
             style={{
               ...iconStyle(item.bg),
-              left: `calc(50% + ${x}px - 23px)`,
-              top: `calc(50% + ${y}px - 23px)`,
+              left: `calc(50% + ${x}px - 24px)`,
+              top: `calc(50% + ${y}px - 24px)`,
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
               transform: open ? "scale(1)" : "scale(0)",
             }}
             onMouseEnter={(e) =>
-              (e.currentTarget.style.transform = "scale(1.2)")
+              (e.currentTarget.style.transform = "scale(1.15)")
             }
             onMouseLeave={(e) =>
               (e.currentTarget.style.transform = "scale(1)")

@@ -82,7 +82,7 @@ const Reports_Articles = lazy(() => import("./Admin/Pages/Media/Reports_Articles
 const Gallery_view = lazy(() => import("./Admin/Pages/Media/Gallery_view.jsx"));
 const Brochure_view = lazy(() => import("./Admin/Pages/Media/Brochure_view.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
-import FloatingSocialMenu from "../utils/message.jsx";
+import FloatingSocialMenu from "../utils/FloatingSocialMenu.jsx";
 function App() {
   return (
     <div>
