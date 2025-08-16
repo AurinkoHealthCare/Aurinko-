@@ -27,7 +27,7 @@ const About = () => {
         img => img.imageName?.toLowerCase() === "about us"
       );
 
-      setHeaderImage(selected ||  null);
+      setHeaderImage(selected || null);
     } catch (err) {
       console.error("Failed to fetch image ❌", err);
     } finally {
