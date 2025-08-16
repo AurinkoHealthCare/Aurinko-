@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
+import Search_bar from "../utils/component/search.jsx";
+import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
-const Search_bar = lazy(() => import("../utils/component/search.jsx"));
 const Admin = lazy(() => import("./Admin/admin"));
 const Human = lazy(() => import("./User/Human/Human.jsx"));
 const Human_Home = lazy(() => import("./User/Human/Pages/Home/Homepage.jsx"));
@@ -72,7 +73,6 @@ const Report = lazy(() => import("./Admin/Pages/Pages/Media/Reports"));
 const Gallerys = lazy(() => import("./Admin/Pages/Pages/Media/Gallery"));
 const Brochure = lazy(() => import("./Admin/Pages/Pages/Media/Brochures"));
 const Blogs = lazy(() => import("./Admin/Pages/Pages/Media/Blogs"));
-const Pages_Banner = lazy(() => import("./Admin/Pages/Media/Pages_Banner.jsx"));
 const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
 const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
 const Video_view = lazy(() => import("./Admin/Pages/Media/video_view.jsx"));
@@ -83,7 +83,6 @@ const Reports_Articles = lazy(() => import("./Admin/Pages/Media/Reports_Articles
 const Gallery_view = lazy(() => import("./Admin/Pages/Media/Gallery_view.jsx"));
 const Brochure_view = lazy(() => import("./Admin/Pages/Media/Brochure_view.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
-import FloatingSocialMenu from "../utils/FloatingSocialMenu.jsx";
 
 function App() {
   return (
@@ -248,7 +247,6 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
-          <Route path="/social" element={<FloatingSocialMenu />} />
         </Routes>
       </Suspense>
     </div>

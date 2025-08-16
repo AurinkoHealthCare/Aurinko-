@@ -10,31 +10,26 @@ exports.uploadFiles = async (req, res) => {
 
     const baseUrl = `${req.protocol}://${req.get("host")}`;
 
-    const uploadedImages = await Promise.all(
-      req.files.map((file, index) => {
-        return {
-          imageName: req.body.name || file.originalname, // input wala name ya original
-          category: req.body.category,
-          lang: req.query.lang || "en",
-          url: `${baseUrl}/uploads/image/${file.filename}`,
-          no: index + 1
-        };
-      })
-    );
+    const uploadedImages = req.files.map((file, index) => ({
+      imageName: req.body.name || file.originalname,
+      category: req.body.category,
+      lang: req.query.lang || "en",
+      url: `${baseUrl}/uploads/image/${file.filename}`,
+      no: index + 1,
+    }));
 
     const savedImages = await OtherImage.insertMany(uploadedImages);
 
     res.status(201).json({
       success: true,
       message: "Images uploaded successfully",
-      data: savedImages
+      data: savedImages,
     });
   } catch (error) {
     console.error("Upload Error:", error);
     res.status(500).json({ success: false, message: "Upload failed", error });
   }
 };
-
 
 exports.updateImage = async (req, res) => {
   try {
@@ -44,15 +39,18 @@ exports.updateImage = async (req, res) => {
 
     if (!imageDoc) return res.status(404).json({ message: "File not found" });
 
-    if (req.files && req.files.length > 0) {
-      const oldPath = path.join(__dirname, "../../", imageDoc.url.replace(baseUrl + "/", ""));
-
+    if (req.file) {
+      const oldPath = path.join(
+        __dirname,
+        "../../",
+        imageDoc.url.split("?")[0].replace(baseUrl + "/", "")
+      );
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
 
-      const file = req.files[0];
-      const relativePath = path.join("uploads", file.customPath, file.customFilename).replace(/\\/g, "/");
+      const file = req.file;
+      const relativePath = path.join("uploads/image", file.filename).replace(/\\/g, "/");
       imageDoc.url = `${baseUrl}/${relativePath}`;
-      imageDoc.imageName = file.originalname;
+      imageDoc.imageName = req.body.imageName || file.originalname;
     }
 
     if (req.body.no) imageDoc.no = req.body.no;
@@ -61,6 +59,9 @@ exports.updateImage = async (req, res) => {
     if (req.body.imageName) imageDoc.imageName = req.body.imageName;
 
     await imageDoc.save();
+
+    imageDoc.url = `${imageDoc.url}?t=${Date.now()}`;
+
     res.json({ message: "File updated successfully", data: imageDoc });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -75,7 +76,11 @@ exports.deleteImage = async (req, res) => {
 
     if (!imageDoc) return res.status(404).json({ message: "File not found" });
 
-    const filePath = path.join(__dirname, "../../", imageDoc.url.replace(baseUrl + "/", ""));
+    const filePath = path.join(
+      __dirname,
+      "../../",
+      imageDoc.url.replace(baseUrl + "/", "").split("?")[0]
+    );
     if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
 
     await OtherImage.findByIdAndDelete(id);

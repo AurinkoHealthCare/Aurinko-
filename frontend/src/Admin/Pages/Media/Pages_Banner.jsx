@@ -1,23 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "../../../../api/axios";
 
 const Pages_Banner = () => {
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [filteredImages, setFilteredImages] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [loading, setLoading] = useState(true);
   const [editId, setEditId] = useState(null);
-  const [editFields, setEditFields] = useState({ imageName: "", category: "" });
+  const [editFields, setEditFields] = useState({
+    _id: "",
+    imageName: "",
+    category: "",
+    lang: "en",
+    no: 1,
+    newFile: null,
+    previewUrl: "",
+  });
 
-  // Fetch all images
   const fetchImages = async () => {
     try {
       setLoading(true);
       const res = await axios.get("/otherimage/all");
-      const arr = Array.isArray(res.data)
-        ? res.data
-        : res.data?.data || [];
-      setImages(arr);
-    } catch {
-      alert("Failed to fetch images ❌");
+      const data = res.data.data || [];
+      setImages(data);
+      setFilteredImages(data);
+      setCategories(["all", ...new Set(data.map((img) => img.category))]);
+    } catch (err) {
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -27,139 +37,174 @@ const Pages_Banner = () => {
     fetchImages();
   }, []);
 
-  // Start editing a card
+  useEffect(() => {
+    if (selectedCategory === "all") {
+      setFilteredImages(images);
+    } else {
+      setFilteredImages(images.filter((img) => img.category === selectedCategory));
+    }
+  }, [selectedCategory, images]);
+
   const startEdit = (img) => {
     setEditId(img._id);
-    setEditFields({ imageName: img.imageName, category: img.category });
+    setEditFields({
+      _id: img._id,
+      imageName: img.imageName,
+      category: img.category,
+      lang: img.lang || "en",
+      no: img.no || 1,
+      newFile: null,
+      previewUrl: img.url,
+    });
   };
 
-  // Handle input change
-  const handleChange = (key, value) => {
-    setEditFields(prev => ({ ...prev, [key]: value }));
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setEditFields({
+      ...editFields,
+      newFile: file,
+      previewUrl: file ? URL.createObjectURL(file) : editFields.previewUrl,
+    });
   };
 
-  // Save edited data
-  const saveEdit = async (id) => {
-    if (!editFields.imageName || !editFields.category) {
-      alert("Name and category are required ❌");
-      return;
-    }
-
+  const saveEdit = async () => {
     try {
       const formData = new FormData();
+      if (editFields.newFile) {
+        formData.append("file", editFields.newFile);
+      }
       formData.append("imageName", editFields.imageName);
       formData.append("category", editFields.category);
+      formData.append("lang", editFields.lang);
+      formData.append("no", editFields.no);
 
-      const res = await axios.put(`/otherimage/update/${id}`, formData);
+      const res = await axios.put(
+        `/otherimage/update/${editFields._id}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
-      if (res.data?.message) {
-        setImages(prev =>
-          prev.map(img =>
-            img._id === id
-              ? { ...img, imageName: editFields.imageName, category: editFields.category }
-              : img
-          )
-        );
-        alert("Image updated successfully ✅");
-        setEditId(null); // ✅ Reset to default card view
-      } else {
-        alert("Update failed ❌");
-      }
-    } catch {
-      alert("Network error ❌");
+      setImages((prev) =>
+        prev.map((img) => (img._id === editFields._id ? res.data.data : img))
+      );
+
+      setEditId(null);
+    } catch (err) {
+      console.error(err);
+      alert("Update failed ❌");
     }
   };
 
-  // Cancel editing
-  const cancelEdit = () => setEditId(null);
-
-  // Delete image
   const deleteImage = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this image? ❌")) return;
+    if (!window.confirm("Delete this image?")) return;
     try {
-      const res = await axios.delete(`/otherimage/delete/${id}`);
-      if (res.data?.message) {
-        setImages(prev => prev.filter(img => img._id !== id));
-        alert("Image deleted successfully ✅");
-      } else {
-        alert("Delete failed ❌");
-      }
-    } catch {
-      alert("Network error ❌");
+      await axios.delete(`/otherimage/delete/${id}`);
+      setImages((prev) => prev.filter((img) => img._id !== id));
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed ❌");
     }
   };
 
   return (
-    <div className="p-6 bg-white shadow-xl rounded-xl w-full max-w-5xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-center">Manage Uploaded Images</h2>
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-4">Other Images</h2>
 
-      {loading && <p className="text-gray-500 text-center">Loading images...</p>}
-      {!loading && images.length === 0 && <p className="text-gray-500 text-center">No images found.</p>}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {images.map(img => (
-          <div key={img._id} className="border rounded-lg overflow-hidden shadow hover:shadow-lg transition p-3">
-            <img src={img.url} alt={img.imageName} className="w-full h-40 object-cover rounded" />
-
-            {editId === img._id ? (
-              <div className="mt-3 space-y-2">
-                <input
-                  type="text"
-                  value={editFields.imageName}
-                  onChange={e => handleChange("imageName", e.target.value)}
-                  placeholder="Image Name"
-                  className="border p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <select
-                  value={editFields.category}
-                  onChange={e => handleChange("category", e.target.value)}
-                  className="border p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="">Select Category</option>
-                  <option value="human">Human</option>
-                  <option value="veterinary">Veterinary</option>
-                  <option value="agriculture">Agriculture</option>
-                </select>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => saveEdit(img._id)}
-                    className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded flex-1"
-                  >
-                    Save
-                  </button>
-                  <button
-                    onClick={cancelEdit}
-                    className="bg-gray-400 hover:bg-gray-500 text-white px-3 py-1 rounded flex-1"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="mt-3">
-                <p className="font-semibold text-lg">{img.imageName}</p>
-                <p className="text-sm text-gray-500">{img.category}</p>
-                <div className="flex gap-2 mt-2">
-                  <button
-                    onClick={() => deleteImage(img._id)}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded flex-1"
-                  >
-                    Delete
-                  </button>
-                  <button
-                    onClick={() => startEdit(img)}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded flex-1"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
+      {/* Category Filter */}
+      <div className="mb-4">
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="border px-3 py-2 rounded w-full sm:w-1/3"
+        >
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat.toUpperCase()}
+            </option>
+          ))}
+        </select>
       </div>
+
+      {/* Loading */}
+      {loading ? (
+        <div className="text-center py-10">
+          <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-2 text-gray-600">Loading images...</p>
+        </div>
+      ) : filteredImages.length === 0 ? (
+        <p className="text-center text-gray-600">No images found</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {filteredImages.map((img) => (
+            <div key={img._id} className="border p-2 rounded shadow">
+              {editId === img._id ? (
+                <div>
+                  <img
+                    src={editFields.previewUrl}
+                    alt="Preview"
+                    className="w-full h-40 object-cover mb-2"
+                  />
+                  <input type="file" onChange={handleFileChange} className="mb-2 w-full" />
+                  <input
+                    type="text"
+                    value={editFields.imageName}
+                    onChange={(e) => setEditFields({ ...editFields, imageName: e.target.value })}
+                    placeholder="Image Name"
+                    className="border p-1 w-full mb-2"
+                  />
+                  <input
+                    type="text"
+                    value={editFields.category}
+                    onChange={(e) => setEditFields({ ...editFields, category: e.target.value })}
+                    placeholder="Category"
+                    className="border p-1 w-full mb-2"
+                  />
+                  <input
+                    type="text"
+                    value={editFields.lang}
+                    onChange={(e) => setEditFields({ ...editFields, lang: e.target.value })}
+                    placeholder="Language"
+                    className="border p-1 w-full mb-2"
+                  />
+                  <input
+                    type="number"
+                    value={editFields.no}
+                    onChange={(e) => setEditFields({ ...editFields, no: e.target.value })}
+                    placeholder="No"
+                    className="border p-1 w-full mb-2"
+                  />
+                  <div className="flex gap-2">
+                    <button onClick={saveEdit} className="bg-green-500 text-white px-3 py-1 rounded">
+                      Save
+                    </button>
+                    <button onClick={() => setEditId(null)} className="bg-gray-500 text-white px-3 py-1 rounded">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <img src={img.url} alt={img.imageName} className="w-full h-40 object-cover mb-2" />
+                  <p className="font-semibold">{img.imageName}</p>
+                  <p className="text-sm text-gray-600">{img.category}</p>
+                  <p className="text-xs text-gray-500">Lang: {img.lang}</p>
+                  <p className="text-xs text-gray-500">No: {img.no}</p>
+                  <div className="flex gap-2 mt-2">
+                    <button onClick={() => startEdit(img)} className="bg-blue-500 text-white px-3 py-1 rounded">
+                      Edit
+                    </button>
+                    <button onClick={() => deleteImage(img._id)} className="bg-red-500 text-white px-3 py-1 rounded">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default Pages_Banner;
