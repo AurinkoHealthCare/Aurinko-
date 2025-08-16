@@ -11,7 +11,7 @@ const Block3 = () => {
   return (
     <div className="w-full min-h-screen py-12 px-4 md:px-8 lg:px-16 xl:px-24 font-poppins">
       {/* Heading */}
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-green-700 mb-6 tracking-wide">
+      <h1 className="text-3xl md:text-4xl font-bold text-center text-[#01421d] mb-6 tracking-wide">
         PRODUCT TYPES
       </h1>
       <div
@@ -38,7 +38,7 @@ const Block3 = () => {
             {/* Know More / Back Button */}
             <button
               onClick={() => toggleOverlay(index)}
-              className="mx-auto mt-4 mb-4 bg-green-600 text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-green-700 z-10"
+              className="mx-auto mt-4 mb-4 bg-[#01421d] text-white px-5 py-2 rounded-full shadow-md transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bgbg-[#01421d] z-10"
             >
               {activeIndex === index ? "Back" : "Know More"}
             </button>
@@ -49,7 +49,7 @@ const Block3 = () => {
                 }`}
             >
               <div className="p-5 h-72 overflow-y-auto no-scrollbar text-gray-800">
-                <h2 className="text-xl font-bold mb-2 text-green-700">
+                <h2 className="text-xl font-bold mb-2 textbg-[#01421d]">
                   {product.title}
                 </h2>
                 <p className="text-sm leading-relaxed">{product.description}</p>

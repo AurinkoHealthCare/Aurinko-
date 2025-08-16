@@ -11,9 +11,9 @@ const Block1 = () => {
   return (
     <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center justify-center py-6 px-4 sm:px-6 md:px-12 lg:px-16">
       <div className="w-full md:w-1/2 px-4">
-        <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-center md:text-left mb-4 md:mb-6 text-gray-800 relative">
+        <h1 className="font-bold text-2xl sm:text-3xl lg:text-4xl text-center md:text-left mb-4 md:mb-6 text-[#01421d] relative">
           {heading}
-          <span className="absolute top-full left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 mt-2 w-20 sm:w-24 h-1 bg-green-600"></span>
+          <span className="absolute top-full left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 mt-2 w-20 sm:w-24 h-1 bg-[#01421d]"></span>
         </h1>
         {paragraphs.map((para, idx) => (
           <p

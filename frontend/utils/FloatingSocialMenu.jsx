@@ -76,9 +76,9 @@ const FloatingSocialMenu = () => {
     { icon: <FaFacebookF />, link: "https://facebook.com", bg: "linear-gradient(135deg, #3b5998, #1877f2)" },
     { icon: <FaInstagram />, link: "https://instagram.com", bg: "linear-gradient(135deg, #f58529, #dd2a7b)" },
     { icon: <FaLinkedinIn />, link: "https://linkedin.com", bg: "linear-gradient(135deg, #0072b1, #005582)" },
-    { icon: <FaUser />, link: "/human", bg: "linear-gradient(135deg, #ff4b2b, #ff416c)" }, // Human - Red
-    { icon: <FaPaw />, link: "/veterinary", bg: "linear-gradient(135deg, #2193b0, #6dd5ed)" }, // Veterinary - Blue
-    { icon: <FaLeaf />, link: "/agriculture", bg: "linear-gradient(135deg, #56ab2f, #a8e063)" }, // Agriculture - Green
+    { icon: <FaUser />, link: "/human", bg: "#b30800" }, // Human - Red
+    { icon: <FaPaw />, link: "/veterinary", bg: "#1f3ad1" }, // Veterinary - Blue
+    { icon: <FaLeaf />, link: "/agriculture", bg: "#01421d" }, // Agriculture - Dark Green
     { icon: <RiHomeSmile2Fill />, link: "/", bg: "linear-gradient(135deg, #00c6ff, #0072ff)" }, // Home remix style
   ];
 
@@ -96,23 +96,23 @@ const FloatingSocialMenu = () => {
     height: "60px",
   };
 
-const mainButtonStyle = {
-  background: "linear-gradient(135deg, cyan, magenta, yellow)",
-  color: "#fff",
-  border: "none",
-  borderRadius: "50%",
-  width: "50px",
-  height: "50px",
-  fontSize: "24px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
-  transition: "transform 0.3s ease",
-  zIndex: 2,
-  position: "relative",
-  cursor: "pointer",
-};
+  const mainButtonStyle = {
+    background: "#fcc300",
+    color: "#fff",
+    border: "none",
+    borderRadius: "50%",
+    width: "50px",
+    height: "50px",
+    fontSize: "24px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "0 6px 12px rgba(0,0,0,0.3)",
+    transition: "transform 0.3s ease",
+    zIndex: 2,
+    position: "relative",
+    cursor: "pointer",
+  };
 
   const iconStyle = (bg) => ({
     position: "absolute",

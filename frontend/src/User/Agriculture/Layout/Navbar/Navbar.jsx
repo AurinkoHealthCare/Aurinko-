@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { FaBars, FaTimes } from "react-icons/fa";
-import Search from "../search/search";
 
 const AgricultureNavbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,7 +26,7 @@ const AgricultureNavbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <ul className="hidden lg:flex space-x-6 font-medium items-center flex-grow justify-center">
+        <ul className="hidden lg:flex items-center space-x-6 font-medium text-gray-800">
           <li>
             <Link
               to="/agriculture"
@@ -40,7 +39,7 @@ const AgricultureNavbar = () => {
           {/* About Us */}
           <li className="group relative">
             <span className="hover:text-green-600 cursor-pointer">{t("about_us")}</span>
-            <ul className="absolute top-full left-0 bg-white/90 backdrop-blur-md w-64 shadow-lg p-2 rounded-md hidden group-hover:block">
+            <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/agriculture/about" className="block px-4 py-1 hover:text-green-600">{t("overview")}</Link></li>
               <li><Link to="/agriculture/vision" className="block px-4 py-1 hover:text-green-600">{t("vision_mission")}</Link></li>
               <li><Link to="/agriculture/manufacturing" className="block px-4 py-1 hover:text-green-600">{t("manufacturing")}</Link></li>
@@ -53,7 +52,7 @@ const AgricultureNavbar = () => {
           {/* Nano Biotech */}
           <li className="group relative">
             <span className="hover:text-green-600 cursor-pointer">{t("nano_biotech")}</span>
-            <ul className="absolute top-full left-0 bg-white/90 backdrop-blur-md w-64 shadow-lg p-2 rounded-md hidden group-hover:block">
+            <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/agriculture/Nanophosphosomes" className="block px-4 py-1 hover:text-green-600">{t("nanophosphosomes")}</Link></li>
               <li><Link to="/agriculture/Neuna_particles" className="block px-4 py-1 hover:text-green-600">{t("neuna_particles")}</Link></li>
             </ul>
@@ -71,7 +70,7 @@ const AgricultureNavbar = () => {
           {/* Media */}
           <li className="group relative">
             <span className="hover:text-green-600 cursor-pointer">{t("media")}</span>
-            <ul className="absolute top-full left-0 bg-white/90 backdrop-blur-md w-40 shadow-lg p-2 rounded-md hidden group-hover:block">
+            <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/agriculture/report" className="block px-4 py-1 hover:text-green-600">{t("reports")}</Link></li>
               <li><Link to="/agriculture/gallery" className="block px-4 py-1 hover:text-green-600">{t("gallery")}</Link></li>
               <li><Link to="/agriculture/brochures" className="block px-4 py-1 hover:text-green-600">{t("brochures")}</Link></li>
@@ -86,22 +85,19 @@ const AgricultureNavbar = () => {
 
 
         {/* Right: Search + Mobile Button */}
-        <div className="flex items-center gap-2">
-          <Search />
-          <div className="lg:hidden">
-            <button onClick={toggleMenu}>
-              {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
-            </button>
-          </div>
+        <div className="lg:hidden">
+          <button onClick={toggleMenu}>
+            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+          </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="lg:hidden bg-white shadow-md px-4 pb-4 space-y-2">
-          <Link to="/agriculture" className="block font-semibold" onClick={handleLinkClick}>{t("home")}</Link>
+          <Link to="/agriculture" className="block font-semibold py-1" onClick={handleLinkClick}>{t("home")}</Link>
 
-          <button className="font-semibold w-full text-left" onClick={() => toggleSection("about")}>{t("about_us")}</button>
+          <button className="font-semibold w-full text-left py-1" onClick={() => toggleSection("about")}>{t("about_us")}</button>
           {openSection === "about" && (
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/about" onClick={handleLinkClick}>{t("overview")}</Link></li>
@@ -113,7 +109,7 @@ const AgricultureNavbar = () => {
             </ul>
           )}
 
-          <button className="font-semibold w-full text-left" onClick={() => toggleSection("nano")}>{t("nano_biotech")}</button>
+          <button className="font-semibold w-full text-left py-1" onClick={() => toggleSection("nano")}>{t("nano_biotech")}</button>
           {openSection === "nano" && (
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/Nanophosphosomes" onClick={handleLinkClick}>{t("nanophosphosomes")}</Link></li>
@@ -121,7 +117,7 @@ const AgricultureNavbar = () => {
             </ul>
           )}
 
-          <button className="font-semibold w-full text-left" onClick={() => toggleSection("agriculture")}>{t("agriculture")}</button>
+          <button className="font-semibold w-full text-left py-1" onClick={() => toggleSection("agriculture")}>{t("agriculture")}</button>
           {openSection === "agriculture" && (
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/NanoFertilizers" onClick={handleLinkClick}>{t("nano_fertilizers")}</Link></li>
@@ -129,7 +125,7 @@ const AgricultureNavbar = () => {
             </ul>
           )}
 
-          <button className="font-semibold w-full text-left" onClick={() => toggleSection("media")}>{t("media")}</button>
+          <button className="font-semibold w-full text-left py-1" onClick={() => toggleSection("media")}>{t("media")}</button>
           {openSection === "media" && (
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/report" onClick={handleLinkClick}>{t("reports")}</Link></li>

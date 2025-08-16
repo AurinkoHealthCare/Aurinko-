@@ -10,7 +10,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-green-900 text-white py-12">
+    <footer className="bg-[#01421d] text-white py-12">
       <div className="container mx-auto px-6">
 
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-5 text-center md:text-left">
@@ -28,8 +28,8 @@ const Footer = () => {
           <div>
             <h4 className="text-xl font-semibold mb-2 text-green-400">{t("products")}</h4>
             <ul className="space-y-1 text-base">
-              <li><Link to="/agriculture/NanoFertilizers" onClick={(e) => reloadPage(e, "/agriculture/NanoFertilizers")} className="hover:text-cyan-300 transition">{t("nano_fertilizers")}</Link></li>
-              <li><Link to="/agriculture/SoilMinerals" onClick={(e) => reloadPage(e, "/agriculture/SoilMinerals")} className="hover:text-cyan-300 transition">{t("soil_minerals")}</Link></li>
+              <li><Link to="/agriculture/NanoFertilizers" onClick={(e) => reloadPage(e, "/agriculture/NanoFertilizers")} className="hover:text-green-300 transition">{t("nano_fertilizers")}</Link></li>
+              <li><Link to="/agriculture/SoilMinerals" onClick={(e) => reloadPage(e, "/agriculture/SoilMinerals")} className="hover:text-green-300 transition">{t("soil_minerals")}</Link></li>
             </ul>
           </div>
         </div>

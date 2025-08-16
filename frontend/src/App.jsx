@@ -27,6 +27,7 @@ const Wellness = lazy(() => import("./User/Human/Pages/Human/Wellness.jsx"));
 const Reports = lazy(() => import("./User/Pages/Media/Report.jsx"));
 const Gallery = lazy(() => import("./User/Pages/Media/Gallery/Gallery"));
 const ProductBrochures = lazy(() => import("./User/Pages/Media/ProductBrochures.jsx"));
+const VideoGallery = lazy(() => import("./User/Pages/Media/Gallery/VideoGallery.jsx"));
 const Blog = lazy(() => import("./User/Pages/Media/Blog.jsx"));
 
 const Articles = lazy(() => import("./User/Pages/Media/Articles.jsx"));
@@ -74,7 +75,7 @@ const Blogs = lazy(() => import("./Admin/Pages/Pages/Media/Blogs"));
 const Pages_Banner = lazy(() => import("./Admin/Pages/Media/Pages_Banner.jsx"));
 const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
 const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
-const Video_view = lazy(() => import("./Admin/Pages/Media/Video_view.jsx"));
+const Video_view = lazy(() => import("./Admin/Pages/Media/video_view.jsx"));
 const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
 
 const TrackVisitor = lazy(() => import("../api/totalvisitors"));
@@ -83,6 +84,7 @@ const Gallery_view = lazy(() => import("./Admin/Pages/Media/Gallery_view.jsx"));
 const Brochure_view = lazy(() => import("./Admin/Pages/Media/Brochure_view.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
 import FloatingSocialMenu from "../utils/FloatingSocialMenu.jsx";
+
 function App() {
   return (
     <div>
@@ -117,6 +119,7 @@ function App() {
             <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
             <Route path="/human/gallery" element={<Gallery category="human" />} />
             <Route path="/human/photo_gallery" element={<PhotoGallery category="human" />} />
+            <Route path="/human/videos" element={<VideoGallery />} />
             <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
             <Route path="/human/blog" element={<Blog />} />
             <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
@@ -158,6 +161,7 @@ function App() {
             <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
             <Route path="/veterinary/gallery" element={<Gallery category="Veterinary" />} />
             <Route path="/veterinary/photo_gallery" element={<PhotoGallery category="Veterinary" />} />
+            <Route path="/veterinary/videos" element={<VideoGallery />} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
@@ -193,6 +197,7 @@ function App() {
             <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
             <Route path="/agriculture/gallery" element={<Gallery category="Agriculture" />} />
             <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture" />} />
+            <Route path="/agriculture/videos" element={<VideoGallery />} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
             <Route path="/agriculture/blog" element={<Blog />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
