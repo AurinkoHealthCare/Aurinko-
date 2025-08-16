@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from '../../api/axios'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, InboxIcon } from '@heroicons/react/24/outline'
 
 const Search_bar = () => {
   const [query, setQuery] = useState('')
@@ -13,7 +13,6 @@ const Search_bar = () => {
         setResults([])
         return
       }
-
       setLoading(true)
       axios
         .get(`/products/search?q=${encodeURIComponent(query)}`)
@@ -26,82 +25,96 @@ const Search_bar = () => {
           setLoading(false)
         })
     }, 500)
-
     return () => clearTimeout(delayDebounce)
   }, [query])
 
   return (
-    <div className="max-w-7xl mx-auto p-6 font-sans">
-      {/* Heading Section */}
+    <div className="max-w-7xl mx-auto p-6 font-sans bg-gray-50 min-h-screen">
+      {/* Heading */}
       <div className="text-center mb-8">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-indigo-700 mb-2">
-          Discover Your Perfect Product
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800">
+          Explore Products
         </h1>
-        <div className="mt-4 w-24 h-1 bg-gradient-to-r from-indigo-400 via-indigo-500 to-indigo-600 mx-auto rounded-full"></div>
+        <div className="mt-2 w-20 h-1 bg-emerald-500 mx-auto rounded"></div>
       </div>
 
       {/* Search Input */}
-      <div className="relative w-full mb-6">
-        <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
+      <div className="relative w-full mb-6 max-w-2xl mx-auto">
+        <MagnifyingGlassIcon className="h-6 w-6 text-gray-400 absolute left-4 top-1/2 transform -translate-y-1/2" />
         <input
           type="text"
-          placeholder="Search products by name, category, or details..."
+          placeholder="Search by name, category, or details..."
           value={query}
           onChange={e => setQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 text-lg rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm transition duration-300 placeholder-gray-400"
+          className="w-full pl-14 pr-4 py-3 text-lg rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm transition-all placeholder-gray-400 bg-white"
         />
       </div>
 
-      {/* Loading & No Results */}
-      {loading && <p className="mt-2 text-gray-500">Loading results...</p>}
+      {/* Loading */}
+      {loading && (
+        <div className="flex justify-center py-16">
+          <div className="h-12 w-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+
+      {/* No Results */}
       {!loading && results.length === 0 && query.trim() !== '' && (
-        <p className="mt-2 text-red-600 font-semibold">No results found</p>
+        <div className="flex flex-col items-center justify-center py-16 animate-fadeIn">
+          <InboxIcon className="h-16 w-16 text-gray-400 mb-3" />
+          <p className="text-lg font-semibold text-gray-600">No Results Found</p>
+          <p className="text-sm text-gray-400">Try another keyword</p>
+        </div>
       )}
 
       {/* Product Grid */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[700px] overflow-y-auto  scrollbar-track-gray-100">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-h-[700px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300">
         {results.map(item => (
           <div
             key={item._id}
-            className="border rounded-2xl p-4 shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 hover:scale-105 bg-gradient-to-tr from-white via-indigo-50 to-white flex flex-col"
+            className="border border-gray-200 rounded-2xl p-4 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-white flex flex-col"
           >
-            {/* Product Image */}
+            {/* Image */}
             {item.image || item.productImage ? (
-              <img
-                src={item.image || item.productImage}
-                alt={item.name || item.generalInfo?.name}
-                className="w-full object-cover rounded-xl mb-4"
-              />
+              <div className="w-full h-48 bg-gray-50 rounded-xl flex items-center justify-center overflow-hidden mb-4">
+                <img
+                  src={item.image || item.productImage}
+                  alt={item.name || item.generalInfo?.name}
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
             ) : (
-              <div className="w-full h-40 bg-gray-200 rounded-xl mb-4 flex items-center justify-center text-gray-400 font-semibold">
+              <div className="w-full h-48 bg-gray-100 rounded-xl mb-4 flex items-center justify-center text-gray-400 font-semibold">
                 No Image
               </div>
             )}
 
-            {/* Product Name */}
-            <h3 className="text-lg font-bold text-indigo-700 mb-2 hover:text-indigo-900 transition-colors duration-300">
+            {/* Name */}
+            <h3 className="text-xl font-bold text-gray-800 mb-2 truncate">
               {item.name || item.generalInfo?.name}
             </h3>
 
             {/* Category Badge */}
-            <span className="inline-block text-xs px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full mb-2 w-max">
+            <span className="inline-block text-xs px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full mb-3 font-medium w-max">
               {item.categoryType?.toUpperCase() || 'UNKNOWN'}
             </span>
 
             {/* Category Info */}
             {item.category || item.generalInfo?.category ? (
-              <p className="text-gray-700 mb-1">
-                <span className="font-semibold">Category:</span> {item.category || item.generalInfo?.category}
+              <p className="text-gray-700 text-sm mb-2">
+                <span className="font-semibold">Category:</span>{' '}
+                {item.category || item.generalInfo?.category}
               </p>
             ) : null}
 
             {/* Details */}
             {item.details || item.generalInfo?.details ? (
-              <p className="text-gray-600 mb-2 line-clamp-3">{item.details || item.generalInfo?.details}</p>
+              <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                {item.details || item.generalInfo?.details}
+              </p>
             ) : null}
 
-            {/* View Details Button */}
-            <button className="mt-auto bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium transition duration-300">
+            {/* Button */}
+            <button className="mt-auto bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2 rounded-lg font-medium transition duration-300">
               View Details
             </button>
           </div>
