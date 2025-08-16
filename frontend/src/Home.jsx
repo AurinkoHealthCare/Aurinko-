@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import i18n from "./i18n";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const cardData = [
   {
@@ -84,10 +84,13 @@ const Home = () => {
 
       {/* Language Selector */}
       <div className="absolute top-4 right-10 z-50">
+        <Link to="/search" >
+          <button className="bg-transparent border border-white mr-3 px-3 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs lg:text-lg">Search</button>
+        </Link>
         <div className="relative inline-block language-selector">
           <button
             onClick={() => setLanguageOpen(!languageOpen)}
-            className="bg-transparent border border-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300"
+            className="bg-transparent border border-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs lg:text-lg"
           >
             {selectedLang}
           </button>

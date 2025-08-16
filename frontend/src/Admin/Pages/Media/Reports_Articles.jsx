@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const MAX_FILE_SIZE_MB = 10;
 
-function Report_view() {
+const Reports_Articles = () => {
   const [pdfs, setPdfs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [category, setCategory] = useState("Reports");
@@ -233,4 +233,4 @@ function Report_view() {
   );
 }
 
-export default Report_view;
+export default Reports_Articles;

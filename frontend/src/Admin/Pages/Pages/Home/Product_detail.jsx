@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "../../../../../api/axios";
 
-const Product_List = () => {
+const Product_detail = () => {
   const emptyItem = {
     productImage: null,
     productLogo: null,
@@ -298,4 +298,4 @@ const Product_List = () => {
   );
 };
 
-export default Product_List;
+export default Product_detail;

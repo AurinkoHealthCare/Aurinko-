@@ -1,10 +1,9 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
-import LiveProductSearch from "../utils/component/search.jsx";
-import ImageManager from "./Admin/Pages/Media/page_banner.jsx";
-import VideoManager from "./Admin/Pages/Media/video_view.jsx";
-import FloatingSocialMenu from "../utils/message.jsx";
+import Search_bar from "../utils/component/search.jsx";
+import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
+import Video_view from "./Admin/Pages/Media/Video_view.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -63,12 +62,12 @@ const Unauthorized = lazy(() => import("../private/privatepage"));
 const Dash_Home = lazy(() => import("./Admin/Pages/Home/Home"));
 
 const Banner = lazy(() => import("./Admin/Pages/Media/Banner"));
-const Productimage = lazy(() => import("./Admin/Pages/Media/Product image"));
-const ProductLogo = lazy(() => import("./Admin/Pages/Media/Product logo"));
+const Global_Providers = lazy(() => import("./Admin/Pages/Media/Global_Providers.jsx"));
+const Product_details = lazy(() => import("./Admin/Pages/Media/Product_details.jsx"));
 
 const Product_Cart = lazy(() => import("./Admin/Pages/Pages/Home/Product_Cart"));
-const Product_List = lazy(() => import("./Admin/Pages/Pages/Home/Product_List"));
-const ImageSlider = lazy(() => import("./Admin/Pages/Pages/Home/Image Slider"));
+const Product_detail = lazy(() => import("./Admin/Pages/Pages/Home/Product_detail"));
+const ImageSlider = lazy(() => import("./Admin/Pages/Pages/Home/Image_Slider.jsx"));
 
 const Report = lazy(() => import("./Admin/Pages/Pages/Media/Reports"));
 const Gallerys = lazy(() => import("./Admin/Pages/Pages/Media/Gallery"));
@@ -79,9 +78,9 @@ const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
 const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
 
 const TrackVisitor = lazy(() => import("../api/totalvisitors"));
-const Report_view = lazy(() => import("./Admin/Pages/Media/report_view"));
-const Gallery_view = lazy(() => import("./Admin/Pages/Media/gallery.jsx"));
-const Brochure_view = lazy(() => import("./Admin/Pages/Media/brochures.jsx"));
+const Reports_Articles = lazy(() => import("./Admin/Pages/Media/Reports_Articles.jsx"));
+const Gallery_view = lazy(() => import("./Admin/Pages/Media/Gallery_view.jsx"));
+const Brochure_view = lazy(() => import("./Admin/Pages/Media/Brochure_view.jsx"));
 const PhotoGallery = lazy(() => import("./User/Pages/Media/Gallery/PhotoGallery.jsx"));
 
 function App() {
@@ -91,6 +90,7 @@ function App() {
       <Suspense fallback={<HorizontalBounceLoader />}>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search_bar />} />
           {/* Human */}
           <Route path="/human" element={<Human />} >
             <Route path="/human" element={<Human_Home />} />
@@ -156,8 +156,8 @@ function App() {
 
             {/* Media */}
             <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
-            <Route path="/veterinary/gallery" element={<Gallery category="Veterinary"/>} />
-            <Route path="/veterinary/photo_gallery" element={<PhotoGallery category="Veterinary"/>} />
+            <Route path="/veterinary/gallery" element={<Gallery category="Veterinary" />} />
+            <Route path="/veterinary/photo_gallery" element={<PhotoGallery category="Veterinary" />} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
@@ -191,8 +191,8 @@ function App() {
 
             {/* Media */}
             <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
-            <Route path="/agriculture/gallery" element={<Gallery category="Agriculture"/>} />
-            <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture"/>} />
+            <Route path="/agriculture/gallery" element={<Gallery category="Agriculture" />} />
+            <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture" />} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
             <Route path="/agriculture/blog" element={<Blog />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
@@ -215,22 +215,24 @@ function App() {
           >
             <Route path='/dashboard/' element={<Dash_Home />} />
 
-            {/* Media */}
+            {/* Update & Replace */}
             <Route path='/dashboard/banner' element={<Banner />} />
-            <Route path='/dashboard/productimage' element={<Productimage />} />
-            <Route path='/dashboard/productlogo' element={<ProductLogo />} />
+            <Route path='/dashboard/global_providers' element={<Global_Providers />} />
+            <Route path='/dashboard/product_details' element={<Product_details />} />
+            <Route path="/dashboard/reports_articles" element={<Reports_Articles />} />
+            <Route path='/dashboard/gallery_view' element={<Gallery_view />} />
+            <Route path='/dashboard/brochure_view' element={<Brochure_view />} />
+            <Route path="/dashboard/video_view" element={<Video_view />} />
 
             {/* Home */}
-            <Route path='/dashboard/imageSlider' element={<ImageSlider />} />
+            <Route path='/dashboard/image_slider' element={<ImageSlider />} />
             <Route path='/dashboard/product_cart' element={<Product_Cart />} />
-            <Route path='/dashboard/product_list' element={<Product_List />} />
+            <Route path="/dashboard/pages_banner" element={<Pages_Banner />} />
+            <Route path='/dashboard/product_detail' element={<Product_detail />} />
 
             {/* Media */}
             <Route path='/dashboard/Reports' element={<Report />} />
-            <Route path="/dashboard/report_view" element={<Report_view />} />
             <Route path='/dashboard/Gallery' element={<Gallerys />} />
-            <Route path='/dashboard/Gallery_view' element={<Gallery_view />} />
-            <Route path='/dashboard/Brochure_view' element={<Brochure_view />} />
             <Route path='/dashboard/Brochures' element={<Brochure />} />
             <Route path='/dashboard/Blogs' element={<Blogs />} />
             <Route path='/dashboard/page_banner' element={<Page_banner />} />
@@ -241,10 +243,6 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
-          <Route path="/search" element={<LiveProductSearch />} />
-          <Route path="/adminimagemanager" element={<ImageManager />} />
-          <Route path="/adminvideomanager" element={<VideoManager />} />
-          <Route path="/social" element={<FloatingSocialMenu />} />
         </Routes>
       </Suspense>
     </div>

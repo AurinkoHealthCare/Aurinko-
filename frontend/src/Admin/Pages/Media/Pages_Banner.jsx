@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function OtherImages() {
+const Pages_Banner = () => {
   const [images, setImages] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editFields, setEditFields] = useState({
@@ -192,3 +192,5 @@ export default function OtherImages() {
     </div>
   );
 }
+
+export default Pages_Banner;
