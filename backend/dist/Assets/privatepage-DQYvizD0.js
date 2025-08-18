@@ -1,0 +1,1 @@
+import{j as e}from"./index-Dg0sH7Ks.js";const s=()=>e.jsxs("div",{className:"text-center mt-20",children:[e.jsx("h1",{className:"text-3xl font-bold text-red-600",children:"Access Denied"}),e.jsx("p",{className:"text-gray-500 mt-4",children:"You are not authorized to view this page."})]});export{s as default};
