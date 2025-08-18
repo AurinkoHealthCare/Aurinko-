@@ -26,7 +26,7 @@ const Navbar = () => {
           <img
             src="/Assets/AurinkoLogo2.png"
             alt="Aurinko Logo"
-            className="w-28 h-auto"
+            className="w-[4.1rem] h-auto"
           />
         </Link>
 
@@ -35,11 +35,10 @@ const Navbar = () => {
           <li>
             <Link
               to="/veterinary"
-              className={`hover:text-blue-600 ${
-                location.pathname === "/veterinary"
+              className={`hover:text-blue-600 ${location.pathname === "/veterinary"
                   ? "text-blue-600 font-semibold"
                   : ""
-              }`}
+                }`}
             >
               {t("home")}
             </Link>

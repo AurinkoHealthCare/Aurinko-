@@ -23,7 +23,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <Link to="/human" onClick={handleLinkClick}>
-          <img src="/Assets/AurinkoLogo2.png" alt="Aurinko Logo" className="w-28 h-auto" />
+          <img src="/Assets/AurinkoLogo2.png" alt="Aurinko Logo" className="w-[4.1rem] h-auto" />
         </Link>
 
         {/* Desktop Menu */}

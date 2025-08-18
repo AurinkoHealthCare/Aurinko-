@@ -60,7 +60,6 @@ const Home = () => {
   const navigate = useNavigate();
   const [languageOpen, setLanguageOpen] = useState(false);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest(".language-selector")) {
@@ -82,24 +81,26 @@ const Home = () => {
         />
       </div>
 
-      {/* Language Selector */}
-      <div className="absolute top-4 right-10 z-50">
-        <Link to="/search" >
-          <button className="bg-transparent border border-white mr-3 px-3 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs lg:text-lg">Search</button>
+      {/* Language Selector + Search */}
+      <div className="absolute top-3 right-4 md:top-4 md:right-10 z-50 flex items-center gap-2">
+        <Link to="/search">
+          <button className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg">
+            Search
+          </button>
         </Link>
         <div className="relative inline-block language-selector">
           <button
             onClick={() => setLanguageOpen(!languageOpen)}
-            className="bg-transparent border border-white px-3 py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs lg:text-lg"
+            className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg"
           >
             {selectedLang}
           </button>
           {languageOpen && (
-            <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md">
+            <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md w-32 sm:w-40">
               {Object.keys(langCodeMap).map((lang) => (
                 <li
                   key={lang}
-                  className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
+                  className="px-3 py-2 hover:bg-gray-200 cursor-pointer text-sm sm:text-base"
                   onClick={() => {
                     handleLangChange(lang);
                     setLanguageOpen(false);
@@ -113,29 +114,29 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Logo Top Left */}
-      <div className="absolute top-4 left-4 z-10">
+      {/* Logo */}
+      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10">
         <img
           src="/Assets/AurinkoLogo.png"
           alt="Logo"
-          className="w-24 md:w-32 lg:w-40 h-auto"
+          className="w-14 sm:w-20 lg:w-28 h-auto"
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 pt-24 pb-24 gap-12">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 pt-20 sm:pt-28 lg:pt-32 pb-16 gap-10">
         {/* Tagline */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-10 text-white">
+        <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
           {t("welcome")} <br /> {t("company")}
         </h1>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 m-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 w-full max-w-6xl px-4">
           {cardData.map((card, index) => (
             <div key={index} className="flex flex-col items-center gap-4">
-              <div className="flip-card w-64 h-64 sm:w-72 sm:h-72">
+              <div className="flip-card w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72">
                 <div className="flip-card-inner">
-                  {/* Front with Image */}
+                  {/* Front */}
                   <div className="flip-card-front rounded-xl overflow-hidden shadow-lg">
                     <img
                       src={card.frontImage}
@@ -143,8 +144,7 @@ const Home = () => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-
-                  {/* Back with Image */}
+                  {/* Back */}
                   <div className="flip-card-back rounded-xl overflow-hidden shadow-lg">
                     <img
                       src={card.backImage}
@@ -157,7 +157,7 @@ const Home = () => {
 
               {/* Know More Button */}
               <button
-                className="px-4 py-2 rounded-full border border-white text-white transition-all duration-300 hover:text-black font-medium"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm md:text-base font-medium transition-all duration-300"
                 style={{ borderColor: card.color }}
                 onMouseEnter={(e) => {
                   e.target.style.backgroundColor = card.color;
@@ -175,7 +175,7 @@ const Home = () => {
       </div>
 
       {/* Bottom Right Tagline */}
-      <div className="absolute bottom-4 right-4 z-10 text-right text-xs sm:text-sm md:text-base">
+      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 z-10 text-right text-xs sm:text-sm md:text-base">
         <h2 className="font-semibold">{t("previously")}</h2>
         <h3 className="italic">{t("oldName")}</h3>
       </div>

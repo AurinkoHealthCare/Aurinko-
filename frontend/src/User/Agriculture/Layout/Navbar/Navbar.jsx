@@ -22,7 +22,7 @@ const AgricultureNavbar = () => {
     <nav className="bg-white shadow-md fixed w-full z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link to="/agriculture" onClick={handleLinkClick}>
-          <img src="/Assets/AurinkoLogo2.png" alt="Aurinko Logo" className="w-28 h-auto" />
+          <img src="/Assets/AurinkoLogo2.png" alt="Aurinko Logo" className="w-[4.1rem] h-auto" />
         </Link>
 
         {/* Desktop Menu */}

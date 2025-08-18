@@ -1,64 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const First_page = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/api/products") // tumhari backend API
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error(err));
+  }, []);
+
   return (
-    <div className="flex flex-wrap justify-center gap-6 p-8 min-h-screen bg-gray-100">
-      
-      <div className="w-64 h-64 p-4 bg-white rounded-2xl shadow-lg text-center cursor-pointer transition-transform duration-300 hover:scale-105">
-        <Link to="/second">
+    <div className="flex flex-wrap justify-center gap-10 p-10 min-h-screen bg-gray-100">
+      {products.map((product, index) => (
+        <Link
+          to={`/product/${product.id}`}
+          key={index}
+          className="w-64 h-72 p-5 bg-white rounded-2xl shadow-md text-center cursor-pointer 
+                     transition-transform duration-300 hover:scale-105 border"
+        >
           <img
-            src="https://source.unsplash.com/400x250/?nature"
-            alt="Card One"
-            className="w-full h-40 object-cover rounded-xl mb-3"
+            src={product.productImage}
+            alt={product.name}
+            className="w-full h-40 object-cover rounded-xl mb-4"
           />
-          <p className="text-sm text-gray-600">Explore the beauty of nature.</p>
+          <p className="text-base font-medium text-gray-700">{product.name}</p>
         </Link>
-      </div>
-
-      <div className="w-64 h-64 p-4 bg-white rounded-2xl shadow-lg text-center cursor-pointer transition-transform duration-300 hover:scale-105">
-        <Link to="/second">
-          <img
-            src="https://source.unsplash.com/400x250/?technology"
-            alt="Card Two"
-            className="w-full h-40 object-cover rounded-xl mb-3"
-          />
-          <p className="text-sm text-gray-600">Latest innovations in technology.</p>
-        </Link>
-      </div>
-
-      <div className="w-64 h-64 p-4 bg-white rounded-2xl shadow-lg text-center cursor-pointer transition-transform duration-300 hover:scale-105">
-        <Link to="/second">
-          <img
-            src="https://source.unsplash.com/400x250/?travel"
-            alt="Card Three"
-            className="w-full h-40 object-cover rounded-xl mb-3"
-          />
-          <p className="text-sm text-gray-600">Discover amazing places around the world.</p>
-        </Link>
-      </div>
-
-      <div className="w-64 h-64 p-4 bg-white rounded-2xl shadow-lg text-center cursor-pointer transition-transform duration-300 hover:scale-105">
-        <Link to="/second">
-          <img
-            src="https://source.unsplash.com/400x250/?food"
-            alt="Card Four"
-            className="w-full h-40 object-cover rounded-xl mb-3"
-          />
-          <p className="text-sm text-gray-600">Delicious food and recipes.</p>
-        </Link>
-      </div>
-
-      <div className="w-64 h-64 p-4 bg-white rounded-2xl shadow-lg text-center cursor-pointer transition-transform duration-300 hover:scale-105">
-        <Link to="/second">
-          <img
-            src="https://source.unsplash.com/400x250/?sports"
-            alt="Card Five"
-            className="w-full h-40 object-cover rounded-xl mb-3"
-          />
-          <p className="text-sm text-gray-600">Exciting moments in sports.</p>
-        </Link>
-      </div>
+      ))}
     </div>
   );
 };

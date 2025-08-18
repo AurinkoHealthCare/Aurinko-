@@ -3,9 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
-import First_page from "./try_pages/first_page.jsx";
-import Second_page from "./try_pages/second_page.jsx";
-import Third_page from "./try_pages/third_page.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -250,9 +247,6 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
-          <Route path="/first" element={<First_page />} />
-          <Route path="/second" element={<Second_page />} />
-          <Route path="/third/:productId" element={<Third_page />} />
         </Routes>
       </Suspense>
     </div>
