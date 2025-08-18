@@ -350,16 +350,16 @@ const ProductManager = () => {
                 <p className="text-sm text-gray-600 mb-3">
                   <span className="font-medium">Segment:</span> {p.generalInfo?.segment || "-"}
                 </p>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button
                     onClick={() => startEdit(p)}
-                    className="flex-1 bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"
+                    className="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(p._id)}
-                    className="flex-1 bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700"
+                    className="flex-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
                   >
                     Delete
                   </button>

@@ -211,7 +211,7 @@ const Global_Providers = () => {
                 <img
                   src={product.image}
                   alt={displayData.name}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
                 />
               </div>
 
@@ -234,7 +234,7 @@ const Global_Providers = () => {
               <div className="mt-auto flex justify-between gap-3">
                 <button
                   onClick={() => handleEdit(product)}
-                  className="flex-1 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
+                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
                 >
                   ✏️ Edit
                 </button>
