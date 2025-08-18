@@ -101,7 +101,7 @@ const Gallery = ({ category }) => {
             onClick={(e) => reloadPage(e, `/${category}/videos`)}
           >
             <img
-              src="Assets/Media/Photos/25.jpeg"
+              src={randomImage ? randomImage.url : "Assets/Media/Photos/17.jpeg"}
               alt={`${category} Videos`}
               className="w-full h-48 object-cover rounded-t-xl"
             />
