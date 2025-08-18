@@ -76,7 +76,7 @@ const Gallery_view = () => {
                 <div className="flex justify-between">
                   <button
                     onClick={() => handleUpdate(img._id)}
-                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 transition"
+                    className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition"
                   >
                     Update
                   </button>

@@ -121,7 +121,7 @@ const Video_view = () => {
                 <div className="flex gap-2 mt-2">
                   <button
                     onClick={() => startEdit(video)}
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm"
                   >
                     Edit
                   </button>

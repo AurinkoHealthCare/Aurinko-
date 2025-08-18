@@ -160,8 +160,8 @@ const Banner = () => {
                   disabled={loading[img._id]}
                   className={`w-full px-3 py-1.5 text-sm font-medium rounded-lg transition duration-200 text-white ${
                     loading[img._id] === "updating"
-                      ? "bg-yellow-400 cursor-not-allowed"
-                      : "bg-yellow-500 hover:bg-yellow-600"
+                      ? "bg-blue-600 cursor-not-allowed"
+                      : "bg-blue-600 hover:bg-blue-700"
                   }`}
                 >
                   {loading[img._id] === "updating" ? "Updating..." : "Update"}

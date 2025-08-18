@@ -80,7 +80,7 @@ export default function VideoUpload({ onUploadSuccess }) {
         onClick={handleUpload}
         disabled={loading}
         className={`w-full py-2 rounded text-white font-semibold transition ${
-          loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-600 hover:bg-green-700"
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
         }`}
       >
         {loading ? "Uploading..." : "Upload Video"}

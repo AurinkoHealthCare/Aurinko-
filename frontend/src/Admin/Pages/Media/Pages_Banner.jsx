@@ -110,7 +110,6 @@ const Pages_Banner = () => {
     <div className="p-4">
       <h2 className="text-xl font-bold mb-4">Other Images</h2>
 
-      {/* Category Filter */}
       <div className="mb-4">
         <select
           value={selectedCategory}
@@ -125,7 +124,6 @@ const Pages_Banner = () => {
         </select>
       </div>
 
-      {/* Loading */}
       {loading ? (
         <div className="text-center py-10">
           <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500 mx-auto"></div>
@@ -136,13 +134,13 @@ const Pages_Banner = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {filteredImages.map((img) => (
-            <div key={img._id} className="border p-2 rounded shadow">
+            <div key={img._id} className="border rounded shadow bg-white p-3">
               {editId === img._id ? (
                 <div>
                   <img
                     src={editFields.previewUrl}
                     alt="Preview"
-                    className="w-full h-40 object-cover mb-2"
+                    className="w-full h-auto rounded-lg mb-2 object-contain"
                   />
                   <input type="file" onChange={handleFileChange} className="mb-2 w-full" />
                   <input
@@ -184,11 +182,15 @@ const Pages_Banner = () => {
                 </div>
               ) : (
                 <div>
-                  <img src={img.url} alt={img.imageName} className="w-full h-40 object-cover mb-2" />
-                  <p className="font-semibold">{img.imageName}</p>
-                  <p className="text-sm text-gray-600">{img.category}</p>
-                  <p className="text-xs text-gray-500">Lang: {img.lang}</p>
-                  <p className="text-xs text-gray-500">No: {img.no}</p>
+                  <img
+                    src={img.url}
+                    alt={img.imageName}
+                    className="w-full h-auto rounded-lg mb-2 object-contain"
+                  />
+                  <p className="font-semibold text-blue-600">{img.imageName}</p>
+                  <p className="text-sm text-green-600">Category: {img.category}</p>
+                  <p className="text-xs text-purple-500">Lang: {img.lang}</p>
+                  <p className="text-xs text-pink-500">No: {img.no}</p>
                   <div className="flex gap-2 mt-2">
                     <button onClick={() => startEdit(img)} className="bg-blue-500 text-white px-3 py-1 rounded">
                       Edit

@@ -17,14 +17,12 @@ const Reports_Articles = () => {
     file: null,
   });
 
-  // Fetch PDFs
   const fetchPdfs = async () => {
     try {
       setLoading(true);
       const res = await axios.get(`/pdf/${category}`);
       setPdfs(res.data.data || []);
     } catch (err) {
-      console.error("Error fetching PDFs:", err);
       toast.error("❌ Failed to fetch PDFs!");
       setPdfs([]);
     } finally {
@@ -36,21 +34,17 @@ const Reports_Articles = () => {
     fetchPdfs();
   }, [category]);
 
-  // Delete PDF
   const handleDelete = async (id) => {
     if (!window.confirm("⚠️ Are you sure you want to delete this PDF?")) return;
-
     try {
       await axios.delete(`/pdf/${id}`);
       toast.success("✅ PDF deleted!");
       fetchPdfs();
     } catch (err) {
-      console.error("Error deleting PDF:", err);
       toast.error("❌ Failed to delete PDF!");
     }
   };
 
-  // Start editing
   const handleEdit = (pdf) => {
     setEditingId(pdf._id);
     setEditForm({
@@ -61,7 +55,6 @@ const Reports_Articles = () => {
     });
   };
 
-  // File validation
   const validateFile = (file) => {
     if (!file) return true;
     if (file.type !== "application/pdf") {
@@ -75,7 +68,6 @@ const Reports_Articles = () => {
     return true;
   };
 
-  // Save update
   const handleUpdate = async (id) => {
     if (!editForm.title.trim()) {
       toast.warn("⚠️ Title is required!");
@@ -98,23 +90,21 @@ const Reports_Articles = () => {
       setEditingId(null);
       fetchPdfs();
     } catch (err) {
-      console.error("Error updating PDF:", err);
       toast.error("❌ Failed to update PDF!");
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-6 mt-6">
+    <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-4 sm:p-6">
       <h3 className="text-xl font-bold mb-5 text-gray-800 text-center">
         📑 PDF List
       </h3>
 
-      {/* Category filter */}
       <div className="flex justify-center mb-4">
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500"
+          className="border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 w-full sm:w-auto"
         >
           <option value="Reports">Reports</option>
           <option value="Articles">Articles</option>
@@ -126,15 +116,14 @@ const Reports_Articles = () => {
       ) : !Array.isArray(pdfs) || pdfs.length === 0 ? (
         <p className="text-center text-gray-500">No PDFs found.</p>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {pdfs.map((pdf) => (
             <li
               key={pdf._id}
-              className="border rounded-lg p-4 flex justify-between items-start"
+              className="border rounded-lg p-4 flex flex-col sm:flex-row justify-between gap-3"
             >
               {editingId === pdf._id ? (
-                <div className="flex-1 mr-4 space-y-2">
-                  {/* Title */}
+                <div className="flex-1 space-y-2">
                   <input
                     type="text"
                     value={editForm.title}
@@ -143,7 +132,6 @@ const Reports_Articles = () => {
                     }
                     className="border border-gray-300 p-2 rounded-lg w-full"
                   />
-                  {/* Details */}
                   <textarea
                     value={editForm.details}
                     onChange={(e) =>
@@ -153,7 +141,6 @@ const Reports_Articles = () => {
                     placeholder="Enter PDF details"
                     className="border border-gray-300 p-2 rounded-lg w-full resize-none"
                   />
-                  {/* Category */}
                   <select
                     value={editForm.category}
                     onChange={(e) =>
@@ -164,7 +151,6 @@ const Reports_Articles = () => {
                     <option value="Reports">Reports</option>
                     <option value="Articles">Articles</option>
                   </select>
-                  {/* File */}
                   <input
                     type="file"
                     accept="application/pdf"
@@ -173,8 +159,7 @@ const Reports_Articles = () => {
                     }
                     className="border border-gray-300 p-2 rounded-lg w-full"
                   />
-                  {/* Buttons */}
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <button
                       onClick={() => handleUpdate(pdf._id)}
                       disabled={loading}
@@ -191,10 +176,12 @@ const Reports_Articles = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex-1 mr-4">
-                  <p className="font-semibold">{pdf.title}</p>
+                <div className="flex-1">
+                  <p className="font-semibold break-words">{pdf.title}</p>
                   {pdf.details && (
-                    <p className="text-sm text-gray-600 italic">{pdf.details}</p>
+                    <p className="text-sm text-gray-600 italic break-words">
+                      {pdf.details}
+                    </p>
                   )}
                   <p className="text-sm text-gray-500">{pdf.category}</p>
                   <a
@@ -209,17 +196,17 @@ const Reports_Articles = () => {
               )}
 
               {editingId !== pdf._id && (
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap sm:flex-col sm:items-end">
                   <button
                     onClick={() => handleEdit(pdf)}
-                    className="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600"
+                    className="bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 w-full sm:w-auto"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(pdf._id)}
                     disabled={loading}
-                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 disabled:opacity-50"
+                    className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-red-700 disabled:opacity-50 w-full sm:w-auto"
                   >
                     Delete
                   </button>
@@ -231,6 +218,6 @@ const Reports_Articles = () => {
       )}
     </div>
   );
-}
+};
 
 export default Reports_Articles;

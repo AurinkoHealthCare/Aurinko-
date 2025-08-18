@@ -53,18 +53,18 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f6f8] flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-6xl backdrop-blur-lg bg-white/10 border border-white/30 text-white p-10 m-4 rounded-3xl shadow-2xl">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-10">
+    <div className="min-h-screen bg-[#f4f6f8] flex items-center justify-center px-3 py-6">
+      <div className="w-full max-w-5xl bg-white/80 border border-gray-200 text-gray-900 p-6 md:p-10 rounded-3xl shadow-lg">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10 text-blue-700">
           Upload Slider Images
         </h2>
 
         {/* Category & Language Select */}
-        <div className="flex flex-col md:flex-row gap-6 justify-center mb-8">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center mb-6">
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="px-4 py-3 rounded-xl border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-700 focus:ring-2 focus:ring-blue-500"
           >
             <option value="Human">Human</option>
             <option value="Veterinary">Veterinary</option>
@@ -74,7 +74,7 @@ const ImageSlider = () => {
           <select
             value={lang}
             onChange={(e) => setLang(e.target.value)}
-            className="px-4 py-3 rounded-xl border border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-3 rounded-xl border border-gray-300 bg-white text-gray-700 focus:ring-2 focus:ring-blue-500"
           >
             <option value="en">English</option>
             <option value="fr">French</option>
@@ -85,12 +85,12 @@ const ImageSlider = () => {
         </div>
 
         {/* Image Upload Grid */}
-        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+        <div className="grid gap-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-3">
           {images.map((_, index) => (
             <div key={index} className="flex flex-col items-center gap-2">
               <label
                 htmlFor={`image-input-${index}`}
-                className="w-full h-48 rounded-xl bg-gray-100 border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 transition-all overflow-hidden"
+                className="w-full aspect-square rounded-xl bg-gray-50 border-2 border-dashed border-gray-300 flex items-center justify-center cursor-pointer hover:border-blue-400 transition-all overflow-hidden"
               >
                 {previews[index] ? (
                   <img
@@ -99,7 +99,7 @@ const ImageSlider = () => {
                     className="h-full w-full object-contain p-2"
                   />
                 ) : (
-                  <span className="text-gray-400">
+                  <span className="text-gray-400 text-sm text-center">
                     Select Image {index + 1}
                   </span>
                 )}
@@ -116,14 +116,14 @@ const ImageSlider = () => {
         </div>
 
         {/* Submit Button */}
-        <div className="mt-10 text-center">
+        <div className="mt-8 text-center">
           <button
             onClick={handleSubmit}
             className={`${
               loading
                 ? "bg-blue-400 cursor-not-allowed animate-pulse"
                 : "bg-blue-600 hover:bg-blue-700"
-            } text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300`}
+            } text-white text-lg font-semibold px-8 py-3 rounded-full shadow-md transition-all duration-300 w-full sm:w-auto`}
             disabled={loading}
           >
             {loading ? "Uploading..." : "Submit"}
