@@ -32,8 +32,8 @@ const Global_Providers = () => {
       setFilteredProducts(products);
     } else {
       setFilteredProducts(
-        products.filter((p) =>
-          p.category.toLowerCase() === selectedCategory.toLowerCase()
+        products.filter(
+          (p) => p.category.toLowerCase() === selectedCategory.toLowerCase()
         )
       );
     }
@@ -46,7 +46,6 @@ const Global_Providers = () => {
       setProducts(data);
       setFilteredProducts(data);
 
-      // Extract unique categories
       const uniqueCategories = [
         ...new Set(data.map((p) => p.category).filter(Boolean)),
       ];
@@ -179,15 +178,155 @@ const Global_Providers = () => {
         </select>
       </div>
 
-      {loading && <p className="text-center text-blue-600 mb-6">⏳ Loading...</p>}
+      {loading && (
+        <p className="text-center text-blue-600 mb-6">⏳ Loading...</p>
+      )}
 
-      {/* The Edit Form remains unchanged */}
+      {/* Edit Form */}
       {editingId && (
-        <form onSubmit={handleUpdate} className="border border-gray-200 rounded-2xl shadow-lg p-6 bg-white mb-10">
-          {/* Form Fields (same as before) */}
+        <form
+          onSubmit={handleUpdate}
+          className="border border-gray-200 rounded-2xl shadow-lg p-6 bg-white mb-10"
+        >
+          <h2 className="text-xl font-bold mb-4 text-blue-700">
+            ✏️ Edit Product
+          </h2>
+
+          {/* Name */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="w-full border p-2 rounded-lg"
+              required
+            />
+          </div>
+
+          {/* Category */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Category
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              className="w-full border p-2 rounded-lg"
+              required
+            />
+          </div>
+
+          {/* Details */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Details
+            </label>
+            <textarea
+              name="details"
+              value={formData.details}
+              onChange={handleChange}
+              className="w-full border p-2 rounded-lg"
+              rows="4"
+            />
+          </div>
+
+          {/* Rating */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Rating
+            </label>
+            <input
+              type="number"
+              name="rating"
+              min="0"
+              max="5"
+              value={formData.rating}
+              onChange={handleChange}
+              className="w-full border p-2 rounded-lg"
+            />
+          </div>
+
+          {/* Image */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Image
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="w-full"
+            />
+            {formData.preview && (
+              <img
+                src={formData.preview}
+                alt="Preview"
+                className="mt-2 h-32 object-contain rounded-lg border"
+              />
+            )}
+          </div>
+
+          {/* Translations */}
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-800 mb-2">🌍 Translations</h3>
+            {["fr", "es", "ar", "ko"].map((langKey) => (
+              <div key={langKey} className="border p-3 mb-3 rounded-lg">
+                <p className="font-medium text-gray-700 uppercase mb-2">
+                  {langKey}
+                </p>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  value={formData.translations[langKey]?.name || ""}
+                  onChange={(e) => handleTranslationChange(e, langKey)}
+                  className="w-full border p-2 rounded mb-2"
+                />
+                <input
+                  type="text"
+                  name="category"
+                  placeholder="Category"
+                  value={formData.translations[langKey]?.category || ""}
+                  onChange={(e) => handleTranslationChange(e, langKey)}
+                  className="w-full border p-2 rounded mb-2"
+                />
+                <textarea
+                  name="details"
+                  placeholder="Details"
+                  value={formData.translations[langKey]?.details || ""}
+                  onChange={(e) => handleTranslationChange(e, langKey)}
+                  className="w-full border p-2 rounded"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-end gap-4">
+            <button
+              type="button"
+              onClick={() => setEditingId(null)}
+              className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+            >
+              ✅ Update
+            </button>
+          </div>
         </form>
       )}
 
+      {/* Product Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredProducts.map((product, index) => {
           const productId = product.productId;
@@ -198,8 +337,10 @@ const Global_Providers = () => {
               : {
                   ...product,
                   name: product.translations[lang]?.name || product.name,
-                  category: product.translations[lang]?.category || product.category,
-                  details: product.translations[lang]?.details || product.details,
+                  category:
+                    product.translations[lang]?.category || product.category,
+                  details:
+                    product.translations[lang]?.details || product.details,
                 };
 
           return (
@@ -215,7 +356,9 @@ const Global_Providers = () => {
                 />
               </div>
 
-              <h3 className="text-lg font-bold text-gray-800 mb-1">{displayData.name}</h3>
+              <h3 className="text-lg font-bold text-gray-800 mb-1">
+                {displayData.name}
+              </h3>
               <p className="text-sm text-gray-500 mb-1">
                 <span className="font-semibold text-gray-600">Category:</span>{" "}
                 {displayData.category}

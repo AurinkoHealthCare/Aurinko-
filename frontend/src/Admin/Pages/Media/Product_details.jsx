@@ -6,7 +6,8 @@ const ProductManager = () => {
   const [loading, setLoading] = useState(true);
   const [editProduct, setEditProduct] = useState(null);
   const [formData, setFormData] = useState(initialFormData());
-  const [segmentFilter, setSegmentFilter] = useState(""); // ✅ New state
+  const [segmentFilter, setSegmentFilter] = useState("");
+  const [activeLang, setActiveLang] = useState("en"); // ✅ For language tabs
 
   function initialFormData() {
     return {
@@ -89,11 +90,13 @@ const ProductManager = () => {
       productLogo: null,
       translations: product.translations || { fr: {}, es: {}, ar: {}, ko: {} },
     });
+    setActiveLang("en"); // ✅ reset to English tab
   };
 
   const cancelEdit = () => {
     setEditProduct(null);
     setFormData(initialFormData());
+    setActiveLang("en");
   };
 
   const handleUpdateProduct = async (e) => {
@@ -167,7 +170,7 @@ const ProductManager = () => {
         </select>
       </div>
 
-      {/* ✅ Original Form */}
+      {/* ✅ Edit Form */}
       {editProduct && (
         <form
           onSubmit={handleUpdateProduct}
@@ -186,109 +189,89 @@ const ProductManager = () => {
 
           <h2 className="text-lg font-semibold mb-3 text-green-800">Edit Product</h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
-            {[
-              "name",
-              "details",
-              "segment",
-              "type",
-              "category",
-              "packing",
-              "composition",
-              "indications",
-              "usage",
-              "feedback",
-            ].map((field) => (
-              <div key={field}>
-                <label className="text-sm font-medium capitalize">{field}</label>
-                <input
-                  type="text"
-                  name={field}
-                  value={formData[field]}
-                  onChange={handleInputChange}
-                  required={field === "name" || field === "category" || field === "details"}
-                  className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
-                />
-              </div>
+          {/* ✅ Language Tabs */}
+          <div className="flex gap-2 mb-4">
+            {["en", "fr", "es", "ar", "ko"].map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => setActiveLang(lang)}
+                className={`px-3 py-1.5 rounded text-sm font-medium ${
+                  activeLang === lang ? "bg-green-600 text-white" : "bg-gray-200"
+                }`}
+              >
+                {lang.toUpperCase()}
+              </button>
             ))}
-
-            {/* Report Field */}
-            <div>
-              <label className="block text-sm font-medium">Report</label>
-              <input type="file" name="report" onChange={handleFileChange} />
-              <input
-                type="text"
-                name="report"
-                placeholder="Or enter report URL/text"
-                value={typeof formData.report === "string" ? formData.report : ""}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded px-2 py-1 text-sm mt-1"
-              />
-              {editProduct?.report && (
-                <a
-                  href={editProduct.report}
-                  target="_blank"
-                  className="text-xs text-blue-600 underline"
-                >
-                  View current report
-                </a>
-              )}
-            </div>
-
-            {/* Brochure Field */}
-            <div>
-              <label className="block text-sm font-medium">Brochure</label>
-              <input type="file" name="brochure" onChange={handleFileChange} />
-              <input
-                type="text"
-                name="brochure"
-                placeholder="Or enter brochure URL/text"
-                value={typeof formData.brochure === "string" ? formData.brochure : ""}
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 rounded px-2 py-1 text-sm mt-1"
-              />
-              {editProduct?.brochure && (
-                <a
-                  href={editProduct.brochure}
-                  target="_blank"
-                  className="text-xs text-blue-600 underline"
-                >
-                  View current brochure
-                </a>
-              )}
-            </div>
           </div>
 
-          {["fr", "es", "ar", "ko"].map((langKey) => (
-            <div key={langKey} className="mb-4 border-t pt-3">
-              <h4 className="font-semibold text-sm mb-2">{langKey.toUpperCase()} Translation</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {[
-                  "name",
-                  "details",
-                  "segment",
-                  "type",
-                  "category",
-                  "packing",
-                  "composition",
-                  "indications",
-                  "usage",
-                ].map((field) => (
-                  <div key={field}>
-                    <label className="text-sm font-medium capitalize">{field}</label>
-                    <input
-                      type="text"
-                      name={field}
-                      value={formData.translations[langKey]?.[field] || ""}
-                      onChange={(e) => handleTranslationChange(e, langKey)}
-                      placeholder={`${field} (${langKey})`}
-                      className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
-                    />
-                  </div>
-                ))}
-              </div>
+          {/* ✅ English Form */}
+          {activeLang === "en" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              {["name", "segment", "type", "category", "packing", "feedback"].map((field) => (
+                <div key={field}>
+                  <label className="text-sm font-medium capitalize">{field}</label>
+                  <input
+                    type="text"
+                    name={field}
+                    value={formData[field]}
+                    onChange={handleInputChange}
+                    required={field === "name" || field === "category"}
+                    className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                  />
+                </div>
+              ))}
+
+              {["details", "composition", "indications", "usage"].map((field) => (
+                <div key={field} className="md:col-span-2">
+                  <label className="text-sm font-medium capitalize">{field}</label>
+                  <textarea
+                    name={field}
+                    rows={4}
+                    value={formData[field]}
+                    onChange={handleInputChange}
+                    className="w-full border border-gray-300 rounded px-2 py-2 text-sm"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          )}
+
+          {/* ✅ Translations */}
+          {["fr", "es", "ar", "ko"].map((langKey) =>
+            activeLang === langKey ? (
+              <div key={langKey} className="mb-4">
+                <h4 className="font-semibold text-sm mb-2">{langKey.toUpperCase()} Translation</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                  {["name", "segment", "type", "category", "packing", "feedback"].map((field) => (
+                    <div key={field}>
+                      <label className="text-sm font-medium capitalize">{field}</label>
+                      <input
+                        type="text"
+                        name={field}
+                        value={formData.translations[langKey][field] || ""}
+                        onChange={(e) => handleTranslationChange(e, langKey)}
+                        className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                      />
+                    </div>
+                  ))}
+
+                  {["details", "composition", "indications", "usage"].map((field) => (
+                    <div key={field} className="md:col-span-2">
+                      <label className="text-sm font-medium capitalize">{field}</label>
+                      <textarea
+                        name={field}
+                        rows={4}
+                        value={formData.translations[langKey][field] || ""}
+                        onChange={(e) => handleTranslationChange(e, langKey)}
+                        className="w-full border border-gray-300 rounded px-2 py-2 text-sm"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null
+          )}
 
           <div className="flex gap-3 mt-4">
             <button
@@ -308,7 +291,7 @@ const ProductManager = () => {
         </form>
       )}
 
-      {/* Cards */}
+      {/* ✅ Product Cards */}
       <div className="p-4">
         <h2 className="text-lg font-semibold mb-3">All Products</h2>
         {filteredProducts.length === 0 ? (
@@ -333,11 +316,7 @@ const ProductManager = () => {
                       />
                     )}
                     {p.productLogo && (
-                      <img
-                        src={p.productLogo}
-                        alt="Logo"
-                        className="h-10 object-contain"
-                      />
+                      <img src={p.productLogo} alt="Logo" className="h-10 object-contain" />
                     )}
                   </div>
                 </div>

@@ -255,7 +255,6 @@ function App() {
             <Route path='/dashboard/feedback' element={<Feedback />} />
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="/loader" element={<HorizontalBounceLoader />} />
           <Route path="*" element={<NotFound404 homeHref="/"/>} />
         </Routes>
       </Suspense>
