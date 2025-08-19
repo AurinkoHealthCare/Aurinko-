@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
+import NotFound404 from "../utils/component/pagenotfound.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -247,6 +248,7 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/loader" element={<HorizontalBounceLoader />} />
+          <Route path="*" element={<NotFound404 homeHref="/"/>} />
         </Routes>
       </Suspense>
     </div>

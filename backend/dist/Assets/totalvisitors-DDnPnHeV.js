@@ -1,1 +1,0 @@
-import{r as t,a as s}from"./index-Dg0sH7Ks.js";const c=()=>{t.useEffect(()=>{(async()=>{try{const r=await s.get("/visitors/track",{withCredentials:!0})}catch(r){console.error("🔴 Error tracking visitor:",r.message)}})()},[])};export{c as default};
