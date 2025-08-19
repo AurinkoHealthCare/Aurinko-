@@ -74,8 +74,8 @@ const FloatingSocialMenu = () => {
   // Links & colors easily change ho sake
   const icons = [
     { icon: <FaFacebookF />, link: "https://facebook.com", bg: "linear-gradient(135deg, #3b5998, #1877f2)" },
-    { icon: <FaInstagram />, link: "https://instagram.com", bg: "linear-gradient(135deg, #f58529, #dd2a7b)" },
-    { icon: <FaLinkedinIn />, link: "https://linkedin.com", bg: "linear-gradient(135deg, #0072b1, #005582)" },
+    { icon: <FaInstagram />, link: "https://www.instagram.com/aurinko_healthcare/", bg: "linear-gradient(135deg, #f58529, #dd2a7b)" },
+    { icon: <FaLinkedinIn />, link: "https://www.linkedin.com/in/aurinko-healthcare-5a2471b8/", bg: "linear-gradient(135deg, #0072b1, #005582)" },
     { icon: <FaUser />, link: "/human", bg: "#b30800" }, // Human - Red
     { icon: <FaPaw />, link: "/veterinary", bg: "#1f3ad1" }, // Veterinary - Blue
     { icon: <FaLeaf />, link: "/agriculture", bg: "#01421d" }, // Agriculture - Dark Green
