@@ -129,8 +129,8 @@ const Home = () => {
         <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
           {t("welcome")} <br /> {t("company")}
         </h1>
-        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-          {t("previously")} : {t("oldName")}
+        <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl">
+          ({t("previously")} {t("oldName")})
         </h2>
 
         {/* Cards Section */}

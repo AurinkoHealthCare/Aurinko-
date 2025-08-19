@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { reviews } from "../Data/data";
+import { reviews } from "../Data/data.jsx";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -38,7 +38,7 @@ const Block6 = () => {
           {t("block6.healthMessage")}
         </p>
 
-        <Link to="/contact-us" onClick={(e) => reloadPage(e, "/contact-us")}>
+        <Link to="/agriculture/contact-us" onClick={(e) => reloadPage(e, "/agriculture/contact_us")}>
           <button className="group inline-flex items-center gap-2 px-8 py-3 rounded-full bg-[#01421d] text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300 hover:scale-105">
             {t("block6.enrollNow")}
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
@@ -54,7 +54,7 @@ const Block6 = () => {
         <div className="h-1 w-48 bg-gradient-to-r from-green-600 to-[#01421d] rounded-full mx-auto" />
 
         <Link
-          to="https://www.google.com/maps/place/Aurinko+Healthcare+Private+Limited"
+          to="https://www.google.com/maps/place/Aurinko+Healthcare+Private+Limited/@28.3483296,77.3439278,15z/data=!4m6!3m5!1s0x390cdb9766d62aab:0x499dcf82d3074077!8m2!3d28.3499707!4d77.3450554!16s%2Fg%2F11shjs9rvx?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D"
           target="_blank"
         >
           <button className="mt-2 px-6 py-3 bg-[#01421d] text-white text-base font-medium rounded-full shadow-lg hover:bg-green-700 transition duration-300 hover:scale-105">

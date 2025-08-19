@@ -70,11 +70,6 @@ const Poultry = () => {
               alt={headerImage.imageName}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 flex flex-col justify-center items-center text-[#1500b3]">
-              <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl relative text-center mb-6">
-                {headerImage.imageName}
-              </h1>
-            </div>
           </div>
         ) : (
           <div className="w-full h-64 flex items-center justify-center bg-gray-100">
