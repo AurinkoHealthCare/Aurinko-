@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
+import Blog1 from "./User/Pages/Media/Blog/blog1.jsx";
+import Blog2 from "./User/Pages/Media/Blog/blog2.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -121,6 +123,8 @@ function App() {
             <Route path="/human/videos" element={<VideoGallery />} />
             <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
             <Route path="/human/blog" element={<Blog />} />
+            <Route path="/human/blog/blog1" element={<Blog1 theme="red" />} />
+            <Route path="/human/blog/blog2" element={<Blog2 theme="red" />} />
             <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
             {/* Ingredients */}
@@ -163,6 +167,8 @@ function App() {
             <Route path="/veterinary/videos" element={<VideoGallery />} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
+            <Route path="/veterinary/blog/blog1" element={<Blog1 theme="blue" />} />
+            <Route path="/veterinary/blog/blog2" element={<Blog2 theme="blue" />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
             {/* Ingredients */}
@@ -199,6 +205,8 @@ function App() {
             <Route path="/agriculture/videos" element={<VideoGallery />} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
             <Route path="/agriculture/blog" element={<Blog />} />
+            <Route path="/agriculture/blog/blog1" element={<Blog1 theme="green" />} />
+            <Route path="/agriculture/blog/blog2" element={<Blog2 theme="green" />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
 
             {/* Ingredients */}
