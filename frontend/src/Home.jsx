@@ -129,6 +129,9 @@ const Home = () => {
         <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
           {t("welcome")} <br /> {t("company")}
         </h1>
+        <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl">
+          {t("previously")} : {t("oldName")}
+        </h2>
 
         {/* Cards Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 w-full max-w-6xl px-4">
@@ -172,12 +175,6 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Bottom Right Tagline */}
-      <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4 z-10 text-right text-xs sm:text-sm md:text-base">
-        <h2 className="font-semibold">{t("previously")}</h2>
-        <h3 className="italic">{t("oldName")}</h3>
       </div>
     </div>
   );
