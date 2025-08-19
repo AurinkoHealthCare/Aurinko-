@@ -3,12 +3,9 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
-<<<<<<< HEAD
 import Blog1 from "./User/Pages/Media/Blog/blog1.jsx";
 import Blog2 from "./User/Pages/Media/Blog/blog2.jsx";
-=======
 import NotFound404 from "../utils/component/pagenotfound.jsx";
->>>>>>> d24ef025f27a73113e91dcce7963998789fb8eb1
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
