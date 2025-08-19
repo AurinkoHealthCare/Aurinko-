@@ -3,8 +3,6 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
-import Blog1 from "./User/Pages/Media/Blog/blog1.jsx";
-import Blog2 from "./User/Pages/Media/Blog/blog2.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
 
 // Lazy Imports
@@ -76,6 +74,8 @@ const Report = lazy(() => import("./Admin/Pages/Pages/Media/Reports"));
 const Gallerys = lazy(() => import("./Admin/Pages/Pages/Media/Gallery"));
 const Brochure = lazy(() => import("./Admin/Pages/Pages/Media/Brochures"));
 const Blogs = lazy(() => import("./Admin/Pages/Pages/Media/Blogs"));
+const Blog1 = lazy(() => import("./User/Pages/Media/Blog/blog1.jsx"));
+const Blog2 = lazy(() => import("./User/Pages/Media/Blog/blog2.jsx"));
 const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
 const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
 const Video_view = lazy(() => import("./Admin/Pages/Media/video_view.jsx"));
