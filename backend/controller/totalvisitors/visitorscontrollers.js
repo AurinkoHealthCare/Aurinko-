@@ -2,12 +2,12 @@ const axios = require("axios");
 const Visitor = require("../../model/totalvisitors/totalvisitorschema");
 const { v4: uuidv4 } = require("uuid");
 
-// Helper for correct IP detection
+// ✅ Helper for correct IP detection
 const getClientIp = (req) => {
   let ip =
     req.headers["cf-connecting-ip"] || // Cloudflare
     (req.headers["x-forwarded-for"] ? req.headers["x-forwarded-for"].split(",")[0].trim() : null) ||
-    req.headers["x-real-ip"] || // Nginx
+    req.headers["x-real-ip"] || // Nginx / proxy
     req.socket.remoteAddress;
 
   if (ip && ip.startsWith("::ffff:")) ip = ip.replace("::ffff:", "");
@@ -15,12 +15,43 @@ const getClientIp = (req) => {
   return ip;
 };
 
+// ✅ Get Geo Info safely
+const getGeoInfo = async (ip) => {
+  if (!ip || ip === "127.0.0.1") {
+    return { country: "Localhost", region: "Local", city: "Local" };
+  }
+
+  try {
+    const { data } = await axios.get(`http://ip-api.com/json/${ip}`, { timeout: 2500 });
+    return {
+      country: data?.country || "Unknown",
+      region: data?.regionName || "Unknown",
+      city: data?.city || "Unknown",
+    };
+  } catch (err) {
+    console.error("🌍 Geo API Error:", err.message);
+    return { country: "Unknown", region: "Unknown", city: "Unknown" };
+  }
+};
+
+// ✅ Aggregate visitors by location
+const getAllVisitorsGrouped = async () => {
+  return Visitor.aggregate([
+    {
+      $group: {
+        _id: { country: "$country", region: "$region", city: "$city" },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+};
+
 const trackVisitor = async (req, res) => {
   try {
     const ip = getClientIp(req);
     const userAgent = req.headers["user-agent"] || "Unknown";
 
-    // Step 1: Check or create visitorId cookie
+    // Step 1: Handle visitorId cookie
     let visitorId = req.cookies.visitorId;
     if (!visitorId) {
       visitorId = uuidv4();
@@ -28,27 +59,19 @@ const trackVisitor = async (req, res) => {
         maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
         httpOnly: true,
         sameSite: "Lax",
-        secure: process.env.NODE_ENV === "production", // only secure in prod
+        secure: process.env.NODE_ENV === "production",
       });
     }
 
-    // Step 2: Look for existing visitor
+    // Step 2: Check if visitor exists
     let visitor = await Visitor.findOne({ visitorId });
 
     if (visitor) {
-      // Update visit history
       visitor.lastVisit = new Date();
       visitor.visits.push({ ip, date: new Date() });
       await visitor.save();
 
-      const allVisitors = await Visitor.aggregate([
-        {
-          $group: {
-            _id: { country: "$country", region: "$region", city: "$city" },
-            count: { $sum: 1 },
-          },
-        },
-      ]);
+      const allVisitors = await getAllVisitorsGrouped();
 
       return res.json({
         success: true,
@@ -58,45 +81,22 @@ const trackVisitor = async (req, res) => {
       });
     }
 
-    // Step 3: Fetch geo info (skip for localhost)
-    let country = "Unknown",
-      regionName = "Unknown",
-      city = "Unknown";
+    // Step 3: Fetch geo info
+    const { country, region, city } = await getGeoInfo(ip);
 
-    try {
-      if (ip !== "127.0.0.1") {
-        const geo = await axios.get(`http://ip-api.com/json/${ip}`, {
-          timeout: 3000,
-        });
-        country = geo.data.country || "Unknown";
-        regionName = geo.data.regionName || "Unknown";
-        city = geo.data.city || "Unknown";
-      }
-    } catch (geoErr) {
-      console.error("Geo API Error:", geoErr.message);
-    }
-
-    // Step 4: Save new visitor
+    // Step 4: Create new visitor
     visitor = new Visitor({
       visitorId,
       ip,
       userAgent,
       country,
-      region: regionName,
+      region,
       city,
       visits: [{ ip, date: new Date() }],
     });
 
     await visitor.save();
-
-    const allVisitors = await Visitor.aggregate([
-      {
-        $group: {
-          _id: { country: "$country", region: "$region", city: "$city" },
-          count: { $sum: 1 },
-        },
-      },
-    ]);
+    const allVisitors = await getAllVisitorsGrouped();
 
     res.json({
       success: true,
@@ -105,8 +105,8 @@ const trackVisitor = async (req, res) => {
       allVisits: allVisitors,
     });
   } catch (err) {
-    console.error("Track Error:", err.message);
-    res.status(500).json({ success: false, error: "Server Error" });
+    console.error("🔥 Track Error:", err.message);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
 };
 
