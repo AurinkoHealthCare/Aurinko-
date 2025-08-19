@@ -61,7 +61,7 @@ app.use("/api/pdf", require("./router/pdf/pdfRouter"));
 app.use("/api/gallery", require("./router/galleryRouter/gallery"));
 app.use("/api/otherimage", require("./router/otherimagesRouter/otherimage"));
 app.use("/api/brochures", require("./router/brochures/brochures"));
-app.use("/api/products", require("./utils/searchrouter")); // ⚠️ Duplicate prefix? (better merge)
+app.use("/api/products-search", require("./utils/searchrouter")); // ⚠️ Duplicate prefix? (better merge)
 app.use("/api/video", require("./router/videoRouter/video"));
 
 // ✅ 404 Handler

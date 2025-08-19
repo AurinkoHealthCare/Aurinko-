@@ -15,7 +15,7 @@ const Search_bar = () => {
       }
       setLoading(true)
       axios
-        .get(`/products/search?q=${encodeURIComponent(query)}`)
+        .get(`/products-search/search?q=${encodeURIComponent(query)}`)
         .then(res => {
           setResults(res.data)
           setLoading(false)
