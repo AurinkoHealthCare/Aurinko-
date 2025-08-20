@@ -21,6 +21,10 @@ import enExport from './locales/en/export.json';
 import enVisionMission from './locales/en/visionmission.json';
 // Manufacturing
 import enManufacturing from './locales/en/manufacturing.json';
+// Gallery
+import enGallery from './locales/en/gallery.json';
+// Blog
+import enBlog from './locales/en/blog.json';
 // Research
 import enResearch from './locales/en/research_development.json';
 // Ingredients
@@ -47,6 +51,10 @@ import arExport from './locales/ar/export.json';
 import arVisionMission from './locales/ar/visionmission.json';
 // Manufacturing
 import arManufacturing from './locales/ar/manufacturing.json';
+// Gallery
+import arGallery from './locales/ar/gallery.json';
+// Blog
+import arBlog from './locales/ar/blog.json';
 // Research
 import arResearch from './locales/ar/research_development.json';
 // Ingredients
@@ -73,6 +81,10 @@ import frExport from './locales/fr/export.json';
 import frVisionMission from './locales/fr/visionmission.json';
 // Manufacturing
 import frManufacturing from './locales/fr/manufacturing.json';
+// Gallery
+import frGallery from './locales/fr/gallery.json';
+// Blog
+import frBlog from './locales/fr/blog.json';
 // Research
 import frResearch from './locales/fr/research_development.json';
 // Ingredients
@@ -99,6 +111,10 @@ import koExport from './locales/ko/export.json';
 import koVisionMission from './locales/ko/visionmission.json';
 // Manufacturing
 import koManufacturing from './locales/ko/manufacturing.json';
+// Gallery
+import koGallery from './locales/ko/gallery.json';
+// Blog
+import koBlog from './locales/ko/blog.json';
 // Research
 import koResearch from './locales/ko/research_development.json';
 // Ingredients
@@ -125,6 +141,10 @@ import esExport from './locales/es/export.json';
 import esVisionMission from './locales/es/visionmission.json';
 // Manufacturing
 import esManufacturing from './locales/es/manufacturing.json';
+// Gallery
+import esGallery from './locales/es/gallery.json';
+// Blog
+import esBlog from './locales/es/blog.json';
 // Research
 import esResearch from './locales/es/research_development.json';
 // Ingredients
@@ -152,6 +172,8 @@ i18n
         export: enExport,
         visionmission: enVisionMission,
         manufacturing: enManufacturing,
+        gallery: enGallery,
+        blog: enBlog,
         research_development: enResearch,
         ingredients: enIngredients,
         contact: enContact,
@@ -167,6 +189,8 @@ i18n
         export: arExport,
         visionmission: arVisionMission,
         manufacturing: arManufacturing,
+        gallery: arGallery,
+        blog: arBlog,
         research_development: arResearch,
         ingredients: arIngredients,
         contact: arContact,
@@ -182,6 +206,8 @@ i18n
         export: frExport,
         visionmission: frVisionMission,
         manufacturing: frManufacturing,
+        gallery: frGallery,
+        blog: frBlog,
         research_development: frResearch,
         ingredients: frIngredients,
         contact: frContact,
@@ -197,6 +223,8 @@ i18n
         export: koExport,
         visionmission: koVisionMission,
         manufacturing: koManufacturing,
+        gallery: koGallery,
+        blog: koBlog,
         research_development: koResearch,
         ingredients: koIngredients,
         contact: koContact,
@@ -212,6 +240,8 @@ i18n
         export: esExport,
         visionmission: esVisionMission,
         manufacturing: esManufacturing,
+        gallery: esGallery,
+        blog: esBlog,
         research_development: esResearch,
         ingredients: esIngredients,
         contact: esContact,

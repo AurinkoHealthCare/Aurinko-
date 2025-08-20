@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "../../../../../api/axios";
 import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 
 const PhotoGallery = () => {
+   const { t } = useTranslation("gallery");
   const [images, setImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -38,7 +40,7 @@ const PhotoGallery = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        📸 Photo Gallery
+        📸 {t("Photo_Gallery")}
       </motion.h1>
 
       {images.length === 0 ? (

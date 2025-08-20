@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "../../../../../api/axios";
+import { useTranslation } from 'react-i18next';
 
 const Gallery = ({ category }) => {
+  const { t } = useTranslation("gallery");
+
   const [images, setImages] = useState([]);
   const [randomImage, setRandomImage] = useState(null);
 
@@ -50,7 +53,7 @@ const Gallery = ({ category }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        📷 Explore Our Stunning Gallery 🎬
+        📷 {t("heading1")} 🎬
       </motion.h1>
 
       <motion.p
@@ -59,8 +62,7 @@ const Gallery = ({ category }) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.6 }}
       >
-        Dive into a world of breathtaking photos and immersive videos.
-        Click below to explore our collections!
+        {t("heading2")}
       </motion.p>
 
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
@@ -82,8 +84,8 @@ const Gallery = ({ category }) => {
               className="w-full h-48 object-cover rounded-t-xl"
             />
             <div className="p-6 text-center">
-              <h2 className="text-2xl font-bold">📸 View Photos</h2>
-              <p className="text-gray-700 mt-2">Explore our beautiful moments.</p>
+              <h2 className="text-2xl font-bold">📸 {t("View_Photos")}</h2>
+              <p className="text-gray-700 mt-2">{t("Photos_Description")}</p>
             </div>
           </Link>
         </motion.div>
@@ -106,8 +108,8 @@ const Gallery = ({ category }) => {
               className="w-full h-48 object-cover rounded-t-xl"
             />
             <div className="p-6 text-center">
-              <h2 className="text-2xl font-bold">🎥 Watch Videos</h2>
-              <p className="text-gray-700 mt-2">Experience moments in motion.</p>
+              <h2 className="text-2xl font-bold">🎥 {t("View_Videos")}</h2>
+              <p className="text-gray-700 mt-2">{t("Videos_Description")}</p>
             </div>
           </Link>
         </motion.div>

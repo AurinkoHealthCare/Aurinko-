@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "../../../../../api/axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import { useTranslation } from 'react-i18next';
 
 const VideoGallery = () => {
+  const { t } = useTranslation("gallery");
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +35,7 @@ const VideoGallery = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        🎬 Explore Videos Categories
+        🎬 {t("videos_Gallery")}
       </motion.h1>
 
       {loading && <p className="text-gray-500 text-center">Loading videos...</p>}
