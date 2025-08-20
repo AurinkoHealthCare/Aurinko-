@@ -46,13 +46,22 @@ exports.uploadImages = async (req, res) => {
 // Get Images
 exports.getImages = async (req, res) => {
   try {
-    const { category, lang } = req.params;
-    const images = await ImageSlider.find({ category, lang }).sort({ no: 1 });
+    let { category, lang } = req.params;
+
+    // normalize lang like "en-GB" → "en"
+    lang = lang.split("-")[0];
+
+    const images = await ImageSlider.find({
+      category: new RegExp(`^${category}$`, "i"), // case-insensitive category
+      lang
+    }).sort({ no: 1 });
+
     res.json({ category, lang, images });
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch images", error: error.message });
   }
 };
+
 
 // Update Image
 exports.updateImage = async (req, res) => {
