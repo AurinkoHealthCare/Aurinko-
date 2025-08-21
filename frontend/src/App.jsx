@@ -4,6 +4,8 @@ import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
+import ReviewForm from "../newupdate/review.jsx";
+import ReviewManager from "../newupdate/adminManagerReview.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -256,6 +258,9 @@ function App() {
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound404 homeHref="/"/>} />
+          {/* new test router */}
+          <Route path="review" element={<ReviewForm />} />
+          <Route path="reviewmanager" element={<ReviewManager />} />
         </Routes>
       </Suspense>
     </div>

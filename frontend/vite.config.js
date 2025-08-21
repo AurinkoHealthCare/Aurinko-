@@ -17,4 +17,4 @@ export default defineConfig({
     outDir: path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../backend/dist'),
     emptyOutDir: true,
   },
-})
+});
