@@ -1,28 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { reviews } from "../Data/data";
 import { Link } from "react-router-dom";
+import axios from "../../../../api/axios";
 import { useTranslation } from "react-i18next";
 
 const Block6 = () => {
-  const { t } = useTranslation('home_parts');
+  const { t } = useTranslation("home_parts");
 
-  const reloadPage = (e, url) => {
-    e.preventDefault();
-    window.location.href = url;
-  };
-
+  const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // ✅ Approved reviews fetch
   useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const res = await axios.get("/reviews/approved");
+        setReviews(res.data);
+      } catch (err) {
+        console.error("Error fetching approved reviews:", err);
+      }
+    }
+    fetchReviews();
+  }, []);
+
+  // ✅ Auto slide
+  useEffect(() => {
+    if (reviews.length === 0) return;
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === reviews.length - 1 ? 0 : prevIndex + 1
       );
     }, 4000);
-
     return () => clearInterval(interval);
-  }, []);
+  }, [reviews]);
 
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 pb-20 gap-16">
@@ -54,7 +64,7 @@ const Block6 = () => {
         <div className="h-1 w-48 bg-gradient-to-r from-red-600 to-red-900 rounded-full mx-auto" />
 
         <Link
-          to="https://www.google.com/maps/place/Aurinko+Healthcare+Private+Limited/@28.3483296,77.3439278,15z/data=!4m6!3m5!1s0x390cdb9766d62aab:0x499dcf82d3074077!8m2!3d28.3499707!4d77.3450554!16s%2Fg%2F11shjs9rvx?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D/@28.3483296,77.3439278,15z/data=!4m6!3m5!1s0x390cdb9766d62aab:0x499dcf82d3074077!8m2!3d28.3499707!4d77.3450554!16s%2Fg%2F11shjs9rvx?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D"
+          to="https://www.google.com/maps/place/Aurinko+Healthcare+Private+Limited/"
           target="_blank"
         >
           <button className="mt-2 px-6 py-3 bg-red-600 text-white text-base font-medium rounded-full shadow-lg hover:bg-red-700 transition duration-300 hover:scale-105">
@@ -64,28 +74,40 @@ const Block6 = () => {
 
         <div className="flex items-center justify-center mt-6">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              className="w-80 h-96 bg-white/80 backdrop-blur-md border border-red-300 shadow-2xl rounded-3xl p-6 flex flex-col items-center justify-center transition-all duration-500"
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: -30 }}
-              transition={{ duration: 0.5 }}
-            >
-              <motion.img
-                src={reviews[currentIndex].image}
-                alt={reviews[currentIndex].name}
-                className="w-24 h-24 rounded-full border-4 border-red-500 shadow-lg mb-4 object-cover"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <p className="italic text-gray-800 text-base leading-relaxed text-center px-2">
-                "{t(`block6.reviews.${currentIndex}.text`)}"
-              </p>
-              <h3 className="mt-4 text-lg font-semibold text-red-900">
-               {t(`block6.reviews.${currentIndex}.name`)}
-              </h3>
-            </motion.div>
+            {reviews.length > 0 && (
+              <motion.div
+                key={currentIndex}
+                className="w-80 h-96 bg-white/80 backdrop-blur-md border border-red-300 shadow-2xl rounded-3xl p-6 flex flex-col items-center justify-center transition-all duration-500"
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -30 }}
+                transition={{ duration: 0.5 }}
+              >
+                {/* Avatar */}
+                <motion.div
+                  className="w-24 h-24 flex items-center justify-center rounded-full border-4 border-red-500 shadow-lg mb-4 bg-red-100 text-red-700 font-bold text-xl"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {reviews[currentIndex].name[0]}
+                </motion.div>
+
+                {/* Comment */}
+                <p className="italic text-gray-800 text-base leading-relaxed text-center px-2">
+                  "{reviews[currentIndex].comment}"
+                </p>
+
+                {/* Name */}
+                <h3 className="mt-4 text-lg font-semibold text-red-900">
+                  {reviews[currentIndex].name}
+                </h3>
+
+                {/* Rating */}
+                <p className="mt-2 text-yellow-500">
+                  {"⭐".repeat(reviews[currentIndex].rating)}
+                </p>
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </div>

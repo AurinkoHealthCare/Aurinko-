@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const dotenv = require("dotenv");
 const MongoDB = require("./config/dataBase");
@@ -13,26 +12,24 @@ const compression = require("compression");
 // Load env
 dotenv.config();
 
-// Connect DB
+// Connect DB    
 MongoDB();
 
 const app = express();
 app.set("trust proxy", 1);
 const PORT = process.env.PORT || 4040;
 
-// Ensure uploads folder exists
 const uploadsPath = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
 }
 app.use("/uploads", express.static(uploadsPath));
 
-// ✅ Middleware
 app.use(
   cors({
     origin: process.env.ORIGIN || "*",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
   })
 );
 
@@ -41,7 +38,7 @@ app.use(cookieParser());
 app.use(helmet({ crossOriginResourcePolicy: false })); // Allow static images
 app.use(compression()); // Gzip compression
 
-// Rate limiter
+
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -61,8 +58,9 @@ app.use("/api/pdf", require("./router/pdf/pdfRouter"));
 app.use("/api/gallery", require("./router/galleryRouter/gallery"));
 app.use("/api/otherimage", require("./router/otherimagesRouter/otherimage"));
 app.use("/api/brochures", require("./router/brochures/brochures"));
-app.use("/api/products-search", require("./utils/searchrouter")); // ⚠️ Duplicate prefix? (better merge)
+app.use("/api/products-search", require("./utils/searchrouter"));
 app.use("/api/video", require("./router/videoRouter/video"));
+app.use("/api/reviews", require("./router/reviewRouter/review"));
 
 // ✅ 404 Handler
 app.use((req, res) => {
@@ -73,7 +71,7 @@ app.use((req, res) => {
 });
 
 // ✅ Error Handler
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => { 
   console.error("🔥 Error:", err.stack);
   res.status(500).json({ success: false, error: err.message || "Internal Server Error" });
 });

@@ -4,6 +4,7 @@ import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
+import ReviewManager from "../newupdate/adminManagerReview.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -28,6 +29,7 @@ const Wellness = lazy(() => import("./User/Human/Pages/Human/Wellness.jsx"));
 
 const Reports = lazy(() => import("./User/Pages/Media/Report.jsx"));
 const Gallery = lazy(() => import("./User/Pages/Media/Gallery/Gallery"));
+const ReviewForm = lazy(() => import("./User/Pages/Media/review.jsx"));
 const ProductBrochures = lazy(() => import("./User/Pages/Media/ProductBrochures.jsx"));
 const VideoGallery = lazy(() => import("./User/Pages/Media/Gallery/VideoGallery.jsx"));
 const Blog = lazy(() => import("./User/Pages/Media/Blog.jsx"));
@@ -120,6 +122,7 @@ function App() {
             {/* Media */}
             <Route path="/human/report" element={<Reports type="Human" category="Reports" />} />
             <Route path="/human/gallery" element={<Gallery category="human" />} />
+            <Route path="/human/review" element={<ReviewForm />} />
             <Route path="/human/photo_gallery" element={<PhotoGallery category="human" />} />
             <Route path="/human/videos" element={<VideoGallery />} />
             <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
@@ -164,6 +167,7 @@ function App() {
             {/* Media */}
             <Route path="/veterinary/report" element={<Reports type="Veterinary" category="Reports" />} />
             <Route path="/veterinary/gallery" element={<Gallery category="Veterinary" />} />
+            <Route path="/veterinary/review" element={<ReviewForm />} />
             <Route path="/veterinary/photo_gallery" element={<PhotoGallery category="Veterinary" />} />
             <Route path="/veterinary/videos" element={<VideoGallery />} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
@@ -202,6 +206,7 @@ function App() {
             {/* Media */}
             <Route path="/agriculture/report" element={<Reports type="Agriculture" category="Reports" />} />
             <Route path="/agriculture/gallery" element={<Gallery category="Agriculture" />} />
+            <Route path="/agriculture/review" element={<ReviewForm />} />
             <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture" />} />
             <Route path="/agriculture/videos" element={<VideoGallery />} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
@@ -255,7 +260,9 @@ function App() {
             <Route path='/dashboard/feedback' element={<Feedback />} />
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
-          <Route path="*" element={<NotFound404 homeHref="/"/>} />
+          <Route path="*" element={<NotFound404 homeHref="/" />} />
+          {/* new test router */}
+          <Route path="reviewmanager" element={<ReviewManager />} />
         </Routes>
       </Suspense>
     </div>
