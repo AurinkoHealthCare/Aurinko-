@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import i18n from "./i18n"; 
-import axios from "../api/axios";
+import axios from "../api/axios";  
 
 // 🔹 Cards Data
 const cardData = [
