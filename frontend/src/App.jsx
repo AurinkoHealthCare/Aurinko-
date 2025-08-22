@@ -2,6 +2,8 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
+import LogoUploader from "../utils/component/logo.jsx";
+import BlogsManagement from "./Admin/Pages/Media/BlogsManagement.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -273,6 +275,8 @@ function App() {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound404 homeHref="/" />} />
           {/* new test router */}
+          <Route path="/logo" element={<LogoUploader />} />
+          <Route path="/blogadmin" element={<BlogsManagement />} />
         </Routes>
       </Suspense>
     </div>
