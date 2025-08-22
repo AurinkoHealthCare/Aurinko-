@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "../api/axios";
+import axios from "../../../../api/axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
-export default function ReviewManager() {
+const Feedback = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -164,3 +164,5 @@ export default function ReviewManager() {
     </div>
   );
 }
+
+export default Feedback;

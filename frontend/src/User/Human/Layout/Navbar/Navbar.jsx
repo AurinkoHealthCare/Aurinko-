@@ -130,6 +130,8 @@ const Navbar = () => {
               <li><Link to="/human/Wellness" onClick={handleLinkClick}>{t("wellness")}</Link></li>
               <li><Link to="/human/Personal_Care" onClick={handleLinkClick}>{t("personal_care")}</Link></li>
               <li><Link to="/human/Yeppuen" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
+              <li><Link to="/human/ayush" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
+              <li><Link to="/human/Foods_and_Spices" onClick={handleLinkClick}>{t("F")}</Link></li>
             </ul>
           )}
 

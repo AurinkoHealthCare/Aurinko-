@@ -4,7 +4,6 @@ import HorizontalBounceLoader from "../private/loader.jsx";
 import Search_bar from "../utils/component/search.jsx";
 import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
-import ReviewManager from "../newupdate/adminManagerReview.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -81,7 +80,8 @@ const Blog2 = lazy(() => import("./User/Pages/Media/Blog/blog2.jsx"));
 const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
 const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
 const Video_view = lazy(() => import("./Admin/Pages/Media/video_view.jsx"));
-const Feedback = lazy(() => import("./Admin/Pages/Feedback/Feedback"));
+const Contact_us = lazy(() => import("./Admin/Pages/Contact Us/Contact_us.jsx"));
+const Feedback = lazy(() => import("./Admin/Pages/Contact Us/Feedback.jsx"));
 
 const TrackVisitor = lazy(() => import("../api/totalvisitors"));
 const Reports_Articles = lazy(() => import("./Admin/Pages/Media/Reports_Articles.jsx"));
@@ -256,13 +256,13 @@ function App() {
             <Route path='/dashboard/page_banner' element={<Page_banner />} />
             <Route path='/dashboard/Videos' element={<Video />} />
 
-            {/* Feedback */}
-            <Route path='/dashboard/feedback' element={<Feedback />} />
+            {/* Contact_us */}
+            <Route path='/dashboard/contact_us' element={<Contact_us />} />
+            <Route path="/dashboard/feedback" element={<Feedback />} />
           </Route>
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound404 homeHref="/" />} />
           {/* new test router */}
-          <Route path="reviewmanager" element={<ReviewManager />} />
         </Routes>
       </Suspense>
     </div>

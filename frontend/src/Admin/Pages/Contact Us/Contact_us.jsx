@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
-const Feedback = () => {
+const Contact_us = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeRow, setActiveRow] = useState(null);
@@ -30,12 +30,12 @@ const Feedback = () => {
   return (
     <div className="max-w-6xl mx-auto p-4 sm:p-6">
       <h1 className="text-xl sm:text-2xl font-bold text-center text-indigo-700 mb-4">
-        📬 User Feedback Submissions
+        📬 User Contact_us Submissions
       </h1>
 
       {contacts.length === 0 ? (
         <div className="text-center bg-white p-6 rounded-xl shadow-lg">
-          <p className="text-gray-500 text-md">No feedback submissions yet.</p>
+          <p className="text-gray-500 text-md">No Contact_us submissions yet.</p>
         </div>
       ) : (
         <div className="bg-white rounded-xl shadow-lg p-3 sm:p-4">
@@ -142,4 +142,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default Contact_us;
