@@ -43,7 +43,7 @@ const Product_detail = () => {
     setItems(newItems);
   };
 
-  const handleTranslationChange = (e, index, langKey) => {
+  const handleTranslationChange = (e, index, langKey) => {  
     const { name, value } = e.target;
     const newItems = [...items];
     if (!newItems[index].translations[langKey]) {
@@ -128,7 +128,6 @@ const Product_detail = () => {
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleFileChange(e, idx, "productImage")}
-                  required
                   className="mt-1 text-xs border border-gray-300 rounded px-3 py-2 w-52"
                 />
               </div>
@@ -141,7 +140,6 @@ const Product_detail = () => {
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleFileChange(e, idx, "productLogo")}
-                  required
                   className="mt-1 text-xs border border-gray-300 rounded px-3 py-2 w-52"
                 />
               </div>
@@ -159,7 +157,6 @@ const Product_detail = () => {
                       placeholder={`Enter ${field}`}
                       rows={3}
                       className="border p-2 rounded w-full resize-y focus:ring-2 focus:ring-blue-300"
-                      required
                     />
                   ) : (
                     <input
@@ -169,7 +166,6 @@ const Product_detail = () => {
                       onChange={(e) => handleChange(e, idx)}
                       placeholder={`Enter ${field}`}
                       className="border p-2 rounded w-full focus:ring-2 focus:ring-blue-300"
-                      required
                     />
                   )}
                 </div>

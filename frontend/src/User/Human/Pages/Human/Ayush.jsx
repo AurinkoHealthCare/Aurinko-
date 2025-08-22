@@ -4,7 +4,7 @@ import axios from "../../../../../api/axios";
 import ProductCard from "../../../../../utils/ProductCard.jsx";
 import { useTranslation } from 'react-i18next';
 
-const Wellness = () => {
+const Ayush = () => {
   const { t } = useTranslation("home_parts");
   const [products, setProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
@@ -22,7 +22,7 @@ const Wellness = () => {
       const res = await axios.get("/otherimage/all");
       const arr = Array.isArray(res.data) ? res.data : res.data?.data || [];
       const selected = arr.find(
-        (img) => img.imageName?.toLowerCase() === "wellness"
+        (img) => img.imageName?.toLowerCase() === "ayush"
       );
       setHeaderImage(selected || null);
     } catch (err) {
@@ -77,18 +77,18 @@ const Wellness = () => {
           </div>
         ) : (
           <div className="w-full h-64 flex items-center justify-center bg-gray-100">
-            <p className="text-gray-500">No "Wellness" image found</p>
+            <p className="text-gray-500">No "Ayush" image found</p>
           </div>
         )}
       </div>
       
       <div className="flex flex-col w-full p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 gap-4">
-          <ProductCard products={products} segment="Wellness" theme="Human" />
+          <ProductCard products={products} segment="Ayush" theme="Human" />
         </div>
       </div>
     </div>
   );
 };
 
-export default Wellness;
+export default Ayush;

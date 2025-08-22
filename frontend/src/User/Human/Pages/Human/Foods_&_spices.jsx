@@ -22,7 +22,7 @@ const Foods_and_spices = () => {
       const res = await axios.get("/otherimage/all");
       const arr = Array.isArray(res.data) ? res.data : res.data?.data || [];
       const selected = arr.find(
-        (img) => img.imageName?.toLowerCase() === "foods_and_spices"
+        (img) => img.imageName?.toLowerCase() === "foods and spices"
       );
       setHeaderImage(selected || null);
     } catch (err) {

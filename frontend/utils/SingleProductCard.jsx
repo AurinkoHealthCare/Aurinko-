@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 const rawTabs = [
@@ -12,7 +12,7 @@ const rawTabs = [
 ];
 
 const themeClasses = {
-  "Human": {
+  Human: {
     active: "bg-red-800 text-white border-l-4 border-red-400",
     inactive: "bg-[#b30800] text-white hover:bg-red-600",
   },
@@ -48,8 +48,6 @@ const SingleProductCard = ({ product, theme }) => {
   const { t, i18n } = useTranslation("productcart");
   const currentLang = i18n.language;
 
-  const tabs = rawTabs.map((key) => ({ key, label: t(key) }));
-
   // Translated product fields
   const name = getTranslated(product, currentLang, "name");
   const details = getTranslated(product, currentLang, "details");
@@ -63,6 +61,37 @@ const SingleProductCard = ({ product, theme }) => {
   const type = getTranslated(product, currentLang, "type");
   const category = getTranslated(product, currentLang, "category");
   const packing = getTranslated(product, currentLang, "packing");
+
+  // ✅ Filter only tabs that have content
+  const availableTabs = rawTabs.filter((tab) => {
+    switch (tab) {
+      case "General Info":
+        return name || details || segment || type || category || packing;
+      case "Composition":
+        return composition;
+      case "Indications":
+        return indications;
+      case "Usage":
+        return usage;
+      case "Report":
+        return report;
+      case "Brochure":
+        return brochure;
+      case "Feedback":
+        return feedback;
+      default:
+        return false;
+    }
+  });
+
+  const tabs = availableTabs.map((key) => ({ key, label: t(key) }));
+
+  // ✅ Reset activeTab if it doesn’t exist after filtering
+  useEffect(() => {
+    if (!availableTabs.includes(activeTab)) {
+      setActiveTab(availableTabs[0]);
+    }
+  }, [availableTabs, activeTab]);
 
   return (
     <div className="flex flex-col md:flex-row w-full max-w-full bg-white border border-neutral-300 overflow-hidden rounded shadow-md">
@@ -110,18 +139,26 @@ const SingleProductCard = ({ product, theme }) => {
             <>
               <h1 className="text-lg font-semibold">{name}</h1>
               <p className="mt-2">{details}</p>
-              <p className="mt-2">
-                <strong>{t("Segment")}:</strong> {segment}
-              </p>
-              <p>
-                <strong>{t("Type")}:</strong> {type}
-              </p>
-              <p>
-                <strong>{t("Category")}:</strong> {category}
-              </p>
-              <p>
-                <strong>{t("Packing")}:</strong> {packing}
-              </p>
+              {segment && (
+                <p className="mt-2">
+                  <strong>{t("Segment")}:</strong> {segment}
+                </p>
+              )}
+              {type && (
+                <p>
+                  <strong>{t("Type")}:</strong> {type}
+                </p>
+              )}
+              {category && (
+                <p>
+                  <strong>{t("Category")}:</strong> {category}
+                </p>
+              )}
+              {packing && (
+                <p>
+                  <strong>{t("Packing")}:</strong> {packing}
+                </p>
+              )}
             </>
           )}
           {activeTab === "Composition" && (

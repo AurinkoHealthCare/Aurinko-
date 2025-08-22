@@ -1,12 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
-import Search_bar from "../utils/component/search.jsx";
-import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
+const Search_bar = lazy(() => import("../utils/component/search.jsx"));
 const Admin = lazy(() => import("./Admin/admin"));
 const Human = lazy(() => import("./User/Human/Human.jsx"));
 const Human_Home = lazy(() => import("./User/Human/Pages/Home/Homepage.jsx"));
@@ -27,6 +26,7 @@ const Persnolcare = lazy(() => import("./User/Human/Pages/Human/Persnol care.jsx
 const Yeppuen = lazy(() => import("./User/Human/Pages/Human/Yeppuen.jsx"));
 const Wellness = lazy(() => import("./User/Human/Pages/Human/Wellness.jsx"));
 const Foods_and_spices = lazy(() => import("./User/Human/Pages/Human/Foods_&_spices.jsx"));
+const Ayush = lazy(() => import("./User/Human/Pages/Human/Ayush.jsx"));
 
 const Reports = lazy(() => import("./User/Pages/Media/Report.jsx"));
 const Gallery = lazy(() => import("./User/Pages/Media/Gallery/Gallery"));
@@ -66,8 +66,10 @@ const Unauthorized = lazy(() => import("../private/privatepage"));
 const Dash_Home = lazy(() => import("./Admin/Pages/Home/Home"));
 
 const Banner = lazy(() => import("./Admin/Pages/Media/Banner"));
+const Pages_Banner = lazy(() => import("./Admin/Pages/Media/Pages_Banner.jsx"));
 const Global_Providers = lazy(() => import("./Admin/Pages/Media/Global_Providers.jsx"));
 const Product_details = lazy(() => import("./Admin/Pages/Media/Product_details.jsx"));
+const LogoUploader = lazy(() => import("../utils/component/logo.jsx"));
 
 const Product_Cart = lazy(() => import("./Admin/Pages/Pages/Home/Product_Cart"));
 const Product_detail = lazy(() => import("./Admin/Pages/Pages/Home/Product_detail"));
@@ -120,6 +122,7 @@ function App() {
             <Route path="/human/Health_supplements" element={<Healthsupplements />} />
             <Route path="/human/Wellness" element={<Wellness />} />
             <Route path="/human/Foods_and_Spices" element={<Foods_and_spices />} />
+            <Route path="/human/ayush" element={<Ayush />} />
             <Route path="/human/Personal_Care" element={<Persnolcare />} />
             <Route path="/human/Yeppuen" element={<Yeppuen />} />
 
@@ -240,6 +243,7 @@ function App() {
             <Route path='/dashboard/' element={<Dash_Home />} />
 
             {/* Update & Replace */}
+            <Route path="/dashboard/logo" element={<LogoUploader />} />
             <Route path='/dashboard/banner' element={<Banner />} />
             <Route path='/dashboard/global_providers' element={<Global_Providers />} />
             <Route path='/dashboard/product_details' element={<Product_details />} />

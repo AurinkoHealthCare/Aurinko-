@@ -83,6 +83,7 @@ const Navbar = () => {
               {
                 label: "Home",
                 items: [
+                  { to: "/dashboard/logo", label: "Logo Sliders Form" },
                   { to: "/dashboard/image_slider", label: "Image Sliders Form" },
                   { to: "/dashboard/product_cart", label: "Global Provider Form" },
                   { to: "/dashboard/page_banner", label: "Pages Banner Form" },
