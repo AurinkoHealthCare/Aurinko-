@@ -6,6 +6,7 @@ import Pages_Banner from "./Admin/Pages/Media/Pages_Banner.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
 import ReviewForm from "../newupdate/review.jsx";
 import ReviewManager from "../newupdate/adminManagerReview.jsx";
+import ProfileCard from "../founders/profile.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -261,6 +262,7 @@ function App() {
           {/* new test router */}
           <Route path="review" element={<ReviewForm />} />
           <Route path="reviewmanager" element={<ReviewManager />} />
+          <Route path="profile" element={<ProfileCard />} />
         </Routes>
       </Suspense>
     </div>
