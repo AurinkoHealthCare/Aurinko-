@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import i18n from "./i18n"; 
-import axios from "../api/axios";
+import axios from "../api/axios";  
 
 // 🔹 Cards Data
 const cardData = [
@@ -117,7 +117,7 @@ const Home = () => {
               Search
             </button>
           </Link>
-          <div className="relative inline-block language-selector">
+          <div className="relative inline-block language-selector z-50">
             <button
               onClick={() => setLanguageOpen(!languageOpen)}
               className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg"
@@ -125,11 +125,11 @@ const Home = () => {
               {selectedLang}
             </button>
             {languageOpen && (
-              <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md w-32 sm:w-40">
+              <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md w-16 md:w-22">
                 {Object.keys(langCodeMap).map((lang) => (
                   <li
                     key={lang}
-                    className="px-3 py-2 hover:bg-gray-200 cursor-pointer text-sm sm:text-base"
+                    className="p-2 hover:bg-gray-200 cursor-pointer text-sm sm:text-base"
                     onClick={() => {
                       handleLangChange(lang);
                       setLanguageOpen(false);
@@ -146,14 +146,14 @@ const Home = () => {
         {/* Affiliated With */}
         <div className="flex items-center gap-3 mt-1">
           <h3 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold whitespace-nowrap">
-            Affiliated With
+            Affiliations
           </h3>
-          <div className="w-40 h-12 sm:h-14 md:h-16 flex items-center justify-center border bg-black/50 rounded-xl overflow-hidden relative">
+          <div className="w-20 h-12 sm:h-16 md:h-18 flex items-center justify-center overflow-hidden relative">
             <img
               key={logos[currentLogoIndex]?._id}
               src={logos[currentLogoIndex]?.url || noImage}
               alt={logos[currentLogoIndex]?.imageName || "Logo"}
-              className="h-8 sm:h-10 md:h-12 object-contain transition-opacity duration-500 absolute"
+              className="h-14 sm:h-16 md:h-16 object-contain transition-opacity duration-500 absolute"
               onError={(e) => (e.target.src = noImage)}
             />
           </div>

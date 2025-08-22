@@ -36,8 +36,8 @@ const FacultySection = () => {
               Managing Director
             </p>
             <p className="text-gray-600 mt-3 leading-relaxed max-w-xl">
-              Dr. Abhay Kumar Bhattacharya is a visionary leader with years of 
-              experience in the healthcare industry. His focus on innovation and 
+              Dr. Abhay Kumar Bhattacharya is the founder and a visionary leader with years of 
+              experience in the Pharmaceutical and Veterinary industry. His focus on strategic planning, innovation and 
               quality has played a key role in delivering advanced healthcare 
               solutions. Under his leadership, our company has grown and earned 
               recognition at both national and international levels.
@@ -62,12 +62,12 @@ const FacultySection = () => {
               Mrs. Ranjita Bhattacharya
             </h2>
             <p className="text-lg text-blue-600 font-semibold mt-1">
-              Director
+              Director and CEO
             </p>
             <p className="text-gray-600 mt-3 leading-relaxed max-w-xl">
-              Mrs. Ranjita Bhattacharya is an integral part of the company’s core 
-              management team. She has been instrumental in driving organizational 
-              growth, strategic planning, and innovation. With her guidance, our 
+              Mrs. Ranjita Bhattacharya is the founder director and Chief Executive Officer of the company.
+               She has been instrumental in driving organizational 
+              growth through effective business planning, financial and operational management. With her guidance, our 
               company has achieved sustainable and impactful progress.
             </p>
           </div>

@@ -65,7 +65,6 @@ const Block6 = () => {
 
         <Link
           to="/human/reviews"
-          target="_blank"
         >
           <button className="mt-2 px-6 py-3 bg-red-600 text-white text-base font-medium rounded-full shadow-lg hover:bg-red-700 transition duration-300 hover:scale-105">
             {t("block6.goReview")}

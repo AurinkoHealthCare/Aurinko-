@@ -54,8 +54,7 @@ const Block6 = () => {
         <div className="h-1 w-48 bg-gradient-to-r from-blue-600 to-blue-900 rounded-full mx-auto" />
 
         <Link
-          to="https://www.google.com/maps/place/Aurinko+Healthcare+Private+Limited/@28.3483296,77.3439278,15z/data=!4m6!3m5!1s0x390cdb9766d62aab:0x499dcf82d3074077!8m2!3d28.3499707!4d77.3450554!16s%2Fg%2F11shjs9rvx?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D"
-          target="_blank"
+          to="/veterinary/review"
         >
           <button className="mt-2 px-6 py-3 bg-blue-600 text-white text-base font-medium rounded-full shadow-lg hover:bg-blue-700 transition duration-300 hover:scale-105">
             {t("block6.goReview")}
