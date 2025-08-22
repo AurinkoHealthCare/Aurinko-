@@ -184,13 +184,13 @@ const ContactUs = () => {
               </h2>
               <p className="mb-2 font-semibold">{t("zimCompany")}</p>
               <p className="mb-2">
-                <i className="fas fa-map-marker-alt text-green-700"></i>{t("zimAddress")}
+                <i className="fas fa-map-marker-alt text-green-700"></i> {t("zimAddress")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-envelope text-green-700"></i>{t("zimEmail")}
+                <i className="fas fa-envelope text-green-700"></i> {t("indiaEmail")}
               </p>
               <p>
-                <i className="fas fa-phone text-green-700"></i>{t("zimPhone")}
+                <i className="fas fa-phone text-green-700"></i> {t("zimPhone")}
               </p>
             </div>
             <div className="mb-8">
@@ -200,13 +200,13 @@ const ContactUs = () => {
               </h2>
               <p className="mb-2 font-semibold">{t("korCompany")}</p>
               <p className="mb-2">
-                <i className="fas fa-map-marker-alt text-green-700"></i>{t("korAddress")}
+                <i className="fas fa-map-marker-alt text-green-700"></i> {t("korAddress")}
               </p>
               <p className="mb-2">
-                <i className="fas fa-envelope text-green-700"></i>{t("korEmail")}
+                <i className="fas fa-envelope text-green-700"></i> {t("indiaEmail")}
               </p>
               <p>
-                <i className="fas fa-phone text-green-700"></i>{t("korPhone")}
+                <i className="fas fa-phone text-green-700"></i> {t("korPhone")}
               </p>
             </div>
           </div>

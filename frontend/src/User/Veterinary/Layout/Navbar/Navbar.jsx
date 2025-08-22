@@ -87,6 +87,7 @@ const Navbar = () => {
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white/90 backdrop-blur-md shadow-lg rounded-md p-2 min-w-[200px] text-gray-700">
               <li><Link to="/veterinary/report" className="block px-4 py-1 hover:text-blue-600">{t("reports")}</Link></li>
               <li><Link to="/veterinary/gallery" className="block px-4 py-1 hover:text-blue-600">{t("gallery")}</Link></li>
+              <li><Link to="/veterinary/review" className="block px-4 py-1 hover:text-blue-600">{t("Review")}</Link></li>
               <li><Link to="/veterinary/brochures" className="block px-4 py-1 hover:text-blue-600">{t("brochures")}</Link></li>
               <li><Link to="/veterinary/blog" className="block px-4 py-1 hover:text-blue-600">{t("blogs")}</Link></li>
               <li><Link to="/veterinary/articles" className="block px-4 py-1 hover:text-blue-600">{t("articles")}</Link></li>
@@ -169,6 +170,7 @@ const Navbar = () => {
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/veterinary/report" onClick={handleLinkClick}>{t("reports")}</Link></li>
               <li><Link to="/veterinary/gallery" onClick={handleLinkClick}>{t("gallery")}</Link></li>
+              <li><Link to="/veterinary/review" onClick={handleLinkClick}>{t("Review")}</Link></li>
               <li><Link to="/veterinary/brochures" onClick={handleLinkClick}>{t("brochures")}</Link></li>
               <li><Link to="/veterinary/blog" onClick={handleLinkClick}>{t("blogs")}</Link></li>
               <li><Link to="/veterinary/articles" onClick={handleLinkClick}>{t("articles")}</Link></li>

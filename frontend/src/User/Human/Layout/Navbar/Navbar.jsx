@@ -76,6 +76,7 @@ const Navbar = () => {
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[160px] text-gray-700">
               <li><Link to="/human/report" className="block px-4 py-1 hover:text-[#b30800]">{t("reports")}</Link></li>
               <li><Link to="/human/gallery" className="block px-4 py-1 hover:text-[#b30800]">{t("gallery")}</Link></li>
+              <li><Link to="/human/review" className="block px-4 py-1 hover:text-[#b30800]">{t("Review")}</Link></li>
               <li><Link to="/human/brochures" className="block px-4 py-1 hover:text-[#b30800]">{t("brochures")}</Link></li>
               <li><Link to="/human/blog" className="block px-4 py-1 hover:text-[#b30800]">{t("blogs")}</Link></li>
               <li><Link to="/human/articles" className="block px-4 py-1 hover:text-[#b30800]">{t("articles")}</Link></li>
@@ -129,6 +130,8 @@ const Navbar = () => {
               <li><Link to="/human/Wellness" onClick={handleLinkClick}>{t("wellness")}</Link></li>
               <li><Link to="/human/Personal_Care" onClick={handleLinkClick}>{t("personal_care")}</Link></li>
               <li><Link to="/human/Yeppuen" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
+              <li><Link to="/human/ayush" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
+              <li><Link to="/human/Foods_and_Spices" onClick={handleLinkClick}>{t("F")}</Link></li>
             </ul>
           )}
 
@@ -138,6 +141,7 @@ const Navbar = () => {
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/human/report" onClick={handleLinkClick}>{t("reports")}</Link></li>
               <li><Link to="/human/gallery" onClick={handleLinkClick}>{t("gallery")}</Link></li>
+              <li><Link to="/human/review" onClick={handleLinkClick}>{t("Review")}</Link></li>
               <li><Link to="/human/brochures" onClick={handleLinkClick}>{t("brochures")}</Link></li>
               <li><Link to="/human/blog" onClick={handleLinkClick}>{t("blogs")}</Link></li>
               <li><Link to="/human/articles" onClick={handleLinkClick}>{t("articles")}</Link></li>

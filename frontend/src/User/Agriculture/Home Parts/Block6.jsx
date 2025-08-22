@@ -38,7 +38,7 @@ const Block6 = () => {
           {t("block6.healthMessage")}
         </p>
 
-        <Link to="/agriculture/contact-us" onClick={(e) => reloadPage(e, "/agriculture/contact_us")}>
+        <Link to="/agriculture/contact_us" onClick={(e) => reloadPage(e, "/agriculture/contact_us")}>
           <button className="group inline-flex items-center gap-2 px-8 py-3 rounded-full bg-[#01421d] text-white font-semibold shadow-md hover:bg-green-700 transition-all duration-300 hover:scale-105">
             {t("block6.enrollNow")}
             <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>

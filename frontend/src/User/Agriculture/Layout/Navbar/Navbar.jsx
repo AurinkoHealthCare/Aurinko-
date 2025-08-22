@@ -73,6 +73,7 @@ const AgricultureNavbar = () => {
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/agriculture/report" className="block px-4 py-1 hover:text-green-600">{t("reports")}</Link></li>
               <li><Link to="/agriculture/gallery" className="block px-4 py-1 hover:text-green-600">{t("gallery")}</Link></li>
+              <li><Link to="/agriculture/review" className="block px-4 py-1 hover:text-green-600">{t("Review")}</Link></li>
               <li><Link to="/agriculture/brochures" className="block px-4 py-1 hover:text-green-600">{t("brochures")}</Link></li>
               <li><Link to="/agriculture/blog" className="block px-4 py-1 hover:text-green-600">{t("blogs")}</Link></li>
               <li><Link to="/agriculture/articles" className="block px-4 py-1 hover:text-green-600">{t("articles")}</Link></li>
@@ -130,6 +131,7 @@ const AgricultureNavbar = () => {
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/report" onClick={handleLinkClick}>{t("reports")}</Link></li>
               <li><Link to="/agriculture/gallery" onClick={handleLinkClick}>{t("gallery")}</Link></li>
+              <li><Link to="/agriculture/review" onClick={handleLinkClick}>{t("Review")}</Link></li>
               <li><Link to="/agriculture/brochures" onClick={handleLinkClick}>{t("brochures")}</Link></li>
               <li><Link to="/agriculture/blog" onClick={handleLinkClick}>{t("blogs")}</Link></li>
               <li><Link to="/agriculture/articles" onClick={handleLinkClick}>{t("articles")}</Link></li>
