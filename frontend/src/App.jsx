@@ -2,7 +2,6 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
-import LogoUploader from "../utils/component/logo.jsx";
 import BlogsManagement from "./Admin/Pages/Media/BlogsManagement.jsx";
 
 // Lazy Imports
