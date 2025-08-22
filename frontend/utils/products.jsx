@@ -17,7 +17,13 @@ const StarRating = ({ rating }) => (
   </div>
 );
 
-const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHeading = true }) => {
+const ProductsList = ({
+  apiUrl = "/products/get",
+  category,
+  limit,
+  theme,
+  showHeading = true,
+}) => {
   const [products, setProducts] = useState([]);
   const { i18n } = useTranslation();
 
@@ -48,8 +54,9 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
     }
   };
 
+  // ⬇️ Nothing is rendered if no products are available
   if (products.length === 0) {
-    return <p className="text-center text-gray-500 py-20">No products found.</p>;
+    return null;
   }
 
   return (
@@ -64,11 +71,20 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
         {products.map((product) => (
-          <div key={product.productId} className="flip-card w-full max-w-xs mx-auto">
+          <div
+            key={product.productId}
+            className="flip-card w-full max-w-xs mx-auto"
+          >
             <div className="flip-card-inner">
               {/* Front */}
-              <div className={`flip-card-front shadow-lg rounded-xl overflow-hidden border transition duration-300 ${appliedTheme}`}>
-                <img src={product.image} alt={product.name} className="w-full h-72 object-cover" />
+              <div
+                className={`flip-card-front shadow-lg rounded-xl overflow-hidden border transition duration-300 ${appliedTheme}`}
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-72 object-cover"
+                />
                 <div className="flex flex-col items-center p-3 text-center">
                   <h3 className="text-lg font-semibold">{product.name}</h3>
                   <StarRating rating={product.rating} />
@@ -79,14 +95,15 @@ const ProductsList = ({ apiUrl = "/products/get", category, limit, theme, showHe
               </div>
 
               {/* Back */}
-              <div className={`flip-card-back p-4 shadow-xl flex flex-col justify-center items-center text-center border ${appliedTheme}`}>
+              <div
+                className={`flip-card-back p-4 shadow-xl flex flex-col justify-center items-center text-center border ${appliedTheme}`}
+              >
                 <h3 className="text-lg font-semibold">{product.name}</h3>
                 <p
                   className="mt-3 text-sm max-h-80 overflow-y-auto no-scrollbar border border-gray-300 rounded-lg shadow-sm p-3 hover:shadow-md transition-shadow duration-300 ease-in-out"
                 >
                   {product.details}
                 </p>
-
               </div>
             </div>
           </div>

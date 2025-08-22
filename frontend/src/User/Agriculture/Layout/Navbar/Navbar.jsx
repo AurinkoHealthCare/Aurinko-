@@ -41,6 +41,7 @@ const AgricultureNavbar = () => {
             <span className="hover:text-green-600 cursor-pointer">{t("about_us")}</span>
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/agriculture/about" className="block px-4 py-1 hover:text-green-600">{t("overview")}</Link></li>
+              <li><Link to="/agriculture/facultySection" className="block px-4 py-1 hover:text-green-600">{t("Faculty Section")}</Link></li>
               <li><Link to="/agriculture/vision" className="block px-4 py-1 hover:text-green-600">{t("vision_mission")}</Link></li>
               <li><Link to="/agriculture/manufacturing" className="block px-4 py-1 hover:text-green-600">{t("manufacturing")}</Link></li>
               <li><Link to="/agriculture/research" className="block px-4 py-1 hover:text-green-600">{t("research")}</Link></li>
@@ -102,6 +103,7 @@ const AgricultureNavbar = () => {
           {openSection === "about" && (
             <ul className="pl-4 text-sm text-gray-700 space-y-1">
               <li><Link to="/agriculture/about" onClick={handleLinkClick}>{t("overview")}</Link></li>
+              <li><Link to="/agriculture/facultySection" onClick={handleLinkClick}>{t("Faculty Section")}</Link></li>
               <li><Link to="/agriculture/vision" onClick={handleLinkClick}>{t("vision_mission")}</Link></li>
               <li><Link to="/agriculture/manufacturing" onClick={handleLinkClick}>{t("manufacturing")}</Link></li>
               <li><Link to="/agriculture/research" onClick={handleLinkClick}>{t("research")}</Link></li>

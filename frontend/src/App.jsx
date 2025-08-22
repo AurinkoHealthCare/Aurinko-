@@ -12,6 +12,7 @@ const Human = lazy(() => import("./User/Human/Human.jsx"));
 const Human_Home = lazy(() => import("./User/Human/Pages/Home/Homepage.jsx"));
 
 const About = lazy(() => import("./User/Pages/About us/about.jsx"));
+const FacultySection = lazy(() => import("./User/Pages/About us/FacultySection.jsx"));
 const Certificates = lazy(() => import("./User/Pages/About us/Certificates.jsx"));
 const VisionMission = lazy(() => import("./User/Pages/About us/vision&mission.jsx"));
 const ManufacturingFacility = lazy(() => import("./User/Pages/About us/manufacturing-facility.jsx"));
@@ -25,6 +26,7 @@ const Healthsupplements = lazy(() => import("./User/Human/Pages/Human/Health-sup
 const Persnolcare = lazy(() => import("./User/Human/Pages/Human/Persnol care.jsx"));
 const Yeppuen = lazy(() => import("./User/Human/Pages/Human/Yeppuen.jsx"));
 const Wellness = lazy(() => import("./User/Human/Pages/Human/Wellness.jsx"));
+const Foods_and_spices = lazy(() => import("./User/Human/Pages/Human/Foods_&_spices.jsx"));
 
 const Reports = lazy(() => import("./User/Pages/Media/Report.jsx"));
 const Gallery = lazy(() => import("./User/Pages/Media/Gallery/Gallery"));
@@ -103,6 +105,7 @@ function App() {
 
             {/* About us  */}
             <Route path="/human/about" element={<About />} />
+            <Route path="/human/facultySection" element={<FacultySection />} />
             <Route path="/human/vision" element={<VisionMission />} />
             <Route path="/human/manufacturing" element={<ManufacturingFacility />} />
             <Route path="/human/research" element={<ResearchDevelopment />} />
@@ -116,6 +119,7 @@ function App() {
             {/* Human */}
             <Route path="/human/Health_supplements" element={<Healthsupplements />} />
             <Route path="/human/Wellness" element={<Wellness />} />
+            <Route path="/human/Foods_and_Spices" element={<Foods_and_spices />} />
             <Route path="/human/Personal_Care" element={<Persnolcare />} />
             <Route path="/human/Yeppuen" element={<Yeppuen />} />
 
@@ -144,6 +148,7 @@ function App() {
 
             {/* About us  */}
             <Route path="/veterinary/about" element={<About />} />
+            <Route path="/veterinary/facultySection" element={<FacultySection />} />
             <Route path="/veterinary/vision" element={<VisionMission />} />
             <Route path="/veterinary/manufacturing" element={<ManufacturingFacility />} />
             <Route path="/veterinary/research" element={<ResearchDevelopment />} />
@@ -189,6 +194,7 @@ function App() {
 
             {/* About us  */}
             <Route path="/agriculture/about" element={<About />} />
+            <Route path="/agriculture/facultySection" element={<FacultySection />} />
             <Route path="/agriculture/vision" element={<VisionMission />} />
             <Route path="/agriculture/manufacturing" element={<ManufacturingFacility />} />
             <Route path="/agriculture/research" element={<ResearchDevelopment />} />

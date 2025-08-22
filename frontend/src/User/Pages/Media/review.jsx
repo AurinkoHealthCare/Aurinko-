@@ -43,7 +43,7 @@ const ReviewForm = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center px-4 py-10 gap-8">
+    <div className="flex flex-col lg:flex-row items-center justify-center px-4 py-10 gap-8">
       
       {/* Left Side - Image */}
       <motion.div

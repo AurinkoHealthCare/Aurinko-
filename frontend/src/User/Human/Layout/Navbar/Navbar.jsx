@@ -42,6 +42,7 @@ const Navbar = () => {
             <span className="cursor-pointer hover:text-[#b30800]">{t("about_us")}</span>
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white shadow-lg rounded-md p-2 min-w-[180px] text-gray-700">
               <li><Link to="/human/about" className="block px-4 py-1 hover:text-[#b30800]">{t("overview")}</Link></li>
+              <li><Link to="/human/facultySection" className="block px-4 py-1 hover:text-[#b30800]">{t("FacultySection")}</Link></li>
               <li><Link to="/human/vision" className="block px-4 py-1 hover:text-[#b30800]">{t("vision_mission")}</Link></li>
               <li><Link to="/human/manufacturing" className="block px-4 py-1 hover:text-[#b30800]">{t("manufacturing")}</Link></li>
               <li><Link to="/human/research" className="block px-4 py-1 hover:text-[#b30800]">{t("research")}</Link></li>
@@ -67,6 +68,8 @@ const Navbar = () => {
               <li><Link to="/human/Wellness" className="block px-4 py-1 hover:text-[#b30800]">{t("wellness")}</Link></li>
               <li><Link to="/human/Personal_Care" className="block px-4 py-1 hover:text-[#b30800]">{t("personal_care")}</Link></li>
               <li><Link to="/human/Yeppuen" className="block px-4 py-1 hover:text-[#b30800]">{t("yeppuen")}</Link></li>
+              <li><Link to="/human/ayush" className="block px-4 py-1 hover:text-[#b30800]">{t("Ayush")}</Link></li>
+              <li><Link to="/human/Foods_and_Spices" className="block px-4 py-1 hover:text-[#b30800]">{t("Foods and Spices")}</Link></li>
             </ul>
           </li>
 
@@ -130,8 +133,8 @@ const Navbar = () => {
               <li><Link to="/human/Wellness" onClick={handleLinkClick}>{t("wellness")}</Link></li>
               <li><Link to="/human/Personal_Care" onClick={handleLinkClick}>{t("personal_care")}</Link></li>
               <li><Link to="/human/Yeppuen" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
-              <li><Link to="/human/ayush" onClick={handleLinkClick}>{t("yeppuen")}</Link></li>
-              <li><Link to="/human/Foods_and_Spices" onClick={handleLinkClick}>{t("F")}</Link></li>
+              <li><Link to="/human/ayush" onClick={handleLinkClick}>{t("Ayush")}</Link></li>
+              <li><Link to="/human/Foods_and_Spices" onClick={handleLinkClick}>{t("Foods and Spices")}</Link></li>
             </ul>
           )}
 
