@@ -32,8 +32,8 @@ const Footer = () => {
               <li><Link to="/veterinary/poultry" onClick={(e) => reloadPage(e, "/veterinary/poultry")} className="hover:text-cyan-300 transition">{t("poultry")}</Link></li>
               <li><Link to="/veterinary/aqua" onClick={(e) => reloadPage(e, "/veterinary/aqua")} className="hover:text-cyan-300 transition">{t("aqua")}</Link></li>
               <li><Link to="/veterinary/swine" onClick={(e) => reloadPage(e, "/veterinary/swine")} className="hover:text-cyan-300 transition">{t("swine")}</Link></li>
-              <li><Link to="/veterinary/pet" onClick={(e) => reloadPage(e, "/veterinary/pet")} className="hover:text-cyan-300 transition">{t("equine")}</Link></li>
-              <li><Link to="/veterinary/equine" onClick={(e) => reloadPage(e, "/veterinary/equine")} className="hover:text-cyan-300 transition">{t("pet")}</Link></li>
+              <li><Link to="/veterinary/pet" onClick={(e) => reloadPage(e, "/veterinary/pet")} className="hover:text-cyan-300 transition">{t("pet")}</Link></li>
+              <li><Link to="/veterinary/equine" onClick={(e) => reloadPage(e, "/veterinary/equine")} className="hover:text-cyan-300 transition">{t("equine")}</Link></li>
               <li><Link to="/veterinary/feed_grain" onClick={(e) => reloadPage(e, "/veterinary/feed_grain")} className="hover:text-cyan-300 transition">{t("feed_grain")}</Link></li>
             </ul>
           </div>

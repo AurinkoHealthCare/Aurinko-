@@ -3,6 +3,7 @@ import i18n from "./i18n";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
+// 🔹 Cards Data
 const cardData = [
   {
     title: "Human",
@@ -27,6 +28,38 @@ const cardData = [
   },
 ];
 
+// 🔹 Logos for Carousel
+const logos = [
+  { src: "/Assets/fssai.png", alt: "FSSAI" },
+  { src: "/Assets/apeda.png", alt: "APEDA" },
+  { src: "/Assets/iso.png", alt: "ISO" },
+  { src: "/Assets/haccp.png", alt: "HACCP" },
+  { src: "/Assets/who.png", alt: "WHO" },
+];
+
+// 🔹 LogoCarousel Component
+const LogoCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % logos.length);
+    }, 2000); // change every 2 seconds
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="w-40 h-12 sm:h-14 md:h-16 flex items-center justify-center border bg-black/50 rounded-xl overflow-hidden">
+      <img
+        src={logos[currentIndex].src}
+        alt={logos[currentIndex].alt}
+        className="h-8 sm:h-10 md:h-12 object-contain transition-opacity duration-500"
+      />
+    </div>
+  );
+};
+
+// 🔹 Home Component
 const Home = () => {
   const { t } = useTranslation("home");
   const [selectedLang, setSelectedLang] = useState("Language");
@@ -71,109 +104,122 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-900 relative overflow-hidden font-sans text-white min-h-screen">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/Assets/AurinkoHome1.png"
-          alt="Background"
-          className="w-full h-full object-cover filter blur-md brightness-50"
-        />
-      </div>
-
-      {/* Language Selector + Search */}
-      <div className="absolute top-3 right-4 md:top-4 md:right-10 z-50 flex items-center gap-2">
-        <Link to="/search">
-          <button className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg">
-            Search
-          </button>
-        </Link>
-        <div className="relative inline-block language-selector">
-          <button
-            onClick={() => setLanguageOpen(!languageOpen)}
-            className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg"
-          >
-            {selectedLang}
-          </button>
-          {languageOpen && (
-            <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md w-32 sm:w-40">
-              {Object.keys(langCodeMap).map((lang) => (
-                <li
-                  key={lang}
-                  className="px-3 py-2 hover:bg-gray-200 cursor-pointer text-sm sm:text-base"
-                  onClick={() => {
-                    handleLangChange(lang);
-                    setLanguageOpen(false);
-                  }}
-                >
-                  {lang}
-                </li>
-              ))}
-            </ul>
-          )}
+    <div>
+      <div className="bg-gray-900 relative overflow-hidden font-sans text-white min-h-screen">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/Assets/AurinkoHome1.png"
+            alt="Background"
+            className="w-full h-full object-cover filter blur-md brightness-50"
+          />
         </div>
-      </div>
 
-      {/* Logo */}
-      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10">
-        <img
-          src="/Assets/AurinkoLogo.png"
-          alt="Logo"
-          className="w-14 sm:w-20 lg:w-28 h-auto"
-        />
-      </div>
+        {/* 🔹 Top Right Section (Search + Language + Affiliated) */}
+        <div className="absolute top-3 right-4 md:top-4 md:right-10 z-50 flex flex-col items-end gap-3">
+          {/* Row 1: Search + Language */}
+          <div className="flex items-center gap-2">
+            <Link to="/search">
+              <button className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg">
+                Search
+              </button>
+            </Link>
+            <div className="relative inline-block language-selector">
+              <button
+                onClick={() => setLanguageOpen(!languageOpen)}
+                className="bg-transparent border border-white px-2 py-1 md:px-3 md:py-1 rounded-md hover:bg-white hover:text-black transition-all duration-300 text-xs md:text-sm lg:text-lg"
+              >
+                {selectedLang}
+              </button>
+              {languageOpen && (
+                <ul className="absolute bg-white text-black shadow-md mt-1 rounded-md w-32 sm:w-40">
+                  {Object.keys(langCodeMap).map((lang) => (
+                    <li
+                      key={lang}
+                      className="px-3 py-2 hover:bg-gray-200 cursor-pointer text-sm sm:text-base"
+                      onClick={() => {
+                        handleLangChange(lang);
+                        setLanguageOpen(false);
+                      }}
+                    >
+                      {lang}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
 
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-4 pt-20 sm:pt-28 lg:pt-32 pb-16 gap-10">
-        {/* Tagline */}
-        <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
-          {t("welcome")} <br /> {t("company")}
-        </h1>
-        <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl">
-          ({t("previously")} {t("oldName")})
-        </h2>
+          {/* Row 2: Affiliated With */}
+          <div className="flex items-center gap-3 mt-1">
+            <h3 className="text-white text-sm sm:text-base md:text-lg lg:text-xl font-semibold whitespace-nowrap">
+              Affiliated With
+            </h3>
+            <LogoCarousel />
+          </div>
+        </div>
 
-        {/* Cards Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 w-full max-w-6xl px-4">
-          {cardData.map((card, index) => (
-            <div key={index} className="flex flex-col items-center gap-4">
-              <div className="flip-card w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72">
-                <div className="flip-card-inner">
-                  {/* Front */}
-                  <div className="flip-card-front rounded-xl overflow-hidden shadow-lg">
-                    <img
-                      src={card.frontImage}
-                      alt={`${card.title} Front`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  {/* Back */}
-                  <div className="flip-card-back rounded-xl overflow-hidden shadow-lg">
-                    <img
-                      src={card.backImage}
-                      alt={`${card.title} Back`}
-                      className="w-full h-full object-cover"
-                    />
+        {/* 🔹 Logo (Top Left) */}
+        <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10">
+          <img
+            src="/Assets/AurinkoLogo.png"
+            alt="Logo"
+            className="w-14 sm:w-20 lg:w-28 h-auto"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-4 pt-28 sm:pt-28 lg:pt-32 pb-16 gap-10">
+          {/* Tagline */}
+          <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight">
+            {t("welcome")} <br /> {t("company")}
+          </h1>
+          <h2 className="text-base sm:text-xl md:text-2xl lg:text-3xl">
+            ({t("previously")} {t("oldName")})
+          </h2>
+
+          {/* Cards Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 w-full max-w-6xl px-4">
+            {cardData.map((card, index) => (
+              <div key={index} className="flex flex-col items-center gap-4">
+                <div className="flip-card w-48 h-48 sm:w-64 sm:h-64 lg:w-72 lg:h-72">
+                  <div className="flip-card-inner">
+                    {/* Front */}
+                    <div className="flip-card-front rounded-xl overflow-hidden shadow-lg">
+                      <img
+                        src={card.frontImage}
+                        alt={`${card.title} Front`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    {/* Back */}
+                    <div className="flip-card-back rounded-xl overflow-hidden shadow-lg">
+                      <img
+                        src={card.backImage}
+                        alt={`${card.title} Back`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Know More Button */}
-              <button
-                className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm md:text-base font-medium transition-all duration-300"
-                style={{ borderColor: card.color }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = card.color;
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = "transparent";
-                }}
-                onClick={() => navigate(card.route)}
-              >
-                {t("knowMore")}
-              </button>
-            </div>
-          ))}
+                {/* Know More Button */}
+                <button
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border text-xs sm:text-sm md:text-base font-medium transition-all duration-300"
+                  style={{ borderColor: card.color }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = card.color;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = "transparent";
+                  }}
+                  onClick={() => navigate(card.route)}
+                >
+                  {t("knowMore")}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
