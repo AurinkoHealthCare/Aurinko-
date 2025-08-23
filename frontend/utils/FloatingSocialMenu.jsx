@@ -7,8 +7,8 @@ import {
   FaPaw,
   FaLeaf,
 } from "react-icons/fa";
-import { RiHomeSmile2Fill } from "react-icons/ri"; // Remix style home icon
-import { FaPlus } from "react-icons/fa6"; // Naya plus icon
+import { RiHomeSmile2Fill } from "react-icons/ri";
+import { FaPlus } from "react-icons/fa6";
 
 const FloatingSocialMenu = () => {
   const [open, setOpen] = useState(false);
@@ -17,6 +17,8 @@ const FloatingSocialMenu = () => {
   const offset = useRef({ x: 0, y: 0 });
 
   const toggleMenu = () => setOpen(!open);
+
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   const handleMouseDown = (e) => {
     isDragging.current = true;
@@ -37,20 +39,34 @@ const FloatingSocialMenu = () => {
 
   const handleMouseMove = (e) => {
     if (isDragging.current) {
-      setPosition({
-        x: e.clientX - offset.current.x,
-        y: e.clientY - offset.current.y,
-      });
+      const newX = clamp(
+        e.clientX - offset.current.x,
+        0,
+        window.innerWidth - 60
+      );
+      const newY = clamp(
+        e.clientY - offset.current.y,
+        0,
+        window.innerHeight - 60
+      );
+      setPosition({ x: newX, y: newY });
     }
   };
 
   const handleTouchMove = (e) => {
     if (isDragging.current) {
       const touch = e.touches[0];
-      setPosition({
-        x: touch.clientX - offset.current.x,
-        y: touch.clientY - offset.current.y,
-      });
+      const newX = clamp(
+        touch.clientX - offset.current.x,
+        0,
+        window.innerWidth - 60
+      );
+      const newY = clamp(
+        touch.clientY - offset.current.y,
+        0,
+        window.innerHeight - 60
+      );
+      setPosition({ x: newX, y: newY });
     }
   };
 
@@ -71,19 +87,35 @@ const FloatingSocialMenu = () => {
     };
   }, []);
 
-  // Links & colors easily change ho sake
+  // Links & colors
   const icons = [
-    { icon: <FaFacebookF />, link: "https://facebook.com", bg: "linear-gradient(135deg, #3b5998, #1877f2)" },
-    { icon: <FaInstagram />, link: "https://www.instagram.com/aurinko_healthcare/", bg: "linear-gradient(135deg, #f58529, #dd2a7b)" },
-    { icon: <FaLinkedinIn />, link: "https://www.linkedin.com/in/aurinko-healthcare-5a2471b8/", bg: "linear-gradient(135deg, #0072b1, #005582)" },
-    { icon: <FaUser />, link: "/human", bg: "#b30800" }, // Human - Red
-    { icon: <FaPaw />, link: "/veterinary", bg: "#1f3ad1" }, // Veterinary - Blue
-    { icon: <FaLeaf />, link: "/agriculture", bg: "#01421d" }, // Agriculture - Dark Green
-    { icon: <RiHomeSmile2Fill />, link: "/", bg: "linear-gradient(135deg, #00c6ff, #0072ff)" }, // Home remix style
+    {
+      icon: <FaFacebookF />,
+      link: "https://facebook.com",
+      bg: "linear-gradient(135deg, #3b5998, #1877f2)",
+    },
+    {
+      icon: <FaInstagram />,
+      link: "https://www.instagram.com/aurinko_healthcare/",
+      bg: "linear-gradient(135deg, #f58529, #dd2a7b)",
+    },
+    {
+      icon: <FaLinkedinIn />,
+      link: "https://www.linkedin.com/in/aurinko-healthcare-5a2471b8/",
+      bg: "linear-gradient(135deg, #0072b1, #005582)",
+    },
+    { icon: <FaUser />, link: "/human", bg: "#b30800" },
+    { icon: <FaPaw />, link: "/veterinary", bg: "#1f3ad1" },
+    { icon: <FaLeaf />, link: "/agriculture", bg: "#01421d" },
+    {
+      icon: <RiHomeSmile2Fill />,
+      link: "/",
+      bg: "linear-gradient(135deg, #00c6ff, #0072ff)",
+    },
   ];
 
   const angleGap = (2 * Math.PI) / icons.length;
-  const radius = 90;
+  const radius = window.innerWidth < 600 ? 70 : 90; // Mobile radius chhota
 
   const menuStyle = {
     position: "fixed",
@@ -116,8 +148,8 @@ const FloatingSocialMenu = () => {
 
   const iconStyle = (bg) => ({
     position: "absolute",
-    width: "48px",
-    height: "48px",
+    width: "42px",
+    height: "42px",
     background: bg,
     color: "#fff",
     borderRadius: "50%",
@@ -150,8 +182,8 @@ const FloatingSocialMenu = () => {
             rel="noreferrer"
             style={{
               ...iconStyle(item.bg),
-              left: `calc(50% + ${x}px - 24px)`,
-              top: `calc(50% + ${y}px - 24px)`,
+              left: `calc(50% + ${x}px - 21px)`,
+              top: `calc(50% + ${y}px - 21px)`,
               pointerEvents: open ? "auto" : "none",
               opacity: open ? 1 : 0,
               transform: open ? "scale(1)" : "scale(0)",
