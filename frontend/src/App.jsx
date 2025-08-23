@@ -3,6 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
 import BlogsManagement from "./Admin/Pages/Media/BlogsManagement.jsx";
+import FacultyUpload from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
+import FacultyManagement from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
+import AddFaculty from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
+import ManageFaculty from "./Admin/Pages/Home/facultyView.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -276,6 +280,8 @@ function App() {
           {/* new test router */}
           <Route path="/logo" element={<LogoUploader />} />
           <Route path="/blogadmin" element={<BlogsManagement />} />
+          <Route path="/addfacultyadmin" element={<AddFaculty />} />
+          <Route path="/managefacultyadmin" element={<ManageFaculty />} />
         </Routes>
       </Suspense>
     </div>

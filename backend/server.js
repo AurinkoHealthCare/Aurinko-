@@ -63,6 +63,8 @@ app.use("/api/video", require("./router/videoRouter/video"));
 app.use("/api/reviews", require("./router/reviewRouter/review"));
 app.use("/api/logo", require("./router/logoRouter/logo"));
 app.use("/api/blog", require("./router/blogRouter/blog"));
+app.use("/api/faculty", require("./router/facultyRouter/faculty"));
+
 
 // ✅ 404 Handler
 app.use((req, res) => {
