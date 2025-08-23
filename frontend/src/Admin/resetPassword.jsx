@@ -3,27 +3,26 @@ import axios from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const ResetPasswordPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    otp: "",
-    newPassword: "",
-  });
+  const [formData, setFormData] = useState({ name: "", otp: "", newPassword: "" });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); // Inline error
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleReset = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(""); // Clear previous errors
+
     try {
-      const res = await axios.post("/auth/reset-password", formData); // 👈 name भी जाएगा
+      const res = await axios.post("/auth/reset-password", formData);
       alert(res.data.message || "Password reset successful ✅");
-      navigate("/AurinkoOne");
+      navigate("/AurinkoOne"); // Redirect to login or home
     } catch (err) {
-      alert(err.response?.data?.message || "Reset failed ❌");
+      setError(err.response?.data?.message || "Reset failed ❌");
     } finally {
       setLoading(false);
     }
@@ -71,6 +70,9 @@ const ResetPasswordPage = () => {
           className="w-full p-3 rounded-md bg-white/20 text-white placeholder-white/70 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
           required
         />
+
+        {/* Inline Error */}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <button
           type="submit"
