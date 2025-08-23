@@ -75,6 +75,7 @@ const Banner = () => {
     }
   };
 
+  const newLocal = "text-xs text-gray-500 mb-2 truncate w-full text-center";
   return (
     <div className="p-6 max-w-7xl mx-auto">
       <ToastContainer position="top-right" autoClose={2000} />
@@ -149,7 +150,7 @@ const Banner = () => {
               />
 
               {selectedFiles[img._id] && (
-                <p className="text-xs text-gray-500 mb-2 truncate w-full text-center">
+                <p className={newLocal}>
                   {selectedFiles[img._id].name}
                 </p>
               )}

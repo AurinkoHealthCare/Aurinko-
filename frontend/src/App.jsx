@@ -7,6 +7,7 @@ import FacultyUpload from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
 import FacultyManagement from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
 import AddFaculty from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
 import ManageFaculty from "./Admin/Pages/Home/facultyView.jsx";
+import ResetPasswordPage from "./Admin/resetPassword.jsx";
 
 // Lazy Imports
 const Home = lazy(() => import("./Home"));
@@ -282,6 +283,7 @@ function App() {
           <Route path="/blogadmin" element={<BlogsManagement />} />
           <Route path="/addfacultyadmin" element={<AddFaculty />} />
           <Route path="/managefacultyadmin" element={<ManageFaculty />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
         </Routes>
       </Suspense>
     </div>
