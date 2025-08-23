@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../../../api/axios";
 
+const LANGUAGES = ["en", "fr", "es", "ar", "ko"];
+
 const renderStars = (rating) => {
   return "★".repeat(Number(rating)) + "☆".repeat(5 - Number(rating));
 };
@@ -12,16 +14,18 @@ const Global_Providers = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    details: "",
+    name: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+    category: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+    details: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+    rating: 0,
     image: null,
     preview: "",
-    rating: 0,
-    translations: { fr: {}, es: {}, ar: {}, ko: {} },
   });
+
   const [lang, setLang] = useState("en");
+  const [activeLang, setActiveLang] = useState("en");
 
   useEffect(() => {
     fetchProducts();
@@ -33,7 +37,7 @@ const Global_Providers = () => {
     } else {
       setFilteredProducts(
         products.filter(
-          (p) => p.category.toLowerCase() === selectedCategory.toLowerCase()
+          (p) => p.category?.toLowerCase() === selectedCategory.toLowerCase()
         )
       );
     }
@@ -74,30 +78,46 @@ const Global_Providers = () => {
 
   const handleEdit = (product) => {
     setEditingId(product.productId);
+
     setFormData({
-      name: product.name,
-      category: product.category,
-      details: product.details,
+      name: {
+        en: product.name,
+        ...Object.fromEntries(
+          LANGUAGES.filter((l) => l !== "en").map((l) => [
+            l,
+            product.translations?.[l]?.name || "",
+          ])
+        ),
+      },
+      category: {
+        en: product.category,
+        ...Object.fromEntries(
+          LANGUAGES.filter((l) => l !== "en").map((l) => [
+            l,
+            product.translations?.[l]?.category || "",
+          ])
+        ),
+      },
+      details: {
+        en: product.details,
+        ...Object.fromEntries(
+          LANGUAGES.filter((l) => l !== "en").map((l) => [
+            l,
+            product.translations?.[l]?.details || "",
+          ])
+        ),
+      },
+      rating: product.rating || 0,
       image: null,
       preview: product.image,
-      rating: product.rating || 0,
-      translations: product.translations || { fr: {}, es: {}, ar: {}, ko: {} },
     });
+    setActiveLang("en");
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleTranslationChange = (e, langKey) => {
-    const { name, value } = e.target;
+  const handleInputChange = (field, langKey, value) => {
     setFormData((prev) => ({
       ...prev,
-      translations: {
-        ...prev.translations,
-        [langKey]: { ...prev.translations[langKey], [name]: value },
-      },
+      [field]: { ...prev[field], [langKey]: value },
     }));
   };
 
@@ -115,11 +135,10 @@ const Global_Providers = () => {
     try {
       setLoading(true);
       const data = new FormData();
-      data.append("name", formData.name);
-      data.append("category", formData.category);
-      data.append("details", formData.details);
+      data.append("name", JSON.stringify(formData.name));
+      data.append("category", JSON.stringify(formData.category));
+      data.append("details", JSON.stringify(formData.details));
       data.append("rating", formData.rating);
-      data.append("translations", JSON.stringify(formData.translations));
       if (formData.image) data.append("image", formData.image);
 
       await axios.put(`/products/update/${editingId}`, data, {
@@ -129,16 +148,16 @@ const Global_Providers = () => {
       await fetchProducts();
       setEditingId(null);
       setFormData({
-        name: "",
-        category: "",
-        details: "",
+        name: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+        category: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+        details: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
+        rating: 0,
         image: null,
         preview: "",
-        rating: 0,
-        translations: { fr: {}, es: {}, ar: {}, ko: {} },
       });
       alert("✅ Product updated successfully!");
     } catch (err) {
+      console.error(err);
       alert("Update failed. Check console for details.");
     } finally {
       setLoading(false);
@@ -151,17 +170,18 @@ const Global_Providers = () => {
         📦 GLOBAL PROVIDER LIST
       </h1>
 
+      {/* Filters */}
       <div className="mb-6 flex flex-wrap justify-center gap-4">
         <select
           value={lang}
           onChange={(e) => setLang(e.target.value)}
           className="border p-2 rounded-lg shadow-sm"
         >
-          <option value="en">English</option>
-          <option value="fr">French</option>
-          <option value="es">Spanish</option>
-          <option value="ar">Arabic</option>
-          <option value="ko">Korean</option>
+          {LANGUAGES.map((l) => (
+            <option key={l} value={l}>
+              {l.toUpperCase()}
+            </option>
+          ))}
         </select>
 
         <select
@@ -192,71 +212,85 @@ const Global_Providers = () => {
             ✏️ Edit Product
           </h2>
 
-          {/* Name */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full border p-2 rounded-lg"
-              required
-            />
+          {/* ✅ Language Tabs */}
+          <div className="flex gap-2 mb-6">
+            {LANGUAGES.map((l) => (
+              <button
+                key={l}
+                type="button"
+                onClick={() => setActiveLang(l)}
+                className={`px-4 py-2 rounded-lg font-semibold transition ${
+                  activeLang === l
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
           </div>
 
-          {/* Category */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Category
-            </label>
-            <input
-              type="text"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full border p-2 rounded-lg"
-              required
-            />
-          </div>
+          {/* ✅ Dynamic Inputs */}
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1">Name</label>
+              <input
+                type="text"
+                value={formData.name[activeLang]}
+                onChange={(e) =>
+                  handleInputChange("name", activeLang, e.target.value)
+                }
+                placeholder={`Name (${activeLang.toUpperCase()})`}
+                className="w-full border p-2 rounded-lg"
+              />
+            </div>
 
-          {/* Details */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Details
-            </label>
-            <textarea
-              name="details"
-              value={formData.details}
-              onChange={handleChange}
-              className="w-full border p-2 rounded-lg"
-              rows="4"
-            />
+            <div>
+              <label className="block text-sm font-medium mb-1">Category</label>
+              <input
+                type="text"
+                value={formData.category[activeLang]}
+                onChange={(e) =>
+                  handleInputChange("category", activeLang, e.target.value)
+                }
+                placeholder={`Category (${activeLang.toUpperCase()})`}
+                className="w-full border p-2 rounded-lg"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Details</label>
+              <textarea
+                value={formData.details[activeLang]}
+                onChange={(e) =>
+                  handleInputChange("details", activeLang, e.target.value)
+                }
+                placeholder={`Details (${activeLang.toUpperCase()})`}
+                rows="4"
+                className="w-full border p-2 rounded-lg"
+              />
+            </div>
           </div>
 
           {/* Rating */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Rating
-            </label>
+          <div className="mt-4">
+            <label className="block text-sm font-medium mb-1">Rating</label>
             <input
               type="number"
               name="rating"
               min="0"
               max="5"
               value={formData.rating}
-              onChange={handleChange}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, rating: e.target.value }))
+              }
               className="w-full border p-2 rounded-lg"
             />
           </div>
 
-          {/* Image */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Image
-            </label>
+          {/* Image Upload */}
+          <div className="mt-4">
+            <label className="block text-sm font-medium mb-1">Image</label>
             <input
               type="file"
               accept="image/*"
@@ -272,43 +306,8 @@ const Global_Providers = () => {
             )}
           </div>
 
-          {/* Translations */}
-          <div className="mb-6">
-            <h3 className="font-semibold text-gray-800 mb-2">🌍 Translations</h3>
-            {["fr", "es", "ar", "ko"].map((langKey) => (
-              <div key={langKey} className="border p-3 mb-3 rounded-lg">
-                <p className="font-medium text-gray-700 uppercase mb-2">
-                  {langKey}
-                </p>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={formData.translations[langKey]?.name || ""}
-                  onChange={(e) => handleTranslationChange(e, langKey)}
-                  className="w-full border p-2 rounded mb-2"
-                />
-                <input
-                  type="text"
-                  name="category"
-                  placeholder="Category"
-                  value={formData.translations[langKey]?.category || ""}
-                  onChange={(e) => handleTranslationChange(e, langKey)}
-                  className="w-full border p-2 rounded mb-2"
-                />
-                <textarea
-                  name="details"
-                  placeholder="Details"
-                  value={formData.translations[langKey]?.details || ""}
-                  onChange={(e) => handleTranslationChange(e, langKey)}
-                  className="w-full border p-2 rounded"
-                />
-              </div>
-            ))}
-          </div>
-
           {/* Buttons */}
-          <div className="flex justify-end gap-4">
+          <div className="flex justify-end gap-4 mt-6">
             <button
               type="button"
               onClick={() => setEditingId(null)}
@@ -336,11 +335,11 @@ const Global_Providers = () => {
               ? product
               : {
                   ...product,
-                  name: product.translations[lang]?.name || product.name,
+                  name: product.translations?.[lang]?.name || product.name,
                   category:
-                    product.translations[lang]?.category || product.category,
+                    product.translations?.[lang]?.category || product.category,
                   details:
-                    product.translations[lang]?.details || product.details,
+                    product.translations?.[lang]?.details || product.details,
                 };
 
           return (

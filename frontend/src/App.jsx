@@ -2,9 +2,6 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import HorizontalBounceLoader from "../private/loader.jsx";
 import NotFound404 from "../utils/component/pagenotfound.jsx";
-import BlogsManagement from "./Admin/Pages/Media/BlogsManagement.jsx";
-import FacultyUpload from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
-import FacultyManagement from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
 import AddFaculty from "./Admin/Pages/Pages/Home/facultyadmin.jsx";
 import ManageFaculty from "./Admin/Pages/Home/facultyView.jsx";
 
@@ -75,6 +72,7 @@ const Pages_Banner = lazy(() => import("./Admin/Pages/Media/Pages_Banner.jsx"));
 const Global_Providers = lazy(() => import("./Admin/Pages/Media/Global_Providers.jsx"));
 const Product_details = lazy(() => import("./Admin/Pages/Media/Product_details.jsx"));
 const LogoUploader = lazy(() => import("../utils/component/logo.jsx"));
+const BlogsManagement = lazy(() => import("./Admin/Pages/Media/BlogsManagement.jsx"));
 
 const Product_Cart = lazy(() => import("./Admin/Pages/Pages/Home/Product_Cart"));
 const Product_detail = lazy(() => import("./Admin/Pages/Pages/Home/Product_detail"));
@@ -255,6 +253,7 @@ function App() {
             <Route path="/dashboard/reports_articles" element={<Reports_Articles />} />
             <Route path='/dashboard/gallery_view' element={<Gallery_view />} />
             <Route path='/dashboard/brochure_view' element={<Brochure_view />} />
+            <Route path='/dashboard/Blogs_view' element={<BlogsManagement />} />
             <Route path="/dashboard/video_view" element={<Video_view />} />
 
             {/* Home */}
@@ -272,6 +271,8 @@ function App() {
             <Route path='/dashboard/Videos' element={<Video />} />
 
             {/* Contact_us */}
+            <Route path="/dashboard/addfaculty" element={<AddFaculty />} />
+            <Route path="/dashboard/managefaculty" element={<ManageFaculty />} />
             <Route path='/dashboard/contact_us' element={<Contact_us />} />
             <Route path="/dashboard/feedback" element={<Feedback />} />
           </Route>
@@ -279,9 +280,6 @@ function App() {
           <Route path="*" element={<NotFound404 homeHref="/" />} />
           {/* new test router */}
           <Route path="/logo" element={<LogoUploader />} />
-          <Route path="/blogadmin" element={<BlogsManagement />} />
-          <Route path="/addfacultyadmin" element={<AddFaculty />} />
-          <Route path="/managefacultyadmin" element={<ManageFaculty />} />
         </Routes>
       </Suspense>
     </div>

@@ -8,6 +8,7 @@ const LANGUAGES = ["en", "ar", "es", "fr", "ko"];
 const ManageFaculty = () => {
   const [faculties, setFaculties] = useState([]);
   const [editingFaculty, setEditingFaculty] = useState(null);
+  const [selectedLang, setSelectedLang] = useState("en");
 
   // Fetch all faculties
   const fetchFaculties = async () => {
@@ -83,48 +84,76 @@ const ManageFaculty = () => {
     <div className="p-6 bg-white min-h-screen">
       <h1 className="text-3xl font-bold mb-6 text-center">Manage Faculty</h1>
 
+      {/* Language Selector */}
+      <div className="mb-6 flex justify-center">
+        <select
+          value={selectedLang}
+          onChange={(e) => setSelectedLang(e.target.value)}
+          className="border rounded px-3 py-2"
+        >
+          {LANGUAGES.map((lang) => (
+            <option key={lang} value={lang}>
+              {lang.toUpperCase()}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {/* Faculty List */}
       <div className="grid gap-4 md:grid-cols-2">
         {faculties.map((faculty) => (
           <div
             key={faculty._id}
-            className="bg-white border shadow rounded-lg p-4"
+            className="bg-white border shadow rounded-lg p-4 flex gap-4 items-start"
           >
-            <h2 className="text-xl font-bold">{faculty.name?.en || "No Name"}</h2>
-            <p className="text-gray-600">
-              {faculty.designation?.en || "No Designation"}
-            </p>
-            {faculty.image?.url && (
+            {/* Left: Image */}
+            {faculty.image?.url ? (
               <img
                 src={faculty.image.url}
                 alt="faculty"
-                className="w-24 h-24 object-cover rounded mt-2"
+                className="w-24 h-24 object-cover rounded-lg border"
               />
+            ) : (
+              <div className="w-24 h-24 flex items-center justify-center bg-gray-200 rounded-lg text-gray-500">
+                No Image
+              </div>
             )}
-            <div className="mt-4 flex gap-2">
-              <button
-                onClick={() =>
-                  setEditingFaculty({
-                    ...faculty,
-                    image: faculty.image?.url || null,
-                  })
-                }
-                className="bg-blue-500 text-white px-3 py-1 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => deleteFaculty(faculty._id)}
-                className="bg-red-500 text-white px-3 py-1 rounded"
-              >
-                Delete
-              </button>
+
+            {/* Right: Content */}
+            <div className="flex-1">
+              <h2 className="text-xl font-bold">
+                {faculty.name?.[selectedLang] || "No Name"}
+              </h2>
+              <p className="text-gray-600">
+                {faculty.designation?.[selectedLang] || "No Designation"}
+              </p>
+              <p className="text-sm text-gray-500 mt-1 line-clamp-3">
+                {faculty.bio?.[selectedLang] || "No Bio"}
+              </p>
+
+              <div className="mt-4 flex gap-2">
+                <button
+                  onClick={() =>
+                    setEditingFaculty({
+                      ...faculty,
+                      image: faculty.image?.url || null,
+                    })
+                  }
+                  className="bg-blue-500 text-white px-3 py-1 rounded"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => deleteFaculty(faculty._id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
-
-      {/* Edit Modal */}
       {editingFaculty && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <form
@@ -133,21 +162,38 @@ const ManageFaculty = () => {
           >
             <h2 className="text-2xl font-bold mb-4 text-center">Edit Faculty</h2>
 
-            {["name", "designation", "bio"].map((field) => (
-              <div key={field} className="space-y-2 border-b pb-2">
-                <h3 className="font-semibold">{field.toUpperCase()}</h3>
-                {LANGUAGES.map((lang) => (
+            {/* ✅ Language Selector */}
+            <div className="flex justify-center gap-2 mb-4">
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => setSelectedLang(lang)}
+                  className={`px-3 py-1 rounded ${selectedLang === lang ? "bg-blue-600 text-white" : "bg-gray-200"
+                    }`}
+                >
+                  {lang.toUpperCase()}
+                </button>
+              ))}
+            </div>
+
+            {/* ✅ Show only selected language inputs */}
+            {Object.keys(editingFaculty)
+              .filter((key) => typeof editingFaculty[key] === "object" && key !== "image" && key !== "_id")
+              .map((field) => (
+                <div key={field} className="space-y-2 border-b pb-2">
+                  <h3 className="font-semibold">{field.toUpperCase()}</h3>
                   <input
-                    key={lang}
                     type="text"
-                    placeholder={`${field} (${lang.toUpperCase()})`}
-                    value={editingFaculty[field][lang] || ""}
-                    onChange={(e) => handleInputChange(field, lang, e.target.value)}
+                    placeholder={`${field} (${selectedLang.toUpperCase()})`}
+                    value={editingFaculty[field]?.[selectedLang] || ""}
+                    onChange={(e) =>
+                      handleInputChange(field, selectedLang, e.target.value)
+                    }
                     className="w-full border rounded p-2"
                   />
-                ))}
-              </div>
-            ))}
+                </div>
+              ))}
 
             {/* Image Upload */}
             <div>
@@ -195,7 +241,6 @@ const ManageFaculty = () => {
           </form>
         </div>
       )}
-
       <ToastContainer />
     </div>
   );

@@ -106,6 +106,8 @@ const Navbar = () => {
             onLinkClick={handleLinkClick}
           />
 
+          <NavLink to="/dashboard/addfaculty" label="AddFaculty" onClick={handleLinkClick} />
+          <NavLink to="/dashboard/managefaculty" label="Managefaculty" onClick={handleLinkClick} />
           <NavLink to="/dashboard/contact_us" label="Contact Us" onClick={handleLinkClick} />
           <NavLink to="/dashboard/feedback" label="Feedback" onClick={handleLinkClick} />
 

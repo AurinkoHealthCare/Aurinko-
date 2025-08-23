@@ -13,7 +13,7 @@ const Blogs = () => {
   const initializeLangFields = () => {
     const obj = {};
     LANGUAGES.forEach((lang) => (obj[lang] = ""));
-    return obj;
+    return obj; 
   };
 
   const handleImageChange = (e, formIndex) => {

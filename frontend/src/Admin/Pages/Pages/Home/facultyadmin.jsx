@@ -13,6 +13,8 @@ const AddFaculty = () => {
     image: null,
   });
 
+  const [activeLang, setActiveLang] = useState("en");
+
   const handleInputChange = (field, lang, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -43,7 +45,9 @@ const AddFaculty = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      toast.success("Faculty added successfully!");
+      toast.success("✅ Faculty added successfully!");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
       setFormData({
         name: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
         designation: LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {}),
@@ -52,63 +56,119 @@ const AddFaculty = () => {
       });
     } catch (err) {
       console.error(err);
-      toast.error("Upload failed!");
+      toast.error("❌ Upload failed!");
     }
   };
 
   return (
     <div className="min-h-screen p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-center">Add New Faculty</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+        Add New Faculty
+      </h1>
+
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto space-y-4"
+        className="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6"
       >
-        {["name", "designation", "bio"].map((field) => (
-          <div key={field} className="space-y-2 border-b pb-2">
-            <h3 className="font-semibold">{field.toUpperCase()}</h3>
-            {LANGUAGES.map((lang) => (
-              <input
-                key={lang}
-                type="text"
-                placeholder={`${field} (${lang.toUpperCase()})`}
-                value={formData[field][lang]}
-                onChange={(e) => handleInputChange(field, lang, e.target.value)}
-                className="w-full border rounded p-2"
-              />
-            ))}
-          </div>
-        ))}
+        {/* ✅ Language Tabs */}
+        <div className="flex justify-center gap-2">
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setActiveLang(lang)}
+              className={`px-4 py-2 rounded-lg font-semibold transition ${
+                activeLang === lang
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
 
-        {/* Single Image Upload */}
+        {/* ✅ Dynamic Inputs */}
+        <div className="space-y-4">
+          <div>
+            <label className="block font-semibold mb-1">Name</label>
+            <input
+              type="text"
+              placeholder={`Name (${activeLang.toUpperCase()})`}
+              value={formData.name[activeLang]}
+              onChange={(e) =>
+                handleInputChange("name", activeLang, e.target.value)
+              }
+              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block font-semibold mb-1">Designation</label>
+            <input
+              type="text"
+              placeholder={`Designation (${activeLang.toUpperCase()})`}
+              value={formData.designation[activeLang]}
+              onChange={(e) =>
+                handleInputChange("designation", activeLang, e.target.value)
+              }
+              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block font-semibold mb-1">Bio</label>
+            <textarea
+              placeholder={`Bio (${activeLang.toUpperCase()})`}
+              rows="4"
+              value={formData.bio[activeLang]}
+              onChange={(e) =>
+                handleInputChange("bio", activeLang, e.target.value)
+              }
+              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+
+        {/* ✅ Image Upload */}
         <div>
           <label className="block font-semibold mb-2">Upload Image</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} className="mb-2" />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="mb-3"
+          />
           {formData.image && (
-            <div className="relative w-24 h-24">
+            <div className="relative w-28 h-28">
               <img
                 src={URL.createObjectURL(formData.image)}
                 alt="Preview"
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-xl border"
               />
               <button
                 type="button"
-                onClick={() => setFormData((prev) => ({ ...prev, image: null }))}
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
+                onClick={() =>
+                  setFormData((prev) => ({ ...prev, image: null }))
+                }
+                className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow"
               >
-                X
+                ×
               </button>
             </div>
           )}
         </div>
 
+        {/* ✅ Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
         >
-          Add Faculty
+          ➕ Add Faculty
         </button>
       </form>
-      <ToastContainer />
+
+      <ToastContainer position="top-center" />
     </div>
   );
 };
