@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 
 const adminSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, unique: true },  // unique identifier
+    name: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     role: { type: String, required: true },
 
@@ -12,6 +12,9 @@ const adminSchema = new mongoose.Schema(
     otpExpiry: { type: Date },
     otpAttempts: { type: Number, default: 0 },
     otpLockUntil: { type: Date },
+
+    // Track password change
+    passwordChangedAt: { type: Date },
   },
   { timestamps: true }
 );
@@ -20,6 +23,9 @@ const adminSchema = new mongoose.Schema(
 adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
+
+  // Update passwordChangedAt when password changes
+  if (!this.isNew) this.passwordChangedAt = new Date();
   next();
 });
 
