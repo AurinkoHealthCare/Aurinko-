@@ -16,7 +16,7 @@ const forgotPassword = async (req, res) => {
     admin.otpLockUntil = undefined;
     await admin.save();
 
-    // Send mail in background (non-blocking)
+    // Send mail asynchronously (non-blocking)
     transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER, // only admin receives OTP
@@ -43,6 +43,7 @@ const resetPassword = async (req, res) => {
     // OTP lock & expiry
     if (admin.otpLockUntil && admin.otpLockUntil > Date.now())
       return res.status(403).json({ message: "Too many invalid attempts. Try later." });
+
     if (!admin.otpHash || !admin.otpExpiry || admin.otpExpiry < Date.now())
       return res.status(400).json({ message: "OTP expired. Please request again." });
 
@@ -50,7 +51,7 @@ const resetPassword = async (req, res) => {
     if (!constantTimeEqual(hashOtp(otp), admin.otpHash)) {
       admin.otpAttempts = (admin.otpAttempts || 0) + 1;
       if (admin.otpAttempts >= 3) {
-        admin.otpLockUntil = Date.now() + 5 * 60 * 1000;
+        admin.otpLockUntil = Date.now() + 5 * 60 * 1000; // 5 min lock
         admin.otpAttempts = 0;
       }
       await admin.save();

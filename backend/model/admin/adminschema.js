@@ -13,13 +13,17 @@ const adminSchema = new mongoose.Schema(
     otpAttempts: { type: Number, default: 0 },
     otpLockUntil: { type: Date },
 
+    // Track login attempts
+    loginAttempts: { type: Number, default: 0 },
+    loginLockUntil: { type: Date },
+
     // Track password change
     passwordChangedAt: { type: Date },
   },
   { timestamps: true }
 );
 
-// Always store hashed password
+// Always hash password
 adminSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);

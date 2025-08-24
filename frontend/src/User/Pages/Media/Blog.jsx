@@ -1,63 +1,81 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import axios from "../../../../api/axios";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const Blog = () => {
-  const { category } = useParams(); // 🔹 category URL se milega (jaise /blogs/human)
+const Blog = ({ category }) => {   // 🔹 props se category aa rahi hai
   const [blogs, setBlogs] = useState([]);
-  const [selectedLang, setSelectedLang] = useState("en");
+  const { i18n } = useTranslation();
+  const selectedLang = i18n.language; 
+
+  const fetchBlogs = async () => {
+    try {
+      const res = await axios.get("/blog/get");
+      // 🔹 category ke hisaab se filter
+      const filteredBlogs = res.data.filter(
+        (b) => b.category?.toLowerCase() === category?.toLowerCase()
+      );
+      setBlogs(filteredBlogs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get("/blog/get");
-        // 🔹 Filter category ke hisaab se
-        const filtered = res.data.filter((b) => b.category === category);
-        setBlogs(filtered);
-      } catch (err) {
-        console.error(err);
-      }
-    };
     fetchBlogs();
   }, [category]);
 
   return (
-    <div className="min-h-screen container mx-auto py-8 px-4">
-      <h1 className="text-4xl font-bold text-center mb-8 capitalize">
-        {category} Blogs
-      </h1>
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="flex flex-col items-center py-6 mb-8">
+        <h1 className="text-4xl font-bold">
+          {category ? `${category} Blogs` : "OUR BLOGS"}
+        </h1>
+      </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {blogs.map((blog) => (
-          <div
-            key={blog._id}
-            className="bg-white shadow-md rounded-lg p-6 flex flex-col md:flex-row"
-          >
-            {/* 🔹 Image */}
-            {blog.imageUrl && (
-              <img
-                src={blog.imageUrl}
-                alt="Blog"
-                className="w-full md:w-1/3 rounded-lg mb-4 md:mb-0 md:mr-6 object-cover"
-              />
-            )}
+      {/* Blog Cards */}
+      <main className="container mx-auto py-8 px-4">
+        {blogs.length === 0 ? (
+          <p className="text-center text-gray-500">
+            No blogs available for this category
+          </p>
+        ) : (
+          blogs.map((blog) => (
+            <div
+              key={blog._id}
+              className="bg-white shadow-md rounded-lg p-6 mb-8"
+            >
+              <div className="flex flex-col md:flex-row">
+                {/* Blog Image */}
+                {blog.imageUrl && (
+                  <img
+                    src={blog.imageUrl}
+                    alt={blog.headings?.[0]?.[selectedLang] || "Blog"}
+                    className="w-full md:w-1/3 rounded-lg mb-4 md:mb-0 md:mr-6 object-cover"
+                  />
+                )}
 
-            <div className="md:w-2/3">
-              {/* 🔹 Heading 1 */}
-              <Link to={`/blog/${blog._id}`}>
-                <h2 className="text-2xl font-bold mb-2">
-                  {blog.headings?.[0]?.[selectedLang]}
-                </h2>
-              </Link>
-
-              {/* 🔹 Paragraph 1 */}
-              <p className="text-gray-600">
-                {blog.paragraphs?.[0]?.[selectedLang]?.slice(0, 150)}...
-              </p>
+                {/* Blog Content */}
+                <div className="md:w-2/3">
+                  {/* 🔹 Link with category in URL */}
+                  <Link to={`/${category}/blog/${blog._id}`}>
+                    <h2 className="text-3xl font-bold mb-4">
+                      {blog.headings?.[0]?.[selectedLang] ||
+                        "No heading available"}
+                    </h2>
+                  </Link>
+                  <p className="text-gray-700 leading-relaxed">
+                    {blog.paragraphs?.[0]?.[selectedLang]
+                      ? blog.paragraphs[0][selectedLang].slice(0, 250) + "..."
+                      : "No content available"}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))
+        )}
+      </main>
     </div>
   );
 };
