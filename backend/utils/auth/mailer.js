@@ -6,6 +6,9 @@ const transporter = nodemailer.createTransport({
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS, // Gmail App Password
   },
+  pool: true,         // enable pooling
+  maxConnections: 5,  // max 5 connections at a time
+  rateLimit: true,    // prevent Gmail throttling
 });
 
 module.exports = transporter;

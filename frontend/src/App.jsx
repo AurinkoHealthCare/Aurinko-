@@ -83,7 +83,7 @@ const Report = lazy(() => import("./Admin/Pages/Pages/Media/Reports"));
 const Gallerys = lazy(() => import("./Admin/Pages/Pages/Media/Gallery"));
 const Brochure = lazy(() => import("./Admin/Pages/Pages/Media/Brochures"));
 const Blogs = lazy(() => import("./Admin/Pages/Pages/Media/Blogs"));
-const Blog1 = lazy(() => import("./User/Pages/Media/Blog/blog1.jsx"));
+const BlogDetail = lazy(() => import("./User/Pages/Media/Blog/blog1.jsx"));
 const Blog2 = lazy(() => import("./User/Pages/Media/Blog/blog2.jsx"));
 const Page_banner = lazy(() => import("./Admin/Pages/Pages/Media/page_banner.jsx"));
 const Video = lazy(() => import("./Admin/Pages/Pages/Media/Videos"));
@@ -137,9 +137,9 @@ function App() {
             <Route path="/human/photo_gallery" element={<PhotoGallery category="human" />} />
             <Route path="/human/videos" element={<VideoGallery />} />
             <Route path="/human/brochures" element={<ProductBrochures category="Human" />} />
-            <Route path="/human/blog" element={<Blog />} />
-            <Route path="/human/blog/blog1" element={<Blog1 theme="red" />} />
-            <Route path="/human/blog/blog2" element={<Blog2 theme="red" />} />
+            <Route path="/human/:category" element={<Blog category="human" />} />
+            <Route path="/human/blog/:id" element={<BlogDetail theme="red" />} />
+            <Route path="/human/blog/:id" element={<Blog2 theme="red" />} />
             <Route path="/human/articles" element={<Articles type="Human" category="Articles" />} />
 
             {/* Ingredients */}
@@ -184,7 +184,7 @@ function App() {
             <Route path="/veterinary/videos" element={<VideoGallery />} />
             <Route path="/veterinary/brochures" element={<ProductBrochures category="Veterinary" />} />
             <Route path="/veterinary/blog" element={<Blog />} />
-            <Route path="/veterinary/blog/blog1" element={<Blog1 theme="blue" />} />
+            <Route path="/veterinary/blog/blog1" element={<BlogDetail theme="blue" />} />
             <Route path="/veterinary/blog/blog2" element={<Blog2 theme="blue" />} />
             <Route path="/veterinary/articles" element={<Articles type="Veterinary" category="Articles" />} />
 
@@ -223,8 +223,8 @@ function App() {
             <Route path="/agriculture/photo_gallery" element={<PhotoGallery category="Agriculture" />} />
             <Route path="/agriculture/videos" element={<VideoGallery />} />
             <Route path="/agriculture/brochures" element={<ProductBrochures category="Agriculture" />} />
-            <Route path="/agriculture/blog" element={<Blog />} />
-            <Route path="/agriculture/blog/blog1" element={<Blog1 theme="green" />} />
+            <Route path="/agriculture/:category" element={<Blog />} />
+            <Route path="/agriculture/blog/:id" element={<BlogDetail theme="green" />} />
             <Route path="/agriculture/blog/blog2" element={<Blog2 theme="green" />} />
             <Route path="/agriculture/articles" element={<Articles type="Agriculture" category="Articles" />} />
 

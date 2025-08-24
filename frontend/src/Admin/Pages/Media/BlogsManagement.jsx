@@ -8,6 +8,7 @@ const LANGUAGES = ["en", "ar", "es", "fr", "ko"];
 const BlogsManagement = () => {
   const [blogs, setBlogs] = useState([]);
   const [editingBlog, setEditingBlog] = useState(null);
+  const [selectedLang, setSelectedLang] = useState("en"); // 🔹 Language selector
   const [formData, setFormData] = useState({
     image: null,
     headings: [],
@@ -29,7 +30,8 @@ const BlogsManagement = () => {
     fetchBlogs();
   }, []);
 
-  const initializeLangFields = (existing) => existing || LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {});
+  const initializeLangFields = (existing) =>
+    existing || LANGUAGES.reduce((acc, lang) => ({ ...acc, [lang]: "" }), {});
 
   const startEdit = (blog) => {
     setEditingBlog(blog._id);
@@ -101,9 +103,29 @@ const BlogsManagement = () => {
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Manage Blogs</h1>
 
+      {/* 🔹 Language Selector */}
+      <div className="flex justify-center mb-6 gap-3">
+        {LANGUAGES.map((lang) => (
+          <button
+            key={lang}
+            onClick={() => setSelectedLang(lang)}
+            className={`px-3 py-1 rounded ${
+              selectedLang === lang
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 hover:bg-gray-300"
+            }`}
+          >
+            {lang.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs.map((blog) => (
-          <div key={blog._id} className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-3">
+          <div
+            key={blog._id}
+            className="bg-white shadow-md rounded-xl p-4 flex flex-col gap-3"
+          >
             {blog.imageUrl && (
               <img
                 src={blog.imageUrl}
@@ -113,16 +135,22 @@ const BlogsManagement = () => {
             )}
             <div className="flex-1">
               {blog.category && (
-                <p className="font-semibold text-indigo-600 mb-2">Category: {blog.category}</p>
+                <p className="font-semibold text-indigo-600 mb-2">
+                  Category: {blog.category}
+                </p>
               )}
-              {blog.headings?.map((h, i) =>
-                LANGUAGES.map((lang) => (
-                  <div key={i + lang} className="mb-1">
-                    <p className="font-semibold text-sm">{lang.toUpperCase()}: {h[lang]}</p>
-                    <p className="text-gray-600 text-xs">{blog.paragraphs[i]?.[lang]}</p>
-                  </div>
-                ))
-              )}
+
+              {/* 🔹 Show only selected language */}
+              {blog.headings?.map((h, i) => (
+                <div key={i} className="mb-2">
+                  <p className="font-semibold text-sm">
+                    {selectedLang.toUpperCase()} Heading: {h[selectedLang]}
+                  </p>
+                  <p className="text-gray-600 text-xs">
+                    {blog.paragraphs[i]?.[selectedLang]}
+                  </p>
+                </div>
+              ))}
             </div>
             <div className="flex justify-between mt-2">
               <button
@@ -149,9 +177,17 @@ const BlogsManagement = () => {
             <h2 className="text-xl font-bold mb-4">Edit Blog</h2>
             <div className="space-y-4">
               {formData.image ? (
-                <img src={URL.createObjectURL(formData.image)} alt="Preview" className="h-32 w-full object-cover rounded-lg mb-2" />
+                <img
+                  src={URL.createObjectURL(formData.image)}
+                  alt="Preview"
+                  className="h-32 w-full object-cover rounded-lg mb-2"
+                />
               ) : formData.existingImageUrl ? (
-                <img src={formData.existingImageUrl} alt="Existing" className="h-32 w-full object-cover rounded-lg mb-2" />
+                <img
+                  src={formData.existingImageUrl}
+                  alt="Existing"
+                  className="h-32 w-full object-cover rounded-lg mb-2"
+                />
               ) : null}
 
               <div>
@@ -166,30 +202,53 @@ const BlogsManagement = () => {
               </div>
 
               <div>
-                <label className="block font-semibold mb-1">Upload New Image</label>
-                <input type="file" accept="image/*" onChange={handleImageChange} />
+                <label className="block font-semibold mb-1">
+                  Upload New Image
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
               </div>
 
               {formData.headings.map((heading, index) => (
                 <div key={index} className="space-y-2 border-t pt-2">
-                  {LANGUAGES.map((lang) => (
-                    <div key={lang}>
-                      <label className="block text-sm font-medium">{lang.toUpperCase()} Heading</label>
-                      <input
-                        type="text"
-                        value={heading[lang] || ""}
-                        onChange={(e) => handleInputChange("headings", index, lang, e.target.value)}
-                        className="w-full border rounded p-1"
-                      />
-                      <label className="block text-sm font-medium mt-1">{lang.toUpperCase()} Paragraph</label>
-                      <textarea
-                        rows={2}
-                        value={formData.paragraphs[index][lang] || ""}
-                        onChange={(e) => handleInputChange("paragraphs", index, lang, e.target.value)}
-                        className="w-full border rounded p-1"
-                      />
-                    </div>
-                  ))}
+                  {/* 🔹 Only selected language inputs */}
+                  <div>
+                    <label className="block text-sm font-medium">
+                      {selectedLang.toUpperCase()} Heading
+                    </label>
+                    <input
+                      type="text"
+                      value={heading[selectedLang] || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "headings",
+                          index,
+                          selectedLang,
+                          e.target.value
+                        )
+                      }
+                      className="w-full border rounded p-1"
+                    />
+                    <label className="block text-sm font-medium mt-1">
+                      {selectedLang.toUpperCase()} Paragraph
+                    </label>
+                    <textarea
+                      rows={2}
+                      value={formData.paragraphs[index][selectedLang] || ""}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "paragraphs",
+                          index,
+                          selectedLang,
+                          e.target.value
+                        )
+                      }
+                      className="w-full border rounded p-1"
+                    />
+                  </div>
                 </div>
               ))}
 

@@ -53,13 +53,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 relative overflow-hidden">
       {/* Background Effect */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0">
         <img
           src="/Assets/AurinkoHome1.png"
           alt="Background"
-          className="w-full h-full object-cover opacity-20 blur-sm"
+          className="w-full h-full object-cover filter blur-md brightness-40"
         />
         <div className="absolute inset-0 bg-black/50" />
       </div>

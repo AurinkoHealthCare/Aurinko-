@@ -81,7 +81,7 @@ const Navbar = () => {
               <li><Link to="/human/gallery" className="block px-4 py-1 hover:text-[#b30800]">{t("gallery")}</Link></li>
               <li><Link to="/human/review" className="block px-4 py-1 hover:text-[#b30800]">{t("Review")}</Link></li>
               <li><Link to="/human/brochures" className="block px-4 py-1 hover:text-[#b30800]">{t("brochures")}</Link></li>
-              <li><Link to="/human/blog" className="block px-4 py-1 hover:text-[#b30800]">{t("blogs")}</Link></li>
+              <li><Link to="/human/:category" className="block px-4 py-1 hover:text-[#b30800]">{t("blogs")}</Link></li>
               <li><Link to="/human/articles" className="block px-4 py-1 hover:text-[#b30800]">{t("articles")}</Link></li>
             </ul>
           </li>
@@ -146,7 +146,7 @@ const Navbar = () => {
               <li><Link to="/human/gallery" onClick={handleLinkClick}>{t("gallery")}</Link></li>
               <li><Link to="/human/review" onClick={handleLinkClick}>{t("Review")}</Link></li>
               <li><Link to="/human/brochures" onClick={handleLinkClick}>{t("brochures")}</Link></li>
-              <li><Link to="/human/blog" onClick={handleLinkClick}>{t("blogs")}</Link></li>
+              <li><Link to="/human/:category" onClick={handleLinkClick}>{t("blogs")}</Link></li>
               <li><Link to="/human/articles" onClick={handleLinkClick}>{t("articles")}</Link></li>
             </ul>
           )}

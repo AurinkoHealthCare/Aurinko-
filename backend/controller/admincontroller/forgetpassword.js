@@ -16,17 +16,20 @@ const forgotPassword = async (req, res) => {
     admin.otpLockUntil = undefined;
     await admin.save();
 
-    await transporter.sendMail({
+    // Send mail in background (non-blocking)
+    transporter.sendMail({
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_USER, // only admin receives OTP
       subject: "Aurinko Admin - Password Reset OTP",
       text: `OTP for ${admin.name}: ${otp}\nValid for 5 minutes.`,
-    });
+    }).catch(err => console.error("Failed to send OTP mail:", err));
 
-    res.json({ message: "OTP generated and sent to Admin email" });
+    // Immediate response to client
+    res.json({ message: "OTP generated. Check your email shortly." });
+
   } catch (err) {
-    console.error("OTP send error:", err);
-    res.status(500).json({ message: "Failed to send OTP" });
+    console.error("OTP generation error:", err);
+    res.status(500).json({ message: "Failed to generate OTP" });
   }
 };
 
@@ -37,15 +40,11 @@ const resetPassword = async (req, res) => {
     const admin = await Admin.findOne({ name });
     if (!admin) return res.status(400).json({ message: "Invalid request" });
 
-    // OTP lock
-    if (admin.otpLockUntil && admin.otpLockUntil > Date.now()) {
+    // OTP lock & expiry
+    if (admin.otpLockUntil && admin.otpLockUntil > Date.now())
       return res.status(403).json({ message: "Too many invalid attempts. Try later." });
-    }
-
-    // OTP expiry
-    if (!admin.otpHash || !admin.otpExpiry || admin.otpExpiry < Date.now()) {
+    if (!admin.otpHash || !admin.otpExpiry || admin.otpExpiry < Date.now())
       return res.status(400).json({ message: "OTP expired. Please request again." });
-    }
 
     // Validate OTP
     if (!constantTimeEqual(hashOtp(otp), admin.otpHash)) {
@@ -59,7 +58,7 @@ const resetPassword = async (req, res) => {
     }
 
     // Reset password
-    admin.password = newPassword; // schema pre-save will hash
+    admin.password = newPassword; // schema pre-save hashes
     admin.otpHash = undefined;
     admin.otpExpiry = undefined;
     admin.otpAttempts = 0;

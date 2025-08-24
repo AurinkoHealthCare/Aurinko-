@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const Admin = require("../../model/admin/adminschema");
 
 const verifyToken = async (req, res, next) => {
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
@@ -10,7 +11,7 @@ const verifyToken = async (req, res, next) => {
     const admin = await Admin.findById(decoded.userId);
     if (!admin) return res.status(401).json({ message: "Unauthorized" });
 
-    // Check password change
+    // Check if password was changed after token issued
     if (admin.passwordChangedAt && decoded.iat * 1000 < admin.passwordChangedAt.getTime()) {
       return res.status(401).json({ message: "Password changed. Please login again." });
     }
@@ -21,7 +22,6 @@ const verifyToken = async (req, res, next) => {
     return res.status(401).json({ message: "Invalid token." });
   }
 };
-
 
 const verifyAdmin = (req, res, next) => {
   if (req.user?.role !== "admin") return res.status(403).json({ message: "Access denied. Admins only." });
