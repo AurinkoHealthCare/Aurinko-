@@ -51,11 +51,10 @@ exports.uploadImages = async (req, res) => {
 
 
 
-// ✏️ Update Image by ID (with category)
 exports.updateImage = async (req, res) => {
   try {
     const { id } = req.params;
-    const { category } = req.body; // ✅ category update ke liye
+    const { category } = req.body; 
     const oldImage = await ImageSlider.findById(id);
 
     if (!oldImage) {
@@ -63,6 +62,8 @@ exports.updateImage = async (req, res) => {
     }
 
     let updatedData = {};
+
+    // ✅ Agar nayi image aayi ho to update + purani delete
     if (req.file) {
       const oldPath = path.join(__dirname, "../../uploads", oldImage.public_id);
       deleteFileSafe(oldPath);
@@ -72,6 +73,7 @@ exports.updateImage = async (req, res) => {
       updatedData.public_id = `${req.file.customPath}/${req.file.customFilename}`;
     }
 
+    // ✅ Agar sirf category aayi ho to bhi update
     if (category) {
       const no = (await ImageSlider.countDocuments({ category })) + 1;
       updatedData.category = category;
@@ -86,6 +88,7 @@ exports.updateImage = async (req, res) => {
     res.status(500).json({ message: "Failed to update image", error: error.message });
   }
 };
+
 
 
 // ❌ Delete Image by ID

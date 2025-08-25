@@ -136,7 +136,7 @@ const Gallery_view = () => {
               <img
                 src={img.url}
                 alt="gallery"
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-contain"
               />
 
               <div className="p-4 flex flex-col gap-3">
@@ -231,7 +231,7 @@ const Gallery_view = () => {
                     </div>
                   </>
                 )}
-              </div>
+              </div> 
             </div>
           ))}
         </div>
