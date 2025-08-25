@@ -33,10 +33,10 @@ app.use(
   })
 );
 
-app.use(express.json({ limit: "10mb" })); // Handle larger payloads
+app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
-app.use(helmet({ crossOriginResourcePolicy: false })); // Allow static images
-app.use(compression()); // Gzip compression
+app.use(helmet({ crossOriginResourcePolicy: false }));
+app.use(compression());
 
 
 app.use(
