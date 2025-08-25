@@ -4,7 +4,7 @@ import axios from "../../../../../api/axios";
 import { useTranslation } from "react-i18next";
 
 const BlogDetails = ({ category }) => {
-  const { id } = useParams(); // ab sirf id le rahe ho
+  const { id } = useParams();
   const { i18n } = useTranslation();
   const selectedLang = i18n.language;
 
@@ -13,9 +13,9 @@ const BlogDetails = ({ category }) => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        console.log("📌 Fetching blog with id:", id); // Debug id
+        console.log("📌 Fetching blog with id:", id);
         const res = await axios.get(`/blog/get/${id}`);
-        console.log("📌 API response:", res.data); // Debug response
+        console.log("📌 API response:", res.data);
         setBlog(res.data);
       } catch (err) {
         console.error("❌ Error while fetching blog:", err);

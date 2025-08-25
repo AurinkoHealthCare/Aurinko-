@@ -10,7 +10,7 @@ const themeColors = {
 };
 
 const ProductCard = ({ products = [], segment, theme = "Default" }) => {
-  const { t, i18n } = useTranslation(); // ✅ t add kiya
+  const { t, i18n } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   // ✅ Refresh hone ke baad bhi category remember rahegi
@@ -38,12 +38,12 @@ const ProductCard = ({ products = [], segment, theme = "Default" }) => {
   // ✅ Category list nikalna
   const categories = Array.from(
     new Set(segmentFiltered.map((p) => p.generalInfo?.category).filter(Boolean))
-  ).map((Category) => {
+  ).map((category) => {
     const catProducts = segmentFiltered.filter(
-      (p) => p.generalInfo?.category === Category
+      (p) => p.generalInfo?.category === category
     );
     const images = catProducts.map((p) => p.productImage).filter((img) => img);
-    return { name: Category, images };
+    return { name: category, images };
   });
 
   // ✅ Agar category select hai to uske products
@@ -54,29 +54,29 @@ const ProductCard = ({ products = [], segment, theme = "Default" }) => {
     : [];
 
   // ✅ Category Card Component
-  const CategoryCard = ({ Category }) => {
+  const CategoryCard = ({ category }) => {
     const [index, setIndex] = useState(0);
 
     useEffect(() => {
-      if (!Category.images || Category.images.length <= 1) return;
+      if (!category.images || category.images.length <= 1) return;
       const interval = setInterval(() => {
-        setIndex((prev) => (prev + 1) % Category.images.length);
+        setIndex((prev) => (prev + 1) % category.images.length);
       }, 3000);
       return () => clearInterval(interval);
-    }, [Category.images]);
+    }, [category.images]);
 
     const themeClass = themeColors[theme] || themeColors.Default;
 
     return (
       <div
-        onClick={() => setSelectedCategory(Category.name)}
+        onClick={() => setSelectedCategory(category.name)}
         className={`cursor-pointer rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition relative border-2 ${themeClass}`}
       >
-        {Category.images && Category.images.length > 0 ? (
+        {category.images && category.images.length > 0 ? (
           <div className="relative group">
             <img
-              src={Category.images[index]}
-              alt={Category.name}
+              src={category.images[index]}
+              alt={category.name}
               className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
@@ -86,7 +86,7 @@ const ProductCard = ({ products = [], segment, theme = "Default" }) => {
           </div>
         )}
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/90 px-4 py-1 rounded-full text-sm font-semibold shadow">
-          {t(Category.name)}
+          {t(category.name)}
         </div>
       </div>
     );
@@ -103,16 +103,16 @@ const ProductCard = ({ products = [], segment, theme = "Default" }) => {
 
   return (
     <div className="w-full">
-      {/* Category list */}
+      {/* category list */}
       {!selectedCategory && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4">
-          {categories.map((Category, index) => (
-            <CategoryCard key={index} Category={Category} />
+          {categories.map((category, index) => (
+            <CategoryCard key={index} category={category} />
           ))}
         </div>
       )}
 
-      {/* Selected Category ke products */}
+      {/* Selected category ke products */}
       {selectedCategory && (
         <div className="p-4">
           <button

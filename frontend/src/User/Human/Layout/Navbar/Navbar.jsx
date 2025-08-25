@@ -69,7 +69,7 @@ const Navbar = () => {
               <li><Link to="/human/Personal_Care" className="block px-4 py-1 hover:text-[#b30800]">{t("personal_care")}</Link></li>
               <li><Link to="/human/Yeppuen" className="block px-4 py-1 hover:text-[#b30800]">{t("yeppuen")}</Link></li>
               <li><Link to="/human/ayush" className="block px-4 py-1 hover:text-[#b30800]">{t("Ayush")}</Link></li>
-              <li><Link to="/human/Foods_and_Spices" className="block px-4 py-1 hover:text-[#b30800]">{t("Foods and Spices")}</Link></li>
+              <li><Link to="/human/Foods_and_Spices" className="block px-4 py-1 hover:text-[#b30800]">{t("Foods_and_Spices")}</Link></li>
             </ul>
           </li>
 

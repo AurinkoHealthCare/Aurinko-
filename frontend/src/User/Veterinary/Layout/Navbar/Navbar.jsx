@@ -49,7 +49,7 @@ const Navbar = () => {
             <span className="cursor-pointer hover:text-blue-600">{t("about_us")}</span>
             <ul className="absolute left-0 top-full hidden group-hover:block bg-white/90 backdrop-blur-md shadow-lg rounded-md p-2 min-w-[200px] text-gray-700">
               <li><Link to="/veterinary/about" className="block px-4 py-1 hover:text-blue-600">{t("overview")}</Link></li>
-              <li><Link to="/veterinary/facultySection" className="block px-4 py-1 hover:text-blue-600">{t("Faculty Section")}</Link></li>
+              <li><Link to="/veterinary/facultySection" className="block px-4 py-1 hover:text-blue-600">{t("FacultySection")}</Link></li>
               <li><Link to="/veterinary/vision" className="block px-4 py-1 hover:text-blue-600">{t("vision_mission")}</Link></li>
               <li><Link to="/veterinary/manufacturing" className="block px-4 py-1 hover:text-blue-600">{t("manufacturing")}</Link></li>
               <li><Link to="/veterinary/research" className="block px-4 py-1 hover:text-blue-600">{t("research")}</Link></li>
