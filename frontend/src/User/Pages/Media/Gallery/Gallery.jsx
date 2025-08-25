@@ -81,7 +81,7 @@ const Gallery = ({ category }) => {
             <img
               src={randomImage ? randomImage.url : "Assets/Media/Photos/17.jpeg"}
               alt={`${category} Photos`}
-              className="w-full h-48 object-cover rounded-t-xl"
+              className="w-full h-48 object-contain rounded-t-xl"
             />
             <div className="p-6 text-center">
               <h2 className="text-2xl font-bold">📸 {t("View_Photos")}</h2>
