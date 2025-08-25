@@ -2,20 +2,20 @@
   "ingredientsTitle": "Ingrédients",
   "ingredientsList": [
     {
-      "title": "API",
-      "desc": "Une API (Interface de Programmation d'Applications) est un ensemble de règles pour interagir avec des applications logicielles."
+      "title": "Ingrédients pharmaceutiques actifs (IPA)",
+      "desc": "Ce sont les composés biologiquement actifs responsables de l'effet thérapeutique du médicament."
     },
     {
-      "title": "Herbes et Extraits",
-      "desc": "Les herbes et extraits proviennent de plantes et sont utilisés en cuisine, médecine et soins de la peau."
+      "title": "Herbes et extraits de plantes",
+      "desc": "Extraits d'origine naturelle utilisés pour leurs propriétés médicinales, souvent inclus dans des thérapies traditionnelles ou complémentaires."
     },
     {
-      "title": "Épices",
-      "desc": "Les épices ajoutent saveur, couleur et arôme aux plats."
+      "title": "Excipients",
+      "desc": "Substances inactives utilisées comme supports ou stabilisateurs pour les ingrédients actifs, garantissant un dosage et une stabilité appropriés."
     },
     {
-      "title": "Légumes Séchés",
-      "desc": "Les légumes séchés sont conservés en retirant l'humidité pour une utilisation facile."
+      "title": "Vitamines et minéraux",
+      "desc": "Micronutriments essentiels ajoutés pour soutenir la santé globale et améliorer l'efficacité de la formulation."
     }
   ]
 }

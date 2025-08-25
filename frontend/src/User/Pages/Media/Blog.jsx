@@ -3,15 +3,14 @@ import axios from "../../../../api/axios";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const Blog = ({ category }) => {   // 🔹 props se category aa rahi hai
+const Blog = ({ category }) => {
   const [blogs, setBlogs] = useState([]);
   const { i18n } = useTranslation();
-  const selectedLang = i18n.language; 
+  const selectedLang = i18n.language;
 
   const fetchBlogs = async () => {
     try {
       const res = await axios.get("/blog/get");
-      // 🔹 category ke hisaab se filter
       const filteredBlogs = res.data.filter(
         (b) => b.category?.toLowerCase() === category?.toLowerCase()
       );
@@ -58,7 +57,6 @@ const Blog = ({ category }) => {   // 🔹 props se category aa rahi hai
 
                 {/* Blog Content */}
                 <div className="md:w-2/3">
-                  {/* 🔹 Link with category in URL */}
                   <Link to={`/${category}/blog/${blog._id}`}>
                     <h2 className="text-3xl font-bold mb-4">
                       {blog.headings?.[0]?.[selectedLang] ||

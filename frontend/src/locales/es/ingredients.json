@@ -2,20 +2,20 @@
   "ingredientsTitle": "Ingredientes",
   "ingredientsList": [
     {
-      "title": "APIs",
-      "desc": "Una API, o Interfaz de Programación de Aplicaciones, es un conjunto de reglas y protocolos para construir e interactuar con aplicaciones de software."
+      "title": "Principios activos farmacéuticos (PAF)",
+      "desc": "Son los compuestos biológicamente activos responsables del efecto terapéutico del medicamento."
     },
     {
-      "title": "Hierbas y Extractos",
-      "desc": "Las hierbas y extractos se derivan de diversas partes de plantas y se usan en productos culinarios, medicinales y de cuidado de la piel."
+      "title": "Hierbas y extractos de plantas",
+      "desc": "Extractos de origen natural utilizados por sus propiedades medicinales, a menudo incluidos en terapias tradicionales o complementarias."
     },
     {
-      "title": "Especias",
-      "desc": "Las especias son sustancias aromáticas que se utilizan para añadir sabor, color y aroma a los alimentos."
+      "title": "Excipientes",
+      "desc": "Sustancias inactivas utilizadas como portadores o estabilizadores de los ingredientes activos, garantizando la dosis y estabilidad adecuadas."
     },
     {
-      "title": "Verduras Secas",
-      "desc": "Las verduras secas se conservan eliminando la humedad, lo que facilita su almacenamiento y uso en platos diversos."
+      "title": "Vitaminas y minerales",
+      "desc": "Micronutrientes esenciales añadidos para apoyar la salud general y mejorar la eficacia de la formulación."
     }
   ]
 }

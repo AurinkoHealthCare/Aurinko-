@@ -64,7 +64,7 @@ const Block6 = () => {
         <div className="h-1 w-48 bg-gradient-to-r from-red-600 to-red-900 rounded-full mx-auto" />
 
         <Link
-          to="/human/reviews"
+          to="/human/review"
         >
           <button className="mt-2 px-6 py-3 bg-red-600 text-white text-base font-medium rounded-full shadow-lg hover:bg-red-700 transition duration-300 hover:scale-105">
             {t("block6.goReview")}
