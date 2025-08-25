@@ -19,26 +19,40 @@ const app = express();
 app.set("trust proxy", 1);
 const PORT = process.env.PORT || 4040;
 
+// Create uploads folder if it doesn't exist
 const uploadsPath = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsPath)) {
   fs.mkdirSync(uploadsPath, { recursive: true });
 }
 app.use("/uploads", express.static(uploadsPath));
 
+// ✅ CORS Setup
+const allowedOrigins = [process.env.CORS_ORIGIN, "http://localhost:8001"];
+
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || "*",
+    origin: function (origin, callback) {
+      // allow requests with no origin (like curl, Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
 );
 
+// Middleware
 app.use(express.json({ limit: "10mb" }));
 app.use(cookieParser());
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(compression());
 
-
+// Rate Limiting
 app.use(
   rateLimit({
     windowMs: 15 * 60 * 1000,
@@ -65,7 +79,6 @@ app.use("/api/logo", require("./router/logoRouter/logo"));
 app.use("/api/blog", require("./router/blogRouter/blog"));
 app.use("/api/faculty", require("./router/facultyRouter/faculty"));
 
-
 // ✅ 404 Handler
 app.use((req, res) => {
   res.status(404).json({
@@ -75,12 +88,12 @@ app.use((req, res) => {
 });
 
 // ✅ Error Handler
-app.use((err, req, res, next) => { 
+app.use((err, req, res, next) => {
   console.error("🔥 Error:", err.stack);
   res.status(500).json({ success: false, error: err.message || "Internal Server Error" });
 });
 
 // ✅ Start Server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });

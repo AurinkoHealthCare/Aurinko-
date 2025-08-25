@@ -106,4 +106,30 @@ const deleteBlog = async (req, res) => {
   }
 };
 
-module.exports = { createBlog, getBlogs, updateBlog, deleteBlog };
+const getBlogById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { lang } = req.query; // optional query param for language
+    const blog = await Blog.findById(id);
+
+    if (!blog) return res.status(404).json({ error: "Blog not found" });
+
+    // If lang is specified, filter headings & paragraphs
+    if (lang) {
+      const filteredBlog = {
+        ...blog.toObject(),
+        headings: blog.headings.map((h) => ({ [lang]: h[lang] || "" })),
+        paragraphs: blog.paragraphs.map((p) => ({ [lang]: p[lang] || "" })),
+      };
+      return res.json(filteredBlog);
+    }
+
+    res.json(blog);
+  } catch (err) {
+    console.error("Get Blog by ID Error:", err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+module.exports = { createBlog, getBlogs, updateBlog, deleteBlog,getBlogById };

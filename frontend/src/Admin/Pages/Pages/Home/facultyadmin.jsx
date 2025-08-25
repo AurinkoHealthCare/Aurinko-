@@ -61,23 +61,23 @@ const AddFaculty = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100">
-      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+    <div className="min-h-screen p-4 sm:p-6 bg-gray-100">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">
         Add New Faculty
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6"
+        className="bg-white p-4 sm:p-8 rounded-2xl shadow-lg max-w-3xl mx-auto space-y-6"
       >
         {/* ✅ Language Tabs */}
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           {LANGUAGES.map((lang) => (
             <button
               key={lang}
               type="button"
               onClick={() => setActiveLang(lang)}
-              className={`px-4 py-2 rounded-lg font-semibold transition ${
+              className={`px-3 sm:px-4 py-2 rounded-lg font-semibold text-sm sm:text-base transition ${
                 activeLang === lang
                   ? "bg-blue-600 text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -91,7 +91,7 @@ const AddFaculty = () => {
         {/* ✅ Dynamic Inputs */}
         <div className="space-y-4">
           <div>
-            <label className="block font-semibold mb-1">Name</label>
+            <label className="block font-semibold mb-1 text-sm sm:text-base">Name</label>
             <input
               type="text"
               placeholder={`Name (${activeLang.toUpperCase()})`}
@@ -99,12 +99,12 @@ const AddFaculty = () => {
               onChange={(e) =>
                 handleInputChange("name", activeLang, e.target.value)
               }
-              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded-lg p-2 text-sm sm:text-base focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Designation</label>
+            <label className="block font-semibold mb-1 text-sm sm:text-base">Designation</label>
             <input
               type="text"
               placeholder={`Designation (${activeLang.toUpperCase()})`}
@@ -112,12 +112,12 @@ const AddFaculty = () => {
               onChange={(e) =>
                 handleInputChange("designation", activeLang, e.target.value)
               }
-              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded-lg p-2 text-sm sm:text-base focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
-            <label className="block font-semibold mb-1">Bio</label>
+            <label className="block font-semibold mb-1 text-sm sm:text-base">Bio</label>
             <textarea
               placeholder={`Bio (${activeLang.toUpperCase()})`}
               rows="4"
@@ -125,22 +125,24 @@ const AddFaculty = () => {
               onChange={(e) =>
                 handleInputChange("bio", activeLang, e.target.value)
               }
-              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
+              className="w-full border rounded-lg p-2 text-sm sm:text-base focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </div>
 
         {/* ✅ Image Upload */}
         <div>
-          <label className="block font-semibold mb-2">Upload Image</label>
+          <label className="block font-semibold mb-2 text-sm sm:text-base">
+            Upload Image
+          </label>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="mb-3"
+            className="mb-3 text-sm sm:text-base"
           />
           {formData.image && (
-            <div className="relative w-28 h-28">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28">
               <img
                 src={URL.createObjectURL(formData.image)}
                 alt="Preview"
@@ -151,7 +153,7 @@ const AddFaculty = () => {
                 onClick={() =>
                   setFormData((prev) => ({ ...prev, image: null }))
                 }
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow"
+                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center shadow text-sm"
               >
                 ×
               </button>
@@ -162,7 +164,7 @@ const AddFaculty = () => {
         {/* ✅ Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold text-sm sm:text-base hover:bg-blue-700 transition"
         >
           ➕ Add Faculty
         </button>
